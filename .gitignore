@@ -1,0 +1,35 @@
+# Secrets
+.env
+.env.*
+.secrets/
+*.pem
+*.key
+
+# Local Claude Code settings (personal, not shared)
+.claude/settings.local.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.obsidian/workspace*.json
+
+# Python / Node
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+
+# Large or confidential client sources: keep them out of git, link them in profile.md instead
+knowledge/clients/*/sources/*.pdf
+knowledge/clients/*/sources/*.docx
+knowledge/clients/*/sources/*.xlsx
+knowledge/clients/*/sources/*.jpg
+knowledge/clients/*/sources/*.jpeg
+knowledge/clients/*/sources/*.png
+knowledge/clients/*/sources/*.mp4
+
+# Scratch
+tmp/
+*.tmp

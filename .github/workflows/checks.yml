@@ -1,0 +1,22 @@
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  repo-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Repo consistency (agents, skills, evals, secrets, validator self-test)
+        run: python3 scripts/check_repo.py
+      - name: Validate all committed HTML and SVG deliverables
+        run: |
+          files=$(git ls-files '*.html' '*.htm' '*.svg')
+          if [ -n "$files" ]; then python3 scripts/validate_output.py file $files; fi
