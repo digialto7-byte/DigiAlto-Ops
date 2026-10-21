@@ -8,8 +8,8 @@ updated: 2026-10-21
 Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks the work.
 
 ## Status
-- Phase: discovery (project kickoff from the PRD; plan awaiting founder approval)
-- Next milestone: founder approves the project plan and confirms profile facts, then the project repo is created
+- Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
+- Next milestone: apply the repo hand-off, then `/feature M0` once Q9–Q11 are answered
 - Due: Sprint 1 starts 2026-11-03 per the PRD roadmap [unverified]
 
 ## Decisions
@@ -24,7 +24,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - [ ] Founder answers the plan's open questions Q1–Q29; Q9 (account ownership, Vercel Hobby is non-commercial only), Q10 (plans) and Q11 (code/IP ownership) block M0
 - [ ] Founder signs off on the plan's departures from the PRD: Next.js 16, pg_cron instead of Vercel Cron, new Supabase keys, cost columns split out, peppered PIN auth
 - [ ] Founder decides Q16 (chef sees € costs, or percentages only = V6; lead recommends V6) and Q24 (which MVP milestones may slip past go-live)
-- [ ] Founder creates the empty private repo `digialto7-byte/osteria-dei-rossi-app` and gives the Claude GitHub App access; lead then pushes the bootstrap kit + docs on `chore/bootstrap`
+- [x] Project repo created by the founder: https://github.com/digialto7-byte/osteria-dei-rossi-app; bootstrap kit + PRD + plan + ADRs pushed on `chore/bootstrap`, draft PR digialto7-byte/osteria-dei-rossi-app#1 (2026-10-21)
 - [ ] First session on the project repo applies `deliverables/2026-10-21-kickoff/project-repo-handoff.md` (CLAUDE.md, client-facts, .env.example)
 - [ ] Then: `/feature M0` in the project repo
 
