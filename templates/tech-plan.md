@@ -26,6 +26,16 @@
 |---|---|---|---|
 | 1 | | | |
 
+### 5b. Variants
+Each path that depends on an open answer ("if the founder picks X") gets an ID and its own
+table. Any behaviour that differs under a variant (a status, an endpoint, a flow) appears here
+as a tested step. Other sections refer to a variant only by its ID. No variants: write "None".
+
+**V1 — <name>** · Trigger: open question <n> · Replaces steps: <#, or none>
+| # | Step (one commit) | Files | Test that proves it |
+|---|---|---|---|
+| V1.1 | | | |
+
 ## 6. Risks and mitigations
 - Security / privacy:
 - Performance / cost:
