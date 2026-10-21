@@ -30,6 +30,8 @@ EVENT_ATTR = re.compile(r"^on[a-z]+$", re.I)
 JS_URL = re.compile(r"^\s*javascript:", re.I)
 HTML_EVENT_ATTR = re.compile(r"<[^>]+\son[a-z]+\s*=", re.I)
 HTML_JS_URL = re.compile(r"""(href|src|action|formaction)\s*=\s*["']?\s*javascript:""", re.I)
+# Dynamic code execution and document.write in shipped JS (inline <script> or .js files)
+JS_UNSAFE = re.compile(r"\beval\s*\(|\bnew\s+Function\s*\(|\bdocument\.write(ln)?\s*\(|\bset(Timeout|Interval)\s*\(\s*[\"'`]")
 
 # html5lib parse errors that are normal for fragments or harmless
 IGNORED_HTML_ERRORS = {
@@ -86,6 +88,7 @@ def validate_html(text: str) -> list[str]:
         errors.append("Inline event handler attribute (on...=) found; attach listeners in JS instead.")
     if HTML_JS_URL.search(text):
         errors.append("javascript: URL found in href/src/action.")
+    errors += validate_js(" ".join(re.findall(r"<script\b[^>]*>(.*?)</script>", text, re.I | re.S)))
 
     try:
         import html5lib
@@ -107,15 +110,25 @@ def validate_html(text: str) -> list[str]:
     return errors
 
 
+def validate_js(text: str) -> list[str]:
+    m = JS_UNSAFE.search(text)
+    if m:
+        return [f"Unsafe JS '{m.group(0).strip()}': no eval, new Function, string timers or "
+                "document.write; use DOM APIs and real functions."]
+    return []
+
+
 def validate_file(path: Path) -> list[str]:
     suffix = path.suffix.lower()
-    if suffix not in (".html", ".htm", ".svg"):
+    if suffix not in (".html", ".htm", ".svg", ".js", ".mjs"):
         return []
     try:
         text = path.read_text(encoding="utf-8")
     except Exception as e:
         return [f"Cannot read {path}: {e}"]
-    return validate_svg(text) if suffix == ".svg" else validate_html(text)
+    if suffix == ".svg":
+        return validate_svg(text)
+    return validate_html(text) if suffix in (".html", ".htm") else validate_js(text)
 
 
 def _hook_input() -> dict:
