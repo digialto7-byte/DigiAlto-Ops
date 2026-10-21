@@ -30,6 +30,12 @@ CASES = [
     ("js string timer", validate_js("setTimeout('go()', 10);"), True),
     ("js clean", validate_js("setTimeout(() => go(), 10); el.textContent = msg; evaluate();"), False),
     ("secret .env", [] if not is_secret_path("/repo/.env") else ["blocked"], True),
+    ("secret .env.local", [] if not is_secret_path("/repo/.env.local") else ["blocked"], True),
+    ("example .env.example", [] if not is_secret_path("/repo/.env.example") else ["blocked"], False),
+    ("example .env.sample", [] if not is_secret_path("/repo/.env.sample") else ["blocked"], False),
+    ("example .env.template", [] if not is_secret_path("/repo/.env.template") else ["blocked"], False),
+    ("secret .env.example.local", [] if not is_secret_path("/repo/.env.example.local") else ["blocked"], True),
+    ("secret .env.examples", [] if not is_secret_path("/repo/.env.examples") else ["blocked"], True),
     ("secret .secrets", [] if not is_secret_path("/repo/.secrets/key.txt") else ["blocked"], True),
     ("normal path", [] if not is_secret_path("/repo/clients/a/site/index.html") else ["blocked"], False),
 ]

@@ -30,14 +30,15 @@ Work happens in two places: **DigiAlto-Ops** (facts, PRD, plan, decisions, statu
    `[unverified]` facts. Do not create the repo or start building until the founder approves
    the plan and confirms the facts.
 7. **Create the project repo** (after approval; ask before creating anything on GitHub):
-   - The founder creates an empty repo (or approves Claude creating it), e.g.
+   - The founder creates an empty repo (Claude's GitHub access may not allow creating one), e.g.
      `digialto7-byte/<slug>-<project>`, and it is attached to the session.
-   - `python3 scripts/bootstrap_project.py <path-to-clone>`.
-   - Fill in its `CLAUDE.md` (stack and commands from the plan), `docs/client-facts.md`
-     (approved facts only), `docs/prd.md` (the PRD) and `docs/plans/project-plan.md`
-     (the approved plan) plus `docs/adr/`.
-   - Branch `chore/bootstrap`, commit, push, open a draft PR. Never commit secrets: list the
-     env vars needed in `.env.example` with fake values.
+   - `python3 scripts/bootstrap_project.py <path-to-clone>`, then copy unchanged `docs/prd.md`
+     (the PRD), `docs/plans/project-plan.md` (the approved plan) and `docs/adr/`.
+     Branch `chore/bootstrap`, commit, push, open a draft PR.
+   - This repo's write hook blocks writes outside DigiAlto-Ops, so draft the hand-written files
+     (`CLAUDE.md` stack and commands, `docs/client-facts.md` approved facts only,
+     `.env.example` env var names with fake values) in `project-repo-handoff.md` in the kickoff
+     folder. A session on the project repo applies it. Never commit secrets.
 8. **Record it.** `clients/<slug>/context.md`: phase `build`, the repo URL, the milestone list as
    open items, decisions with dates. Append to `log/runs.jsonl`.
 9. **Hand over.** Tell the founder: "Open a Claude Code session on `<repo>` and run
