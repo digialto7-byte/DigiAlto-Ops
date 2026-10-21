@@ -10,3 +10,11 @@
 {"date":"2026-10-21","agent":"tdd-guide","case":"case-02-bugfix-repro","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"run via general-purpose agent loading the agent file"}
 {"date":"2026-10-21","agent":"build-error-resolver","case":"case-01-renamed-function","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"run via general-purpose agent loading the agent file"}
 {"date":"2026-10-21","agent":"build-error-resolver","case":"case-02-missing-env-var","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"first attempt blocked by rm -rf deny rule; re-run with fixture pre-copied"}
+{"date":"2026-10-21","agent":"architect","case":"case-01-booking-integration","version":"1.0.0","level":"release","runs":3,"passed":1,"result":"fail","note":"run-1 never says where credentials live; run-2 has no prices or retention open question and fallback steps C3/C7/C8 have no test; agent prompt tightened"}
+{"date":"2026-10-21","agent":"architect","case":"case-02-smallest-design","version":"1.0.0","level":"release","runs":3,"passed":3,"result":"pass"}
+{"date":"2026-10-21","agent":"code-reviewer","case":"case-01-injection-and-secret","version":"1.0.0","level":"release","runs":3,"passed":3,"result":"pass"}
+{"date":"2026-10-21","agent":"code-reviewer","case":"case-02-clean-change","version":"1.0.0","level":"release","runs":3,"passed":3,"result":"pass"}
+{"date":"2026-10-21","agent":"tdd-guide","case":"case-01-new-function","version":"1.0.0","level":"release","runs":3,"passed":3,"result":"pass"}
+{"date":"2026-10-21","agent":"tdd-guide","case":"case-02-bugfix-repro","version":"1.0.0","level":"release","runs":3,"passed":3,"result":"pass"}
+{"date":"2026-10-21","agent":"build-error-resolver","case":"case-01-renamed-function","version":"1.0.0","level":"release","runs":3,"passed":3,"result":"pass"}
+{"date":"2026-10-21","agent":"build-error-resolver","case":"case-02-missing-env-var","version":"1.0.0","level":"release","runs":3,"passed":3,"result":"pass"}
