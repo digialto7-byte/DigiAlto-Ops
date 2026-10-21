@@ -18,3 +18,5 @@
 {"date":"2026-10-21","agent":"tdd-guide","case":"case-02-bugfix-repro","version":"1.0.0","level":"release","runs":3,"passed":3,"result":"pass"}
 {"date":"2026-10-21","agent":"build-error-resolver","case":"case-01-renamed-function","version":"1.0.0","level":"release","runs":3,"passed":3,"result":"pass"}
 {"date":"2026-10-21","agent":"build-error-resolver","case":"case-02-missing-env-var","version":"1.0.0","level":"release","runs":3,"passed":3,"result":"pass"}
+{"date":"2026-10-21","agent":"architect","case":"case-01-booking-integration","version":"1.1.0","level":"release","runs":3,"passed":2,"result":"fail","note":"run via general-purpose agent loading the agent file (session cached 1.0.0); run-3 pay-at-pickup variant was a prose note that dropped the wrong step and added untested behaviour"}
+{"date":"2026-10-21","agent":"architect","case":"case-02-smallest-design","version":"1.1.0","level":"release","runs":3,"passed":3,"result":"pass","note":"run via general-purpose agent loading the agent file (session cached 1.0.0)"}
