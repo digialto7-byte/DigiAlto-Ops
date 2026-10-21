@@ -7,7 +7,8 @@
 - Commands have a description and only name skills/subagents that exist.
 - Rules in .claude/rules/ have valid `paths:` frontmatter.
 - No secrets-looking strings in tracked text files.
-- validate_output.py and check_deliverable.py self-tests pass.
+- Self-tests pass: validate_output.py, check_deliverable.py, and test_tools.py (bootstrap,
+  session brief, command checks, eng-project guard hook).
 """
 from __future__ import annotations
 
@@ -80,12 +81,12 @@ def check_secrets() -> None:
             pass
 
 
-def check_commands() -> None:
+def check_commands(root: Path = ROOT) -> None:
     """Commands need a description, and every skill/subagent they name must exist."""
-    agents = {f.stem for f in (ROOT / ".claude/agents").glob("*.md")}
-    skills = {f.parent.name for f in (ROOT / ".claude/skills").glob("*/SKILL.md")}
-    for f in sorted((ROOT / ".claude/commands").glob("*.md")):
-        rel = f.relative_to(ROOT)
+    agents = {f.stem for f in (root / ".claude/agents").glob("*.md")}
+    skills = {f.parent.name for f in (root / ".claude/skills").glob("*/SKILL.md")}
+    for f in sorted((root / ".claude/commands").glob("*.md")):
+        rel = f.relative_to(root)
         if "description" not in frontmatter(f):
             problems.append(f"{rel}: frontmatter missing 'description'")
         text = f.read_text(encoding="utf-8")
@@ -108,7 +109,7 @@ def check_rules() -> None:
 
 
 def check_validator() -> None:
-    for test in ("test_validate_output.py", "test_check_deliverable.py"):
+    for test in ("test_validate_output.py", "test_check_deliverable.py", "test_tools.py"):
         r = subprocess.run([sys.executable, str(ROOT / "scripts" / test)], capture_output=True, text=True)
         if r.returncode != 0:
             problems.append(f"{test} self-test failed:\n" + r.stdout + r.stderr)

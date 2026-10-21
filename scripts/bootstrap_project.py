@@ -7,7 +7,8 @@ Copies into <target-dir>:
   CLAUDE.md, .claude/settings.json, .claude/hooks/guard.py   (templates/eng-project/)
   .claude/agents/{architect,code-reviewer,tdd-guide,build-error-resolver}.md
   .claude/skills/{engineering-standards,security-checklist,tdd-workflow}/SKILL.md
-  templates for plans and ADRs, .gitignore, .env.example, docs/client-facts.md
+  templates/{tech-plan,adr,handoff}.md (same paths the agents reference), scripts/viewport_check.py
+  .gitignore, .env.example, docs/client-facts.md
 Existing files are kept unless --force. Client code never lives inside DigiAlto-Ops.
 """
 from __future__ import annotations
@@ -18,8 +19,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 KIT = ROOT / "templates" / "eng-project"
+# Explicit lists, so caches or editor files in the kit never reach a client repo.
+KIT_FILES = ["CLAUDE.md", ".claude/settings.json", ".claude/hooks/guard.py"]
 AGENTS = ["architect", "code-reviewer", "tdd-guide", "build-error-resolver"]
 SKILLS = ["engineering-standards", "security-checklist", "tdd-workflow"]
+TEMPLATES = ["tech-plan.md", "adr.md", "handoff.md"]
+SCRIPTS = ["viewport_check.py"]
 
 GITIGNORE = """# Secrets
 .env
@@ -73,14 +78,16 @@ def main(argv: list[str]) -> int:
         return 2
 
     plan: list[tuple[Path | None, Path, str | None]] = []  # (source file, destination, literal text)
-    for src in sorted(p for p in KIT.rglob("*") if p.is_file()):
-        plan.append((src, target / src.relative_to(KIT), None))
+    for f in KIT_FILES:
+        plan.append((KIT / f, target / f, None))
     for a in AGENTS:
         plan.append((ROOT / ".claude/agents" / f"{a}.md", target / ".claude/agents" / f"{a}.md", None))
     for s in SKILLS:
         plan.append((ROOT / ".claude/skills" / s / "SKILL.md", target / ".claude/skills" / s / "SKILL.md", None))
-    for t in ("tech-plan.md", "adr.md"):
-        plan.append((ROOT / "templates" / t, target / "docs/templates" / t, None))
+    for t in TEMPLATES:
+        plan.append((ROOT / "templates" / t, target / "templates" / t, None))
+    for s in SCRIPTS:
+        plan.append((ROOT / "scripts" / s, target / "scripts" / s, None))
     plan += [
         (None, target / ".gitignore", GITIGNORE),
         (None, target / ".env.example", ENV_EXAMPLE),

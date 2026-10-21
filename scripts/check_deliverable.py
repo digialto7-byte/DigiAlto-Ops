@@ -4,7 +4,8 @@
 Run before the `reviewer` subagent so it can spend its attention on facts and judgement:
   python3 scripts/check_deliverable.py clients/<slug>/deliverables/<folder>/ [--draft]
 
-FAIL  (exit 1): placeholders left in, `[unverified]` copied into output, "Digialto" misspelling.
+FAIL  (exit 1): placeholders left in ([NEEDS FACT ...], [PRICE ...], NEEDS COPY, TODO),
+                `[unverified]` copied into output, "Digialto" misspelling.
 FLAG  (exit 0): things the reviewer must judge: banned phrases, review/rating schema,
                 tracking scripts, console.log/debugger in shipped JS.
 --draft downgrades placeholders to FLAG (work in progress is allowed to have gaps).
@@ -19,12 +20,19 @@ ROOT = Path(__file__).resolve().parent.parent
 BANNED_FILE = ROOT / "knowledge/agency/banned-claims.md"
 TEXT_SUFFIXES = {".md", ".txt", ".html", ".htm", ".json", ".svg", ".js", ".css"}
 
-PLACEHOLDER_RX = re.compile(r"\[NEEDS FACT[^\]]*\]|NEEDS COPY|\bTODO\b|\bFIXME\b|lorem ipsum", re.I)
+# The team's own markers (case-sensitive, so prose like "every site needs copy" is not a hit).
+PLACEHOLDER_RX = re.compile(r"\[(NEEDS FACT|NEEDS COPY|PRICE)\b[^\]]*\]|NEEDS COPY:|\bTODO\b|\bFIXME\b|(?i:lorem ipsum)")
 UNVERIFIED_RX = re.compile(r"\[unverified\]", re.I)
-# Any spelling of the brand except "DigiAlto" / "DIGIALTO". Emails, URLs and handles are skipped.
-BRAND_RX = re.compile(r"(?<![\w@/.-])digialto(?![\w@-])(?!\.[a-z])", re.I)
+# Any spelling of the brand except "DigiAlto" / "DIGIALTO". Emails, URLs, handles and hashtags
+# are skipped; in HTML only the text outside tags is checked (class names, ids are code).
+BRAND_RX = re.compile(r"(?<![\w@/.#-])digialto(?![\w@-])(?!\.[a-z])", re.I)
 BRAND_OK = {"DigiAlto", "DIGIALTO"}
-SCHEMA_RX = re.compile(r'"(aggregateRating|review)"\s*:')
+TAG_RX = re.compile(r"<[^>]*>")
+SCHEMA_RX = re.compile(
+    r'"(aggregateRating|review|reviews|reviewRating)"\s*:'
+    r'|"@type"\s*:\s*"(Review|AggregateRating)"'
+    r'|itemprop\s*=\s*["\']?(aggregateRating|review|reviewRating)'
+    r'|itemtype\s*=\s*["\']?https?://schema\.org/(Review|AggregateRating)')
 TRACKING_RX = re.compile(r"googletagmanager\.com|google-analytics\.com|gtag\(|fbq\(|connect\.facebook\.net|hotjar", re.I)
 JS_DEBUG_RX = re.compile(r"\bconsole\.log\(|\bdebugger\b")
 
@@ -47,7 +55,8 @@ def check_text(text: str, suffix: str, phrases: list[str], draft: bool) -> list[
             out.append(("FLAG" if draft else "FAIL", n, f"placeholder left in: {m.group(0)}"))
         if UNVERIFIED_RX.search(line):
             out.append(("FAIL", n, "[unverified] marker copied into a deliverable"))
-        for m in BRAND_RX.finditer(line):
+        prose = TAG_RX.sub(" ", line) if suffix in {".html", ".htm", ".svg"} else line
+        for m in BRAND_RX.finditer(prose if suffix not in {".css", ".js"} else ""):
             if m.group(0) not in BRAND_OK:
                 out.append(("FAIL", n, f'brand spelled "{m.group(0)}"; must be "DigiAlto"'))
         low = line.lower()

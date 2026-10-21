@@ -31,7 +31,11 @@ JS_URL = re.compile(r"^\s*javascript:", re.I)
 HTML_EVENT_ATTR = re.compile(r"<[^>]+\son[a-z]+\s*=", re.I)
 HTML_JS_URL = re.compile(r"""(href|src|action|formaction)\s*=\s*["']?\s*javascript:""", re.I)
 # Dynamic code execution and document.write in shipped JS (inline <script> or .js files)
-JS_UNSAFE = re.compile(r"\beval\s*\(|\bnew\s+Function\s*\(|\bdocument\.write(ln)?\s*\(|\bset(Timeout|Interval)\s*\(\s*[\"'`]")
+JS_UNSAFE = re.compile(r"(?<![\w$.])eval\s*\(|\bnew\s+Function\s*\(|\bdocument\.write(ln)?\s*\(|\bset(Timeout|Interval)\s*\(\s*[\"'`]")
+# Inline scripts that execute (no type, or a JS type); JSON-LD and templates are data, not code.
+HTML_JS_SCRIPT = re.compile(
+    r"<script\b(?![^>]*\btype\s*=\s*[\"']?(?!(?:text/javascript|module|application/javascript)\b)[\w/+.-]+)[^>]*>(.*?)</script>",
+    re.I | re.S)
 
 # html5lib parse errors that are normal for fragments or harmless
 IGNORED_HTML_ERRORS = {
@@ -88,7 +92,7 @@ def validate_html(text: str) -> list[str]:
         errors.append("Inline event handler attribute (on...=) found; attach listeners in JS instead.")
     if HTML_JS_URL.search(text):
         errors.append("javascript: URL found in href/src/action.")
-    errors += validate_js(" ".join(re.findall(r"<script\b[^>]*>(.*?)</script>", text, re.I | re.S)))
+    errors += validate_js(" ".join(HTML_JS_SCRIPT.findall(text)))
 
     try:
         import html5lib

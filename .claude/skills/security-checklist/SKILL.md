@@ -19,7 +19,7 @@ Go through every section that applies. Each "no" is a finding to fix before rele
 - [ ] SQL uses parameterised queries or the ORM; no string-built queries.
 - [ ] No shell commands built from input; if unavoidable, pass an argument list, never a string.
 - [ ] HTML output is escaped by the framework; no `innerHTML`/`dangerouslySetInnerHTML` with
-      unsanitised data; no `eval`, `new Function` or string timers (the write hook blocks these).
+      unsanitised data; no `eval`, `new Function` or string timers (the write hooks flag these).
 - [ ] File uploads: type and size checked, stored outside the web root, renamed, never executed.
 - [ ] Redirects only to allow-listed destinations.
 

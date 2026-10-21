@@ -38,36 +38,60 @@ def pages(args: list[str]) -> list[Path]:
     return [p for p in out if p.suffix.lower() in (".html", ".htm")]
 
 
+def shot_name(path: Path, width: int) -> str:
+    """Unique per page: every landing page is <folder>/site/index.html, so use the whole path."""
+    try:
+        rel = path.resolve().relative_to(ROOT)
+    except ValueError:
+        rel = Path(*path.resolve().parts[-3:])
+    return "-".join(rel.with_suffix("").parts) + f"-{width}.png"
+
+
 def main(argv: list[str]) -> int:
     width = 360
     if "--width" in argv:
         i = argv.index("--width")
-        width = int(argv[i + 1])
+        try:
+            width = int(argv[i + 1])
+        except (IndexError, ValueError):
+            print("viewport_check: --width needs a number, e.g. --width 360")
+            return 2
         del argv[i:i + 2]
-    targets = pages(argv[1:])
+    missing = [a for a in argv[1:] if not Path(a).exists()]
+    for m in missing:
+        print(f"FAIL {m}: does not exist")
+    targets = pages([a for a in argv[1:] if a not in missing])
     if not targets:
-        print(__doc__)
-        return 2
+        if not missing:
+            print(__doc__)
+        return 1 if missing else 2
     try:
-        from playwright.sync_api import sync_playwright
+        from playwright.sync_api import Error as PlaywrightError, sync_playwright
     except ImportError:
         print("viewport_check: SKIPPED (Playwright not installed; see requirements-dev.txt)")
-        return 0
+        return 1 if missing else 0
 
     SHOTS.mkdir(parents=True, exist_ok=True)
-    failed = 0
+    failed = len(missing)
     with sync_playwright() as pw:
         exe = os.environ.get("CHROMIUM_PATH")
-        browser = pw.chromium.launch(executable_path=exe) if exe else pw.chromium.launch()
+        try:
+            browser = pw.chromium.launch(executable_path=exe) if exe else pw.chromium.launch()
+        except PlaywrightError as e:
+            first = str(e).strip().splitlines()[0] if str(e).strip() else "launch failed"
+            print(f"viewport_check: SKIPPED (no browser: {first}; run `playwright install chromium` "
+                  "or set CHROMIUM_PATH)")
+            return 1 if missing else 0
         for path in targets:
             page = browser.new_page(viewport={"width": width, "height": 800})
             errors: list[str] = []
             page.on("pageerror", lambda e: errors.append(str(e)))
-            page.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
+            page.on("console", lambda m: errors.append(f"{m.text} ({m.location.get('url', '')})")
+                    if m.type == "error" else None)
             page.goto(path.resolve().as_uri())
             page.wait_for_load_state("load")
             r = page.evaluate(PROBE)
-            shot = SHOTS / f"{path.parent.name}-{path.stem}-{width}.png"
+            shot = SHOTS / shot_name(path, width)
             page.screenshot(path=str(shot), full_page=True)
             problems = []
             if r["scrollWidth"] > r["clientWidth"]:

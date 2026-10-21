@@ -18,12 +18,15 @@ import subprocess
 import sys
 from pathlib import Path
 
-SECRET_RX = re.compile(r"(^|/)(\.env(\.(?!example$)[^/]+)?|\.secrets/.*|.*\.(pem|key|p12|pfx)|id_(rsa|ed25519)(\.pub)?)$")
+SECRET_RX = re.compile(r"(^|/)(\.env(\.(?!(example|sample|template)$)[^/]+)?|\.secrets/.*|.*\.(pem|key|p12|pfx)|id_(rsa|ed25519)(\.pub)?)$")
 JS_SUFFIXES = {".js", ".jsx", ".ts", ".tsx", ".mjs", ".cjs"}
 PRETTIER_SUFFIXES = JS_SUFFIXES | {".css", ".scss", ".json", ".html", ".md", ".yml", ".yaml"}
 DEBUG_JS = re.compile(r"^\s*(console\.log\(|debugger\b)")
 DEBUG_PY = re.compile(r"^\s*(print\(|breakpoint\(\)|import pdb)")
-UNSAFE_JS = re.compile(r"\beval\s*\(|\bnew\s+Function\s*\(|\bdocument\.write(ln)?\s*\(|dangerouslySetInnerHTML")
+UNSAFE_JS = re.compile(r"(?<![\w$.])eval\s*\(|\bnew\s+Function\s*\(|\bdocument\.write(ln)?\s*\(|"
+                       r"dangerouslySetInnerHTML|\bset(Timeout|Interval)\s*\(\s*[\"'`]")
+# Tests, specs, e2e and CLI scripts may print and use page.$eval freely.
+EXEMPT_RX = re.compile(r"(^|/)(tests?|__tests__|e2e|scripts|bin)/|(^|/)test_[^/]*$|[._-](test|spec)\.[^/]+$")
 
 
 def project_dir(data: dict) -> Path:
@@ -45,15 +48,13 @@ def format_file(path: Path, root: Path) -> None:
         run_quiet(["ruff", "format", str(path)], root)
 
 
-def leftovers(path: Path) -> list[str]:
-    if "test" in path.name or "/tests/" in path.as_posix():
-        return []
-    try:
-        lines = path.read_text(encoding="utf-8").splitlines()
-    except Exception:
+def leftovers(path: Path, written: str) -> list[str]:
+    """Check only the text this write added (Write content / Edit new_string), not the whole file,
+    so an old console.log elsewhere doesn't nag on every edit."""
+    if EXEMPT_RX.search(path.as_posix()):
         return []
     out = []
-    for n, line in enumerate(lines, 1):
+    for n, line in enumerate(written.splitlines(), 1):
         if path.suffix in JS_SUFFIXES and DEBUG_JS.search(line):
             out.append(f"{n}: debug leftover: {line.strip()}")
         if path.suffix in JS_SUFFIXES and UNSAFE_JS.search(line):
@@ -87,7 +88,8 @@ def main(argv: list[str]) -> int:
     if mode == "session":
         return session(root)
 
-    file_path = (data.get("tool_input") or {}).get("file_path") or ""
+    tool_input = data.get("tool_input") or {}
+    file_path = tool_input.get("file_path") or ""
     if not file_path:
         return 0
     target = Path(file_path) if os.path.isabs(file_path) else root / file_path
@@ -98,14 +100,19 @@ def main(argv: list[str]) -> int:
             print(f"Blocked: {file_path} is a secrets file. Use environment variables; "
                   "put fake values in .env.example.", file=sys.stderr)
             return 2
-        if not target.is_relative_to(root):
+        # Claude Code's own plan, memory and scratchpad files live outside the project.
+        allowed = [root, Path.home() / ".claude"]
+        if data.get("scratchpad_dir"):
+            allowed.append(Path(data["scratchpad_dir"]).resolve())
+        if not any(target.is_relative_to(a) for a in allowed):
             print(f"Blocked: {file_path} is outside the project.", file=sys.stderr)
             return 2
         return 0
 
-    if target.exists():
+    if target.exists() and target.is_relative_to(root):
         format_file(target, root)
-        found = leftovers(target)
+        written = tool_input.get("content") or tool_input.get("new_string") or ""
+        found = leftovers(target, written)
         if found:
             print(f"Review {target.relative_to(root)}:\n- " + "\n- ".join(found) +
                   "\nRemove debug leftovers and unsafe calls unless this is intentional.", file=sys.stderr)

@@ -11,9 +11,10 @@ SKIPPED ones and why.
 
 ## A. Client deliverable folder (`clients/<slug>/deliverables/<date>-<task>/`)
 1. **Files valid:** `python3 scripts/validate_output.py file <every .html/.svg/.js in folder>`
-2. **Content checks:** `python3 scripts/check_deliverable.py <folder>`
-   (add `--draft` only if the founder asked for a draft with gaps). Zero FAIL required.
-   FLAG lines go to the reviewer to judge.
+2. **Content checks:** `python3 scripts/check_deliverable.py <folder>`. Zero FAIL required.
+   FLAG lines go to the reviewer to judge. Use `--draft` only when the work goes to the
+   founder with open items by design (a proposal's `[PRICE]` / `[NEEDS FACT]` list, a draft
+   the founder asked for); never for anything that goes to a client.
 3. **Viewport (if there is HTML):** `python3 scripts/viewport_check.py <folder>`. No
    horizontal overflow at 360px, no console errors. SKIPPED is acceptable only if Playwright
    isn't installed; then say so.
