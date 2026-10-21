@@ -20,9 +20,14 @@ description: Use to produce a website section, a one-page site or a landing page
    "Facts used".
 5. `web-builder` → `site/index.html` (+ `styles.css`, `main.js` if needed), using `copy.md`,
    `seo.md` and the SVGs verbatim.
-6. `reviewer` on the whole folder.
+6. **Automatic checks:** `python3 scripts/check_deliverable.py <folder>` and
+   `python3 scripts/viewport_check.py <folder>/site`. Send FAILs back to the author agent
+   before the reviewer sees the work.
+7. `reviewer` on the whole folder, with the `check_deliverable.py` output.
    - FAIL → send each finding to the author agent (copy issues to copywriter, markup issues to
-     web-builder). Re-review. Maximum two fix rounds, then stop and report to the founder.
+     web-builder). Re-check and re-review. Maximum two fix rounds, then stop and report to
+     the founder.
+   - Steps 6–7 are the `verification-loop` skill, section A (`/preflight <folder>`).
 7. Update `clients/<slug>/context.md` and append to `log/runs.jsonl`.
 8. Report: files produced, reviewer verdict, anything still `[NEEDS FACT]`.
 

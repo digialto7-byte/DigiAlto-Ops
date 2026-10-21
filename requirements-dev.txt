@@ -1,0 +1,3 @@
+# Optional extras for local checks (not needed by the write hooks or CI).
+# After installing: playwright install chromium
+playwright>=1.40

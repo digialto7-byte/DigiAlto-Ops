@@ -4,8 +4,11 @@
 - Every agent and skill has valid YAML frontmatter with the required keys.
 - Agents only request tools from the allowlist.
 - Every agent has an evals/<name>/ folder with at least two cases.
+- Commands have a description and only name skills/subagents that exist.
+- Rules in .claude/rules/ have valid `paths:` frontmatter.
 - No secrets-looking strings in tracked text files.
-- validate_output.py self-test passes.
+- Self-tests pass: validate_output.py, check_deliverable.py, and test_tools.py (bootstrap,
+  session brief, command checks, eng-project guard hook).
 """
 from __future__ import annotations
 
@@ -78,16 +81,45 @@ def check_secrets() -> None:
             pass
 
 
+def check_commands(root: Path = ROOT) -> None:
+    """Commands need a description, and every skill/subagent they name must exist."""
+    agents = {f.stem for f in (root / ".claude/agents").glob("*.md")}
+    skills = {f.parent.name for f in (root / ".claude/skills").glob("*/SKILL.md")}
+    for f in sorted((root / ".claude/commands").glob("*.md")):
+        rel = f.relative_to(root)
+        if "description" not in frontmatter(f):
+            problems.append(f"{rel}: frontmatter missing 'description'")
+        text = f.read_text(encoding="utf-8")
+        for name in re.findall(r"`([a-z0-9-]+)` skill", text):
+            if name not in skills:
+                problems.append(f"{rel}: references unknown skill '{name}'")
+        for name in re.findall(r"`([a-z0-9-]+)` subagent", text):
+            if name not in agents:
+                problems.append(f"{rel}: references unknown subagent '{name}'")
+
+
+def check_rules() -> None:
+    """Optional `paths:` frontmatter must be a list of glob strings (bad YAML loads unscoped)."""
+    for f in sorted((ROOT / ".claude/rules").glob("**/*.md")):
+        if not f.read_text(encoding="utf-8").startswith("---"):
+            continue
+        paths = frontmatter(f).get("paths")
+        if paths is not None and not (isinstance(paths, list) and all(isinstance(p, str) for p in paths)):
+            problems.append(f"{f.relative_to(ROOT)}: 'paths' must be a list of glob strings")
+
+
 def check_validator() -> None:
-    r = subprocess.run([sys.executable, str(ROOT / "scripts/test_validate_output.py")],
-                       capture_output=True, text=True)
-    if r.returncode != 0:
-        problems.append("validate_output self-test failed:\n" + r.stdout + r.stderr)
+    for test in ("test_validate_output.py", "test_check_deliverable.py", "test_tools.py"):
+        r = subprocess.run([sys.executable, str(ROOT / "scripts" / test)], capture_output=True, text=True)
+        if r.returncode != 0:
+            problems.append(f"{test} self-test failed:\n" + r.stdout + r.stderr)
 
 
 if __name__ == "__main__":
     check_agents()
     check_skills()
+    check_commands()
+    check_rules()
     check_secrets()
     check_validator()
     if problems:
