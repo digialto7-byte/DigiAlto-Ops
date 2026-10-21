@@ -44,10 +44,11 @@ def main() -> None:
         for r in runs:
             lines.append(f"- {r.get('date', '?')} {r.get('client', '?')}/{r.get('task', '?')}: "
                          f"{r.get('result', '?')} ({r.get('path', '')})")
-    failing = [e for e in tail_jsonl(ROOT / "log/evals.jsonl", 50) if e.get("result") != "pass"]
+    # Only the latest result per case counts: a fail followed by a pass is fixed.
+    latest = {(e.get("agent"), e.get("case")): e for e in tail_jsonl(ROOT / "log/evals.jsonl", 200)}
+    failing = sorted(f"{a}/{c}" for (a, c), e in latest.items() if e.get("result") != "pass")
     if failing:
-        names = sorted({f"{e.get('agent')}/{e.get('case')}" for e in failing})[:5]
-        lines.append(f"Recent eval failures: {', '.join(names)}")
+        lines.append(f"Eval cases currently failing: {', '.join(failing[:5])}")
     print("\n".join(lines))
 
 

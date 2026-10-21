@@ -1,0 +1,12 @@
+{"date":"2026-10-21","agent":"reviewer","case":"case-01-invented-claims","version":"1.1.0","level":"release","runs":3,"passed":3,"result":"pass"}
+{"date":"2026-10-21","agent":"reviewer","case":"case-02-clean-pass","version":"1.1.0","level":"release","runs":3,"passed":0,"result":"fail","note":"case defect: copy said 'ogni giorno' for a shop closed Mondays; case fixed"}
+{"date":"2026-10-21","agent":"reviewer","case":"case-02-clean-pass","version":"1.1.0","level":"release","runs":3,"passed":3,"result":"pass","note":"after case fix"}
+{"date":"2026-10-21","agent":"architect","case":"case-01-booking-integration","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"run via general-purpose agent loading the agent file"}
+{"date":"2026-10-21","agent":"architect","case":"case-02-smallest-design","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"run via general-purpose agent loading the agent file"}
+{"date":"2026-10-21","agent":"code-reviewer","case":"case-01-injection-and-secret","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"re-run after FAIL/NOTE calibration; run via general-purpose agent"}
+{"date":"2026-10-21","agent":"code-reviewer","case":"case-02-clean-change","version":"1.0.0","level":"smoke","runs":1,"passed":0,"result":"fail","note":"failed out-of-contract inputs; agent calibrated and case context added"}
+{"date":"2026-10-21","agent":"code-reviewer","case":"case-02-clean-change","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"after calibration; run via general-purpose agent"}
+{"date":"2026-10-21","agent":"tdd-guide","case":"case-01-new-function","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"run via general-purpose agent loading the agent file"}
+{"date":"2026-10-21","agent":"tdd-guide","case":"case-02-bugfix-repro","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"run via general-purpose agent loading the agent file"}
+{"date":"2026-10-21","agent":"build-error-resolver","case":"case-01-renamed-function","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"run via general-purpose agent loading the agent file"}
+{"date":"2026-10-21","agent":"build-error-resolver","case":"case-02-missing-env-var","version":"1.0.0","level":"smoke","runs":1,"passed":1,"result":"pass","note":"first attempt blocked by rm -rf deny rule; re-run with fixture pre-copied"}
