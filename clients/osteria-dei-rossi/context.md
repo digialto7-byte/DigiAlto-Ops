@@ -15,6 +15,8 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 ## Decisions
 - 2026-10-21 — Client onboarded as `osteria-dei-rossi`; client-facing language Italian (by: founder)
 - 2026-10-21 — Osteria Digitalization PRD captured as `sources/prd-2026-10-21.md`; it supersedes the earlier monitoring and anti-fraud scope (by: founder, via PRD)
+- 2026-10-21 — Project plan provisionally approved ("go ahead for now"); open questions and ADRs (`proposed`) still pending (by: founder)
+- 2026-10-21 — Project repo: private `digialto7-byte/osteria-dei-rossi-app` approved. Claude could not create it (GitHub integration returned 403); the founder creates the empty repo and gives the Claude GitHub App access (by: founder)
 
 ## Open items
 - [ ] Founder confirms profile.md facts and removes `[unverified]` markers
@@ -22,7 +24,8 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - [ ] Founder answers the plan's open questions Q1–Q29; Q9 (account ownership, Vercel Hobby is non-commercial only), Q10 (plans) and Q11 (code/IP ownership) block M0
 - [ ] Founder signs off on the plan's departures from the PRD: Next.js 16, pg_cron instead of Vercel Cron, new Supabase keys, cost columns split out, peppered PIN auth
 - [ ] Founder decides Q16 (chef sees € costs, or percentages only = V6; lead recommends V6) and Q24 (which MVP milestones may slip past go-live)
-- [ ] Create the project repo (suggested `digialto7-byte/osteria-dei-rossi-app`, Q15) and bootstrap it, after approval
+- [ ] Founder creates the empty private repo `digialto7-byte/osteria-dei-rossi-app` and gives the Claude GitHub App access; lead then pushes the bootstrap kit + docs on `chore/bootstrap`
+- [ ] First session on the project repo applies `deliverables/2026-10-21-kickoff/project-repo-handoff.md` (CLAUDE.md, client-facts, .env.example)
 - [ ] Then: `/feature M0` in the project repo
 
 ## Deliverables
