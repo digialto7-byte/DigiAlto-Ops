@@ -41,8 +41,19 @@ def failing_cases(rows: list[dict]) -> list[str]:
     return sorted(f"{a}/{c}" for (a, c), e in latest.items() if e.get("result") != "pass")
 
 
+def missing_deps() -> list[str]:
+    """Packages the write hook and repo checks need (requirements.txt)."""
+    import importlib.util
+    return [p for p, mod in (("html5lib", "html5lib"), ("defusedxml", "defusedxml"), ("PyYAML", "yaml"))
+            if importlib.util.find_spec(mod) is None]
+
+
 def main() -> None:
     lines = ["[DigiAlto session brief]"]
+    missing = missing_deps()
+    if missing:
+        lines.append(f"WARNING: missing {', '.join(missing)}; HTML/SVG checks are incomplete. "
+                     "Run: python3 -m pip install -r requirements.txt")
     branch = git("branch", "--show-current")
     dirty = [l for l in git("status", "--porcelain").splitlines() if l]
     lines.append(f"Branch: {branch or '?'} · uncommitted files: {len(dirty)}")

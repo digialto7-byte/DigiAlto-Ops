@@ -17,6 +17,24 @@ claude                                        # start Claude Code in the repo
 Claude Code picks up `CLAUDE.md`, `.claude/agents/`, `.claude/skills/`, `.claude/commands/`
 and the hooks in `.claude/settings.json` automatically.
 
+## Where it works
+
+| Surface | What you get |
+|---|---|
+| Claude Code on the web / mobile (cloud session with this repo selected) | Everything: CLAUDE.md, agents, skills, commands, rules, hooks. Work starts from `main`, so merge changes first |
+| Claude Code desktop app or CLI in a local clone | Everything, on your machine |
+| Plain claude.ai chat or a claude.ai Project | Reading only (e.g. GitHub files as Project knowledge). No subagents, hooks or slash commands, so the reviewer and validators don't run. Don't produce deliverables there |
+
+**Cloud environment setup (once).** In the cloud environment's settings, add this to the
+setup script so every new session has the hook dependencies and the 360px check:
+
+```bash
+python3 -m pip install -q html5lib defusedxml PyYAML playwright
+```
+
+and the environment variable `CHROMIUM_PATH=/opt/pw-browsers/chromium` (the cloud image
+already ships Chromium). Without it the session brief warns and the HTML checks are partial.
+
 ## Daily use
 
 | Command | What it does |
@@ -34,6 +52,7 @@ and the hooks in `.claude/settings.json` automatically.
 
 | Command | What it does |
 |---|---|
+| `/kickoff <slug\|digialto> <PRD>` | New project from a PRD: capture, project plan with milestones, founder approval, its own repo |
 | `/feature <slug\|internal> <feature> [repo]` | Plan → test-first build → verify → code review |
 | `/tdd <task or tech-plan.md>` | Implements test-first with `tdd-guide`, then code review |
 | `/build-fix [command]` | Smallest correct fix for a red build, lint, type check or test run |

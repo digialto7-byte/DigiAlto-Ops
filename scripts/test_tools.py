@@ -42,6 +42,8 @@ with tempfile.TemporaryDirectory() as tmp:
     check("bootstrap writes kit", code == 0 and (target / ".claude/hooks/guard.py").exists())
     check("bootstrap templates where agents look", (target / "templates/tech-plan.md").exists())
     check("bootstrap copies viewport script", (target / "scripts/viewport_check.py").exists())
+    check("bootstrap copies commands", all((target / ".claude/commands" / f"{c}.md").exists()
+                                           for c in ("feature", "tdd", "build-fix", "review-code")))
     check("bootstrap copies no caches", not any(p.name == "__pycache__" for p in target.rglob("*")))
     (target / "CLAUDE.md").write_text("mine", encoding="utf-8")
     code, out = run_bootstrap(str(target))

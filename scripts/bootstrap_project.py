@@ -4,7 +4,9 @@
   python3 scripts/bootstrap_project.py <target-dir> [--force]
 
 Copies into <target-dir>:
-  CLAUDE.md, .claude/settings.json, .claude/hooks/guard.py   (templates/eng-project/)
+  CLAUDE.md, .claude/settings.json, .claude/hooks/guard.py,
+  .claude/commands/feature.md                                (templates/eng-project/)
+  .claude/commands/{tdd,build-fix,review-code}.md
   .claude/agents/{architect,code-reviewer,tdd-guide,build-error-resolver}.md
   .claude/skills/{engineering-standards,security-checklist,tdd-workflow}/SKILL.md
   templates/{tech-plan,adr,handoff}.md (same paths the agents reference), scripts/viewport_check.py
@@ -20,9 +22,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 KIT = ROOT / "templates" / "eng-project"
 # Explicit lists, so caches or editor files in the kit never reach a client repo.
-KIT_FILES = ["CLAUDE.md", ".claude/settings.json", ".claude/hooks/guard.py"]
+KIT_FILES = ["CLAUDE.md", ".claude/settings.json", ".claude/hooks/guard.py", ".claude/commands/feature.md"]
 AGENTS = ["architect", "code-reviewer", "tdd-guide", "build-error-resolver"]
 SKILLS = ["engineering-standards", "security-checklist", "tdd-workflow"]
+COMMANDS = ["tdd", "build-fix", "review-code"]  # /feature comes from the kit (project paths)
 TEMPLATES = ["tech-plan.md", "adr.md", "handoff.md"]
 SCRIPTS = ["viewport_check.py"]
 
@@ -84,6 +87,8 @@ def main(argv: list[str]) -> int:
         plan.append((ROOT / ".claude/agents" / f"{a}.md", target / ".claude/agents" / f"{a}.md", None))
     for s in SKILLS:
         plan.append((ROOT / ".claude/skills" / s / "SKILL.md", target / ".claude/skills" / s / "SKILL.md", None))
+    for c in COMMANDS:
+        plan.append((ROOT / ".claude/commands" / f"{c}.md", target / ".claude/commands" / f"{c}.md", None))
     for t in TEMPLATES:
         plan.append((ROOT / "templates" / t, target / "templates" / t, None))
     for s in SCRIPTS:

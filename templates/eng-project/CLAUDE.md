@@ -24,6 +24,16 @@ Built and maintained by **DigiAlto** (always written with a capital A).
 4. **Standards:** `engineering-standards` and `security-checklist` skills.
 5. **Branches and PRs** for every change; `main` stays deployable.
 
+## Commands
+| Command | What it does |
+|---|---|
+| `/feature <feature or milestone>` | Plan → test-first build → verify → code review → draft PR |
+| `/tdd <task or plan>` | Implement test-first, then code review |
+| `/build-fix [command]` | Smallest correct fix for a red build, lint, type check or test run |
+| `/review-code [base or paths]` | `code-reviewer` on a diff → PASS / FAIL |
+
+The product requirements live in `docs/prd.md`; the overall plan and milestones in `docs/plans/`.
+
 ## The team
 | Agent | Use for |
 |---|---|
@@ -43,6 +53,7 @@ Built and maintained by **DigiAlto** (always written with a capital A).
 |---|---|
 | `src/` | Application code |
 | `tests/` | Tests mirroring `src/` |
-| `docs/plans/` | Tech plans from `architect` |
+| `docs/prd.md` | Product requirements (copied from DigiAlto-Ops at kickoff) |
+| `docs/plans/` | Tech plans from `architect` (project plan + one per feature) |
 | `docs/adr/` | Architecture decision records |
 | `docs/client-facts.md` | Approved client facts this project may use |

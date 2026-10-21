@@ -83,6 +83,8 @@ Static landing pages stay with `web-builder` + `reviewer` (the `landing-page` sk
 
 ## Engineering work
 
+- A new software project with a PRD starts with the `project-kickoff` skill (`/kickoff`):
+  PRD captured as a source, project plan with milestones, founder approval, then its own repo.
 - Software features and fixes follow the `software-feature` skill (`/feature`):
   `architect` → `tdd-guide` → `build-error-resolver` if red → `verification-loop` →
   `code-reviewer`, with hand-offs from `templates/handoff.md`.
@@ -104,7 +106,8 @@ A hook runs `scripts/validate_output.py` after every file write:
 - Writes to `.env`, `.secrets/` or key files are blocked before they happen.
 
 At session start, `scripts/session_brief.py` prints the branch, uncommitted files, the last
-tasks from `log/runs.jsonl` and recent eval failures.
+tasks from `log/runs.jsonl` and recent eval failures. If it warns that packages are missing,
+run `python3 -m pip install -r requirements.txt` before writing HTML or SVG.
 
 If the hook reports an error, fix the file. Do not work around the check.
 
