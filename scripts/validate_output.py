@@ -18,7 +18,8 @@ import sys
 from pathlib import Path
 
 SECRET_PATTERNS = [
-    re.compile(r"(^|/)\.env(\..*)?$"),
+    # .env pattern kept in sync with templates/eng-project/.claude/hooks/guard.py
+    re.compile(r"(^|/)\.env(\.(?!(example|sample|template)$)[^/]+)?$"),
     re.compile(r"(^|/)\.secrets(/|$)"),
     re.compile(r"\.(pem|key|p12|pfx)$"),
     re.compile(r"(^|/)id_(rsa|ed25519)(\.pub)?$"),
