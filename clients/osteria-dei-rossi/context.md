@@ -9,7 +9,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next milestone: `chore/deploy-staging` (migrations to staging via CI), then M1 (master data), in the project session
+- Next milestone: M1 (master data), draft PR osteria-dei-rossi-app#4, in progress in the project session
 - Done: M0 merged 2026-10-21 (osteria-dei-rossi-app#2, all 12 acceptance tests green, code-reviewer PASS)
 - Due: Sprint 1 starts 2026-11-03 per the PRD roadmap [unverified]
 
@@ -47,10 +47,14 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - All 12 acceptance tests pass; code-reviewer PASS on round 3.
   - Vercel Preview env vars are set; nothing has been applied to the staging DB yet.
 - [ ] Founder (manual): in Vercel `osteria-dei-rossi-app`, add the Production env vars `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` with the same staging values as Preview (Q-E). Until then, Production builds fail by design.
-- [ ] Founder (manual, once `chore/deploy-staging` is merged): add the GitHub `staging` environment secrets that PR lists, then set the staging Auth settings in the Supabase dashboard:
-  - Custom Access Token hook = `app.custom_access_token_hook`;
-  - "Allow new users to sign up" off, with the Email provider still on;
-  - redirect URLs = the app origins + `/api/auth/callback**`.
+- [x] 2026-10-21: staging deploy pipeline merged (osteria-dei-rossi-app#3; CI green, code-reviewer PASS round 2). After each CI-green push to `main`, it runs `supabase db push` to staging; it skips with a notice while the secrets are missing.
+- [ ] Founder (manual, steps from osteria-dei-rossi-app#3):
+  1. GitHub repo Settings → Environments → `staging` (a required reviewer is recommended), with secrets `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD` and `SUPABASE_PROJECT_REF` = `wjowhjsfpcdykxwgjipq`.
+  2. Supabase staging → Authentication:
+     - signups off, Email provider on;
+     - after the first deploy, the Access Token hook = Postgres `app.custom_access_token_hook`;
+     - Site URL and redirect URLs = the staging origin + `/api/auth/callback**`.
+  3. After the first deploy, create the demo tenant and owner locally with `npm run create-tenant` (fake data).
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
