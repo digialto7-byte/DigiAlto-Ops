@@ -15,6 +15,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - V1 (HEIC re-encode) goes in a small PR or M3's first commits;
   - V3 (clear duplicate flag) goes in M4;
   - in the meantime, files over 4 MiB stay rejected with a hint (Q2).
+- Done: M2 founder answers merged 2026-10-22 (osteria-dei-rossi-app#7: HEIC re-encode in the browser, owner can clear a duplicate flag at DB level, supplier-name duplicate warning + override columns; CI green, code-reviewer PASS round 3; lead read both migrations). Its 2 migrations still need to reach staging
 - Done: M2 invoice upload merged 2026-10-22 (osteria-dei-rossi-app#6: AT1–AT7 green, CI green on the real Supabase stack with Storage, code-reviewer PASS round 2; the lead reviewed the Storage policies)
 - Done: M1 master data merged 2026-10-21 (osteria-dei-rossi-app#4: 5/5 acceptance tests, CI green, code-reviewer PASS round 2)
 - Done: M1 import defaults merged 2026-10-22 (osteria-dei-rossi-app#5; Q1 and Q5 confirmed by the founder in the project session; CI green, code-reviewer PASS round 2)
