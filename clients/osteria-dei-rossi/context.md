@@ -15,6 +15,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - V1 (HEIC re-encode) goes in a small PR or M3's first commits;
   - V3 (clear duplicate flag) goes in M4;
   - in the meantime, files over 4 MiB stay rejected with a hint (Q2).
+- Done: UI foundation merged 2026-10-22 (osteria-dei-rossi-app#9). It uses the founder-approved name, 8 colours and fonts mirrored in the project's `docs/client-facts.md`. Three UI shades are derived from those colours, not copied from the site. Bodoni Moda and Figtree are self-hosted with no Google requests. Contrast is AA in light and dark. The badge reads a generic "Consigliato" and `BrandMark` is a placeholder until the logo file arrives. CI green; code-reviewer PASS round 5; the lead checked the tokens and the facts mirror
 - Done: menu draft merged 2026-10-22 (osteria-dei-rossi-app#10, docs only: menu-draft.md with 39 dishes and the drinks, recipes-draft.md, ingredienti-draft.csv with 89 ingredients, and the M7 allergens-unknown mirror; CI green, code-reviewer PASS round 3). Everything in it is DRAFT. Allergens use a prudent column (derived ∪ site); 57 ingredient allergen cells are blank meaning "da confermare"; the CSV is for a test tenant only until M7's unknown state ships
 - Done: M2 founder answers merged 2026-10-22 (osteria-dei-rossi-app#7: HEIC re-encode in the browser, owner can clear a duplicate flag at DB level, supplier-name duplicate warning + override columns; CI green, code-reviewer PASS round 3; lead read both migrations). Its 2 migrations still need to reach staging
 - Done: M2 invoice upload merged 2026-10-22 (osteria-dei-rossi-app#6: AT1–AT7 green, CI green on the real Supabase stack with Storage, code-reviewer PASS round 2; the lead reviewed the Storage policies)
@@ -97,6 +98,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   1. GitHub repo secrets `ANTHROPIC_API_KEY` and `EXTRACTION_MODEL_ID`.
   2. 10 anonymised sample invoices from the 5 largest suppliers (plan Q1), shared outside git until anonymised.
 - [ ] Founder and chef: answer the menu-draft questions in osteria-dei-rossi-app `docs/client/menu-draft.md` and `recipes-draft.md`: A-01…A-24 allergens, S- site vs founder differences, M- menu model (per-etto weight, drink formats, VAT), R- recipe quantities, yields and shelf lives
+- [ ] Founder (optional): approve the badge wording "Consigliato dall'Oste" and/or the menu site's exact extra shades, if wanted in the app (today: generic "Consigliato" and derived shades)
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
