@@ -9,7 +9,20 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M5 (invoice approval and receipts), building test-first on feat/m05-approval. The plan's 8 founder questions have defaults
+- Next, in the project session: M6 (next milestone in plan §5a) once the founder has seen M5. M5's 8 open questions run on their defaults until answered
+- Done: M5 invoice approval merged 2026-10-22 (osteria-dei-rossi-app#14).
+  - One transaction posts:
+    - stock receipts and lots;
+    - price history and last price;
+    - the payable (gross minus credits, credits including VAT);
+    - an audit event.
+  - Reject has its own endpoint.
+  - Ledgers are append-only, enforced by triggers. Stock on hand is a view over movements, never stored.
+  - The chef reads lots only and never sees costs; review and approval are owner/admin.
+  - Duplicates are confirmed per pair, with the action naming the partner (founder decision A).
+  - Verified: CI green incl. two-session race cases; code-reviewer PASS round 5 after 4 failed rounds, each fixed.
+  - The lead read the definer procedures (owner/admin check, tenant-scoped row lock), the grants, RLS and append-only triggers.
+  - Not yet on staging: migrations 20261022140000–141000
 - Done: extraction token budget merged 2026-10-22 (osteria-dei-rossi-app#13).
   - EXTRACTION_MAX_TOKENS goes from 16 000 to 36 000, so the 200-line cap fits. More than 200 lines now reads as "too long" (output_truncated), and outputTokens are logged.
   - CI green; code-reviewer PASS round 2.
@@ -152,6 +165,15 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   4. If it is blank, copy the DevTools Console error; the fallback is an "Apri documento" link.
   - The same first run gives the outputTokens and durationMs needed to decide the extraction timeout.
 - [ ] Founder: when setting `EXTRACTION_MODEL_ID`, pick a current Claude model whose output limit is at least 36 000 tokens (the extraction ceiling after osteria-dei-rossi-app#13)
+- [ ] Founder, M5 questions (osteria-dei-rossi-app#14 body; the build uses these defaults):
+  - Q1 receipt date for a deferred invoice: invoice date;
+  - Q2 totals basis: gross;
+  - Q3 negative lines: booked as non-stock;
+  - Q5 credits: include VAT;
+  - Q6 missing due date: approval refused until one is typed;
+  - Q7 storage location: one per invoice;
+  - Q8 undoing an approval: none in M5.
+  - Review notes for later: release a duplicate whose original was rejected; show the upload time or a link next to the partner label
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
