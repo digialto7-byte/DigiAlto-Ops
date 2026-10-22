@@ -9,7 +9,11 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: a small PR for the extraction token budget (EXTRACTION_MAX_TOKENS vs MAX_EXTRACTED_LINES), then M5 (invoice approval and receipts). M5's plan carries the deferred-invoice receipt date as an open question
+- Next, in the project session: M5 (invoice approval and receipts), building test-first on feat/m05-approval. The plan's 8 founder questions have defaults
+- Done: extraction token budget merged 2026-10-22 (osteria-dei-rossi-app#13).
+  - EXTRACTION_MAX_TOKENS goes from 16 000 to 36 000, so the 200-line cap fits. More than 200 lines now reads as "too long" (output_truncated), and outputTokens are logged.
+  - CI green; code-reviewer PASS round 2.
+  - The timeout decision waits for the first measured run on staging
 - Done: M4 review screen merged 2026-10-22 (osteria-dei-rossi-app#11).
   - Built:
     - a review screen that shows the document next to the lines, with line actions: map, split, non-stock with a cost centre, credit;
