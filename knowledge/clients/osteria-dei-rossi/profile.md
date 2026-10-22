@@ -13,7 +13,7 @@ updated: 2026-10-22
 > Add `(src: sources/<file>)` to every fact. Never store passwords, keys, bank details or IDs.
 
 ## Identity
-- Trading name: Osteria Dei Rossi [unverified] (src: founder, chat 2026-10-21)
+- Trading name: Osteria Dei Rossi (src: founder, chat 2026-10-21; approved by the founder 2026-10-22)
 - Legal name / VAT:
 - Sector: osteria (restaurant), one venue, one kitchen, one storage area at start, one service shift per day [unverified] (src: sources/prd-2026-10-21.md)
 - Address: Via dei Rossi, 79/81 · 53100 Siena [unverified] (src: sources/menu-site-2026-10-22.md)
@@ -34,8 +34,10 @@ updated: 2026-10-22
 - Where they are:
 
 ## Brand
-- Colours (hex): cream #FFFADF, cream-deep #F8EFC6, green #1C4130, gold #C89550, olive #7D9550, soft #4D5B45, black #0F0F0D, yellow #FFB028 (full token list in the source) [unverified] (src: sources/menu-site-2026-10-22.md)
-- Fonts: Bodoni Moda (display), Source Serif 4, Figtree (body) [unverified] (src: sources/menu-site-2026-10-22.md)
+- Colours (hex): cream #FFFADF, cream-deep #F8EFC6, green #1C4130, gold #C89550, olive #7D9550, soft #4D5B45, black #0F0F0D, yellow #FFB028 (src: sources/menu-site-2026-10-22.md; approved by the founder 2026-10-22)
+- Further colour tokens on the menu site (full list in the source) [unverified] (src: sources/menu-site-2026-10-22.md)
+- Fonts: Bodoni Moda (display/titles), Figtree (body) (src: sources/menu-site-2026-10-22.md; approved by the founder 2026-10-22)
+- Source Serif 4 is also loaded on the menu site [unverified] (src: sources/menu-site-2026-10-22.md)
 - Logo files (location): an emblem is embedded in the menu site (used with the "Consigliato dall'Oste" badge); source files to request [unverified] (src: sources/menu-site-2026-10-22.md)
 - Logo (as shown by the founder): varsity-style block capitals, distressed texture, white on dark, with a mustard emblem; SVG/PNG file requested, not yet in any repo [unverified] (src: founder in the project session, 2026-10-22)
 - Brand story points: "in menù dal 1992" (Spaghetti alla Chitarra con Sugo dell'Osteria), weekly steak selection by trusted butcher Alessio, free-range Cinta Senese from the Crete Senesi [unverified] (src: sources/menu-site-2026-10-22.md)
@@ -92,6 +94,6 @@ updated: 2026-10-22
 - Who owns the code and the multi-tenant product: the PRD keeps multi-tenancy "from day one" and gives an extra-venue cost, so is this a DigiAlto product with the osteria as first tenant?
 - Domain for the app
 - GDPR roles (DigiAlto as data processor? DPA needed?) for staff accounts
-- Brand for the app: answered 2026-10-22, use the menu site's identity (see Brand above); the founder still confirms the facts
+- Brand for the app: answered 2026-10-22, use the menu site's identity; name, colours and fonts approved 2026-10-22 (see Identity and Brand above)
 - From the PRD's own list: sample invoices from the 5 largest suppliers; full recipe list with batch sizes, portions and shelf life; supplier lead times and delivery days; fixed monthly costs (rent, labour, utilities); table names and typical covers; alert channel (email address or Telegram); whether half portions and shared plates exist today; who enters the register total at end of day
 - Number of waiters and staff accounts; coperto amount if any
