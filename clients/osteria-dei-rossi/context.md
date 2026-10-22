@@ -52,6 +52,11 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q5: for suppliers without a VAT number, duplicates match on supplier name, with a warning and a manual override (V5 plus override).
   - Q6: invoices are deleted after 10 years, decided by the owner and admin. This is a future purge feature, not yet planned.
   - Kept from the lead's assumptions: owner/admin-only upload, 60 uploads per hour, 5-minute signed links.
+- 2026-10-22 — The restaurant's menu site (https://azure-locust-452058.hostingersite.com/) is the source for the app's brand identity and the first draft of the menu items, plus the draft ingredients that follow from them (by: founder, in the project session). This answers plan Q25 and lifts "fake data only" for these items in the project repo.
+  - Captured by the lead as `knowledge/clients/osteria-dei-rossi/sources/menu-site-2026-10-22.{md,json}` (the project session's network could not reach the site).
+  - Profile facts are added with `[unverified]` markers until the founder confirms them.
+  - Allergens stay "to confirm" with the chef.
+  - Nothing is auto-imported into staging.
 - 2026-10-22 — Staging database migrated by hand through the Supabase connector, with the founder's explicit OK in the project session.
   - Applied migrations 20261021120000 to 20261022100200, schema only, no seed.
   - Each is recorded in `supabase_migrations.schema_migrations` with checksums matching the repo, so the CI deploy treats them as applied.

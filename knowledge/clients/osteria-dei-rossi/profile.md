@@ -4,7 +4,7 @@ slug: osteria-dei-rossi
 language: it
 status: prospect
 owner: Mohammad
-updated: 2026-10-21
+updated: 2026-10-22
 ---
 
 # Osteria Dei Rossi — approved facts
@@ -16,15 +16,16 @@ updated: 2026-10-21
 - Trading name: Osteria Dei Rossi [unverified] (src: founder, chat 2026-10-21)
 - Legal name / VAT:
 - Sector: osteria (restaurant), one venue, one kitchen, one storage area at start, one service shift per day [unverified] (src: sources/prd-2026-10-21.md)
-- Address:
-- Phone / email (public):
-- Website / domains:
-- Social profiles:
+- Address: Via dei Rossi, 79/81 · 53100 Siena [unverified] (src: sources/menu-site-2026-10-22.md)
+- Phone / email (public): +39 0577 287592 [unverified] (src: sources/menu-site-2026-10-22.md)
+- Website / domains: menu site https://azure-locust-452058.hostingersite.com/ (a hosting-provider preview domain; final domain to confirm) [unverified] (src: founder in the project session, 2026-10-22)
+- Social profiles: https://www.instagram.com/osteriadeirossi/ · https://www.facebook.com/osteriadeirossi [unverified] (src: sources/menu-site-2026-10-22.md)
 
 ## Offer
 - What they sell: food and drink service in the osteria; menu courses antipasti, primi, secondi, dolci, bevande [unverified] (src: sources/prd-2026-10-21.md)
-- Key products / services / menu highlights:
-- Prices (public):
+- Cuisine: Tuscan/Sienese cooking, bistecche and grilled cuts [unverified] (src: sources/menu-site-2026-10-22.md)
+- Key products / services / menu highlights: draft menu of 39 items in six sections (antipasti, primi, secondi, griglia, contorni, dolci) plus drinks. "Consigliato dall'Oste" picks include Tartare dell'Oste, Pici al Ragù Tradizionale di Anatra, Tegamata di Cinta Senese and Bistecca alla Fiorentina. Full list, prices and allergen codes in the source [unverified] (src: sources/menu-site-2026-10-22.md)
+- Prices (public): per dish in the source (e.g. Bistecca alla Fiorentina 9 € / etto); coperto 2,50 € [unverified] (src: sources/menu-site-2026-10-22.md)
 - Opening hours / availability: critical service window 11:00–24:00 [unverified] (src: sources/prd-2026-10-21.md)
 - Booking / purchase channel (URL):
 
@@ -33,9 +34,9 @@ updated: 2026-10-21
 - Where they are:
 
 ## Brand
-- Colours (hex):
-- Fonts:
-- Logo files (location):
+- Colours (hex): cream #FFFADF, cream-deep #F8EFC6, green #1C4130, gold #C89550, olive #7D9550, soft #4D5B45, black #0F0F0D, yellow #FFB028 (full token list in the source) [unverified] (src: sources/menu-site-2026-10-22.md)
+- Fonts: Bodoni Moda (display), Source Serif 4, Figtree (body) [unverified] (src: sources/menu-site-2026-10-22.md)
+- Logo files (location): an emblem is embedded in the menu site (used with the "Consigliato dall'Oste" badge); source files to request [unverified] (src: sources/menu-site-2026-10-22.md)
 - Tone of voice:
 - Words or claims to avoid:
 
@@ -78,14 +79,17 @@ updated: 2026-10-21
 
 ## Sources
 - `sources/prd-2026-10-21.md` — Osteria Digitalization PRD (dated 2026-10-21, by DigiAlto), converted from the founder's upload `Osteria_Digitalization_PRD.docx`; text unchanged, diagrams in `sources/prd-2026-10-21-media/`. The original .docx is not in git (it was a session upload).
+- `sources/menu-site-2026-10-22.md` and `.json` — capture of the restaurant's menu site (venue info, 39 menu items with prices and allergen codes, drinks, brand colours and fonts), given by the founder on 2026-10-22 as the source for brand identity and the first draft of the menu.
 
 ## Open questions
-- Legal name, VAT number, address, owner's name, main contact, public phone/email
+- Legal name, VAT number, owner's name, main contact, public email
+- Menu-site allergen codes look unreliable in places (e.g. peanuts on several pasta dishes): confirm every dish's allergens with the chef
+- Final website domain (the menu site is on a hosting preview domain) and logo source files
 - Commercial terms and build budget for the project (the PRD only gives running costs); services in scope (likely SVC-APP-01 custom web application development, founder to confirm)
 - Who owns and pays for the Vercel, Supabase, Anthropic, Google Cloud (Drive service account), Resend and Sentry accounts: DigiAlto or the client
 - Who owns the code and the multi-tenant product: the PRD keeps multi-tenancy "from day one" and gives an extra-venue cost, so is this a DigiAlto product with the osteria as first tenant?
 - Domain for the app
 - GDPR roles (DigiAlto as data processor? DPA needed?) for staff accounts
-- Brand for the app (logo, colours) or neutral UI
+- Brand for the app: answered 2026-10-22, use the menu site's identity (see Brand above); the founder still confirms the facts
 - From the PRD's own list: sample invoices from the 5 largest suppliers; full recipe list with batch sizes, portions and shelf life; supplier lead times and delivery days; fixed monthly costs (rent, labour, utilities); table names and typical covers; alert channel (email address or Telegram); whether half portions and shared plates exist today; who enters the register total at end of day
 - Number of waiters and staff accounts; coperto amount if any
