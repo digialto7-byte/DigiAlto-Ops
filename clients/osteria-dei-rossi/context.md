@@ -10,6 +10,10 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
 - Next, in the project session: M4 (invoice review screen), plus a small PR with the anonymised AT8 sample invoices once the founder pastes them. Q2 (totals basis, gross or net) and Q3 (negative discount/return lines) are open for the founder, best confirmed with the accountant
+- Done: first anonymised AT8 contract invoice merged 2026-10-22 (osteria-dei-rossi-app#12).
+  - The fixture is a regenerated PDF of the founder's real vegetable-supplier deferred invoice: 4 pages, 82 lines, €770,39. All identifiers are fake; the line data is identical.
+  - It also adds the expected JSON and a guard test. CI green; code-reviewer PASS round 3; the lead checked the PDF text and metadata for leftovers.
+  - Findings: the extraction output budget (16k tokens, about 150 lines) is below the 200-line cap (small follow-up). Deferred invoices group 11+ delivery notes, so M5 must decide whether a receipt is dated by its delivery note or by the invoice
 - Done: M3 AI extraction merged 2026-10-22 (osteria-dei-rossi-app#8).
   - Built: invoice_line table; lease, complete, fail and release procedures; a duplicate check under an advisory lock; a pg_cron + Vault call to `/api/cron/extract`; Zod structured output; deterministic checks (VAT, totals ±€0.05, confidence < 0.8, supplier-is-buyer); a read-only invoice detail.
   - Verified: CI green incl. the real-stack integration suite and e2e; code-reviewer PASS (round 3 plus re-review after merging main); 756 tests.
@@ -109,6 +113,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - [ ] Founder (optional): approve the badge wording "Consigliato dall'Oste" and/or the menu site's exact extra shades, if wanted in the app (today: generic "Consigliato" and derived shades)
 - [ ] Founder (optional): Supabase staging → Auth → enable leaked-password protection (the only security-advisor WARN; login is magic-link only, so no effect today)
 - [ ] Founder, to make M3 extraction live on staging: Vercel env `ANTHROPIC_API_KEY`, `EXTRACTION_MODEL_ID`, `CRON_SECRET` (≥ 32 characters); Supabase Vault secrets `app_base_url` and `cron_secret` (same value); answer M3 Q5 (which environments get a key; is the 120 s function limit available on Hobby?)
+- [ ] Founder: approve the restaurant's legal entity name and VAT number as client facts (they appear as the buyer on supplier invoices). Until then the tenant VAT stays fake and M3's supplier-is-buyer check cannot fire on real data
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
