@@ -90,10 +90,10 @@ updated: 2026-10-22
 - Menu-site allergen codes look unreliable in places (e.g. peanuts on several pasta dishes): confirm every dish's allergens with the chef
 - Final website domain (the menu site is on a hosting preview domain) and logo source files
 - Commercial terms and build budget for the project (the PRD only gives running costs); services in scope (likely SVC-APP-01 custom web application development, founder to confirm)
-- Who owns and pays for the Vercel, Supabase, Anthropic, Google Cloud (Drive service account), Resend and Sentry accounts: DigiAlto or the client
+- Who owns and pays for the Vercel, Supabase, Google Cloud (Drive service account), Resend and Sentry accounts: DigiAlto or the client (Anthropic answered 2026-10-22: same owner and account for DigiAlto and the osteria, see context.md)
 - Who owns the code and the multi-tenant product: the PRD keeps multi-tenancy "from day one" and gives an extra-venue cost, so is this a DigiAlto product with the osteria as first tenant?
 - Domain for the app
-- GDPR roles (DigiAlto as data processor? DPA needed?) for staff accounts
+- GDPR roles for staff accounts: no DigiAlto–osteria processing agreement needed (same owner, founder 2026-10-22, see context.md); still to confirm Anthropic's commercial terms and DPA, and the staff-account register entry
 - Brand for the app: answered 2026-10-22, use the menu site's identity; name, colours and fonts approved 2026-10-22 (see Identity and Brand above)
 - From the PRD's own list: sample invoices from the 5 largest suppliers; full recipe list with batch sizes, portions and shelf life; supplier lead times and delivery days; fixed monthly costs (rent, labour, utilities); table names and typical covers; alert channel (email address or Telegram); whether half portions and shared plates exist today; who enters the register total at end of day
 - Number of waiters and staff accounts; coperto amount if any

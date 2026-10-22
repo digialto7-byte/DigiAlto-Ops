@@ -67,6 +67,8 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - The deploy job had been skipping because the GitHub `staging` secrets are not set yet.
   - (by: founder, done by the project session)
 - 2026-10-22 — M2 invoice upload cap is 4 MiB, not the 10 MB in the project plan (§3.7, §3.11.4): Vercel's request body limit (4.5 MB) is fixed. Larger PDFs would need direct-to-Storage uploads, which is open question 2 in the M2 plan (by: lead, from the M2 plan)
+- 2026-10-22 — M3 Q4/Q5: DigiAlto and Osteria Dei Rossi have the same owner and use the same Anthropic account ("one and the same"). So no processing agreement is needed between DigiAlto and the osteria; the Anthropic API account and key belong to that owner. The founder still checks that the account is on Anthropic's commercial/API terms, which include Anthropic's DPA (by: founder, in the project session)
+- 2026-10-22 — M3 Q1: the anonymised sample invoices may be committed to the project repo as AT8 fixtures. Personal data is replaced with obvious fakes before committing: sole-trader names, tax codes, IBANs, private addresses, personal emails and phones. Raw originals never enter git, logs or fixtures. code-reviewer checks the fixtures (by: founder, in the lead session)
 - 2026-10-22 — The founder approved the trading name "Osteria Dei Rossi", the eight brand colours and the fonts (Bodoni Moda for titles, Figtree for body text) as client facts. Their `[unverified]` markers are removed from profile.md, which unblocks the UI foundation (osteria-dei-rossi-app#9) mirroring them into `docs/client-facts.md` (by: founder)
 - 2026-10-22 — M7 gains an "allergens unknown" state, from the menu-draft review (osteria-dei-rossi-app#10). Today a blank allergen cell imports as allergen-free because `ingredient.allergens` defaults to empty. Ingredients, then recipes and menu items, get an unconfirmed state shown as "da confermare" until confirmed. Until then the draft ingredient CSV goes into a test tenant only. Plan §5a M7 updated, with acceptance test 6 (by: lead, from the project session's review)
 - 2026-10-21 — Project repo: private `digialto7-byte/osteria-dei-rossi-app` approved. Claude could not create it (GitHub integration returned 403); the founder creates the empty repo and gives the Claude GitHub App access (by: founder)
@@ -96,7 +98,8 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   3. After the first deploy, create the demo tenant and owner locally with `npm run create-tenant` (fake data).
 - [ ] Founder (manual, for M3's live contract test; it does not block building M3):
   1. GitHub repo secrets `ANTHROPIC_API_KEY` and `EXTRACTION_MODEL_ID`.
-  2. 10 anonymised sample invoices from the 5 largest suppliers (plan Q1), shared outside git until anonymised.
+  2. 10 anonymised sample invoices from the 5 largest suppliers (plan Q1), pasted in the project session; anonymised copies may be committed (decision 2026-10-22).
+  3. Confirm the shared Anthropic account is on Anthropic's commercial/API terms (DPA included).
 - [ ] Founder and chef: answer the menu-draft questions in osteria-dei-rossi-app `docs/client/menu-draft.md` and `recipes-draft.md`: A-01…A-24 allergens, S- site vs founder differences, M- menu model (per-etto weight, drink formats, VAT), R- recipe quantities, yields and shelf lives
 - [ ] Founder (optional): approve the badge wording "Consigliato dall'Oste" and/or the menu site's exact extra shades, if wanted in the app (today: generic "Consigliato" and derived shades)
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
