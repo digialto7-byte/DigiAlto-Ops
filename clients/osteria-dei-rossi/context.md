@@ -65,6 +65,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - The deploy job had been skipping because the GitHub `staging` secrets are not set yet.
   - (by: founder, done by the project session)
 - 2026-10-22 — M2 invoice upload cap is 4 MiB, not the 10 MB in the project plan (§3.7, §3.11.4): Vercel's request body limit (4.5 MB) is fixed. Larger PDFs would need direct-to-Storage uploads, which is open question 2 in the M2 plan (by: lead, from the M2 plan)
+- 2026-10-22 — M7 gains an "allergens unknown" state, from the menu-draft review (osteria-dei-rossi-app#10). Today a blank allergen cell imports as allergen-free because `ingredient.allergens` defaults to empty. Ingredients, then recipes and menu items, get an unconfirmed state shown as "da confermare" until confirmed. Until then the draft ingredient CSV goes into a test tenant only. Plan §5a M7 updated, with acceptance test 6 (by: lead, from the project session's review)
 - 2026-10-21 — Project repo: private `digialto7-byte/osteria-dei-rossi-app` approved. Claude could not create it (GitHub integration returned 403); the founder creates the empty repo and gives the Claude GitHub App access (by: founder)
 
 ## Open items
