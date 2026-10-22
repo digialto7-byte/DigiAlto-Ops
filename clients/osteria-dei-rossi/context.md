@@ -58,6 +58,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Profile facts are added with `[unverified]` markers until the founder confirms them.
   - Allergens stay "to confirm" with the chef.
   - Nothing is auto-imported into staging.
+- 2026-10-22 — The founder pasted the full menu (IT/EN, 7 sections incl. drinks, coffee, digestifs) and showed the logo in the project session, approving both as draft client facts for brand identity and draft dishes/ingredients. The app is re-themed to the logo (dark hero theme, mustard accent, varsity display face, wordmark "OSTERIA DEI ROSSI"). The logo file is requested; it is not redrawn. A docs-only `docs/client-menu-draft` PR in the project repo adds the menu draft, recipes draft and an ingredient CSV with allergens "da confermare"; nothing is auto-imported (by: founder)
 - 2026-10-22 — Staging database migrated by hand through the Supabase connector, with the founder's explicit OK in the project session.
   - Applied migrations 20261021120000 to 20261022100200, schema only, no seed.
   - Each is recorded in `supabase_migrations.schema_migrations` with checksums matching the repo, so the CI deploy treats them as applied.
