@@ -37,6 +37,8 @@ updated: 2026-10-22
 - Colours (hex): cream #FFFADF, cream-deep #F8EFC6, green #1C4130, gold #C89550, olive #7D9550, soft #4D5B45, black #0F0F0D, yellow #FFB028 (full token list in the source) [unverified] (src: sources/menu-site-2026-10-22.md)
 - Fonts: Bodoni Moda (display), Source Serif 4, Figtree (body) [unverified] (src: sources/menu-site-2026-10-22.md)
 - Logo files (location): an emblem is embedded in the menu site (used with the "Consigliato dall'Oste" badge); source files to request [unverified] (src: sources/menu-site-2026-10-22.md)
+- Logo (as shown by the founder): varsity-style block capitals, distressed texture, white on dark, with a mustard emblem; SVG/PNG file requested, not yet in any repo [unverified] (src: founder in the project session, 2026-10-22)
+- Brand story points: "in menù dal 1992" (Spaghetti alla Chitarra con Sugo dell'Osteria), weekly steak selection by trusted butcher Alessio, free-range Cinta Senese from the Crete Senesi [unverified] (src: sources/menu-site-2026-10-22.md)
 - Tone of voice:
 - Words or claims to avoid:
 
