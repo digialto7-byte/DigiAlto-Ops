@@ -81,6 +81,8 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Each is recorded in `supabase_migrations.schema_migrations` with checksums matching the repo, so the CI deploy treats them as applied.
   - The deploy job had been skipping because the GitHub `staging` secrets are not set yet.
   - (by: founder, done by the project session)
+- 2026-10-22 — M4: invoice review is owner/admin only. The chef does not review and never sees € costs (by: founder, in the lead session)
+- 2026-10-22 — The M4 migrations (20261022130000–131000) go to staging by hand, schema only, as before; the project session applies them and the lead verifies the md5s (by: founder, in the lead session)
 - 2026-10-22 — Staging migrated by hand a second time, with the founder's OK in the lead session. The project session applied 6 migrations from main e1a6f04 (20261022110000, 110100, 120000, 120100, 120200, 120300), schema only. Each is recorded in `schema_migrations` with an md5 matching the repo, which the lead re-checked on staging.
   - pg_cron and pg_net were installed by the cron migration.
   - The `extract-invoices` cron job exists but is inert: no Vault secrets are set.
@@ -124,9 +126,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - [ ] Founder (optional): Supabase staging → Auth → enable leaked-password protection (the only security-advisor WARN; login is magic-link only, so no effect today)
 - [ ] Founder, to make M3 extraction live on staging: Vercel env `ANTHROPIC_API_KEY`, `EXTRACTION_MODEL_ID`, `CRON_SECRET` (≥ 32 characters); Supabase Vault secrets `app_base_url` and `cron_secret` (same value); answer M3 Q5 (which environments get a key; is the 120 s function limit available on Hobby?)
 - [ ] Founder: approve the restaurant's legal entity name and VAT number as client facts (they appear as the buyer on supplier invoices). Until then the tenant VAT stays fake and M3's supplier-is-buyer check cannot fire on real data
-- [ ] Founder: OK to apply the M4 migrations (20261022130000–131000, schema only) to staging by hand, as before
 - [ ] Founder, M4 questions (osteria-dei-rossi-app#11 body):
-  - who may review invoices (owner/admin only, or the chef too, which means the chef sees € costs);
   - starting cost centres;
   - whether splits and first mappings count as corrections for Gate 1;
   - whether a non-stock booking is remembered per supplier;
