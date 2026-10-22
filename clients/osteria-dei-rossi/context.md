@@ -9,12 +9,13 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session:
-  - finish the founder's staging login;
-  - then M3 (AI extraction), which also takes Q5 (supplier-name duplicate match + warning + override);
-  - V1 (HEIC re-encode) goes in a small PR or M3's first commits;
-  - V3 (clear duplicate flag) goes in M4;
-  - in the meantime, files over 4 MiB stay rejected with a hint (Q2).
+- Next, in the project session: M4 (invoice review screen), plus a small PR with the anonymised AT8 sample invoices once the founder pastes them. Q2 (totals basis, gross or net) and Q3 (negative discount/return lines) are open for the founder, best confirmed with the accountant
+- Done: M3 AI extraction merged 2026-10-22 (osteria-dei-rossi-app#8).
+  - Built: invoice_line table; lease, complete, fail and release procedures; a duplicate check under an advisory lock; a pg_cron + Vault call to `/api/cron/extract`; Zod structured output; deterministic checks (VAT, totals ±€0.05, confidence < 0.8, supplier-is-buyer); a read-only invoice detail.
+  - Verified: CI green incl. the real-stack integration suite and e2e; code-reviewer PASS (round 3 plus re-review after merging main); 756 tests.
+  - The lead read the prompt (invoice as untrusted data, no tools), the cron bearer check, the model ID from env with no literal in `src/`, the RLS, the grants and the Vault definer function.
+  - Not yet live: the 4 M3 migrations (20261022120000–120300) and the 2 #7 migrations are not on staging, and the cron makes no calls until the key, the model ID and the Vault secrets are set.
+  - Not done: a deterministic duplicate-race test (documented in the test)
 - Done: UI foundation merged 2026-10-22 (osteria-dei-rossi-app#9). It uses the founder-approved name, 8 colours and fonts mirrored in the project's `docs/client-facts.md`. Three UI shades are derived from those colours, not copied from the site. Bodoni Moda and Figtree are self-hosted with no Google requests. Contrast is AA in light and dark. The badge reads a generic "Consigliato" and `BrandMark` is a placeholder until the logo file arrives. CI green; code-reviewer PASS round 5; the lead checked the tokens and the facts mirror
 - Done: menu draft merged 2026-10-22 (osteria-dei-rossi-app#10, docs only: menu-draft.md with 39 dishes and the drinks, recipes-draft.md, ingredienti-draft.csv with 89 ingredients, and the M7 allergens-unknown mirror; CI green, code-reviewer PASS round 3). Everything in it is DRAFT. Allergens use a prudent column (derived ∪ site); 57 ingredient allergen cells are blank meaning "da confermare"; the CSV is for a test tenant only until M7's unknown state ships
 - Done: M2 founder answers merged 2026-10-22 (osteria-dei-rossi-app#7: HEIC re-encode in the browser, owner can clear a duplicate flag at DB level, supplier-name duplicate warning + override columns; CI green, code-reviewer PASS round 3; lead read both migrations). Its 2 migrations still need to reach staging
@@ -102,6 +103,8 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   3. Confirm the shared Anthropic account is on Anthropic's commercial/API terms (DPA included).
 - [ ] Founder and chef: answer the menu-draft questions in osteria-dei-rossi-app `docs/client/menu-draft.md` and `recipes-draft.md`: A-01…A-24 allergens, S- site vs founder differences, M- menu model (per-etto weight, drink formats, VAT), R- recipe quantities, yields and shelf lives
 - [ ] Founder (optional): approve the badge wording "Consigliato dall'Oste" and/or the menu site's exact extra shades, if wanted in the app (today: generic "Consigliato" and derived shades)
+- [ ] Founder: OK to apply the 6 pending migrations (2 from #7, 4 from M3) to staging by hand through the Supabase connector, or set the GitHub `staging` secrets so deploy-staging applies them
+- [ ] Founder, to make M3 extraction live on staging: Vercel env `ANTHROPIC_API_KEY`, `EXTRACTION_MODEL_ID`, `CRON_SECRET` (≥ 32 characters); Supabase Vault secrets `app_base_url` and `cron_secret` (same value); answer M3 Q5 (which environments get a key; is the 120 s function limit available on Hobby?)
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
