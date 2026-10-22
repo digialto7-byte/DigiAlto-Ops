@@ -9,7 +9,12 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next: finish the founder's staging login, then `feat/m02-founder-answers` (V1 HEIC, V3 clear duplicate flag, V5 name match + override), then M3 (AI extraction), in the project session
+- Next, in the project session:
+  - finish the founder's staging login;
+  - then M3 (AI extraction), which also takes Q5 (supplier-name duplicate match + warning + override);
+  - V1 (HEIC re-encode) goes in a small PR or M3's first commits;
+  - V3 (clear duplicate flag) goes in M4;
+  - in the meantime, files over 4 MiB stay rejected with a hint (Q2).
 - Done: M2 invoice upload merged 2026-10-22 (osteria-dei-rossi-app#6: AT1–AT7 green, CI green on the real Supabase stack with Storage, code-reviewer PASS round 2; the lead reviewed the Storage policies)
 - Done: M1 master data merged 2026-10-21 (osteria-dei-rossi-app#4: 5/5 acceptance tests, CI green, code-reviewer PASS round 2)
 - Done: M1 import defaults merged 2026-10-22 (osteria-dei-rossi-app#5; Q1 and Q5 confirmed by the founder in the project session; CI green, code-reviewer PASS round 2)
