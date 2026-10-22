@@ -9,8 +9,9 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next milestone: `fix/m01-import-defaults`, then M2 (invoice upload, private storage, signed URLs, duplicate check), in the project session
+- Next milestone: M2 (invoice upload, private storage, signed URLs, duplicate check), in the project session
 - Done: M1 master data merged 2026-10-21 (osteria-dei-rossi-app#4: 5/5 acceptance tests, CI green, code-reviewer PASS round 2)
+- Done: M1 import defaults merged 2026-10-22 (osteria-dei-rossi-app#5; Q1 and Q5 confirmed by the founder in the project session; CI green, code-reviewer PASS round 2)
 - Done: M0 merged 2026-10-21 (osteria-dei-rossi-app#2, all 12 acceptance tests green, code-reviewer PASS)
 - Due: Sprint 1 starts 2026-11-03 per the PRD roadmap [unverified]
 
@@ -37,6 +38,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q3: no checksum on the tenant's own VAT for now.
   - Q4: the chef may see supplier VAT numbers and payment terms (not costs).
   - Q5: on re-import, a blank cell keeps the stored value; clearing a value needs an explicit marker. The CSV template stays as built.
+- 2026-10-22 — M2 invoice upload cap is 4 MiB, not the 10 MB in the project plan (§3.7, §3.11.4): Vercel's request body limit (4.5 MB) is fixed. Larger PDFs would need direct-to-Storage uploads, which is open question 2 in the M2 plan (by: lead, from the M2 plan)
 - 2026-10-21 — Project repo: private `digialto7-byte/osteria-dei-rossi-app` approved. Claude could not create it (GitHub integration returned 403); the founder creates the empty repo and gives the Claude GitHub App access (by: founder)
 
 ## Open items
