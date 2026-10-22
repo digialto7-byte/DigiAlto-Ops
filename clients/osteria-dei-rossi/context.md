@@ -19,7 +19,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Verified: CI green, including a new two-session race job; code-reviewer PASS round 5.
   - The lead read every SECURITY DEFINER procedure (fixed search_path, owner/admin check, tenant scope via the invoice lock) and their grants.
   - Known gaps: supplier_item still has M2's UPDATE grant for owner/admin; clearing a duplicate does not re-run auto-mapping.
-  - Not yet on staging: migrations 20261022130000–131000, so the document iframe check (VT1) on the preview waits
+  - Staging: migrations 20261022130000–131000 applied 2026-10-22; the lead re-checked all 11 md5s. The document iframe check (VT1) needs the founder, see Open items
 - Done: first anonymised AT8 contract invoice merged 2026-10-22 (osteria-dei-rossi-app#12).
   - The fixture is a regenerated PDF of the founder's real vegetable-supplier deferred invoice: 4 pages, 82 lines, €770,39. All identifiers are fake; the line data is identical.
   - It also adds the expected JSON and a guard test. CI green; code-reviewer PASS round 3; the lead checked the PDF text and metadata for leftovers.
@@ -87,6 +87,11 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - pg_cron and pg_net were installed by the cron migration.
   - The `extract-invoices` cron job exists but is inert: no Vault secrets are set.
   - Security advisor: only "leaked password protection disabled" (by: founder, done by the project session)
+- 2026-10-22 — Security-advisor WARN `authenticated_security_definer_function_executable` is accepted by design (by: lead).
+  - It covers the 7 M4 review procedures, and M5 will add 3 more of the same kind.
+  - These procedures are the only write path, because `authenticated` has no UPDATE on invoice, invoice_line or supplier_item.
+  - The lead read each one: owner/admin check first, `search_path=''`, tenant scope via `lock_review_invoice`. pgTAP 019–026 cover role and tenant.
+  - Revisit if the advisor reports anything else about them
 - 2026-10-22 — M2 invoice upload cap is 4 MiB, not the 10 MB in the project plan (§3.7, §3.11.4): Vercel's request body limit (4.5 MB) is fixed. Larger PDFs would need direct-to-Storage uploads, which is open question 2 in the M2 plan (by: lead, from the M2 plan)
 - 2026-10-22 — M3 Q4/Q5: DigiAlto and Osteria Dei Rossi have the same owner and use the same Anthropic account ("one and the same"). So no processing agreement is needed between DigiAlto and the osteria; the Anthropic API account and key belong to that owner. The founder still checks that the account is on Anthropic's commercial/API terms, which include Anthropic's DPA (by: founder, in the project session)
 - 2026-10-22 — M3 Q1: the anonymised sample invoices may be committed to the project repo as AT8 fixtures. Personal data is replaced with obvious fakes before committing: sole-trader names, tax codes, IBANs, private addresses, personal emails and phones. Raw originals never enter git, logs or fixtures. code-reviewer checks the fixtures (by: founder, in the lead session)
@@ -132,6 +137,13 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - whether a non-stock booking is remembered per supplier;
   - behaviour after a supplier relink;
   - smaller UI defaults
+- [ ] Founder (manual, VT1), once extraction runs on staging:
+  1. On a deployment that points at staging, sign in as the owner and upload a small PDF invoice.
+  2. When it reaches review, open `/fatture/<id>/revisione` in desktop Chrome at about 1280 px.
+  3. Check that the left-hand frame shows the PDF pages, not a blank box or "refused to connect".
+  4. If it is blank, copy the DevTools Console error; the fallback is an "Apri documento" link.
+  - The same first run gives the outputTokens and durationMs needed to decide the extraction timeout.
+- [ ] Founder: when setting `EXTRACTION_MODEL_ID`, pick a current Claude model whose output limit is at least 36 000 tokens (the extraction ceiling after osteria-dei-rossi-app#13)
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
