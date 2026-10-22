@@ -65,11 +65,12 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - The deploy job had been skipping because the GitHub `staging` secrets are not set yet.
   - (by: founder, done by the project session)
 - 2026-10-22 — M2 invoice upload cap is 4 MiB, not the 10 MB in the project plan (§3.7, §3.11.4): Vercel's request body limit (4.5 MB) is fixed. Larger PDFs would need direct-to-Storage uploads, which is open question 2 in the M2 plan (by: lead, from the M2 plan)
+- 2026-10-22 — The founder approved the trading name "Osteria Dei Rossi", the eight brand colours and the fonts (Bodoni Moda for titles, Figtree for body text) as client facts. Their `[unverified]` markers are removed from profile.md, which unblocks the UI foundation (osteria-dei-rossi-app#9) mirroring them into `docs/client-facts.md` (by: founder)
 - 2026-10-22 — M7 gains an "allergens unknown" state, from the menu-draft review (osteria-dei-rossi-app#10). Today a blank allergen cell imports as allergen-free because `ingredient.allergens` defaults to empty. Ingredients, then recipes and menu items, get an unconfirmed state shown as "da confermare" until confirmed. Until then the draft ingredient CSV goes into a test tenant only. Plan §5a M7 updated, with acceptance test 6 (by: lead, from the project session's review)
 - 2026-10-21 — Project repo: private `digialto7-byte/osteria-dei-rossi-app` approved. Claude could not create it (GitHub integration returned 403); the founder creates the empty repo and gives the Claude GitHub App access (by: founder)
 
 ## Open items
-- [ ] Founder confirms profile.md facts and removes `[unverified]` markers
+- [ ] Founder confirms the remaining profile.md facts and removes `[unverified]` markers (trading name, colours and fonts approved 2026-10-22)
 - [ ] Founder approves `deliverables/2026-10-21-kickoff/project-plan.md` (47 milestones: MVP M0–M25, Phase 2 M26–M40, Phase 3 M41–M46) and ADR-001 to ADR-005 (all `proposed`)
 - [ ] Founder answers the plan's open questions Q1–Q29 (Q9 answered; Q10 answered for Vercel, Supabase Pro for production backups still open before M25; Q11 open, not blocking M0)
 - [ ] Founder signs off on the plan's departures from the PRD: Next.js 16, pg_cron instead of Vercel Cron, new Supabase keys, cost columns split out, peppered PIN auth
