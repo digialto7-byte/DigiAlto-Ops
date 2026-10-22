@@ -22,7 +22,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Duplicates are confirmed per pair, with the action naming the partner (founder decision A).
   - Verified: CI green incl. two-session race cases; code-reviewer PASS round 5 after 4 failed rounds, each fixed.
   - The lead read the definer procedures (owner/admin check, tenant-scoped row lock), the grants, RLS and append-only triggers.
-  - Not yet on staging: migrations 20261022140000–141000
+  - Staging: migrations 20261022140000–141000 being applied with the founder's OK (2026-10-22); the lead verifies the md5s
 - Done: extraction token budget merged 2026-10-22 (osteria-dei-rossi-app#13).
   - EXTRACTION_MAX_TOKENS goes from 16 000 to 36 000, so the 200-line cap fits. More than 200 lines now reads as "too long" (output_truncated), and outputTokens are logged.
   - CI green; code-reviewer PASS round 2.
@@ -98,6 +98,8 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Each is recorded in `supabase_migrations.schema_migrations` with checksums matching the repo, so the CI deploy treats them as applied.
   - The deploy job had been skipping because the GitHub `staging` secrets are not set yet.
   - (by: founder, done by the project session)
+- 2026-10-22 — M5 Q1: stock receipts from an invoice that groups several delivery notes are dated with the invoice date (the default); per-delivery-note dates are not needed for now (by: founder, in the lead session)
+- 2026-10-22 — The M5 migrations (20261022140000–141000) go to staging by hand, schema only, as before (by: founder, in the lead session)
 - 2026-10-22 — M5 duplicate gate for suppliers without VAT: a name match stays an overridable warning (M2 Q5), but per pair.
   - Approval recomputes every undeclared look-alike (same name, number and date), and clearing one moves the warning to the next, so the owner confirms each pair before approval.
   - This prevents a double payable from two copies the owner was never shown side by side.
@@ -166,7 +168,6 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - The same first run gives the outputTokens and durationMs needed to decide the extraction timeout.
 - [ ] Founder: when setting `EXTRACTION_MODEL_ID`, pick a current Claude model whose output limit is at least 36 000 tokens (the extraction ceiling after osteria-dei-rossi-app#13)
 - [ ] Founder, M5 questions (osteria-dei-rossi-app#14 body; the build uses these defaults):
-  - Q1 receipt date for a deferred invoice: invoice date;
   - Q2 totals basis: gross;
   - Q3 negative lines: booked as non-stock;
   - Q5 credits: include VAT;
