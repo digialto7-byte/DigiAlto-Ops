@@ -14,7 +14,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Built: invoice_line table; lease, complete, fail and release procedures; a duplicate check under an advisory lock; a pg_cron + Vault call to `/api/cron/extract`; Zod structured output; deterministic checks (VAT, totals ±€0.05, confidence < 0.8, supplier-is-buyer); a read-only invoice detail.
   - Verified: CI green incl. the real-stack integration suite and e2e; code-reviewer PASS (round 3 plus re-review after merging main); 756 tests.
   - The lead read the prompt (invoice as untrusted data, no tools), the cron bearer check, the model ID from env with no literal in `src/`, the RLS, the grants and the Vault definer function.
-  - Not yet live: the 4 M3 migrations (20261022120000–120300) and the 2 #7 migrations are not on staging, and the cron makes no calls until the key, the model ID and the Vault secrets are set.
+  - Staging: all its migrations are applied (see the 2026-10-22 staging decision). The cron makes no calls until the key, the model ID and the Vault secrets are set.
   - Not done: a deterministic duplicate-race test (documented in the test)
 - Done: UI foundation merged 2026-10-22 (osteria-dei-rossi-app#9). It uses the founder-approved name, 8 colours and fonts mirrored in the project's `docs/client-facts.md`. Three UI shades are derived from those colours, not copied from the site. Bodoni Moda and Figtree are self-hosted with no Google requests. Contrast is AA in light and dark. The badge reads a generic "Consigliato" and `BrandMark` is a placeholder until the logo file arrives. CI green; code-reviewer PASS round 5; the lead checked the tokens and the facts mirror
 - Done: menu draft merged 2026-10-22 (osteria-dei-rossi-app#10, docs only: menu-draft.md with 39 dishes and the drinks, recipes-draft.md, ingredienti-draft.csv with 89 ingredients, and the M7 allergens-unknown mirror; CI green, code-reviewer PASS round 3). Everything in it is DRAFT. Allergens use a prudent column (derived ∪ site); 57 ingredient allergen cells are blank meaning "da confermare"; the CSV is for a test tenant only until M7's unknown state ships
@@ -67,6 +67,10 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Each is recorded in `supabase_migrations.schema_migrations` with checksums matching the repo, so the CI deploy treats them as applied.
   - The deploy job had been skipping because the GitHub `staging` secrets are not set yet.
   - (by: founder, done by the project session)
+- 2026-10-22 — Staging migrated by hand a second time, with the founder's OK in the lead session. The project session applied 6 migrations from main e1a6f04 (20261022110000, 110100, 120000, 120100, 120200, 120300), schema only. Each is recorded in `schema_migrations` with an md5 matching the repo, which the lead re-checked on staging.
+  - pg_cron and pg_net were installed by the cron migration.
+  - The `extract-invoices` cron job exists but is inert: no Vault secrets are set.
+  - Security advisor: only "leaked password protection disabled" (by: founder, done by the project session)
 - 2026-10-22 — M2 invoice upload cap is 4 MiB, not the 10 MB in the project plan (§3.7, §3.11.4): Vercel's request body limit (4.5 MB) is fixed. Larger PDFs would need direct-to-Storage uploads, which is open question 2 in the M2 plan (by: lead, from the M2 plan)
 - 2026-10-22 — M3 Q4/Q5: DigiAlto and Osteria Dei Rossi have the same owner and use the same Anthropic account ("one and the same"). So no processing agreement is needed between DigiAlto and the osteria; the Anthropic API account and key belong to that owner. The founder still checks that the account is on Anthropic's commercial/API terms, which include Anthropic's DPA (by: founder, in the project session)
 - 2026-10-22 — M3 Q1: the anonymised sample invoices may be committed to the project repo as AT8 fixtures. Personal data is replaced with obvious fakes before committing: sole-trader names, tax codes, IBANs, private addresses, personal emails and phones. Raw originals never enter git, logs or fixtures. code-reviewer checks the fixtures (by: founder, in the lead session)
@@ -103,7 +107,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   3. Confirm the shared Anthropic account is on Anthropic's commercial/API terms (DPA included).
 - [ ] Founder and chef: answer the menu-draft questions in osteria-dei-rossi-app `docs/client/menu-draft.md` and `recipes-draft.md`: A-01…A-24 allergens, S- site vs founder differences, M- menu model (per-etto weight, drink formats, VAT), R- recipe quantities, yields and shelf lives
 - [ ] Founder (optional): approve the badge wording "Consigliato dall'Oste" and/or the menu site's exact extra shades, if wanted in the app (today: generic "Consigliato" and derived shades)
-- [ ] Founder: OK to apply the 6 pending migrations (2 from #7, 4 from M3) to staging by hand through the Supabase connector, or set the GitHub `staging` secrets so deploy-staging applies them
+- [ ] Founder (optional): Supabase staging → Auth → enable leaked-password protection (the only security-advisor WARN; login is magic-link only, so no effect today)
 - [ ] Founder, to make M3 extraction live on staging: Vercel env `ANTHROPIC_API_KEY`, `EXTRACTION_MODEL_ID`, `CRON_SECRET` (≥ 32 characters); Supabase Vault secrets `app_base_url` and `cron_secret` (same value); answer M3 Q5 (which environments get a key; is the 120 s function limit available on Hobby?)
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
