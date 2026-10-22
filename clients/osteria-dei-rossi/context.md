@@ -85,6 +85,10 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Each is recorded in `supabase_migrations.schema_migrations` with checksums matching the repo, so the CI deploy treats them as applied.
   - The deploy job had been skipping because the GitHub `staging` secrets are not set yet.
   - (by: founder, done by the project session)
+- 2026-10-22 — M5 duplicate gate for suppliers without VAT: a name match stays an overridable warning (M2 Q5), but per pair.
+  - Approval recomputes every undeclared look-alike (same name, number and date), and clearing one moves the warning to the next, so the owner confirms each pair before approval.
+  - This prevents a double payable from two copies the owner was never shown side by side.
+  - It was chosen over "warning only, never blocks" (by: founder, in the lead session)
 - 2026-10-22 — M4: invoice review is owner/admin only. The chef does not review and never sees € costs (by: founder, in the lead session)
 - 2026-10-22 — The M4 migrations (20261022130000–131000) go to staging by hand, schema only, as before; the project session applies them and the lead verifies the md5s (by: founder, in the lead session)
 - 2026-10-22 — Staging migrated by hand a second time, with the founder's OK in the lead session. The project session applied 6 migrations from main e1a6f04 (20261022110000, 110100, 120000, 120100, 120200, 120300), schema only. Each is recorded in `schema_migrations` with an md5 matching the repo, which the lead re-checked on staging.
