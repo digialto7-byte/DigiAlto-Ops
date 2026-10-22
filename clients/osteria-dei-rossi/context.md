@@ -9,7 +9,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next milestone: M3 (AI extraction, Zod schema, validation gate, contract tests), in the project session
+- Next: finish the founder's staging login, then `feat/m02-founder-answers` (V1 HEIC, V3 clear duplicate flag, V5 name match + override), then M3 (AI extraction), in the project session
 - Done: M2 invoice upload merged 2026-10-22 (osteria-dei-rossi-app#6: AT1–AT7 green, CI green on the real Supabase stack with Storage, code-reviewer PASS round 2; the lead reviewed the Storage policies)
 - Done: M1 master data merged 2026-10-21 (osteria-dei-rossi-app#4: 5/5 acceptance tests, CI green, code-reviewer PASS round 2)
 - Done: M1 import defaults merged 2026-10-22 (osteria-dei-rossi-app#5; Q1 and Q5 confirmed by the founder in the project session; CI green, code-reviewer PASS round 2)
@@ -39,14 +39,19 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q3: no checksum on the tenant's own VAT for now.
   - Q4: the chef may see supplier VAT numbers and payment terms (not costs).
   - Q5: on re-import, a blank cell keeps the stored value; clearing a value needs an explicit marker. The CSV template stays as built.
-- 2026-10-22 — M2 open questions, lead defaults (by: lead):
-  - Q1: no HEIC; PDF, JPEG and PNG only, with an Italian hint for iPhone users.
-  - Q2: files over 4 MiB are rejected with a hint.
-  - Q3: owner/admin may clear a duplicate flag, audited, built in M4.
-  - Q4: invoice numbers are matched normalised (case- and punctuation-insensitive); the raw value is kept.
-  - Q5: suppliers without a VAT number are matched on normalised name + number + date.
-  - Q6: no deletion in the app; anything after 10 years is a manual process, out of scope.
-  - Assumptions accepted: owner/admin-only upload, 60 uploads per hour, 5-minute signed links.
+- 2026-10-22 — M2 open questions, answered by the founder in the project session (these replace the lead's defaults) (by: founder):
+  - Q1: HEIC yes, if the impact is small: the browser re-encodes to JPEG (variant V1); the server still accepts PDF, JPEG and PNG only.
+  - Q2: files over 4 MiB: to be decided once real samples have been uploaded.
+  - Q3: the owner may clear a wrong duplicate flag (V3).
+  - Q4: `FT 1/2026` and `FT-1-2026` are different invoices; keep today's rule (spaces and case only).
+  - Q5: for suppliers without a VAT number, duplicates match on supplier name, with a warning and a manual override (V5 plus override).
+  - Q6: invoices are deleted after 10 years, decided by the owner and admin. This is a future purge feature, not yet planned.
+  - Kept from the lead's assumptions: owner/admin-only upload, 60 uploads per hour, 5-minute signed links.
+- 2026-10-22 — Staging database migrated by hand through the Supabase connector, with the founder's explicit OK in the project session.
+  - Applied migrations 20261021120000 to 20261022100200, schema only, no seed.
+  - Each is recorded in `supabase_migrations.schema_migrations` with checksums matching the repo, so the CI deploy treats them as applied.
+  - The deploy job had been skipping because the GitHub `staging` secrets are not set yet.
+  - (by: founder, done by the project session)
 - 2026-10-22 — M2 invoice upload cap is 4 MiB, not the 10 MB in the project plan (§3.7, §3.11.4): Vercel's request body limit (4.5 MB) is fixed. Larger PDFs would need direct-to-Storage uploads, which is open question 2 in the M2 plan (by: lead, from the M2 plan)
 - 2026-10-21 — Project repo: private `digialto7-byte/osteria-dei-rossi-app` approved. Claude could not create it (GitHub integration returned 403); the founder creates the empty repo and gives the Claude GitHub App access (by: founder)
 
