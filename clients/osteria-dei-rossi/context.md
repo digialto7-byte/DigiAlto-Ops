@@ -9,7 +9,17 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M4 (invoice review screen), plus a small PR with the anonymised AT8 sample invoices once the founder pastes them. Q2 (totals basis, gross or net) and Q3 (negative discount/return lines) are open for the founder, best confirmed with the accountant
+- Next, in the project session: a small PR for the extraction token budget (EXTRACTION_MAX_TOKENS vs MAX_EXTRACTED_LINES), then M5 (invoice approval and receipts). M5's plan carries the deferred-invoice receipt date as an open question
+- Done: M4 review screen merged 2026-10-22 (osteria-dei-rossi-app#11).
+  - Built:
+    - a review screen that shows the document next to the lines, with line actions: map, split, non-stock with a cost centre, credit;
+    - supplier link or suggestion, and header corrections;
+    - per-supplier mapping memory, with auto-mapping and propagation;
+    - an extraction-quality report (Gate 1 correction rate).
+  - Verified: CI green, including a new two-session race job; code-reviewer PASS round 5.
+  - The lead read every SECURITY DEFINER procedure (fixed search_path, owner/admin check, tenant scope via the invoice lock) and their grants.
+  - Known gaps: supplier_item still has M2's UPDATE grant for owner/admin; clearing a duplicate does not re-run auto-mapping.
+  - Not yet on staging: migrations 20261022130000–131000, so the document iframe check (VT1) on the preview waits
 - Done: first anonymised AT8 contract invoice merged 2026-10-22 (osteria-dei-rossi-app#12).
   - The fixture is a regenerated PDF of the founder's real vegetable-supplier deferred invoice: 4 pages, 82 lines, €770,39. All identifiers are fake; the line data is identical.
   - It also adds the expected JSON and a guard test. CI green; code-reviewer PASS round 3; the lead checked the PDF text and metadata for leftovers.
@@ -114,6 +124,14 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - [ ] Founder (optional): Supabase staging → Auth → enable leaked-password protection (the only security-advisor WARN; login is magic-link only, so no effect today)
 - [ ] Founder, to make M3 extraction live on staging: Vercel env `ANTHROPIC_API_KEY`, `EXTRACTION_MODEL_ID`, `CRON_SECRET` (≥ 32 characters); Supabase Vault secrets `app_base_url` and `cron_secret` (same value); answer M3 Q5 (which environments get a key; is the 120 s function limit available on Hobby?)
 - [ ] Founder: approve the restaurant's legal entity name and VAT number as client facts (they appear as the buyer on supplier invoices). Until then the tenant VAT stays fake and M3's supplier-is-buyer check cannot fire on real data
+- [ ] Founder: OK to apply the M4 migrations (20261022130000–131000, schema only) to staging by hand, as before
+- [ ] Founder, M4 questions (osteria-dei-rossi-app#11 body):
+  - who may review invoices (owner/admin only, or the chef too, which means the chef sees € costs);
+  - starting cost centres;
+  - whether splits and first mappings count as corrections for Gate 1;
+  - whether a non-stock booking is remembered per supplier;
+  - behaviour after a supplier relink;
+  - smaller UI defaults
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
