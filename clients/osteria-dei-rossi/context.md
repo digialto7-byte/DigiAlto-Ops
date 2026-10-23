@@ -19,6 +19,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Guardrails held: M8 merged first and main was merged in; M9 replaces only `app.alert_rules_body`, with a savepoint per tenant × rule; pgTAP 076 pins M8's function bodies.
   - Verified: CI run 142 green; code-reviewer PASS in rounds 1, 2 and 4 (round 3 FAIL on a missing test, fixed).
   - The lead read the grants (API roles have SELECT only on `payable`), the guard (a superset of M5's), the alert kinds and the rules body.
+  - Staging: migrations 20261024100000–100500 were applied on 2026-10-23 with the founder's OK, and all 6 md5s match main 7ce60fe. The hourly `alert-rules` job now runs the payable reminder and digest rules; staging has no payables, so it raises nothing.
   - Known limit: a statement timeout in the hourly rules run rolls back the whole hour with no `job_run` row. M13's job-health check must read `cron.job_run_details` and `app.alert_refusal`
 - Done: M8 food cost engine merged 2026-10-23 (osteria-dei-rossi-app#17, merge 7fccc95).
   - What it does:
