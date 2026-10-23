@@ -166,6 +166,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
+- 2026-10-23 — M12 raw stock Q1: owner, chef and admin (DigiAlto support) may record stock counts, waste and corrections. The chef still sees quantities only, never € (V6) (by: founder, in the lead session)
 - 2026-10-23 — M11 staff PIN login, D1 = A, a narrow exception to the project rule "secret key only in cron and scripts".
   - One audited, server-only module, `src/server/staff-auth/privileged.ts`, holds the Supabase secret key.
   - It has seven fixed functions, exports no client, and is used only by the 4 login and staff routes.
