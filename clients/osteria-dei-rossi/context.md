@@ -9,7 +9,23 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M8 (plate costing and margins), with V6 as the baseline: the chef sees GP% and food cost % only, never €
+- Next, in the project session: M9 (payables and payment reminders), started in parallel at the founder's "get the MVP done ASAP" in the project session; it merges main after M8 and builds from M8's versions of shared functions
+- Done: M8 food cost engine merged 2026-10-23 (osteria-dei-rossi-app#17, merge 7fccc95).
+  - What it does:
+    - ingredient cost is the mean of the last 3 purchases (last and max are visible too); an ingredient never bought makes the recipe "incomplete", never 0;
+    - recipe and plate cost are worked out on read at a given date, nothing stored: food cost, food cost %, GP%, gross margin and a status;
+    - a price-variance alert is raised inside `approve_invoice` (owner only, cost-bearing); `app.try_raise_alert` makes sure a refused or failed alert never blocks the approval;
+    - screens `/costi` (owner/admin) and `/margini` (chef), plus a Gate 1 cost check against the chef's CSV.
+  - Founder decisions in the database:
+    - V6: the chef gets only `plate_margins_pct` (key, food cost %, GP%, status) plus name and target GP%, and no € anywhere;
+    - fixed costs are owner only: RLS and owner-only procedures, and admin gets null fixed, full and net figures.
+  - Verified: CI run 135 green, with the real-stack integration suite, the AT4 timer, Playwright and three new race cases; code-reviewer PASS in rounds 1 and 2.
+  - The lead read the definer procedures, RLS and grants, and diffed `approve_invoice` against M5: the M5 body is unchanged, with ingredient locks and a contained variance check added.
+  - Staging: migrations 20261023110000–110800 were applied on 2026-10-23 with the founder's OK, and all 9 md5s match main 7fccc95. RLS is on for the new tables: owner-only fixed costs, owner/admin cost basis, and `app.alert_refusal` with no policy (no API access).
+  - Known limits:
+    - each over-threshold ingredient adds about 0.5 s to an approval;
+    - the chef endpoint's URL grows with the number of plates;
+    - variance-check failures show only in `app.alert_refusal` until M13
 - Done: M7 recipes merged 2026-10-23 (osteria-dei-rossi-app#16, merge b3e1c36).
   - What it does:
     - recipes are immutable versions (`recipe_key` + `recipe` + `recipe_line` + `recipe_price`); UPDATE, DELETE and TRUNCATE raise for every role;
@@ -139,6 +155,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
+- 2026-10-23 — The M8 migrations (20261023110000–110800) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — M8: fixed costs (rent, labour and so on) are owner only, for read and write. Admin (DigiAlto support), chef and waiter cannot see them, because in a small team a labour total can reveal a salary (by: founder, in the lead session)
 - 2026-10-23 — The M7 migrations (20261023100000–100800) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — M7 Q6: only the owner confirms allergens. Admin (DigiAlto support) and chef may import or edit allergen lists but never confirm them, because an allergen declaration is the business's own food-safety responsibility (by: founder, in the lead session)
@@ -222,6 +239,18 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q8 undoing an approval: none in M5.
   - Review notes for later: release a duplicate whose original was rejected; show the upload time or a link next to the partner label
 - [x] 2026-10-23: the founder pasted 141000 into the staging SQL editor; the lead verified it (content matches main, CRLF line endings only)
+- [ ] Founder, M8 questions (osteria-dei-rossi-app#17 body; the build uses these defaults):
+  - Q3: sale VAT is 10 % for every dish; please confirm with the accountant;
+  - Q5: we need the monthly rent, labour and utilities figures; no real figure is loaded;
+  - Q8: which cost sheet the chef keeps (the default is a CSV `piatto;costo_cibo`, ±5 %);
+  - defaults in force:
+    - Q1 simple mean of the last 3 purchases;
+    - Q2 max over all purchases;
+    - Q4 GP on food cost;
+    - Q6 fixed cost "not allocated" until sales exist;
+    - Q7 never-bought ingredients make the cost incomplete;
+    - Q9 increases and decreases alert, strictly above 10 %;
+    - Q10/Q11 cost rules and basis owner and admin
 - [ ] Founder, M7 questions (osteria-dei-rossi-app#16 body; the build uses these defaults):
   - Q2: the chef's file uses our template, and an import never confirms allergens;
   - Q3: the sale price includes VAT;
