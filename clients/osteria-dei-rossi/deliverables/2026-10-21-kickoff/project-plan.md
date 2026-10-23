@@ -299,7 +299,7 @@ the secret from Supabase Vault, so it never appears in the job definition. Every
 
 #### 3.11.2 Role matrix (enforced by RLS and procedure checks, not only the UI)
 
-| Data | owner | admin | chef (base plan, see V6) | waiter |
+| Data | owner | admin | chef (base plan; V6 applies since Q16, 2026-10-23) | waiter |
 |---|---|---|---|---|
 | invoices, lines, PDFs, payables, price_history, supplier_item, fixed_cost_period | RW | RW | — | — |
 | suppliers (names, delivery settings), ingredients, locations | RW | RW | R | — |
@@ -594,7 +594,7 @@ invoices); time is injected (fake clock) in unit tests.
   7. `recipe_cost_at(key, date)` uses the version and prices in force on that date.
   8. Plate below target GP% → status `below_target`.
   9. Cost check: a fixture "chef spreadsheet" with one plate 6% off → listed; 4% off → not listed.
-  10. pgTAP and API: waiter → no access to cost views and endpoints. Chef can read plate costs and margins (base plan, §3.11.2).
+  10. pgTAP and API: waiter → no access to cost views and endpoints. Chef → 0 rows or a permission error on cost tables and views; `plate_margins_pct()` returns only `food_cost_pct` and `gp_pct`, no € fields (V6.1, V6.2; Q16 answered 2026-10-23).
 
 **M9 — Payables, reminders, weekly digest, supplier statement**
 - Goal: no late supplier payments without a reason.
@@ -682,7 +682,7 @@ invoices); time is injected (fake clock) in unit tests.
   4. Two stew batches on one day → lot codes `…-1`, `…-2`.
   5. A price change after production does not change `batch_cost`.
   6. use_by across the 2027-03-28 DST change is correct in Europe/Rome.
-  7. pgTAP: waiter cannot execute `produce_batch` or read `batch_cost`; chef can read `batch_cost` (base plan, §3.11.2).
+  7. pgTAP: waiter cannot execute `produce_batch` or read `batch_cost`; chef can execute `produce_batch` but cannot read `batch_cost` (V6.1; Q16 answered 2026-10-23).
 
 **M15 — Batch actions, waste reporting, staff meals**
 - Goal: the kitchen keeps the worked layer true with one or two taps.
@@ -799,7 +799,7 @@ variance report produced (M13, M14). Operational check.
   5. The unmapped-items report lists sold items without a recipe for the ISO week.
   6. Same-period comparison returns both periods and deltas.
   7. Playwright on the preview deploy with Chromium network throttling (4G profile): dashboard load time measured and reported against the 2 s NFR (gate evidence).
-  8. Waiter → 403. Chef sees only the endpoints listed in §3.11.2 (base plan).
+  8. Waiter → 403. Chef sees only the endpoints listed in §3.11.2, with no € amounts: margins as percentages, waste in quantities (V6.2, V6.3; Q16 answered 2026-10-23).
   9. Opening the dashboard increments the weekly opens count for that user (count only).
 
 **M23 — Push list, push-today, MVP forecast, discards vs push**
@@ -1002,7 +1002,7 @@ Accounts, ownership, legal:
 - **Q27** Weekly backup destination: whose Drive, a Shared Drive if service-account quota requires it, and who holds the backup encryption passphrase.
 
 Behaviour details the PRD leaves open:
-- **Q16** Chef "margins only": may the chef see € costs (base plan) or only percentages (→ V6)?
+- **Q16** Chef "margins only": may the chef see € costs (base plan) or only percentages (→ V6)? **Answered 2026-10-23: percentages only, V6 applies.**
 - **Q17** Fixed cost per plate before 30 days of sales exist: show as unallocated (base plan) or use a manual monthly plates estimate (→ V7)?
 - **Q18** Business-day cut-off for tables closed after midnight (proposed 02:00 Europe/Rome, so the KPIs can be final by 03:00).
 - **Q19** Portion rounding when actual output does not divide evenly (proposed: round down to a whole portion, chef can edit).

@@ -112,6 +112,13 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - The deploy job had been skipping because the GitHub `staging` secrets are not set yet.
   - (by: founder, done by the project session)
 - 2026-10-23 — M6 alerts: in-app only for now (variant V7). No email and no Resend, so no third-party processor gets the alert address; email stays a documented later option. The alert recipient is the owner only (by: founder, in the lead session)
+- 2026-10-23 — Q16: the chef sees percentages only (variant V6).
+  - Allowed: GP% and food cost % per plate, and the menu price.
+  - Not allowed: € costs, batch costs, order-line costs, cost views or € margins.
+  - It becomes the baseline for M8 test 10, M14 test 7 (chef part) and M22 test 8.
+  - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
+  - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
+  - (by: founder, in the lead session)
 - 2026-10-23 — Migration 141000 is applied to staging by the founder in the Supabase SQL editor, with the lead's prepared block; the lead verifies the md5 afterwards (by: founder)
 - 2026-10-22 — M5 Q1: stock receipts from an invoice that groups several delivery notes are dated with the invoice date (the default); per-delivery-note dates are not needed for now (by: founder, in the lead session)
 - 2026-10-22 — The M5 migrations (20261022140000–141000) go to staging by hand, schema only, as before (by: founder, in the lead session)
@@ -142,7 +149,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - [ ] Founder approves `deliverables/2026-10-21-kickoff/project-plan.md` (47 milestones: MVP M0–M25, Phase 2 M26–M40, Phase 3 M41–M46) and ADR-001 to ADR-005 (all `proposed`)
 - [ ] Founder answers the plan's open questions Q1–Q29 (Q9 answered; Q10 answered for Vercel, Supabase Pro for production backups still open before M25; Q11 open, not blocking M0)
 - [ ] Founder signs off on the plan's departures from the PRD: Next.js 16, pg_cron instead of Vercel Cron, new Supabase keys, cost columns split out, peppered PIN auth
-- [ ] Founder decides Q16 (chef sees € costs, or percentages only = V6; lead recommends V6) and Q24 (which MVP milestones may slip past go-live)
+- [ ] Founder decides Q24 (which MVP milestones may slip past go-live). Q16 was answered 2026-10-23: V6, percentages only
 - [x] Project repo created by the founder: https://github.com/digialto7-byte/osteria-dei-rossi-app; bootstrap kit + PRD + plan + ADRs pushed on `chore/bootstrap`, draft PR digialto7-byte/osteria-dei-rossi-app#1 (2026-10-21)
 - [x] Vercel project `osteria-dei-rossi-app` (`prj_FpiKBSYVplbOXtGRiZUpFwB56Hqq`) created by the founder in team `digialto7-5548s-projects`, linked to the GitHub repo; Vercel Authentication on all deployments except custom domains (2026-10-21)
 - [x] Vercel Framework Preset set to Next.js by the founder (2026-10-21); functions pinned to `fra1` in `vercel.json` in M0. Claude's Vercel connector is read-only (403 on create and update), so the founder sets the env vars M0 lists
