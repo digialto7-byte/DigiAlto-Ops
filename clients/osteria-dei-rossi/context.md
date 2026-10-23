@@ -21,6 +21,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - fixed costs are owner only: RLS and owner-only procedures, and admin gets null fixed, full and net figures.
   - Verified: CI run 135 green, with the real-stack integration suite, the AT4 timer, Playwright and three new race cases; code-reviewer PASS in rounds 1 and 2.
   - The lead read the definer procedures, RLS and grants, and diffed `approve_invoice` against M5: the M5 body is unchanged, with ingredient locks and a contained variance check added.
+  - Staging: migrations 20261023110000–110800 were applied on 2026-10-23 with the founder's OK, and all 9 md5s match main 7fccc95. RLS is on for the new tables: owner-only fixed costs, owner/admin cost basis, and `app.alert_refusal` with no policy (no API access).
   - Known limits:
     - each over-threshold ingredient adds about 0.5 s to an approval;
     - the chef endpoint's URL grows with the number of plates;
@@ -154,6 +155,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
+- 2026-10-23 — The M8 migrations (20261023110000–110800) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — M8: fixed costs (rent, labour and so on) are owner only, for read and write. Admin (DigiAlto support), chef and waiter cannot see them, because in a small team a labour total can reveal a salary (by: founder, in the lead session)
 - 2026-10-23 — The M7 migrations (20261023100000–100800) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — M7 Q6: only the owner confirms allergens. Admin (DigiAlto support) and chef may import or edit allergen lists but never confirm them, because an allergen declaration is the business's own food-safety responsibility (by: founder, in the lead session)
