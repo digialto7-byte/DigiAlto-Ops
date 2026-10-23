@@ -9,7 +9,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M7 (recipes: immutable versions, sub-recipes, import), including the "allergens unknown" state and its acceptance test 6
+- Next, in the project session: M7 (recipes: immutable versions, sub-recipes, import), including the "allergens unknown" state and its acceptance test 6. In progress in draft osteria-dei-rossi-app#16 (plan and ADR-007 done, database steps under way)
 - Done: M6 in-app alerts merged 2026-10-23 (osteria-dei-rossi-app#15).
   - What it does:
     - an alert is raised at most once per item per Europe/Rome day, and stored with an ack-only guard and no delete;
@@ -19,7 +19,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - No email and no Resend.
   - Verified: CI green incl. race cases; code-reviewer PASS round 2.
   - The lead read the alert RLS and the two user-callable procedures (role check first, tenant-scoped) and confirmed raise_alert has no API-role access.
-  - Not yet on staging: migrations 20261022150000–150600, which wait for 141000 and the founder's OK.
+  - Staging: migrations 20261022150000–150600 applied by the lead on 2026-10-23 with the founder's OK; all 7 md5s match main 7b1280f. The `alert-rules` pg_cron job is scheduled hourly and finds nothing on the empty database. Security advisor: nothing new beyond the accepted definer WARN (now also `acknowledge_alert`, `raise_test_alert`, both role-checked first) and an INFO for the two `app` tables with RLS on and no policy, which is intended.
   - Known limit: the money guard on chef payloads is approximate (e.g. misses `eur`, refuses "Quartiere EUR"). This must be settled before chef-audience rules arrive (M12/M16/M19)
 - Done: M5 invoice approval merged 2026-10-22 (osteria-dei-rossi-app#14).
   - One transaction posts:
@@ -34,8 +34,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Verified: CI green incl. two-session race cases; code-reviewer PASS round 5 after 4 failed rounds, each fixed.
   - The lead read the definer procedures (owner/admin check, tenant-scoped row lock), the grants, RLS and append-only triggers.
   - Staging: migrations 20261022140000–140900 applied; the lead re-checked all 10 md5s on 2026-10-23.
-  - 141000 is not applied: the Supabase connector holds its `drop function` for a confirmation no one can answer. The founder pastes it into the SQL editor.
-  - Until 141000 lands, "Non è un doppione" on staging fails, because the app calls the new two-argument procedure
+  - 141000 was applied by the founder in the SQL editor on 2026-10-23, because the connector holds its `drop function` for a confirmation no one can answer. The lead checked it: `review_clear_duplicate(uuid,uuid)` is present and the old one-argument version is gone. The stored text has CRLF line endings from the editor; with CR removed its md5 is 2365dc2b411c56614f5e757d1d926824, matching main. `db push` matches on version, so this needs no fix.
 - Done: extraction token budget merged 2026-10-22 (osteria-dei-rossi-app#13).
   - EXTRACTION_MAX_TOKENS goes from 16 000 to 36 000, so the 200-line cap fits. More than 200 lines now reads as "too long" (output_truncated), and outputTokens are logged.
   - CI green; code-reviewer PASS round 2.
@@ -119,6 +118,8 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
+- 2026-10-23 — M7 Q6: only the owner confirms allergens. Admin (DigiAlto support) and chef may import or edit allergen lists but never confirm them, because an allergen declaration is the business's own food-safety responsibility (by: founder, in the lead session)
+- 2026-10-23 — The M6 migrations (20261022150000–150600) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — Migration 141000 is applied to staging by the founder in the Supabase SQL editor, with the lead's prepared block; the lead verifies the md5 afterwards (by: founder)
 - 2026-10-22 — M5 Q1: stock receipts from an invoice that groups several delivery notes are dated with the invoice date (the default); per-delivery-note dates are not needed for now (by: founder, in the lead session)
 - 2026-10-22 — The M5 migrations (20261022140000–141000) go to staging by hand, schema only, as before (by: founder, in the lead session)
@@ -197,7 +198,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q7 storage location: one per invoice;
   - Q8 undoing an approval: none in M5.
   - Review notes for later: release a duplicate whose original was rejected; show the upload time or a link next to the partner label
-- [ ] Founder (manual): paste the prepared 141000 block into the Supabase SQL editor for the staging project and run it once. Afterwards the lead checks md5 2365dc2b411c56614f5e757d1d926824
+- [x] 2026-10-23: the founder pasted 141000 into the staging SQL editor; the lead verified it (content matches main, CRLF line endings only)
 - [ ] Founder, M6 questions (osteria-dei-rossi-app#15 body; the build uses these defaults):
   - Q1 default audiences: price, payable and system alerts go to the owner; kitchen alerts go to owner and chef;
   - Q2 the chef sees quantity-only kitchen alerts (or none);
