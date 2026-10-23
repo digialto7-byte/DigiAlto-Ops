@@ -9,7 +9,28 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M7 (recipes: immutable versions, sub-recipes, import), including the "allergens unknown" state and its acceptance test 6. In progress in draft osteria-dei-rossi-app#16 (plan and ADR-007 done, database steps under way)
+- Next, in the project session: M8 (plate costing and margins), with V6 as the baseline: the chef sees GP% and food cost % only, never €
+- Done: M7 recipes merged 2026-10-23 (osteria-dei-rossi-app#16, merge b3e1c36).
+  - What it does:
+    - recipes are immutable versions (`recipe_key` + `recipe` + `recipe_line` + `recipe_price`); UPDATE, DELETE and TRUNCATE raise for every role;
+    - sub-recipes and batches, with a cycle check and a depth cap of 12 recipes on any path through a changed recipe;
+    - yield factor > 0 and ≤ 10; import and export with a dry run (owner/admin, at most 1000 rows); `/ricette` screens.
+  - Allergens (AT6):
+    - null means not stated, `'{}'` means declared none; existing `'{}'` rows became not stated;
+    - imports never confirm; recipes inherit "da confermare" at any depth, and the summary fails closed past the cap;
+    - in the ingredient import, `-` now means not stated (it meant none in M1).
+  - Founder decisions in the database:
+    - Q6, owner-only confirm: role checked first, a trigger refuses a non-owner confirmer, and there is no column grant on the confirmation fields;
+    - Q16 = V6: one price policy lets the chef read `sale_price` and `target_gp_pct`; the chef cannot write them, and no recipe table, view or RPC carries a € cost.
+  - Verified:
+    - CI run 124 green, including real-stack integration, Playwright and race cases;
+    - code-reviewer FAIL in round 1 (an unconfirmed ingredient 17 levels down; fixed with the depth guard), then PASS in rounds 2 and 3, after a graph-walk speed fix (from over 60 s to about 15 ms).
+  - The lead read the definer procedures, grants, RLS, the parser key list and the confirm path.
+  - Staging: migrations 20261023100000–100800 were applied by the lead on 2026-10-23 with the founder's OK, and all 9 md5s match main b3e1c36. The security advisor shows only the accepted definer WARN.
+  - Known limits:
+    - an export of a plate whose sub was deactivated will not import into an empty tenant;
+    - a large first import may be slow until ANALYZE runs;
+    - admin has no on-screen allergen editor
 - Done: M6 in-app alerts merged 2026-10-23 (osteria-dei-rossi-app#15).
   - What it does:
     - an alert is raised at most once per item per Europe/Rome day, and stored with an ack-only guard and no delete;
@@ -118,6 +139,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
+- 2026-10-23 — The M7 migrations (20261023100000–100800) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — M7 Q6: only the owner confirms allergens. Admin (DigiAlto support) and chef may import or edit allergen lists but never confirm them, because an allergen declaration is the business's own food-safety responsibility (by: founder, in the lead session)
 - 2026-10-23 — The M6 migrations (20261022150000–150600) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — Migration 141000 is applied to staging by the founder in the Supabase SQL editor, with the lead's prepared block; the lead verifies the md5 afterwards (by: founder)
@@ -199,6 +221,12 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q8 undoing an approval: none in M5.
   - Review notes for later: release a duplicate whose original was rejected; show the upload time or a link next to the partner label
 - [x] 2026-10-23: the founder pasted 141000 into the staging SQL editor; the lead verified it (content matches main, CRLF line endings only)
+- [ ] Founder, M7 questions (osteria-dei-rossi-app#16 body; the build uses these defaults):
+  - Q2: the chef's file uses our template, and an import never confirms allergens;
+  - Q3: the sale price includes VAT;
+  - Q4: no batch inside a batch;
+  - Q5: yield factor at most 10;
+  - Q7: no real client data until approved; loading the chef's real recipe file needs the founder's OK
 - [ ] Founder, M6 questions (osteria-dei-rossi-app#15 body; the build uses these defaults):
   - Q1 default audiences: price, payable and system alerts go to the owner; kitchen alerts go to owner and chef;
   - Q2 the chef sees quantity-only kitchen alerts (or none);
