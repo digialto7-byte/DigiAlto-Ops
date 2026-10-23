@@ -9,7 +9,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M11 (staff PIN login), with M12 (raw stock ledger) allowed in parallel under the same merge-order guardrails. M10 (Drive watch) waits for the founder's Google setup
+- Next, in the project session: M11 (staff PIN login), with M12 (raw stock ledger) allowed in parallel under the same merge-order guardrails. M10 (Drive watch) is postponed (founder 2026-10-23)
 - Done: M9 payables merged 2026-10-23 (osteria-dei-rossi-app#18, merge 7ce60fe).
   - What it does:
     - payable status open / scheduled / disputed / paid, with a paid date; paid → open only as a reversal with a reason; every change is audited;
@@ -166,6 +166,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
+- 2026-10-23 — M10 (Google Drive folder watch) is postponed, because invoices are already uploaded in the app as a photo or PDF (M2 upload and M3 extraction). Gate 1 is assessed on in-app uploads instead: 10 real invoices approved with under 10 % line corrections. The Google Cloud/Drive setup is no longer on the MVP path (by: founder, in the project session; relayed by the project session)
 - 2026-10-23 — The M9 migrations (20261024100000–100500) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — The M8 migrations (20261023110000–110800) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — M8: fixed costs (rent, labour and so on) are owner only, for read and write. Admin (DigiAlto support), chef and waiter cannot see them, because in a small team a labour total can reveal a salary (by: founder, in the lead session)
@@ -258,7 +259,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q32: the weekly summary lists all unpaid payables;
   - A1: owner and admin record payments, and only the owner gets reminders.
   - Also: please check the English texts of the digest.
-- [ ] Founder (manual, for M10 Drive watch / Gate 1): set up a Google Cloud project or service account and a shared Drive folder for the invoices; steps come with the M10 plan
+- [ ] Later (not MVP; M10 postponed 2026-10-23): founder sets up a Google Cloud project or service account and a shared Drive folder for invoices, when M10 Drive watch is picked up again
 - [ ] Founder, M8 questions (osteria-dei-rossi-app#17 body; the build uses these defaults):
   - Q3: sale VAT is 10 % for every dish; please confirm with the accountant;
   - Q5: we need the monthly rent, labour and utilities figures; no real figure is loaded;
