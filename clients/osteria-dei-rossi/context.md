@@ -9,7 +9,18 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M9 (payables and payment reminders), started in parallel at the founder's "get the MVP done ASAP" in the project session; it merges main after M8 and builds from M8's versions of shared functions
+- Next, in the project session: M11 (staff PIN login), with M12 (raw stock ledger) allowed in parallel under the same merge-order guardrails. M10 (Drive watch) waits for the founder's Google setup
+- Done: M9 payables merged 2026-10-23 (osteria-dei-rossi-app#18, merge 7ce60fe).
+  - What it does:
+    - payable status open / scheduled / disputed / paid, with a paid date; paid → open only as a reversal with a reason; every change is audited;
+    - status changes only through `set_payable_status` (owner/admin, role checked first), and a guard blocks direct writes for every role;
+    - in-app reminders at −7 days, on the due date and at +3 days while open, plus one weekly digest per ISO week; all are cost-bearing and owner only, with no email (founder M6 decision);
+    - a supplier statement, and screens `/pagamenti` and the supplier estratto conto.
+  - Guardrails held: M8 merged first and main was merged in; M9 replaces only `app.alert_rules_body`, with a savepoint per tenant × rule; pgTAP 076 pins M8's function bodies.
+  - Verified: CI run 142 green; code-reviewer PASS in rounds 1, 2 and 4 (round 3 FAIL on a missing test, fixed).
+  - The lead read the grants (API roles have SELECT only on `payable`), the guard (a superset of M5's), the alert kinds and the rules body.
+  - Staging: migrations 20261024100000–100500 were applied on 2026-10-23 with the founder's OK, and all 6 md5s match main 7ce60fe. The hourly `alert-rules` job now runs the payable reminder and digest rules; staging has no payables, so it raises nothing.
+  - Known limit: a statement timeout in the hourly rules run rolls back the whole hour with no `job_run` row. M13's job-health check must read `cron.job_run_details` and `app.alert_refusal`
 - Done: M8 food cost engine merged 2026-10-23 (osteria-dei-rossi-app#17, merge 7fccc95).
   - What it does:
     - ingredient cost is the mean of the last 3 purchases (last and max are visible too); an ingredient never bought makes the recipe "incomplete", never 0;
@@ -155,6 +166,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
+- 2026-10-23 — The M9 migrations (20261024100000–100500) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — The M8 migrations (20261023110000–110800) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — M8: fixed costs (rent, labour and so on) are owner only, for read and write. Admin (DigiAlto support), chef and waiter cannot see them, because in a small team a labour total can reveal a salary (by: founder, in the lead session)
 - 2026-10-23 — The M7 migrations (20261023100000–100800) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
@@ -239,6 +251,14 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q8 undoing an approval: none in M5.
   - Review notes for later: release a duplicate whose original was rejected; show the upload time or a link next to the partner label
 - [x] 2026-10-23: the founder pasted 141000 into the staging SQL editor; the lead verified it (content matches main, CRLF line endings only)
+- [ ] Founder, M9 questions (osteria-dei-rossi-app#18 body; the build uses these defaults):
+  - Q29: the +3 days reminder only while "Da pagare", not for scheduled payments;
+  - Q30: supplier credits are the short or damaged quantities on invoice lines, with no separate credit-note register;
+  - Q31: disputed invoices are in the supplier balance, shown apart;
+  - Q32: the weekly summary lists all unpaid payables;
+  - A1: owner and admin record payments, and only the owner gets reminders.
+  - Also: please check the English texts of the digest.
+- [ ] Founder (manual, for M10 Drive watch / Gate 1): set up a Google Cloud project or service account and a shared Drive folder for the invoices; steps come with the M10 plan
 - [ ] Founder, M8 questions (osteria-dei-rossi-app#17 body; the build uses these defaults):
   - Q3: sale VAT is 10 % for every dish; please confirm with the accountant;
   - Q5: we need the monthly rent, labour and utilities figures; no real figure is loaded;
