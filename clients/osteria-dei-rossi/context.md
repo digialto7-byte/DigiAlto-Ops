@@ -139,6 +139,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
+- 2026-10-23 — M8: fixed costs (rent, labour and so on) are owner only, for read and write. Admin (DigiAlto support), chef and waiter cannot see them, because in a small team a labour total can reveal a salary (by: founder, in the lead session)
 - 2026-10-23 — The M7 migrations (20261023100000–100800) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — M7 Q6: only the owner confirms allergens. Admin (DigiAlto support) and chef may import or edit allergen lists but never confirm them, because an allergen declaration is the business's own food-safety responsibility (by: founder, in the lead session)
 - 2026-10-23 — The M6 migrations (20261022150000–150600) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
