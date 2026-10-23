@@ -9,7 +9,18 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: build M6 (alerts, in-app only) on feat/m06-alerts (osteria-dei-rossi-app#15)
+- Next, in the project session: M7 (recipes: immutable versions, sub-recipes, import), including the "allergens unknown" state and its acceptance test 6
+- Done: M6 in-app alerts merged 2026-10-23 (osteria-dei-rossi-app#15).
+  - What it does:
+    - an alert is raised at most once per item per Europe/Rome day, and stored with an ack-only guard and no delete;
+    - the owner sees every alert; the chef sees only quantity-only kitchen alerts, never €; admin and waiter see none;
+    - an hourly rules job runs with no network calls;
+    - there is an /avvisi screen.
+  - No email and no Resend.
+  - Verified: CI green incl. race cases; code-reviewer PASS round 2.
+  - The lead read the alert RLS and the two user-callable procedures (role check first, tenant-scoped) and confirmed raise_alert has no API-role access.
+  - Not yet on staging: migrations 20261022150000–150600, which wait for 141000 and the founder's OK.
+  - Known limit: the money guard on chef payloads is approximate (e.g. misses `eur`, refuses "Quartiere EUR"). This must be settled before chef-audience rules arrive (M12/M16/M19)
 - Done: M5 invoice approval merged 2026-10-22 (osteria-dei-rossi-app#14).
   - One transaction posts:
     - stock receipts and lots;
@@ -180,6 +191,13 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q8 undoing an approval: none in M5.
   - Review notes for later: release a duplicate whose original was rejected; show the upload time or a link next to the partner label
 - [ ] Founder (manual): paste the prepared 141000 block into the Supabase SQL editor for the staging project and run it once. Afterwards the lead checks md5 2365dc2b411c56614f5e757d1d926824
+- [ ] Founder, M6 questions (osteria-dei-rossi-app#15 body; the build uses these defaults):
+  - Q1 default audiences: price, payable and system alerts go to the owner; kitchen alerts go to owner and chef;
+  - Q2 the chef sees quantity-only kitchen alerts (or none);
+  - Q3 alerts are kept for good;
+  - Q4 the day is the Europe/Rome calendar day;
+  - Q5 admin has no read access.
+  - Also: M0 Q-G planned "Resend SMTP in M6" for login emails; with no Resend, login emails stay on Supabase's built-in sender until decided
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
