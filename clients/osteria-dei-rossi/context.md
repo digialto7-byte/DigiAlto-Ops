@@ -166,6 +166,14 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
+- 2026-10-23 — M11 staff PIN login, D1 = A, a narrow exception to the project rule "secret key only in cron and scripts".
+  - One audited, server-only module, `src/server/staff-auth/privileged.ts`, holds the Supabase secret key.
+  - It has seven fixed functions, exports no client, and is used only by the 4 login and staff routes.
+  - Pre-login PIN checks have attempt limits and a lockout in Postgres.
+  - The project CLAUDE.md rule 2 gets a one-line amendment.
+  - Chosen over public anonymous PIN functions (V1) and script-only staff creation (V2).
+  - (by: founder, in the lead session)
+- 2026-10-23 — M11 Q10, employee monitoring: the owner does not see per-person login or logout times. They are kept only for security, with minimal retention, in line with Italian rules on employee monitoring (by: founder, in the lead session)
 - 2026-10-23 — M10 (Google Drive folder watch) is postponed, because invoices are already uploaded in the app as a photo or PDF (M2 upload and M3 extraction). Gate 1 is assessed on in-app uploads instead: 10 real invoices approved with under 10 % line corrections. The Google Cloud/Drive setup is no longer on the MVP path (by: founder, in the project session; relayed by the project session)
 - 2026-10-23 — The M9 migrations (20261024100000–100500) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
 - 2026-10-23 — The M8 migrations (20261023110000–110800) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
