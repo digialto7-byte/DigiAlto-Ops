@@ -9,7 +9,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M6 (next milestone in plan §5a) once the founder has seen M5. M5's 8 open questions run on their defaults until answered
+- Next, in the project session: build M6 (alerts, in-app only) on feat/m06-alerts (osteria-dei-rossi-app#15)
 - Done: M5 invoice approval merged 2026-10-22 (osteria-dei-rossi-app#14).
   - One transaction posts:
     - stock receipts and lots;
@@ -22,7 +22,9 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Duplicates are confirmed per pair, with the action naming the partner (founder decision A).
   - Verified: CI green incl. two-session race cases; code-reviewer PASS round 5 after 4 failed rounds, each fixed.
   - The lead read the definer procedures (owner/admin check, tenant-scoped row lock), the grants, RLS and append-only triggers.
-  - Staging: migrations 20261022140000–141000 being applied with the founder's OK (2026-10-22); the lead verifies the md5s
+  - Staging: migrations 20261022140000–140900 applied; the lead re-checked all 10 md5s on 2026-10-23.
+  - 141000 is not applied: the Supabase connector holds its `drop function` for a confirmation no one can answer. The founder pastes it into the SQL editor.
+  - Until 141000 lands, "Non è un doppione" on staging fails, because the app calls the new two-argument procedure
 - Done: extraction token budget merged 2026-10-22 (osteria-dei-rossi-app#13).
   - EXTRACTION_MAX_TOKENS goes from 16 000 to 36 000, so the 200-line cap fits. More than 200 lines now reads as "too long" (output_truncated), and outputTokens are logged.
   - CI green; code-reviewer PASS round 2.
@@ -98,6 +100,8 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Each is recorded in `supabase_migrations.schema_migrations` with checksums matching the repo, so the CI deploy treats them as applied.
   - The deploy job had been skipping because the GitHub `staging` secrets are not set yet.
   - (by: founder, done by the project session)
+- 2026-10-23 — M6 alerts: in-app only for now (variant V7). No email and no Resend, so no third-party processor gets the alert address; email stays a documented later option. The alert recipient is the owner only (by: founder, in the lead session)
+- 2026-10-23 — Migration 141000 is applied to staging by the founder in the Supabase SQL editor, with the lead's prepared block; the lead verifies the md5 afterwards (by: founder)
 - 2026-10-22 — M5 Q1: stock receipts from an invoice that groups several delivery notes are dated with the invoice date (the default); per-delivery-note dates are not needed for now (by: founder, in the lead session)
 - 2026-10-22 — The M5 migrations (20261022140000–141000) go to staging by hand, schema only, as before (by: founder, in the lead session)
 - 2026-10-22 — M5 duplicate gate for suppliers without VAT: a name match stays an overridable warning (M2 Q5), but per pair.
@@ -175,6 +179,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q7 storage location: one per invoice;
   - Q8 undoing an approval: none in M5.
   - Review notes for later: release a duplicate whose original was rejected; show the upload time or a link next to the partner label
+- [ ] Founder (manual): paste the prepared 141000 block into the Supabase SQL editor for the staging project and run it once. Afterwards the lead checks md5 2365dc2b411c56614f5e757d1d926824
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
