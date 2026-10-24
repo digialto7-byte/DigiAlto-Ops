@@ -18,6 +18,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - M16 replaces only `app.alert_rules_body` (M9's blocks kept, one isolated block per rule); `app.run_alert_rules` is unchanged.
   - Merged second: main (M15) was merged in, and the audit check lists in 20261030100000 are the union of M11, M13, M15 and M16 (edited in place, never applied anywhere); a new config test guards the union.
   - Verified: CI run 196 green on af82d3d; code-reviewer FAIL round 1 (two integration-test defects, fixed), PASS round 2. The lead read the role gates, alert payloads (no €), the rules body diff and the audit union.
+  - Lessons from the M15/M16 reviews, captured in `tdd-workflow` (two-of-each integration fixtures; select inside a label in Playwright) and `engineering-standards` (service_role grant for tables read with the secret key).
   - Open: Q60–Q67 (PR body; defaults in force). Q67: the purchase horizon counts today's full weekday average, so it over-orders slightly; the recommendation is to accept that for the MVP.
 - Done: M15 batch actions merged 2026-10-24 (osteria-dei-rossi-app#25, merge e9b72bb).
   - What it does: adjust, discard, split and reprint batches; staff-meal rules confirmed once per business day; the waste € report for raw stock and batches together.
