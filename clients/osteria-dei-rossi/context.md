@@ -9,7 +9,15 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M17 and M18 planning from main 0bf2dad
+- Paused 2026-10-24 at the founder's request. Next, when it resumes, in the project session:
+  - M18 order entry (feat/m18-order-entry 27bfab9; code-reviewer PASS round 2; no PR yet): merge main with M17, open a draft PR, mark it ready for the one heavy run, then hand off.
+  - Demo data (feat/demo-data a6f24f1; steps 1–11 of 15 built locally; no PR, nothing on staging): add M17's tables (and later M18's) to the demo purge list, then finish steps 12–15 and get it reviewed.
+- Done: M17 menu and tables merged 2026-10-24 (osteria-dei-rossi-app#27, merge 8815e90).
+  - Menu items with an append-only price history, dining tables, table sessions and the coperto. Plate GP now uses the mapped menu item's price and VAT.
+  - The tables' RLS is owner/admin only; the waiter reads the menu and tables through definer functions with sale prices only and no costs.
+  - Verified: CI run 208 green on cc12f65; code-reviewer PASS (two MINORs fixed). The lead read the RLS, grants and audit union (a superset of main).
+  - Open: Q68–Q74 (PR body; defaults in force). Staging: 20261031* need the founder's OK.
+- Done: CI budget merged 2026-10-24 (osteria-dei-rossi-app#29, merge 9d6cc35). Draft PRs run lint, types and unit tests only; the heavy jobs run once a PR is ready and on main; docs-only PRs skip CI. Also merged: #28 (the test lessons copied into the app's skills).
 - Staging: M11 files 01–08 (20261025100000–100700) are applied and their md5s match main; 20261025100800 onward waits on the founder approving the Supabase connector's confirmation prompt (it timed out twice, nothing half-applied). Then M12, M13 (20261027*) and M14 (20261028*), both OK'd 2026-10-24; M15 (20261029*) and M16 (20261030*) still need the founder's OK
 - Done: M16 alert rules merged 2026-10-24 (osteria-dei-rossi-app#26, merge 0bf2dad).
   - What it does: hourly prep, raw-short, purchase and expiry rules; `/riordino` settings for minimum and target levels, supplier delivery days, cut-off and lead time, and recipe minimums.
@@ -222,6 +230,9 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
 - 2026-10-24 — The M11 and M12 migrations (20261025100000–101000, 20261026100000–100900) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
+- 2026-10-24 — CI blocked: GitHub stopped starting Actions jobs on the private app repo from 15:50Z ("recent account payments have failed or your spending limit needs to be increased"). Founder chose no spend: cheaper CI (#29) (by: founder, in the lead session)
+- 2026-10-24 — The app repo was made PUBLIC by the founder to get free Actions minutes, until the minutes reset on 2026-11-01, when it goes private again. Accepted: the PRD and `docs/client/` (the real menu with prices, address and phone, recipe drafts, ingredient list) are permanently exposed through history and clones. While it is public, no real client data (recipe quantities, invoices, supplier prices or names, staff, legal details) is committed there; it stays in DigiAlto-Ops. A scan of all 535 commits found no secrets. The lead has a reminder set for 2026-11-01 (by: founder)
+- 2026-10-24 — Demo data on staging: a separate tenant flagged `is_demo` ("Osteria Demo (dati di prova)"), seeded through the real procedures and removable by an owner-only purge proven not to touch real tenants. Running it on staging needs the founder's OK; the founder runs it so the secret key never passes through a session (by: founder, in the project session, as relayed; not yet confirmed to the lead)
 - 2026-10-24 — The M13 and M14 migrations (20261027*, 20261028*) go to staging by hand after M11 and M12, schema only; the lead applies them and checks the md5s, and the founder approves the Supabase connector's confirmation prompts as they appear (by: founder, in the lead session)
 - 2026-10-24 — The M11 T1 PIN-auth spike may run once against staging (one temporary test staff user, about 30 sign-ins, then deleted).
   - It needs the staging secret key and `PIN_PEPPER`, which never pass through chat.
@@ -360,7 +371,11 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   2. Same environment: deployment branches `main` only; a required reviewer is optional.
   3. Actions → "T1 spike on staging" → Run workflow on `main`, approve it, and send the run link to the lead.
 - [ ] Founder, M13–M16 questions (PR bodies of osteria-dei-rossi-app#22, #23, #25, #26; the build uses the defaults): Q33–Q39, Q40–Q47, Q48–Q53, Q60–Q67
-- [ ] Founder: OK for the M15 and M16 migrations (20261029*, 20261030*) on staging
+- [ ] Founder: OK for the M15, M16 and M17 migrations (20261029*, 20261030*, 20261031*) on staging
+- [ ] Founder, while the app repo is public: GitHub → Settings → Actions → General, require approval for all outside collaborators' fork PR workflows; Code security, turn on secret scanning and push protection; Vercel, check that fork protection is on
+- [ ] Founder: on 2026-11-01 switch osteria-dei-rossi-app back to private; also check GitHub billing (payment or spending limit) so CI keeps starting
+- [ ] Founder (before the AT7 perf workflow is first run): set the `STAGING_APP_HOST` variable on the GitHub `staging` environment
+- [ ] Founder, M17 questions Q68–Q74 (osteria-dei-rossi-app#27 body; defaults in force)
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
