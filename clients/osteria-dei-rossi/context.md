@@ -9,7 +9,36 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M11 (staff PIN login), with M12 (raw stock ledger) allowed in parallel under the same merge-order guardrails. M10 (Drive watch) is postponed (founder 2026-10-23)
+- Next, in the project session: M13 (counts, variance, audit log, nightly invariants; #22) and M14 (batch production; #23), both merging main 5c46fa1 before hand-off
+- Done: M11 staff PIN login merged 2026-10-23 (osteria-dei-rossi-app#20, merge 5c46fa1).
+  - What it does:
+    - staff are Supabase Auth users with a synthetic `@staff.invalid` address; the password is an HMAC of the PIN keyed by `PIN_PEPPER`, so no app table holds a PIN or anything derived from it;
+    - login only on devices enrolled with a single-use code;
+    - lockouts: 5 failures per user → 15 minutes; 20 per device per hour → device locked, with an owner-only alert;
+    - staff sessions end at the business-day cut-off; `/pin`, `/dispositivo`, `/personale`, `/dispositivi`.
+  - D1 = A, as decided: one audited module, `src/server/staff-auth/privileged.ts`, holds the secret key.
+    - The admin client is imported only by the cron wrapper and that module.
+    - The pre-login RPCs are granted to service_role only, with no anon access.
+    - The project CLAUDE.md rule 2 is amended.
+  - Q10: no per-person login times for the owner.
+  - Verified: CI run 172 green, including a T1 spike on the local stack (AT8 a–e PASS); code-reviewer FAIL in rounds 1–3, all fixed, then two narrow PASS reviews.
+  - The lead read the importers, grants, lint allow-list and rule 2.
+  - It also carried a fix for main's fact-sheet grid, a 1 px overflow at 360 px that had failed every PR since 22:00 UTC.
+  - Open:
+    - the founder sets `PIN_PEPPER` in Vercel (32+ characters, server-only, different for Production and Preview);
+    - T4: confirm Vercel's x-forwarded-for handling before go-live;
+    - a low-severity PIN-change window (one-RPC fix if wanted).
+- Done: M12 raw stock merged 2026-10-23 (osteria-dei-rossi-app#21, merge 62ac62b).
+  - What it does:
+    - FEFO consumption, with any shortfall going negative;
+    - waste with reason codes, valued in € for owner and admin only;
+    - transfers capped at the source location total;
+    - whole-operation reversals;
+    - stock on hand derived only from movements.
+  - The `negative_stock` alert is quantity-only, goes to owner and chef, and is raised via `try_raise_alert`.
+  - `app.raise_alert` gains a final chef-payload allow-list (ids, quantities, codes); the lead diffed it against main and nothing else changed.
+  - Q1 (founder): owner, chef and admin write stock. The chef never sees €: `stock_movement` RLS is owner/admin and no chef stock RPC returns a cost.
+  - Verified: CI run 162 green, including the AT2 property test; code-reviewer FAIL in round 1 (transfer over the location total, fixed), then PASS in round 2
 - Done: M9 payables merged 2026-10-23 (osteria-dei-rossi-app#18, merge 7ce60fe).
   - What it does:
     - payable status open / scheduled / disputed / paid, with a paid date; paid → open only as a reversal with a reason; every change is audited;
@@ -165,6 +194,11 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - It becomes the baseline for M8 test 10, M14 test 7 (chef part) and M22 test 8.
   - In M7 the chef may read `sale_price` and `target_gp_pct` but may not change `sale_price`.
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
+  - (by: founder, in the lead session)
+- 2026-10-24 — The M11 and M12 migrations (20261025100000–101000, 20261026100000–100900) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
+- 2026-10-24 — The M11 T1 PIN-auth spike may run once against staging (one temporary test staff user, about 30 sign-ins, then deleted).
+  - It needs the staging secret key and `PIN_PEPPER`, which never pass through chat.
+  - So it runs as a GitHub workflow using the `staging` environment secrets once the founder has set them, or the founder starts it.
   - (by: founder, in the lead session)
 - 2026-10-23 — M12 raw stock Q1: owner, chef and admin (DigiAlto support) may record stock counts, waste and corrections. The chef still sees quantities only, never € (V6) (by: founder, in the lead session)
 - 2026-10-23 — M11 staff PIN login, D1 = A, a narrow exception to the project rule "secret key only in cron and scripts".
