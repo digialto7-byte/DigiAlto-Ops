@@ -9,7 +9,32 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: M13 (counts, variance, audit log, nightly invariants; #22) and M14 (batch production; #23), both merging main 5c46fa1 before hand-off
+- Next, in the project session: M17 and M18 planning from main 0bf2dad
+- Staging: M11 files 01–08 (20261025100000–100700) are applied and their md5s match main; 20261025100800 onward waits on the founder approving the Supabase connector's confirmation prompt (it timed out twice, nothing half-applied). Then M12, M13 (20261027*) and M14 (20261028*), both OK'd 2026-10-24; M15 (20261029*) and M16 (20261030*) still need the founder's OK
+- Done: M16 alert rules merged 2026-10-24 (osteria-dei-rossi-app#26, merge 0bf2dad).
+  - What it does: hourly prep, raw-short, purchase and expiry rules; `/riordino` settings for minimum and target levels, supplier delivery days, cut-off and lead time, and recipe minimums.
+  - Settings are written only through audited owner/admin procedures (direct column grants revoked); owner, admin and chef read them, quantities only.
+  - Five new alert kinds, none cost-bearing: prep, raw-short and expiry go to owner and chef; purchase goes to the owner only (Q60 default). Alerts stay in-app only (M6 decision).
+  - M16 replaces only `app.alert_rules_body` (M9's blocks kept, one isolated block per rule); `app.run_alert_rules` is unchanged.
+  - Merged second: main (M15) was merged in, and the audit check lists in 20261030100000 are the union of M11, M13, M15 and M16 (edited in place, never applied anywhere); a new config test guards the union.
+  - Verified: CI run 196 green on af82d3d; code-reviewer FAIL round 1 (two integration-test defects, fixed), PASS round 2. The lead read the role gates, alert payloads (no €), the rules body diff and the audit union.
+  - Open: Q60–Q67 (PR body; defaults in force). Q67: the purchase horizon counts today's full weekday average, so it over-orders slightly; the recommendation is to accept that for the MVP.
+- Done: M15 batch actions merged 2026-10-24 (osteria-dei-rossi-app#25, merge e9b72bb).
+  - What it does: adjust, discard, split and reprint batches; staff-meal rules confirmed once per business day; the waste € report for raw stock and batches together.
+  - The waste € report is owner/admin only (V6). Batch, staff-meal and label reads carry quantities only, so the chef never sees €.
+  - The nightly invariant check gains batch origin, split balance and batch state checks (M13's `ledger_checks_body`, additive).
+  - Verified: CI run 194 green on 3375685; code-reviewer FAIL round 1 (two-location bugs, a missing service_role grant and a waste-report valuation bug; all fixed test-first), PASS round 2. The lead read the grants, RLS, role gates and the audit-list union.
+  - Open: Q48–Q53 (PR body; defaults in force). Follow-up: a rule whose stored location is later deactivated cannot be confirmed or deactivated until it is saved with another location.
+- Done: T1 staging workflow merged 2026-10-24 (osteria-dei-rossi-app#24, merge 984dc07). It is a manual-only GitHub workflow on main, using the `staging` environment and refusing any project but `wjowhjsfpcdykxwgjipq`, for the one founder-approved PIN-auth spike run. It needs no `PIN_PEPPER`. Not run yet.
+- Done: M14 batch production merged 2026-10-24 (osteria-dei-rossi-app#23, merge 80e6809).
+  - Batches are produced from recipes with frozen costs; `batch_cost` RLS is owner/admin, so the chef sees portions only.
+  - Merged second after M13; the lead checked that its migrations were unchanged from the reviewed head.
+  - Adds the dev dependencies jsdom and @testing-library for component tests.
+  - Open: Q40–Q47 (PR body; defaults in force).
+- Done: M13 counts merged 2026-10-24 (osteria-dei-rossi-app#22, merge 081ea53).
+  - Stock count sessions with variance, an audit log screen, and a nightly ledger-invariant and job-health check.
+  - 20261027100800 restores the union of the audit_event and job_run check lists; the lead checked programmatically that no value on main was lost.
+  - Open: Q33–Q39 (PR body; defaults in force).
 - Done: M11 staff PIN login merged 2026-10-23 (osteria-dei-rossi-app#20, merge 5c46fa1).
   - What it does:
     - staff are Supabase Auth users with a synthetic `@staff.invalid` address; the password is an HMAC of the PIN keyed by `PIN_PEPPER`, so no app table holds a PIN or anything derived from it;
@@ -196,6 +221,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
 - 2026-10-24 — The M11 and M12 migrations (20261025100000–101000, 20261026100000–100900) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
+- 2026-10-24 — The M13 and M14 migrations (20261027*, 20261028*) go to staging by hand after M11 and M12, schema only; the lead applies them and checks the md5s, and the founder approves the Supabase connector's confirmation prompts as they appear (by: founder, in the lead session)
 - 2026-10-24 — The M11 T1 PIN-auth spike may run once against staging (one temporary test staff user, about 30 sign-ins, then deleted).
   - It needs the staging secret key and `PIN_PEPPER`, which never pass through chat.
   - So it runs as a GitHub workflow using the `staging` environment secrets once the founder has set them, or the founder starts it.
@@ -328,6 +354,12 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Q4 the day is the Europe/Rome calendar day;
   - Q5 admin has no read access.
   - Also: M0 Q-G planned "Resend SMTP in M6" for login emails; with no Resend, login emails stay on Supabase's built-in sender until decided
+- [ ] Founder (manual, for the T1 staging run, osteria-dei-rossi-app#24):
+  1. GitHub → Settings → Environments → `staging`: add the secrets `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` and `SUPABASE_SECRET_KEY` (staging values, typed into GitHub only).
+  2. Same environment: deployment branches `main` only; a required reviewer is optional.
+  3. Actions → "T1 spike on staging" → Run workflow on `main`, approve it, and send the run link to the lead.
+- [ ] Founder, M13–M16 questions (PR bodies of osteria-dei-rossi-app#22, #23, #25, #26; the build uses the defaults): Q33–Q39, Q40–Q47, Q48–Q53, Q60–Q67
+- [ ] Founder: OK for the M15 and M16 migrations (20261029*, 20261030*) on staging
 - [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
 
