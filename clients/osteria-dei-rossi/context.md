@@ -9,9 +9,32 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Paused 2026-10-24 at the founder's request. Next, when it resumes, in the project session:
-  - M18 order entry (feat/m18-order-entry 27bfab9; code-reviewer PASS round 2; no PR yet): merge main with M17, open a draft PR, mark it ready for the one heavy run, then hand off.
-  - Demo data (feat/demo-data a6f24f1; steps 1–11 of 15 built locally; no PR, nothing on staging): add M17's tables (and later M18's) to the demo purge list, then finish steps 12–15 and get it reviewed.
+- Next, in the project session: the owner dashboard (feat/owner-dashboard; plan and ADR-021 approved, Q106–Q116 answered), then UX P2 polish and M20.
+- Staging: deploys itself. deploy-staging.yml runs `supabase db push` after CI is green on main (the founder set the `staging` environment secrets on 2026-10-28). Main and staging match through M19 (20261106100700); the UX PR B migrations (20261107*) follow on the next green main.
+- Done: UX PR B merged 2026-10-28 (osteria-dei-rossi-app#35, merge 527ff0b).
+  - What it adds: Oggi counts and a setup checklist, empty states, the invoice flow, and the plate cost breakdown (the founder's request).
+  - Who sees what: the per-line € share, food cost %, GP % against target, price ex VAT and margin are for owner and admin; the chef sees percentages only (V6); the waiter sees nothing.
+  - Decision records: ADR-020 is accepted.
+  - Verified: CI run 246 green; code-reviewer PASS. The lead read the € gates in `plate_breakdown`, and `today_counts` (invoker, counts only).
+- Done: M19 firing, kitchen tickets and voids merged 2026-10-28 (osteria-dei-rossi-app#32, merge fe9029a).
+  - Costs: they are frozen at sale in `order_line_cost`, owner/admin only.
+  - Who sees what: the kitchen list is for owner, admin and chef.
+  - Verified:
+    - CI run 241 green; code-reviewer PASS;
+    - the lead checked read-only on staging that every existing batch_movement row passes the new shape check;
+    - auto-deployed to staging.
+- Done: UX P0 shell merged 2026-10-28 (osteria-dei-rossi-app#34, merge 23021b0).
+  - What it adds: one app shell with navigation grouped Oggi / Acquisti / Cucina / Sala / Gestione; the waiter lands on /tavoli; Esci; forms hidden from roles that can't use them (roles stay enforced in Postgres).
+- Done: demo data merged 2026-10-28 (osteria-dei-rossi-app#31, merge 7233edc), seeded on staging by the founder through demo-staging.yml.
+  - The reset is owner-only and requires typing the tenant name to confirm. It is allowed only while `tenant.demo_data_since` is set, and is the one recorded exception to append-only ledgers (CLAUDE.md invariant 6, ADR-018).
+- Done: staging deploy fix merged 2026-10-28 (osteria-dei-rossi-app#33, merge f10b8dd).
+  - Cause: M13's 20261027100000 had dropped M11's audit and job values, which staging's existing rows refused.
+  - Fix: the file was edited in place (it had never been applied). A config test now requires every re-definition of a check list to keep all earlier values.
+- Done: M18 order entry merged 2026-10-28 (osteria-dei-rossi-app#30, merge 035c648).
+  - Courses, modifiers, availability, the low-stock hint and the push pin.
+  - Session cookies drop Secure only on plain-http loopback, so WebKit tests can run.
+  - The waiter's payloads carry no cost.
+  - Verified: CI run 213 green; code-reviewer PASS.
 - Done: M17 menu and tables merged 2026-10-24 (osteria-dei-rossi-app#27, merge 8815e90).
   - Menu items with an append-only price history, dining tables, table sessions and the coperto. Plate GP now uses the mapped menu item's price and VAT.
   - The tables' RLS is owner/admin only; the waiter reads the menu and tables through definer functions with sale prices only and no costs.
@@ -230,6 +253,21 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - Known limit, accepted: menu prices are public, so food cost % lets the chef work out a plate's € cost.
   - (by: founder, in the lead session)
 - 2026-10-24 — The M11 and M12 migrations (20261025100000–101000, 20261026100000–100900) go to staging by hand, schema only, as before; the lead applies them and checks the md5s (by: founder, in the lead session)
+- 2026-10-28 — Owner dashboard (founder):
+  - Placement: the owner's Oggi becomes the dashboard, with the to-dos on top and tiles below. The admin lands on it too, without fixed costs or alert tiles. The chef keeps Oggi without a dashboard.
+  - Waste: the current ISO week, Mon–Sun, Europe/Rome.
+  - Food cost %: price-weighted and labelled "non pesata sulle vendite" until sales exist.
+  - Plates with no target are ranked after the others. Seen items keep a "Visto" badge. No usage counting until M22. "Due soon" means 7 days. Speed is measured locally on the demo data.
+  - Sales and covers are labelled slots until M19–M21 provide them (by: founder, in the lead session)
+- 2026-10-28 — UX plan answers (founder):
+  - The five nav groups stay as built, with Costi under Gestione.
+  - Each waiter uses their own phone.
+  - Alerts stay owner and chef only (project plan §3.11.2 corrected).
+  - Opening a table goes straight to the comanda (B8).
+  - Defaults stand on the renames (Q3) and the Impostazioni page (Q7).
+  - Founder request: a clearer plate cost breakdown and an at-a-glance owner dashboard (by: founder, in the lead session)
+- 2026-10-28 — Demo data goes into the EXISTING tenant, with an owner-only reset. This is the one sanctioned exception to append-only ledgers, while the demo marker is set; it was chosen over a separate demo tenant (by: founder, in the lead session)
+- 2026-10-28 — Staging migrations are deployed by the deploy-staging workflow (`supabase db push` after CI is green on main), replacing hand-applied files. The founder OK'd bringing staging up to main (M11 rest through M18) (by: founder, in the lead session)
 - 2026-10-24 — CI blocked: GitHub stopped starting Actions jobs on the private app repo from 15:50Z ("recent account payments have failed or your spending limit needs to be increased"). Founder chose no spend: cheaper CI (#29) (by: founder, in the lead session)
 - 2026-10-24 — The app repo was made PUBLIC by the founder to get free Actions minutes, until the minutes reset on 2026-11-01, when it goes private again. Accepted: the PRD and `docs/client/` (the real menu with prices, address and phone, recipe drafts, ingredient list) are permanently exposed through history and clones. While it is public, no real client data (recipe quantities, invoices, supplier prices or names, staff, legal details) is committed there; it stays in DigiAlto-Ops. A scan of all 535 commits found no secrets. The lead has a reminder set for 2026-11-01 (by: founder)
 - 2026-10-24 — Demo data on staging: a separate tenant flagged `is_demo` ("Osteria Demo (dati di prova)"), seeded through the real procedures and removable by an owner-only purge proven not to touch real tenants. Running it on staging needs the founder's OK; the founder runs it so the secret key never passes through a session (by: founder, in the project session, as relayed; not yet confirmed to the lead)
@@ -371,7 +409,6 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   2. Same environment: deployment branches `main` only; a required reviewer is optional.
   3. Actions → "T1 spike on staging" → Run workflow on `main`, approve it, and send the run link to the lead.
 - [ ] Founder, M13–M16 questions (PR bodies of osteria-dei-rossi-app#22, #23, #25, #26; the build uses the defaults): Q33–Q39, Q40–Q47, Q48–Q53, Q60–Q67
-- [ ] Founder: OK for the M15, M16 and M17 migrations (20261029*, 20261030*, 20261031*) on staging
 - [ ] Founder, while the app repo is public: GitHub → Settings → Actions → General, require approval for all outside collaborators' fork PR workflows; Code security, turn on secret scanning and push protection; Vercel, check that fork protection is on
 - [ ] Founder: on 2026-11-01 switch osteria-dei-rossi-app back to private; also check GitHub billing (payment or spending limit) so CI keeps starting
 - [ ] Founder (before the AT7 perf workflow is first run): set the `STAGING_APP_HOST` variable on the GitHub `staging` environment
