@@ -41,3 +41,7 @@
 {"date":"2026-10-31","client":"osteria-dei-rossi","task":"m23-push-forecast","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/42"}
 {"date":"2026-11-01","client":"osteria-dei-rossi","task":"m24-exports","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/43"}
 {"date":"2026-11-02","client":"osteria-dei-rossi","task":"a5-business-date-discards-ci-shards","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/49"}
+{"date":"2026-11-02","client":"osteria-dei-rossi","task":"m25a-password-login","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/45"}
+{"date":"2026-11-02","client":"osteria-dei-rossi","task":"m25b-navigation","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/46"}
+{"date":"2026-11-02","client":"osteria-dei-rossi","task":"m25c-services","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/47"}
+{"date":"2026-11-02","client":"osteria-dei-rossi","task":"a5-raw-waste-business-date","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/50"}

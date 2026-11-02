@@ -9,12 +9,14 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session, one ready PR at a time (each heavy CI run is ~15 min wall time in 2 shards):
-  1. osteria-dei-rossi-app#45 M25a sign-in: owner/admin e-mail + password, e-mail code fallback, staff PIN on enrolled devices, `/login` as the one entry (ADR-029 accepted).
-  2. osteria-dei-rossi-app#46 M25b navigation: Home · Gestione · Cucina · Sala · Anagrafica · Registro, "Altro" tab on phones (ADR-030 accepted, supersedes ADR-020).
-  3. osteria-dei-rossi-app#47 M25c services: Pranzo/Cena split of daily totals (ADR-031 accepted).
-  4. A5 follow-up: raw-stock waste by business day (new branch from main; new migrations only).
-  5. osteria-dei-rossi-app#44 M25 go-live: parked at step 2 of 20; resumes after 1–4 with the strict nonce CSP.
+- Next, in the project session, one ready PR at a time:
+  1. Security fix (new): public forms get `method="post"` and a disabled submit until hydrated, so a tap before the page's JS loads can never put a password or PIN in the URL or request logs (found from a WebKit e2e race on 2026-11-02).
+  2. osteria-dei-rossi-app#44 M25 go-live: resumes with the strict nonce CSP (measure perf and Vercel Hobby impact first), then the remaining steps.
+- Done: M25c Pranzo/Cena merged 2026-11-02 (osteria-dei-rossi-app#47, merge 2ccda88, ADR-031). Daily totals split by service in Report, day close, the Ieri tile and CSV; default Pranzo from 11:00, Cena from 16:00; schedules are versioned and apply forward only; owner/admin move a table until its day is final; the register total stays per day. Lead read: 7 new migrations, writes and reads behind `require_day_closer` (owner/admin), append-only tables with owner/admin RLS, per-service € only in owner/admin payloads.
+- Done: A5 raw-stock waste by business day merged 2026-11-02 (osteria-dei-rossi-app#50, merge b215326). Its migration was renamed to 20261121100000 before merge because staging already had later migrations and the deploy runs a plain `supabase db push`.
+- Done: M25b navigation merged 2026-11-02 (osteria-dei-rossi-app#46, merge cfc6504, ADR-030). Home with avvisi first; Gestione · Cucina · Sala · Anagrafica · Registro, "Altro" tab on phones; Fatture filters by date and fornitore, Pagamenti by fornitore and date (deactivated suppliers still offered); Sicurezza is an empty owner/admin placeholder for HACCP.
+- Done: M25a sign-in merged 2026-11-02 (osteria-dei-rossi-app#45, merge 4edd0f9, ADR-029). Owner/admin: e-mail + password, 6-digit e-mail code as the only recovery; staff: PIN on enrolled devices; `/login` is the one entry; 30-day session cap; 800 ms floor on public sign-in answers. It also carried fixes for two causes already on main (pgTAP 233 vs the live pg_cron, and a 12 s sync-lease stall after a page reload). Lead read: no migrations, secret key still read in one module, password change owner/admin only with the current password unless the sign-in is under 10 minutes old.
+- All four: CI green on the merged head (two Playwright shards), code-reviewer PASS, lead security read; staging deploys itself after each green main.
 - Go-live target: 12 January (M25 plan, Q188); the custom domain is still to decide.
 - Done: A5 business-day discards + CI Playwright shards merged 2026-11-02 (osteria-dei-rossi-app#49, merge fa55e17; it carried #48, which shows as merged).
   - Batch discards between 00:00 and the 02:00 cut-off now count on the business day: readers derive it from `created_at`; writers and ledger rows are unchanged (no backfill, no UPDATE).
@@ -222,6 +224,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - Due: Sprint 1 starts 2026-11-03 per the PRD roadmap [unverified]
 
 ## Decisions
+- 2026-11-02 — A migration that sorts before migrations already applied to staging is renamed before merge (it was never applied), rather than adding `--include-all` to the staging deploy (by: lead)
 - 2026-11-02 — #49 merged as it stood (green); the raw-stock half of A5 goes in its own follow-up PR so #45 is not held for another heavy run (by: lead)
 - 2026-11-02 — The e2e stack skips the 800 ms sign-in floor only when `E2E_AUTH_FLOOR_OFF=1` and Supabase is on loopback; any hosted Supabase keeps it (ADR-029, by: lead)
 - 2026-11-01 — A5: batch movements count by business day (02:00 cut-off), like everything else; readers use `created_at` (by: founder)
@@ -451,8 +454,9 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - [ ] Founder, M17 questions Q68–Q74 (osteria-dei-rossi-app#27 body; defaults in force)
 - [x] Q10 remainder: answered 2026-11-01, production stays on Supabase Free; our daily backup job (M25) is the only backup
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
-- [ ] Founder, after osteria-dei-rossi-app#45 merges: Vercel → Settings → Environment Variables, set `PIN_PEPPER` (a long random value, never reused from tests) and `SUPABASE_SECRET_KEY` (Supabase → Project Settings → API Keys) for Preview and Production
-- [ ] Founder: Supabase staging → Authentication → Sign In / Providers → Email, set the e-mail OTP expiry to 600 seconds (M25a)
+- [ ] Founder, now due (#45 merged; M25a plan §8 M-1/M-2): Supabase staging → Authentication: minimum password length 10, e-mail OTP expiry 600 s, secure password change off, security notifications off, Magic Link template = `supabase/templates/magic-link.html` with subject "Il tuo accesso a Osteria Dei Rossi", leaked-password protection on if offered on Free; Vercel Preview + Production: `SUPABASE_SECRET_KEY` (new key, Sensitive) and `PIN_PEPPER` (`openssl rand -hex 32`, Sensitive, kept in the password manager), then redeploy
+- [ ] Founder: tell the owner sessions older than 30 days end once; first time use "Inviami il link", type the code, choose a password (M-4)
+- [ ] Founder: 10-minute phone check on staging (M-3): iPhone and Android home-screen app, password sign-in survives an hour and a restart, code sign-in, staff enrolment opens "Chi sei?"
 - [ ] Founder, invoice extraction on staging: set `ANTHROPIC_API_KEY` and `EXTRACTION_MODEL_ID` in Vercel, and the Vault secrets the cron reads (project app `docs/` runbook)
 - [ ] Founder, client facts for `knowledge/clients/osteria-dei-rossi/profile.md`: legal name and VAT number, logo file, menu and allergens with the chef, recipe quantities, fixed costs, VAT 10%, the CSV format with the accountant, payment types
 - [ ] Founder: GDPR register items (Q13/Q14: DPA, sub-processors incl. GitHub for backups, 14 daily copies)
