@@ -1,6 +1,6 @@
 ---
 slug: osteria-dei-rossi
-updated: 2026-10-21
+updated: 2026-11-02
 ---
 
 # Osteria Dei Rossi — engagement context
@@ -9,7 +9,26 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session: the owner dashboard (feat/owner-dashboard; plan and ADR-021 approved, Q106–Q116 answered), then UX P2 polish and M20.
+- Next, in the project session, one ready PR at a time (each heavy CI run is ~15 min wall time in 2 shards):
+  1. osteria-dei-rossi-app#45 M25a sign-in: owner/admin e-mail + password, e-mail code fallback, staff PIN on enrolled devices, `/login` as the one entry (ADR-029 accepted).
+  2. osteria-dei-rossi-app#46 M25b navigation: Home · Gestione · Cucina · Sala · Anagrafica · Registro, "Altro" tab on phones (ADR-030 accepted, supersedes ADR-020).
+  3. osteria-dei-rossi-app#47 M25c services: Pranzo/Cena split of daily totals (ADR-031 accepted).
+  4. A5 follow-up: raw-stock waste by business day (new branch from main; new migrations only).
+  5. osteria-dei-rossi-app#44 M25 go-live: parked at step 2 of 20; resumes after 1–4 with the strict nonce CSP.
+- Go-live target: 12 January (M25 plan, Q188); the custom domain is still to decide.
+- Done: A5 business-day discards + CI Playwright shards merged 2026-11-02 (osteria-dei-rossi-app#49, merge fa55e17; it carried #48, which shows as merged).
+  - Batch discards between 00:00 and the 02:00 cut-off now count on the business day: readers derive it from `created_at`; writers and ledger rows are unchanged (no backfill, no UPDATE).
+  - New `public.business_date_of` (any signed-in staff role, returns a date only); `waste_costs` keeps its owner/admin cost gate.
+  - CI: the heavy job is 2 shards with a 30-minute cap each; pgTAP and integration run in shard 1.
+  - Verified: all 6 checks green on bfaeae5 after one founder re-run (the first run lost a browser page mid-test, no app error); code-reviewer PASS round 2; the lead read the 2 new migrations (role check first, tenant from `app.tenant_id()`, helpers revoked) and ran the monotonic check-list scan.
+- Done: M24 exports merged 2026-11-01 (osteria-dei-rossi-app#43, merge 0f1df68). Owner/admin only; CSV cells starting with = + - @ (also full-width) are escaped.
+- Done: M23 push list and forecast merged 2026-10-31 (osteria-dei-rossi-app#42, merge 28a3848). Pushing a plate needs a menu writer and the day price can't exceed the menu price; the waiter sees the pinned plate and its price, no cost or risk word.
+- Done: M22 KPI reporting merged 2026-10-31 (osteria-dei-rossi-app#41, merge 891b408). KPIs owner/admin; fixed costs owner only.
+- Done: M19b kitchen "Fatto" per item and close comanda merged 2026-10-31 (osteria-dei-rossi-app#40, merge b5f528c), the founder's request.
+- Done: M21 bill and day close merged 2026-10-31 (osteria-dei-rossi-app#39, merge 0c73030). Day close owner/admin only.
+- Done: M20 offline queue merged 2026-10-30 (osteria-dei-rossi-app#38, merge 5395a09). Each queued op is bound to the signed-in user; the service worker caches only 4 allow-listed cost-free reads. The review round fixed 3 real bugs.
+- Done: UX P2 polish (osteria-dei-rossi-app#37, merge 68b9454) and the owner dashboard (osteria-dei-rossi-app#36, merge 5277c12, ADR-021) merged 2026-10-29.
+- All merges above: CI green on the merged head, code-reviewer PASS, and the lead's read of role gates, RLS and the check-list union; staging deploys itself after each green main.
 - Staging: deploys itself. deploy-staging.yml runs `supabase db push` after CI is green on main (the founder set the `staging` environment secrets on 2026-10-28). Main and staging match through M19 (20261106100700); the UX PR B migrations (20261107*) follow on the next green main.
 - Done: UX PR B merged 2026-10-28 (osteria-dei-rossi-app#35, merge 527ff0b).
   - What it adds: Oggi counts and a setup checklist, empty states, the invoice flow, and the plate cost breakdown (the founder's request).
@@ -203,6 +222,22 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - Due: Sprint 1 starts 2026-11-03 per the PRD roadmap [unverified]
 
 ## Decisions
+- 2026-11-02 — #49 merged as it stood (green); the raw-stock half of A5 goes in its own follow-up PR so #45 is not held for another heavy run (by: lead)
+- 2026-11-02 — The e2e stack skips the 800 ms sign-in floor only when `E2E_AUTH_FLOOR_OFF=1` and Supabase is on loopback; any hosted Supabase keeps it (ADR-029, by: lead)
+- 2026-11-01 — A5: batch movements count by business day (02:00 cut-off), like everything else; readers use `created_at` (by: founder)
+- 2026-11-01 — Founder requests for M25a/b/c, all plans and ADRs accepted the same day, built before the rest of M25 (by: founder):
+  - M25a (ADR-029): no e-mail link for every login. Owner/admin use e-mail + password (code by e-mail as the only recovery); staff use the PIN; 30-day session cap; 800 ms floor on public sign-in answers (lead).
+  - M25b (ADR-030): Home with the avvisi first; Gestione (Fatture filtered by date and fornitore, Pagamenti filtered by fornitore and date); Cucina (Produzione, Magazzino, Riordino); Sala (Tavoli, Menu); Anagrafica (Ubicazioni, Ricette, Fornitori, Ingredienti, Personale); Registro (Sicurezza placeholder for HACCP fridge sensors, Costi, Chiusura, Report). Mobile first, as little friction as possible.
+  - M25c (ADR-031): services within a day; daily totals split Pranzo/Cena (default Pranzo from 11:00, Cena from 16:00, versioned per tenant); the register total stays per day.
+- 2026-11-01 — M25 go-live answers (plan `docs/plans/2026-11-01-m25-go-live.md` §7, by: founder):
+  - CI: Playwright in 2 shards (Q180 B).
+  - Backups: daily dump at 02:15 UTC to a Google Shared Drive via a service account, gpg-encrypted (the founder holds the passphrase), 14 copies, weekly restore check on Monday; GitHub accepted as sub-processor; invoice PDFs not backed up (accepted risk).
+  - Production Supabase: **Free for now** (Q187). This replaces "Supabase Pro before M25" (Q10); our backup job is the only backup.
+  - Login mail: Resend free tier, EU region if available; the founder creates the account and sets the key.
+  - CSP: the strict per-request nonce policy (second round, reverses the static CSP; ADR-028 to be rewritten).
+  - Q196: the venue never closes for more than a week.
+  - Domain: decided later, needed before go-live.
+- 2026-11-01 — The app repo is private again (the founder switched it back; the lead confirmed `visibility=private` through the API on 2026-11-02). It was public 2026-10-24 to 2026-11-01 for free Actions minutes (by: founder)
 - 2026-10-21 — Client onboarded as `osteria-dei-rossi`; client-facing language Italian (by: founder)
 - 2026-10-21 — Osteria Digitalization PRD captured as `sources/prd-2026-10-21.md`; it supersedes the earlier monitoring and anti-fraud scope (by: founder, via PRD)
 - 2026-10-21 — Project plan provisionally approved ("go ahead for now"); open questions and ADRs (`proposed`) still pending (by: founder)
@@ -409,12 +444,20 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   2. Same environment: deployment branches `main` only; a required reviewer is optional.
   3. Actions → "T1 spike on staging" → Run workflow on `main`, approve it, and send the run link to the lead.
 - [ ] Founder, M13–M16 questions (PR bodies of osteria-dei-rossi-app#22, #23, #25, #26; the build uses the defaults): Q33–Q39, Q40–Q47, Q48–Q53, Q60–Q67
-- [ ] Founder, while the app repo is public: GitHub → Settings → Actions → General, require approval for all outside collaborators' fork PR workflows; Code security, turn on secret scanning and push protection; Vercel, check that fork protection is on
-- [ ] Founder: on 2026-11-01 switch osteria-dei-rossi-app back to private; also check GitHub billing (payment or spending limit) so CI keeps starting
+- [x] (Obsolete since the repo is private again) fork-PR approval, secret scanning and Vercel fork protection while public
+- [x] Founder: switched osteria-dei-rossi-app back to private (confirmed 2026-11-02)
+- [ ] Founder: GitHub billing (payment method or spending limit) so Actions keep starting; DigiAlto-Ops checks still fail in 2–3 s with no runner
 - [ ] Founder (before the AT7 perf workflow is first run): set the `STAGING_APP_HOST` variable on the GitHub `staging` environment
 - [ ] Founder, M17 questions Q68–Q74 (osteria-dei-rossi-app#27 body; defaults in force)
-- [ ] Q10 remainder: Supabase Pro (daily backups) for the production project, needed before go-live (M25)
+- [x] Q10 remainder: answered 2026-11-01, production stays on Supabase Free; our daily backup job (M25) is the only backup
 - [ ] Q11: code/IP ownership (multi-tenant product vs client-owned code); not blocking the build
+- [ ] Founder, after osteria-dei-rossi-app#45 merges: Vercel → Settings → Environment Variables, set `PIN_PEPPER` (a long random value, never reused from tests) and `SUPABASE_SECRET_KEY` (Supabase → Project Settings → API Keys) for Preview and Production
+- [ ] Founder: Supabase staging → Authentication → Sign In / Providers → Email, set the e-mail OTP expiry to 600 seconds (M25a)
+- [ ] Founder, invoice extraction on staging: set `ANTHROPIC_API_KEY` and `EXTRACTION_MODEL_ID` in Vercel, and the Vault secrets the cron reads (project app `docs/` runbook)
+- [ ] Founder, client facts for `knowledge/clients/osteria-dei-rossi/profile.md`: legal name and VAT number, logo file, menu and allergens with the chef, recipe quantities, fixed costs, VAT 10%, the CSV format with the accountant, payment types
+- [ ] Founder: GDPR register items (Q13/Q14: DPA, sub-processors incl. GitHub for backups, 14 daily copies)
+- [ ] Founder, before go-live (M25 plan §8): custom domain; Resend account and key; production Supabase project (Free, EU); GitHub `production` environment and its secrets; Google Shared Drive + service account + gpg passphrase for backups; new production secrets (never staging's); Vercel promotion to production by hand
+- [ ] Founder (optional): run the T1 spike workflow; set `STAGING_APP_HOST`; time the Dashboard on a 4G phone
 
 ## Deliverables
 - 2026-10-21 — kickoff (project plan, ADR-001–005, lead check) — `deliverables/2026-10-21-kickoff/` — internal, lead check PASS (one security gap fixed: magic-link redirect allow-list), check_deliverable 0 FAIL
