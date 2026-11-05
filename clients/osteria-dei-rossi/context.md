@@ -1,6 +1,6 @@
 ---
 slug: osteria-dei-rossi
-updated: 2026-11-02
+updated: 2026-11-05
 ---
 
 # Osteria Dei Rossi — engagement context
@@ -9,9 +9,22 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Next, in the project session, one ready PR at a time:
-  1. Security fix (new): public forms get `method="post"` and a disabled submit until hydrated, so a tap before the page's JS loads can never put a password or PIN in the URL or request logs (found from a WebKit e2e race on 2026-11-02).
-  2. osteria-dei-rossi-app#44 M25 go-live: resumes with the strict nonce CSP (measure perf and Vercel Hobby impact first), then the remaining steps.
+- Phase: **closing out Phase 1** (MVP M0–M25), founder's call 2026-11-05; Phase 2 planning (M26–M40) plus UAT refinements follow. Phase 1 is done when, in the project session:
+  1. #59 (CI Playwright cache, workers=1) is merged;
+  2. #56 (one-call extraction smoke contract) is merged;
+  3. #44 (M25 go-live: strict nonce CSP, backups, runbook, security walk) is merged after its first heavy run and the lead's security read;
+  4. main is green and staging has every migration;
+  5. one close-out list is in hand: open follow-ups, plan questions with defaults in force, and pending founder/ops steps.
+- UAT round 1 started 2026-11-03 on staging, by the founder only (staging sits behind Vercel Authentication). The founder reports friction in chat; fixes go in fix/uat-* PRs ahead of other work.
+- Invoice extraction works on staging (2026-11-04). The 82-line, 4-page vegetable invoice (€770.39) read correctly on the first attempt with `claude-haiku-5-5` in 54 s at medium effort; #57 makes low effort the default.
+- Done 2026-11-03/04 (all with CI green on the merged head, code-reviewer PASS and the lead's read):
+  - #52 (merge f79a417): cron calls send the Vercel protection-bypass header from Vault.
+  - #53 (merge 6687d8b): forms never submit secrets by GET before hydration; autofill-friendly inputs.
+  - #54 (merge e334db8): pgTAP date bombs defused, plus a guard against fixed instants near today.
+  - #55 (merge 1bdc1a2): extraction wire schema allow-list; Anthropic 4xx reason logged.
+  - #57 (merge 8b03fb0): `EXTRACTION_EFFORT`, default low; tokens and duration logged.
+  - #58 (merge fb476fe): e2e server keep-alive fix for ECONNRESET flakes; OOM diagnostics.
+  - #51 closed as contained in #45.
 - Done: M25c Pranzo/Cena merged 2026-11-02 (osteria-dei-rossi-app#47, merge 2ccda88, ADR-031). Daily totals split by service in Report, day close, the Ieri tile and CSV; default Pranzo from 11:00, Cena from 16:00; schedules are versioned and apply forward only; owner/admin move a table until its day is final; the register total stays per day. Lead read: 7 new migrations, writes and reads behind `require_day_closer` (owner/admin), append-only tables with owner/admin RLS, per-service € only in owner/admin payloads.
 - Done: A5 raw-stock waste by business day merged 2026-11-02 (osteria-dei-rossi-app#50, merge b215326). Its migration was renamed to 20261121100000 before merge because staging already had later migrations and the deploy runs a plain `supabase db push`.
 - Done: M25b navigation merged 2026-11-02 (osteria-dei-rossi-app#46, merge cfc6504, ADR-030). Home with avvisi first; Gestione · Cucina · Sala · Anagrafica · Registro, "Altro" tab on phones; Fatture filters by date and fornitore, Pagamenti by fornitore and date (deactivated suppliers still offered); Sicurezza is an empty owner/admin placeholder for HACCP.
@@ -224,6 +237,12 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - Due: Sprint 1 starts 2026-11-03 per the PRD roadmap [unverified]
 
 ## Decisions
+- 2026-11-05 — Close out Phase 1 (MVP), then plan Phase 2 together with UAT refinements (by: founder)
+- 2026-11-05 — App repo made public again to get free Actions minutes; Actions billing had blocked every job. The lead's scan found no secrets on main (by: founder)
+- 2026-11-05 — Hardware: research done (`deliverables/2026-11-05-hardware-research/research.md`). Recommended: Brother QL-820NWBc via AirPrint/Android print service; Shelly 1 Gen3 + Plus Add-on + DS18B20 probes posting to the app (or UbiBot WS1 Pro for offline buffering); one calibrated reference thermometer. Founder to decide label width, Shelly or UbiBot, and to ask the HACCP consultant (by: lead)
+- 2026-11-04 — Extraction model on staging is `claude-haiku-5-5` (cost and latency; the app's checks plus human review catch misreads). Sonnet 5.5 is the step up if correction rates are poor (by: founder)
+- 2026-11-04 — Anthropic API key: dedicated, workspace-scoped key for this app in place of an org-level key shared with another project (the org key returned 400 "not scoped to a workspace") (by: founder)
+- 2026-11-03 — UAT round 1 on staging starts; real test data, friction reported in chat (by: founder)
 - 2026-11-02 — A migration that sorts before migrations already applied to staging is renamed before merge (it was never applied), rather than adding `--include-all` to the staging deploy (by: lead)
 - 2026-11-02 — #49 merged as it stood (green); the raw-stock half of A5 goes in its own follow-up PR so #45 is not held for another heavy run (by: lead)
 - 2026-11-02 — The e2e stack skips the 800 ms sign-in floor only when `E2E_AUTH_FLOOR_OFF=1` and Supabase is on loopback; any hosted Supabase keeps it (ADR-029, by: lead)
@@ -463,5 +482,11 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - [ ] Founder, before go-live (M25 plan §8): custom domain; Resend account and key; production Supabase project (Free, EU); GitHub `production` environment and its secrets; Google Shared Drive + service account + gpg passphrase for backups; new production secrets (never staging's); Vercel promotion to production by hand
 - [ ] Founder (optional): run the T1 spike workflow; set `STAGING_APP_HOST`; time the Dashboard on a 4G phone
 
+- [ ] Founder: hardware decisions: label width (62 mm → QL-820NWBc, wider → QL-1110NWBc); Shelly kit or UbiBot WS1 Pro; whether the HACCP consultant accepts uncertified sensors checked against a calibrated reference
+- [ ] Founder: Vercel Hobby is for personal, non-commercial use. Decide the plan for the live restaurant app before go-live (on the go-live review)
+- [ ] Founder: `extraction-contract` GitHub environment (ANTHROPIC_API_KEY + EXTRACTION_MODEL_ID) once #56 merges, for the live smoke contract
+- [x] Staging extraction secrets: CRON_SECRET (Vercel + Vault), Vault `vercel_protection_bypass`, GitHub `VERCEL_AUTOMATION_BYPASS_SECRET`, Vault `app_base_url` (set by the lead 2026-11-03), SUPABASE_SECRET_KEY and EXTRACTION_MODEL_ID in Vercel (founder, 2026-11-03/04)
+
 ## Deliverables
 - 2026-10-21 — kickoff (project plan, ADR-001–005, lead check) — `deliverables/2026-10-21-kickoff/` — internal, lead check PASS (one security gap fixed: magic-link redirect allow-list), check_deliverable 0 FAIL
+- 2026-11-05 — hardware research (label printer, HACCP temperature sensors) — `deliverables/2026-11-05-hardware-research/` — internal, research only, sources cited
