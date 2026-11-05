@@ -45,3 +45,10 @@
 {"date":"2026-11-02","client":"osteria-dei-rossi","task":"m25b-navigation","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/46"}
 {"date":"2026-11-02","client":"osteria-dei-rossi","task":"m25c-services","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/47"}
 {"date":"2026-11-02","client":"osteria-dei-rossi","task":"a5-raw-waste-business-date","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/50"}
+{"date":"2026-11-03","client":"osteria-dei-rossi","task":"fix-cron-vercel-bypass","agents":["tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/52"}
+{"date":"2026-11-03","client":"osteria-dei-rossi","task":"fix-forms-no-get-submit","agents":["tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/53"}
+{"date":"2026-11-04","client":"osteria-dei-rossi","task":"fix-pgtap-date-bombs","agents":["tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/54"}
+{"date":"2026-11-04","client":"osteria-dei-rossi","task":"fix-extraction-wire-schema","agents":["tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/55"}
+{"date":"2026-11-04","client":"osteria-dei-rossi","task":"fix-extraction-effort","agents":["tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/57"}
+{"date":"2026-11-04","client":"osteria-dei-rossi","task":"fix-e2e-econnreset","agents":["tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/58"}
+{"date":"2026-11-05","client":"osteria-dei-rossi","task":"hardware-research","agents":["general-purpose"],"result":"pass","path":"clients/osteria-dei-rossi/deliverables/2026-11-05-hardware-research/"}
