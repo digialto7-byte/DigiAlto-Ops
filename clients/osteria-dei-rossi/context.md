@@ -1,6 +1,6 @@
 ---
 slug: osteria-dei-rossi
-updated: 2026-11-05
+updated: 2026-11-08
 ---
 
 # Osteria Dei Rossi — engagement context
@@ -15,6 +15,11 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   3. #44 (M25 go-live: strict nonce CSP, backups, runbook, security walk) is merged after its first heavy run and the lead's security read;
   4. main is green and staging has every migration;
   5. one close-out list is in hand: open follow-ups, plan questions with defaults in force, and pending founder/ops steps.
+- In build (parallel with #44): **customer table reservations** (osteria-dei-rossi-app#61, plan `docs/plans/2026-11-08-reservations.md`, ADR-032).
+  - **PR1:** data model, settings, staff side, staff-typed phone/walk-in bookings, table seats, groups and blocking of joined tables.
+  - **PR2:** public page `/prenota/<slug>`, e-mails through an outbox and Resend, abuse limits, 30-day retention.
+  - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-05/07: #56 (merge 70590df, extraction smoke contract, manual, `extraction-contract` environment), #59 (merge e1e55c5, CI Playwright cache, one e2e worker on CI), #60 (merge e5b81c8, cache warm-up on main).
 - UAT round 1 started 2026-11-03 on staging, by the founder only (staging sits behind Vercel Authentication). The founder reports friction in chat; fixes go in fix/uat-* PRs ahead of other work.
 - Invoice extraction works on staging (2026-11-04). The 82-line, 4-page vegetable invoice (€770.39) read correctly on the first attempt with `claude-haiku-5-5` in 54 s at medium effort; #57 makes low effort the default.
 - Done 2026-11-03/04 (all with CI green on the merged head, code-reviewer PASS and the lead's read):
@@ -237,6 +242,21 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - Due: Sprint 1 starts 2026-11-03 per the PRD roadmap [unverified]
 
 ## Decisions
+- 2026-11-08 — Reservations: scope change. The PRD non-goals "reservations" and "customer data of any kind" are lifted for this feature only (by: founder). Decisions:
+  - public booking page, request plus staff approval;
+  - name, phone and e-mail, with e-mail confirmations and a signed cancel link;
+  - build now;
+  - only owner and admin accept or decline; waiters see bookings, mark arrivals and open tables;
+  - staff-typed phone and walk-in bookings included, accepted directly;
+  - joined tables are blocked in Sala while a group is seated, with a "separa tavoli" action;
+  - online hours: Pranzo 12:00–14:00, Cena 19:30–22:00 (last slots), editable in settings (by: founder)
+- 2026-11-08 — Reservation defaults accepted by the lead. All are settings:
+  - 15-minute slots, a table held 120 minutes, lead time 2 h to 60 days, up to 8 people online;
+  - honeypot and minimum fill time; daily limits of 5 per IP-hash, 3 per e-mail, 3 per phone; no CAPTCHA;
+  - customers can cancel until the booked time;
+  - customer data deleted 30 days after the visit, or on request;
+  - no free-text notes field (allergies would be health data, Art. 9 GDPR);
+  - the chef doesn't see bookings (by: lead)
 - 2026-11-05 — Close out Phase 1 (MVP), then plan Phase 2 together with UAT refinements (by: founder)
 - 2026-11-05 — App repo made public again to get free Actions minutes; Actions billing had blocked every job. The lead's scan found no secrets on main (by: founder)
 - 2026-11-05 — Hardware: research done (`deliverables/2026-11-05-hardware-research/research.md`). Recommended: Brother QL-820NWBc via AirPrint/Android print service; Shelly 1 Gen3 + Plus Add-on + DS18B20 probes posting to the app (or UbiBot WS1 Pro for offline buffering); one calibrated reference thermometer. Founder to decide label width, Shelly or UbiBot, and to ask the HACCP consultant (by: lead)
@@ -482,6 +502,13 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - [ ] Founder, before go-live (M25 plan §8): custom domain; Resend account and key; production Supabase project (Free, EU); GitHub `production` environment and its secrets; Google Shared Drive + service account + gpg passphrase for backups; new production secrets (never staging's); Vercel promotion to production by hand
 - [ ] Founder (optional): run the T1 spike workflow; set `STAGING_APP_HOST`; time the Dashboard on a 4G phone
 
+- [ ] Founder, for reservations going live:
+  - the client's legal name, VAT number and privacy contact e-mail;
+  - approve DigiAlto's draft privacy text;
+  - decide who owns the Resend account (DigiAlto or the client) and check its DPA and data location;
+  - the venue phone for "call us";
+  - the custom domain and a verified Resend sending domain.
+  - Then: the GDPR register entry for customer booking data, with Resend as sub-processor.
 - [ ] Founder: hardware decisions: label width (62 mm → QL-820NWBc, wider → QL-1110NWBc); Shelly kit or UbiBot WS1 Pro; whether the HACCP consultant accepts uncertified sensors checked against a calibrated reference
 - [ ] Founder: Vercel Hobby is for personal, non-commercial use. Decide the plan for the live restaurant app before go-live (on the go-live review)
 - [ ] Founder: `extraction-contract` GitHub environment (ANTHROPIC_API_KEY + EXTRACTION_MODEL_ID) once #56 merges, for the live smoke contract
