@@ -9,12 +9,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Phase: **closing out Phase 1** (MVP M0–M25), founder's call 2026-11-05; Phase 2 planning (M26–M40) plus UAT refinements follow. Phase 1 is done when, in the project session:
-  1. #59 (CI Playwright cache, workers=1) is merged;
-  2. #56 (one-call extraction smoke contract) is merged;
-  3. #44 (M25 go-live: strict nonce CSP, backups, runbook, security walk) is merged after its first heavy run and the lead's security read;
-  4. main is green and staging has every migration;
-  5. one close-out list is in hand: open follow-ups, plan questions with defaults in force, and pending founder/ops steps.
+- Phase: **Phase 1 code complete** (2026-11-08): #44 M25 go-live merged (merge ea8376c) with the strict nonce CSP, encrypted backups with restore checks (armed by `PRODUCTION_PROJECT_REF`), the manual production deploy, the runbook and the security walk. The close-out list is in the app repo at `docs/go-live/phase1-closeout.md` (follow-ups, plan questions on defaults, and 89 founder/ops steps, 63 of them blocking). Before go-live on 12 January, the code still to come is: reservations (#61), raw stock on the business day, and invoice-file backups. Then Phase 2 planning, with the UAT refinements.
 - In build (parallel with #44): **customer table reservations** (osteria-dei-rossi-app#61, plan `docs/plans/2026-11-08-reservations.md`, ADR-032).
   - **PR1:** data model, settings, staff side, staff-typed phone/walk-in bookings, table seats, groups and blocking of joined tables.
   - **PR2:** public page `/prenota/<slug>`, e-mails through an outbox and Resend, abuse limits, 30-day retention.
@@ -242,6 +237,10 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 - Due: Sprint 1 starts 2026-11-03 per the PRD roadmap [unverified]
 
 ## Decisions
+- 2026-11-08 — Go-live sign-offs (by: founder):
+  - RISK-1 accepted: no own sign-in throttle, no in-app second factor for now, staff data erased on request rather than self-service. TOTP comes early in Phase 2: required for admin, optional for owner.
+  - Invoice PDFs and photos WILL be added to the encrypted daily backup. This reverses Q186's accepted risk; a code item before go-live.
+  - Vercel Pro for production at go-live; staging stays on Hobby. This settles Q9/Q10/HOBBY-1.
 - 2026-11-08 — Reservations: scope change. The PRD non-goals "reservations" and "customer data of any kind" are lifted for this feature only (by: founder). Decisions:
   - public booking page, request plus staff approval;
   - name, phone and e-mail, with e-mail confirmations and a signed cancel link;
@@ -510,7 +509,8 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - the custom domain and a verified Resend sending domain.
   - Then: the GDPR register entry for customer booking data, with Resend as sub-processor.
 - [ ] Founder: hardware decisions: label width (62 mm → QL-820NWBc, wider → QL-1110NWBc); Shelly kit or UbiBot WS1 Pro; whether the HACCP consultant accepts uncertified sensors checked against a calibrated reference
-- [ ] Founder: Vercel Hobby is for personal, non-commercial use. Decide the plan for the live restaurant app before go-live (on the go-live review)
+- [x] Vercel plan decided 2026-11-08: Pro for production at go-live
+- [ ] Founder: the go-live steps in the app repo's `docs/go-live/checklist.md` and `phase1-closeout.md` §3. Start with the client facts and data together with the restaurant
 - [ ] Founder: `extraction-contract` GitHub environment (ANTHROPIC_API_KEY + EXTRACTION_MODEL_ID) once #56 merges, for the live smoke contract
 - [x] Staging extraction secrets: CRON_SECRET (Vercel + Vault), Vault `vercel_protection_bypass`, GitHub `VERCEL_AUTOMATION_BYPASS_SECRET`, Vault `app_base_url` (set by the lead 2026-11-03), SUPABASE_SECRET_KEY and EXTRACTION_MODEL_ID in Vercel (founder, 2026-11-03/04)
 
