@@ -56,3 +56,8 @@
 {"date":"2026-11-08","client":"osteria-dei-rossi","task":"phase1-closeout","agents":["tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/62"}
 {"date":"2026-11-08","client":"osteria-dei-rossi","task":"self-host-fonts","agents":["tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/63"}
 {"date":"2026-11-08","client":"osteria-dei-rossi","task":"reservations-pr1-staff","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/61"}
+{"date":"2026-11-10","client":"osteria-dei-rossi","task":"raw-stock-business-day","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/64"}
+{"date":"2026-11-10","client":"osteria-dei-rossi","task":"ci-pin-ubuntu-2404","agents":["build-error-resolver","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/65"}
+{"date":"2026-11-10","client":"osteria-dei-rossi","task":"backup-invoice-files","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/66"}
+{"date":"2026-11-10","client":"osteria-dei-rossi","task":"offline-warm-up-and-replay-lease","agents":["tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/67"}
+{"date":"2026-11-10","client":"osteria-dei-rossi","task":"reservations-pr2-public","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/69"}

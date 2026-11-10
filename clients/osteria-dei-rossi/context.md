@@ -9,15 +9,30 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Phase: **Phase 1 code complete** (2026-11-08): #44 M25 go-live merged (merge ea8376c) with the strict nonce CSP, encrypted backups with restore checks (armed by `PRODUCTION_PROJECT_REF`), the manual production deploy, the runbook and the security walk. The close-out list is in the app repo at `docs/go-live/phase1-closeout.md` (follow-ups, plan questions on defaults, and 89 founder/ops steps, 63 of them blocking). Before go-live on 12 January, the code still to come is: raw stock on the business day, invoice-file backups and reservations PR2 (PR1 #61 merged 2026-11-08). Then Phase 2 planning, with the UAT refinements.
+- Phase: **Phase 1 code complete** (2026-11-08): #44 M25 go-live merged (merge ea8376c) with the strict nonce CSP, encrypted backups with restore checks (armed by `PRODUCTION_PROJECT_REF`), the manual production deploy, the runbook and the security walk. The close-out list is in the app repo at `docs/go-live/phase1-closeout.md` (follow-ups, plan questions on defaults, and 89 founder/ops steps, 63 of them blocking). The pre-go-live code is merged (raw stock #64, invoice-file backups #66, reservations #61 and #69). Two small follow-ups remain: the offline-cache role gate and the #69 review notes. Then Phase 2 planning, with the UAT refinements.
 - Customer table reservations (plan `docs/plans/2026-11-08-reservations.md`, ADR-032):
   - **PR1 done 2026-11-08** (osteria-dei-rossi-app#61, merge 1aaa606): data model, settings, the staff side, staff-typed phone and walk-in bookings, table seats, groups and blocking of joined tables. Checks:
     - CI green on head d5650b3, including the first real-stack run of the reservations integration (25) and e2e tests.
     - code-reviewer: PASS on the SQL half, FAIL on the full review (4 MAJOR, 5 MINOR, all fixed test-first), PASS on re-review (2 MINOR fixed).
     - Lead security read: 9 new migrations sorting after 20261122, monotonic check-list scan clean, every SECURITY DEFINER with `search_path=''` and a role check first, nothing for anon, no write grants or write policies.
     - RLS: owner, admin and waiter see reservations and contacts; settings, groups and e-mail are owner and admin only. `open_table` and `tables_list` keep their signatures, and the chef gets nothing.
-  - **PR2 next** (after raw stock on the business day and invoice-file backups): public page `/prenota/<slug>`, e-mails through an outbox and Resend, abuse limits, signed cancel link, 30-day retention. The lead does a separate security read of its anonymous path.
+  - **PR2 done 2026-11-10** (osteria-dei-rossi-app#69, merge 3ab4bc3): public page `/prenota/<slug>`, e-mails through an outbox and Resend, abuse limits, signed cancel link, 30-day retention. Checks:
+    - CI green on head d9c25cf, including the real-stack integration and the end-to-end request → e-mail → cancel flow, with no CSP violations.
+    - code-reviewer: PASS on a550bea, then a final PASS on a550bea..d9c25cf (with mutation proofs of the new guards).
+    - Lead security read of the anonymous path:
+      - anon can run exactly five gated wrappers, the gate is a server-only HMAC (±60 s, rotation) and every unknown page gives the same not_found;
+      - cancel and form tokens are verified in constant time, the cancel view shows no personal data and every e-mail value is escaped;
+      - only a salted hash of the IP is stored.
+    - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
+    - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-09/10 (all with the lead's read):
+  - #64 (merge 10a0ab5): raw stock on the business day, with a planner-safe `weekday_consumption` (12.7 ms vs 172 ms on 438k rows).
+  - #65 (merge 8c2874f): CI pinned to ubuntu-24.04, since Playwright 1.56.1 can't run WebKit on 26.04.
+  - #66 (merge 232034e): encrypted daily backup of invoice files and a weekly checksum check. **Founder action:** add `SUPABASE_SECRET_KEY` to the `production-backup` and `staging` GitHub environments.
+  - #67 (merge b83c2bc, includes #68): two real waiter-phone bugs.
+    - The offline warm-up could save nothing after a reload during set-up.
+    - Orders could sit "In coda" for about 12 s after a quick navigation, now fixed with a Web Locks replay lock.
 - Done 2026-11-08: #62 (merge 880aa0c, Phase 1 close-out list, backup docs and error message, go-live sign-offs), #63 (merge d57fc12, Bodoni Moda and Figtree self-hosted, so the build no longer fetches Google Fonts).
 - Done 2026-11-05/07: #56 (merge 70590df, extraction smoke contract, manual, `extraction-contract` environment), #59 (merge e1e55c5, CI Playwright cache, one e2e worker on CI), #60 (merge e5b81c8, cache warm-up on main).
 - UAT round 1 started 2026-11-03 on staging, by the founder only (staging sits behind Vercel Authentication). The founder reports friction in chat; fixes go in fix/uat-* PRs ahead of other work.
@@ -254,6 +269,9 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - staff-typed phone and walk-in bookings included, accepted directly;
   - joined tables are blocked in Sala while a group is seated, with a "separa tavoli" action;
   - online hours: Pranzo 12:00–14:00, Cena 19:30–22:00 (last slots), editable in settings (by: founder)
+- 2026-11-10 — Order changed: public booking page first, then the rest (by: founder)
+- 2026-11-09 — Offline mode is low priority: waiters' phones will rarely be offline (WiFi plus mobile data). Further offline work goes to the Phase 2 list. Fixes that block CI or affect short drops still go in (by: founder)
+- 2026-11-09 — Raw stock on the business day: receipts keep the invoice date; the purchase alert's window is not moved; a count closed after midnight shows its real date (Q-A5b-1/2/3 defaults, by: lead)
 - 2026-11-08 — Joined tables (reservations PR1 review): a table joined to a seated booking stays locked until "Separa tavoli" or the group's session closes, with no time limit. Past the booking's end time the Sala tile reads "Unito a … (oltre l'orario)". A request that is not for today is answered `not_today`. A request that expires unanswered sends no "declined" e-mail (by: lead)
 - 2026-11-08 — Reservation defaults accepted by the lead. All are settings:
   - 15-minute slots, a table held 120 minutes, lead time 2 h to 60 days, up to 8 people online;
