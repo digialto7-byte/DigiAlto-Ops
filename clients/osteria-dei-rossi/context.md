@@ -9,7 +9,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Phase: **Phase 1 code complete** (2026-11-08): #44 M25 go-live merged (merge ea8376c) with the strict nonce CSP, encrypted backups with restore checks (armed by `PRODUCTION_PROJECT_REF`), the manual production deploy, the runbook and the security walk. The close-out list is in the app repo at `docs/go-live/phase1-closeout.md` (follow-ups, plan questions on defaults, and 89 founder/ops steps, 63 of them blocking). The pre-go-live code is merged (raw stock #64, invoice-file backups #66, reservations #61 and #69). All follow-ups are merged too (#70–#72, 2026-11-11), and staging is deployed and green at cb3aade. Next: Phase 2 planning, with the UAT refinements.
+- Phase: **Phase 1 code complete** (2026-11-08): #44 M25 go-live merged (merge ea8376c) with the strict nonce CSP, encrypted backups with restore checks (armed by `PRODUCTION_PROJECT_REF`), the manual production deploy, the runbook and the security walk. The close-out list is in the app repo at `docs/go-live/phase1-closeout.md` (follow-ups, plan questions on defaults, and 89 founder/ops steps, 63 of them blocking). The pre-go-live code is merged (raw stock #64, invoice-file backups #66, reservations #61 and #69). All follow-ups are merged too (#70–#72, 2026-11-11), and staging is deployed and green at cb3aade. Phase 2 scope merged 2026-11-11 (osteria-dei-rossi-app#73, `docs/plans/2026-11-11-phase2-scope.md`). In build: P2-0, the go-live carry-overs.
 - Customer table reservations (plan `docs/plans/2026-11-08-reservations.md`, ADR-032):
   - **PR1 done 2026-11-08** (osteria-dei-rossi-app#61, merge 1aaa606): data model, settings, the staff side, staff-typed phone and walk-in bookings, table seats, groups and blocking of joined tables. Checks:
     - CI green on head d5650b3, including the first real-stack run of the reservations integration (25) and e2e tests.
@@ -275,6 +275,19 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - staff-typed phone and walk-in bookings included, accepted directly;
   - joined tables are blocked in Sala while a group is seated, with a "separa tavoli" action;
   - online hours: Pranzo 12:00–14:00, Cena 19:30–22:00 (last slots), editable in settings (by: founder)
+- 2026-11-11 — Phase 2 scope and order (by: founder, osteria-dei-rossi-app#73):
+  - Order: P2-0 go-live carry-overs, then P2-1 TOTP, P2-2 trace (invoice → batch → plate) with push sell-through and chef covers, P2-3 labels and QR, P2-4 full alert rules engine, P2-5 accountant file, P2-6 sell by weight. Forecast, menu engineering, the AdE check and e-mail-in come later.
+  - Alerts stay in the app: no Telegram and no e-mail alerts. This confirms the 2026-10-23 decision.
+  - Temperature sensors: a pilot later, after P2-4, once the HACCP consultant confirms. Open question: who sees a night-time alarm when alerts are in-app only.
+  - Per-etto dishes: selling by weight is in Phase 2 (P2-6). Until then, a fixed placeholder portion is agreed with the chef.
+  - Defaults the founder may revisit:
+    - TOTP: required for the admin, offered to the owner; recovery by a backup factor plus an audited reset by the other admin.
+    - One Brother QL-820NWBc, after the two-week supervised run and a real-phone test, with no Raspberry Pi.
+    - A monthly invoice CSV with VAT first.
+    - The AdE check is parked.
+    - E-mail-in later, and no Drive watch.
+    - The chef may see booked covers, but not names.
+  - TOTP is free on every Supabase plan (Supabase docs, read 2026-11-11), so production can stay on Free for it.
 - 2026-11-10 — Order changed: public booking page first, then the rest (by: founder)
 - 2026-11-09 — Offline mode is low priority: waiters' phones will rarely be offline (WiFi plus mobile data). Further offline work goes to the Phase 2 list. Fixes that block CI or affect short drops still go in (by: founder)
 - 2026-11-09 — Raw stock on the business day: receipts keep the invoice date; the purchase alert's window is not moved; a count closed after midnight shows its real date (Q-A5b-1/2/3 defaults, by: lead)
