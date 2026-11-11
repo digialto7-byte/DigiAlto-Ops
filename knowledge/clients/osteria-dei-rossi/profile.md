@@ -21,7 +21,7 @@ updated: 2026-11-11
 - Sector: osteria (restaurant), one venue, one kitchen, one storage area at start, one service shift per day [unverified] (src: sources/prd-2026-10-21.md)
 - Address: Via dei Rossi, 79/81 · 53100 Siena (src: sources/menu-site-2026-10-22.md; confirmed by the founder 2026-11-11, sources/founder-legal-2026-11-11.md)
 - Phone / email (public): +39 0577 287592 [unverified] (src: sources/menu-site-2026-10-22.md)
-- Website / domains: menu site https://azure-locust-452058.hostingersite.com/ (a hosting-provider preview domain; final domain to confirm) [unverified] (src: founder in the project session, 2026-10-22)
+- Website / domains: live online menu https://menu.osteriadeirossi.it/ (src: founder 2026-11-11, sources/menu-live-2026-11-11.md); the earlier preview https://azure-locust-452058.hostingersite.com/ is superseded
 - Social profiles: https://www.instagram.com/osteriadeirossi/ · https://www.facebook.com/osteriadeirossi [unverified] (src: sources/menu-site-2026-10-22.md)
 
 ## Offer
@@ -29,6 +29,8 @@ updated: 2026-11-11
 - Cuisine: Tuscan/Sienese cooking, bistecche and grilled cuts [unverified] (src: sources/menu-site-2026-10-22.md)
 - Key products / services / menu highlights: draft menu of 39 items in six sections (antipasti, primi, secondi, griglia, contorni, dolci) plus drinks. "Consigliato dall'Oste" picks include Tartare dell'Oste, Pici al Ragù Tradizionale di Anatra, Tegamata di Cinta Senese and Bistecca alla Fiorentina. Full list, prices and allergen codes in the source [unverified] (src: sources/menu-site-2026-10-22.md)
 - Prices (public): per dish in the source (e.g. Bistecca alla Fiorentina 9 € / etto); coperto 2,50 € [unverified] (src: sources/menu-site-2026-10-22.md)
+- Dishes priced by weight on the live menu, per 100 g: Bistecca alla Fiorentina 9 €/100 g, Bistecca Fritta 12 €/100 g, Costata del Vamosh 7 €/100 g; coperto 2,50 € a persona (src: sources/menu-live-2026-11-11.md; founder 2026-11-11: weight items are priced per 100 g and the waiter enters the weight the customer asks for, e.g. fiorentina 1,2 kg, porcini fritti 250 g)
+- Full live menu (items, prices, allergen numbers 1–14): see the source; per-item prices and allergens are for the app's menu import only after the founder and chef confirm them [unverified] (src: sources/menu-live-2026-11-11.md)
 - Opening hours / availability: critical service window 11:00–24:00 [unverified] (src: sources/prd-2026-10-21.md)
 - Booking / purchase channel (URL):
 
