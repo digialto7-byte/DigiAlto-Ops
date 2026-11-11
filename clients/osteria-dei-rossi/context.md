@@ -9,7 +9,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Phase: **Phase 1 code complete** (2026-11-08): #44 M25 go-live merged (merge ea8376c) with the strict nonce CSP, encrypted backups with restore checks (armed by `PRODUCTION_PROJECT_REF`), the manual production deploy, the runbook and the security walk. The close-out list is in the app repo at `docs/go-live/phase1-closeout.md` (follow-ups, plan questions on defaults, and 89 founder/ops steps, 63 of them blocking). The pre-go-live code is merged (raw stock #64, invoice-file backups #66, reservations #61 and #69). Two small follow-ups remain: the offline-cache role gate and the #69 review notes. Then Phase 2 planning, with the UAT refinements.
+- Phase: **Phase 1 code complete** (2026-11-08): #44 M25 go-live merged (merge ea8376c) with the strict nonce CSP, encrypted backups with restore checks (armed by `PRODUCTION_PROJECT_REF`), the manual production deploy, the runbook and the security walk. The close-out list is in the app repo at `docs/go-live/phase1-closeout.md` (follow-ups, plan questions on defaults, and 89 founder/ops steps, 63 of them blocking). The pre-go-live code is merged (raw stock #64, invoice-file backups #66, reservations #61 and #69). All follow-ups are merged too (#70–#72, 2026-11-11), and staging is deployed and green at cb3aade. Next: Phase 2 planning, with the UAT refinements.
 - Customer table reservations (plan `docs/plans/2026-11-08-reservations.md`, ADR-032):
   - **PR1 done 2026-11-08** (osteria-dei-rossi-app#61, merge 1aaa606): data model, settings, the staff side, staff-typed phone and walk-in bookings, table seats, groups and blocking of joined tables. Checks:
     - CI green on head d5650b3, including the first real-stack run of the reservations integration (25) and e2e tests.
@@ -26,6 +26,12 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
     - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-10/11 (all with the lead's read):
+  - #70 (merge 6dfc145): only owner, admin and waiter reads may be stored offline, so the chef's screens are never stored on a device.
+  - #71 (merge 865b28d): follow-ups from the #69 review. A permanent Resend 409 now fails at once; the anon default-ACL tests are stricter.
+  - #72 (merge cb3aade): `app.affected_recipe_keys` rewritten as a plan-independent walk.
+    - Cause: after autovacuum, stale statistics once made invoice approval take 14.8 s in CI.
+    - Result on the 3,041-recipe ladder: the old version timed out over 2 s, the new one runs in about 0.3 s. Approval on the 241-recipe fixture: about 170 ms, down from about 300 ms.
 - Done 2026-11-09/10 (all with the lead's read):
   - #64 (merge 10a0ab5): raw stock on the business day, with a planner-safe `weekday_consumption` (12.7 ms vs 172 ms on 438k rows).
   - #65 (merge 8c2874f): CI pinned to ubuntu-24.04, since Playwright 1.56.1 can't run WebKit on 26.04.
