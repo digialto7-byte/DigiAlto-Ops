@@ -4,7 +4,7 @@ slug: osteria-dei-rossi
 language: it
 status: prospect
 owner: Mohammad
-updated: 2026-10-22
+updated: 2026-11-11
 ---
 
 # Osteria Dei Rossi — approved facts
@@ -14,9 +14,12 @@ updated: 2026-10-22
 
 ## Identity
 - Trading name: Osteria Dei Rossi (src: founder, chat 2026-10-21; approved by the founder 2026-10-22)
-- Legal name / VAT:
+- Legal name: ML SNC DI LANARO E FRESI (src: sources/founder-legal-2026-11-11.md; given by the founder 2026-11-11)
+- VAT number (P. IVA): IT00354250524 (src: sources/founder-legal-2026-11-11.md; given by the founder 2026-11-11)
+- Registered address: Via dei Rossi 79/81, 53100 Siena (SI), Italy (src: sources/founder-legal-2026-11-11.md; given by the founder 2026-11-11)
+- Other number given with the legal name: 01358391, meaning to confirm (REA or other) [unverified] (src: sources/founder-legal-2026-11-11.md)
 - Sector: osteria (restaurant), one venue, one kitchen, one storage area at start, one service shift per day [unverified] (src: sources/prd-2026-10-21.md)
-- Address: Via dei Rossi, 79/81 · 53100 Siena [unverified] (src: sources/menu-site-2026-10-22.md)
+- Address: Via dei Rossi, 79/81 · 53100 Siena (src: sources/menu-site-2026-10-22.md; confirmed by the founder 2026-11-11, sources/founder-legal-2026-11-11.md)
 - Phone / email (public): +39 0577 287592 [unverified] (src: sources/menu-site-2026-10-22.md)
 - Website / domains: menu site https://azure-locust-452058.hostingersite.com/ (a hosting-provider preview domain; final domain to confirm) [unverified] (src: founder in the project session, 2026-10-22)
 - Social profiles: https://www.instagram.com/osteriadeirossi/ · https://www.facebook.com/osteriadeirossi [unverified] (src: sources/menu-site-2026-10-22.md)
