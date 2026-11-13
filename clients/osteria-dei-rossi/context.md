@@ -9,7 +9,7 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
 
 ## Status
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
-- Phase: **Phase 1 code complete** (2026-11-08): #44 M25 go-live merged (merge ea8376c) with the strict nonce CSP, encrypted backups with restore checks (armed by `PRODUCTION_PROJECT_REF`), the manual production deploy, the runbook and the security walk. The close-out list is in the app repo at `docs/go-live/phase1-closeout.md` (follow-ups, plan questions on defaults, and 89 founder/ops steps, 63 of them blocking). The pre-go-live code is merged (raw stock #64, invoice-file backups #66, reservations #61 and #69). All follow-ups are merged too (#70–#72, 2026-11-11), and staging is deployed and green at cb3aade. Phase 2 scope merged 2026-11-11 (osteria-dei-rossi-app#73, `docs/plans/2026-11-11-phase2-scope.md`). In build: P2-0, the go-live carry-overs.
+- Phase: **Phase 1 code complete** (2026-11-08): #44 M25 go-live merged (merge ea8376c) with the strict nonce CSP, encrypted backups with restore checks (armed by `PRODUCTION_PROJECT_REF`), the manual production deploy, the runbook and the security walk. The close-out list is in the app repo at `docs/go-live/phase1-closeout.md` (follow-ups, plan questions on defaults, and 89 founder/ops steps, 63 of them blocking). The pre-go-live code is merged (raw stock #64, invoice-file backups #66, reservations #61 and #69). All follow-ups are merged too (#70–#72, 2026-11-11), and staging is deployed and green at cb3aade. SaaS direction decided 2026-11-13 (plans #80/#81, build after go-live). Phase 2 scope merged 2026-11-11 (osteria-dei-rossi-app#73, `docs/plans/2026-11-11-phase2-scope.md`). In build: P2-0, the go-live carry-overs.
 - Customer table reservations (plan `docs/plans/2026-11-08-reservations.md`, ADR-032):
   - **PR1 done 2026-11-08** (osteria-dei-rossi-app#61, merge 1aaa606): data model, settings, the staff side, staff-typed phone and walk-in bookings, table seats, groups and blocking of joined tables. Checks:
     - CI green on head d5650b3, including the first real-stack run of the reservations integration (25) and e2e tests.
@@ -275,6 +275,25 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - staff-typed phone and walk-in bookings included, accepted directly;
   - joined tables are blocked in Sala while a group is seated, with a "separa tavoli" action;
   - online hours: Pranzo 12:00–14:00, Cena 19:30–22:00 (last slots), editable in settings (by: founder)
+- 2026-11-13 — The app becomes a DigiAlto SaaS product (by: founder):
+  - **Ownership:** DigiAlto owns the platform and sells it to other venues. Osteria Dei Rossi is customer/tenant #1 under a short written agreement (same owner).
+  - **Timing:** plan now, build after go-live and the two-week supervised run.
+  - **First market:** restaurants. Bar and coffee-shop counter service (no tables, quick orders, tabs) comes when the first bar or coffee shop signs.
+  - **Sign-up:** by invitation only, with no public sign-up.
+  - **Erasure:** a cancelled venue's data may be permanently erased only after its retention period (set with a legal adviser), on the owner's written request and with a DigiAlto admin approval, audited. This is the second exception to append-only (ADR-040). The CLAUDE.md rule 6 amendment comes with that milestone.
+  - **Other platform decisions (FD2–FD26):** recommended defaults, which the founder may revisit:
+    - support access is read-only, approved by the owner, at most 8 h;
+    - separate DigiAlto console logins;
+    - Italy only;
+    - no per-tenant custom domains;
+    - a paid Supabase plan before tenant #2;
+    - legal texts by an adviser before tenant #2.
+  - **UX overhaul**, driven by UAT friction, look and feel, and navigation:
+    - measure first in the supervised run;
+    - then quick wins;
+    - a themeable design system (the osteria theme uses only the eight approved colours and two fonts);
+    - then a redesign role by role.
+  - Plans: osteria-dei-rossi-app#80 (UX strategy) and #81 (platform/SaaS, ADR-037–040). The founder declined allowing extra research sites, so some UX best-practice items stay unsourced.
 - 2026-11-11 — Phase 2 scope and order (by: founder, osteria-dei-rossi-app#73):
   - Order: P2-0 go-live carry-overs, then P2-1 TOTP, P2-2 trace (invoice → batch → plate) with push sell-through and chef covers, P2-3 labels and QR, P2-4 full alert rules engine, P2-5 accountant file, P2-6 sell by weight. Forecast, menu engineering, the AdE check and e-mail-in come later.
   - Alerts stay in the app: no Telegram and no e-mail alerts. This confirms the 2026-10-23 decision.
