@@ -26,6 +26,27 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
     - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-11/13 (all with the lead's read, CI green on the merged head):
+  - **P2-0 go-live carry-overs:**
+    - #74 (merge 21fd860): the supplier_item mapping columns are closed to direct writes;
+    - #75: CSP impact, the extraction-timing rule, ADR-033 accepted, and the approved legal facts mirrored;
+    - #76 (merge c1bac5b): CI writes a readable trace tail when e2e fails.
+  - **P2-0b sell by weight:**
+    - #77 (merge 46d9ca8): DB and API. Priced per 100 g; the reference weight is versioned with the price row; rounding is half-up.
+    - #78 (merge 6ce096d): the screens.
+  - **P2-1 TOTP:**
+    - #79 (merge 431870c): the gate in Postgres; DigiAlto reset by script only, which also revokes sessions; wrong codes kept 30 days; the lock event is permanent.
+    - #82 (merge 8c66177): the screens.
+    - #86 (merge fe14c0c): admin always needs a second factor.
+  - **Plans and docs:**
+    - #73: Phase 2 scope;
+    - #80: UX strategy;
+    - #81 and #83: the platform/SaaS plan, ADR-037–040, the Costì and platform-admin decisions;
+    - #85: XML invoice upload as P2-7.
+  - **UX quick wins before go-live:**
+    - #84 (merge 1ec1c9d): the guest booking page;
+    - #87 (merge 035486c): staff screens. New booking requests on Home, "Carica una fattura" higher, day close in one tap, a warning about unsent dishes, "Esci" in the header, and smaller fixes.
+  - **Next:** the Costì product brand (name and look on the product surfaces; the founder's logo files to come).
 - Done 2026-11-10/11 (all with the lead's read):
   - #70 (merge 6dfc145): only owner, admin and waiter reads may be stored offline, so the chef's screens are never stored on a device.
   - #71 (merge 865b28d): follow-ups from the #69 review. A permanent Resend 409 now fails at once; the anon default-ACL tests are stricter.
@@ -275,6 +296,13 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - staff-typed phone and walk-in bookings included, accepted directly;
   - joined tables are blocked in Sala while a group is seated, with a "separa tavoli" action;
   - online hours: Pranzo 12:00–14:00, Cena 19:30–22:00 (last slots), editable in settings (by: founder)
+- 2026-11-13 — Fiscal and booking direction, after the verified feasibility study (by: founder, lead):
+  - Costì stays the back office. The venue keeps its RCH register, an approved RT, for receipts. Costì may drive it later through a bridge, if RCH documents the LDP03, or use an approved software-receipt provider from about 2027.
+  - XML e-invoice upload is P2-7. Automatic SDI delivery goes through an accredited provider in the SaaS milestones, after the commercialista answers.
+  - Google: a Business Profile "Prenota" link at go-live. Reserve with Google is deferred.
+  - Admin always needs a second factor.
+  - UX quick wins happen before go-live; the redesign comes after the supervised run.
+  - The Costì product look goes on product surfaces before go-live; the founder sends the logo vector files.
 - 2026-11-13 — Product name and admin model (by: founder):
   - **The product is named Costì.** Osteria Dei Rossi is the first tenant and keeps its own name and theme.
   - **The overall platform admin is the DigiAlto account digialto7@gmail.com.** It has standing admin access in every tenant, which replaces the ask-and-allow support default.
