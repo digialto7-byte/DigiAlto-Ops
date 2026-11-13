@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img">
+  <title>Costì</title>
+  <path fill="none" stroke="#0E4D3A" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" d="M34 116H94A10 10 0 0 0 104 106V84C112 84 116 72 114 58C112 46 104 40 94 40C94 26 80 16 64 16C48 16 34 26 34 40C24 40 16 46 14 58C12 72 16 84 24 84V106A10 10 0 0 0 34 116Z"/>
+  <g fill="#FF7A5C">
+    <path d="M36.5 108V93a7 7 0 0 1 14 0V108Z"/>
+    <path d="M57 108V80a7 7 0 0 1 14 0V108Z"/>
+    <path d="M77.5 108V67a7 7 0 0 1 14 0V108Z"/>
+  </g>
+</svg>
