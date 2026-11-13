@@ -67,3 +67,6 @@
 {"date":"2026-11-11","client":"osteria-dei-rossi","task":"phase2-scope","agents":["architect","reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/73"}
 {"date":"2026-11-13","client":"osteria-dei-rossi","task":"market-research","agents":["strategist"],"result":"pass","path":"clients/osteria-dei-rossi/deliverables/2026-11-13-market-research/"}
 {"date":"2026-11-13","client":"osteria-dei-rossi","task":"fiscal-booking-feasibility","agents":["architect"],"result":"pass","path":"clients/osteria-dei-rossi/deliverables/2026-11-13-fiscal-feasibility/"}
+{"date":"2026-11-12","client":"osteria-dei-rossi","task":"p2-0b-sell-by-weight","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/78"}
+{"date":"2026-11-13","client":"osteria-dei-rossi","task":"p2-1-totp","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/86"}
+{"date":"2026-11-13","client":"osteria-dei-rossi","task":"ux-quick-wins","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/87"}
