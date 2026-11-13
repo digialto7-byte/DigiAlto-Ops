@@ -275,6 +275,14 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - staff-typed phone and walk-in bookings included, accepted directly;
   - joined tables are blocked in Sala while a group is seated, with a "separa tavoli" action;
   - online hours: Pranzo 12:00–14:00, Cena 19:30–22:00 (last slots), editable in settings (by: founder)
+- 2026-11-13 — Product name and admin model (by: founder):
+  - **The product is named Costì.** Osteria Dei Rossi is the first tenant and keeps its own name and theme.
+  - **The overall platform admin is the DigiAlto account digialto7@gmail.com.** It has standing admin access in every tenant, which replaces the ask-and-allow support default.
+    - Every action it takes is logged as DigiAlto and is visible to the tenant's owner.
+    - It is disclosed in the venue contract and privacy terms.
+    - Two-step login is required for it.
+    - The address is kept here and in deployment settings only, never in the public app repo.
+  - **Each venue's owner is its own tenant admin** and the only venue-level admin besides DigiAlto. There are no extra venue admins for now. Chef and waiter roles stay as they are.
 - 2026-11-13 — The app becomes a DigiAlto SaaS product (by: founder):
   - **Ownership:** DigiAlto owns the platform and sells it to other venues. Osteria Dei Rossi is customer/tenant #1 under a short written agreement (same owner).
   - **Timing:** plan now, build after go-live and the two-week supervised run.
