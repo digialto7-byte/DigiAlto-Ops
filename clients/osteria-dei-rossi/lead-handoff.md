@@ -113,6 +113,11 @@ confirm a failure that isn't the PR's. "Flake" is not a root cause. Ask for the 
 
 Done: CB1–CB10 (#88), P2-2 trace and sell-through (#91), shell isolation (#102), P2-7 XML e-invoice upload with the statistics-independent automap (#103).
 
+**Status 2026-11-14 evening:**
+- SP0 scripts are merged; the hosted run waits for the founder's slot. Kit: plan §3.6/§3.8/§3.9 (summary in the lead's run-day kit).
+- Queue changed by the founder: SP0 → SP2 → SP3 (console) → SP1 → SP4.
+- Builder 2 is on the DS re-skin: P2a done (#120); P2b Sala with Direct comanda (#127) in build; then Cucina → Home → Fatture → Magazzino → … → Costì :root; P4 #114 parked inside it.
+
 **Builder 1** (`session_018fKcCheg3sDvethN84LxK5`, database, server and platform), one item at a time:
 1. **SP0 spike.** Plan PR #106. Hosted checks run on a temporary free EU project, created and deleted the same day by the lead. No secret ever enters a chat: SQL goes through the Supabase connector, and the secret key is injected by the proxy after the founder enters it in a secure form. The founder clicks a short dashboard list. Production always comes first for the Free project slots.
 2. **SP1** per-tenant configuration.

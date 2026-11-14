@@ -26,6 +26,38 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
     - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-14, evening (lead's read on fresh `origin/main`, CI green on the merged head):
+  - **SaaS SP0 spike**: plan #106; scripts #110 and #118. Every local check (T1–T5 and self-checks A–D) passes on the real local stack:
+    - sign-up is closed;
+    - session_id is present for every login method;
+    - platform_staff is confined (PostgREST 42501, Storage AccessDenied, Realtime refusal only, so no row data);
+    - tenant select and switch keep aal2, and non-members are refused;
+    - T4 timings with 1→3 tenants are flat.
+    - The hosted run (a temporary free EU project, deleted the same day) needs the founder's ~30 min; run-day kit ready. SP3 finding: console sessions never open Realtime.
+  - **UX**:
+    - #109 P3 Sala;
+    - #112 the sign-in band is Costì only;
+    - #120 P2a design-system foundation (ADR-045, the venue layer: name, optional logo, one accent; invalid accent refused);
+    - spec docs #111, #113, #115–#117, #125, #126.
+    - Founder direction: one Costì design system for the whole app; the venue is a configurable layer; Direct comanda from the table grid.
+  - **Platform**:
+    - #121 BQ-1, unsentCount on /api/tables;
+    - #123 the e-mail-link sign-in now offers /password (founder bug);
+    - #124 DS-BQ-2, order session opener and coperto (a narrow exact-path cost-guard exemption for coperto.vatRate);
+    - #122 CI: the stack's ports are kept out of the Linux ephemeral range in every job (root cause of the backup self-test failure).
+  - **Ops**:
+    - Vercel free plan: Function Storage reached 75% and the 100 deployments/day limit was hit on 2026-11-14.
+    - #119 (pending): skip builds for docs-only changes, and deploy only main (no PR previews).
+    - The founder may upgrade to Vercel Pro when production is set up (already planned).
+  - Founder-reported fixes: the password offer after a link sign-in; the TOTP prompt each visit came from link sign-ins (new sessions), and the session lasts 30 days after a password sign-in.
+  - Open for the founder:
+    - the SP0 run-day slot (before production is created);
+    - Q-X2 credit notes;
+    - Q-P3 late lot entry;
+    - the producers network model;
+    - the Figma plan;
+    - CI re-run permission;
+    - review the "da approvare" Italian strings on staging.
 - Done 2026-11-14, afternoon (lead's read on fresh `origin/main`, CI green on the merged head):
   - #102 (merge fdc64da): the shell pages are replaced on every user change, and the comanda SSR no longer depends on `?s` (this removed the React #418). Severity was low: the shell HTML held no user data.
   - #103 (merge 848c3a7): **P2-7 XML e-invoice upload**.
