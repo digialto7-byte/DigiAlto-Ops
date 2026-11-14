@@ -4,7 +4,7 @@ slug: osteria-dei-rossi
 task: outside-party-questions
 date: 2026-11-14
 author: lead (draft, internal)
-status: reviewed (reviewer PASS 2026-11-14, incl. chef sheet row 5)
+status: reviewed (reviewer PASS 2026-11-14, incl. chef sheet row 5 and commercialista point 4)
 language: en (internal notes); it (the questions to send)
 covers: founder-steps.md items 22-26 and section F (accountant, RCH)
 ---
@@ -43,7 +43,7 @@ Italian text (see §5).
 |---|---|---|---|
 | **Owner (titolare)**, not an outside party, so the one-question rule does not apply (one pre-filled sheet to correct) | 22 (unverified lines, 01358391, menu and prices, fixed costs, payment types), 23 (full per-etto list and prices), 25 (venue phone, booking hours, privacy contact e-mail), section F (who holds the SdI address and does the e-invoice preservation) | Payments "Contanti / Carta / Altro"; no fixed costs (shown as "non allocati"); only the 3 known per-etto dishes; booking hours Pranzo 12:00–14:00, Cena 19:30–22:00; no phone shown; 01358391 not used | **Yes**: the production tenant (S8-14), the real menu for G3-1/G3-2 and the booking page need these |
 | **Chef** (one question: the reference portion; the rest as rows of an attached sheet) | 23 (reference portion of per-etto dishes), 22 (allergens A-01…A-24, recipe quantities, yields, shelf lives, cost-sheet format, via the sheet) | Per-etto dishes cannot be saved without a reference portion; allergens stay "da confermare"; no real recipes (plate cost "incompleta"); cost sheet `piatto;costo_cibo`; Produzione shows confirmed bookings only (P2-2 Q-P7) | **Yes, in part**: G3-3 needs real recipes, and per-etto dishes cannot be rung up without a reference portion |
-| **Commercialista** | 22 (VAT 10 %, accountant export format), 23 (rounding of per-etto lines), section F (fiscal direction; the SdI address goes to the owner's sheet) | VAT 10 % on every dish, drink and the coperto; line rounding half-up to the cent; monthly invoice CSV with VAT per rate; no SDI integration (XML upload is P2-7) | **No** |
+| **Commercialista** | 22 (VAT 10 %, accountant export format), 23 (rounding of per-etto lines), section F (fiscal direction; the SdI address goes to the owner's sheet), P2-7 Q-X1 | VAT 10 % on every dish, drink and the coperto; line rounding half-up to the cent; monthly invoice CSV with VAT per rate; no SdI integration; XML upload (P2-7) imports TD01/TD24/TD25 only, operational copy, no conservazione | **No** |
 | **RCH** (register dealer or technician) | section F (RCH questions) | No integration; receipt number typed at close; day-close reconciliation against the register total | **No** |
 | **Data-protection adviser** | 24 (DPA-1, sub-processors, retention, TOTP records, booking data), 25 (privacy text), P2-2 Q-P10 | Booking page stays off; chef sees booking counts only, no guest link (P2-2); DigiAlto's draft art. 28 agreement and register entries signed as drafted; retention as built | **Yes** for the public booking page; **yes on paper** for DPA-1 (listed as blocking in founder-steps D) |
 | **HACCP consultant** | 22 (shelf lives), section F (HACCP records), P2-2 Q-P2 (supplier lot codes) | Shelf lives as the chef states them; supplier lot encouraged, never required; labels as text only; no sensors | **No** |
@@ -181,22 +181,30 @@ and section F's accountant questions. It replaces the 12 questions of the fiscal
 SdI address and who does the preservation moved to the owner's sheet (row 10). If the owner cannot answer
 it, it becomes an **explicitly noted second question** to the commercialista, sent later and only then. The
 other study questions (invoice issuing, the software-receipt regime, POS–RT) change nothing Costì does today,
-so they wait. P2-2 has nothing for the accountant.
+so they wait. P2-2 has nothing for the accountant. The P2-7 point Q-X1 (XML supplier invoices, app PR #103
+§7.1) is folded in as point 4 of the same confirm-or-correct question, not a second question.
 
 **The question (Italian, ready to send).**
 
 > Buongiorno, per l'Osteria Dei Rossi stiamo per avviare un gestionale interno (Costì) che non emette
 > documenti fiscali e lascia scontrini e corrispettivi al registratore telematico (ci risulta un RCH). Ci
-> conferma, o corregge, queste tre impostazioni?
+> conferma, o corregge, queste quattro impostazioni?
 >
 > 1. IVA al 10 % su tutto ciò che è servito al tavolo, bevande alcoliche e coperto compresi (somministrazione,
 >    TU IVA Tabella A, parte IV, n. 102); nessuna vendita da asporto a parte.
 > 2. Piatti a peso: prezzo per 100 g × grammi, arrotondato al centesimo (metà per eccesso) una volta per riga.
 > 3. Ogni mese le inviamo un file CSV delle fatture fornitori approvate, con l'IVA divisa per aliquota.
+> 4. Fatture elettroniche dei fornitori: Costì legge il file XML caricato dal locale e ne importa solo le
+>    fatture ordinarie e differite (TD01, TD24, TD25). Vengono rifiutati tutti gli altri tipi di documento
+>    (note di credito e di debito, acconti, parcelle, autofatture, integrazioni, fatture semplificate) e anche
+>    le fatture con ritenuta d'acconto, cassa previdenziale, split payment o in valuta estera: tutti questi
+>    restano gestiti fuori da Costì. La copia in Costì è solo operativa: la conservazione digitale a norma resta dov'è oggi.
 
 *Gloss:* "We are starting an internal back office that issues no fiscal documents and leaves receipts to the
-register (we understand it is an RCH). Do you confirm or correct these three settings: VAT 10 % on everything
-served with no separate take-away, the per-weight rounding, and the monthly supplier-invoice CSV?"
+register (we understand it is an RCH). Do you confirm or correct these four settings: VAT 10 % on everything
+served with no separate take-away, the per-weight rounding, the monthly supplier-invoice CSV, and importing
+only ordinary and deferred XML supplier invoices (every other type refused and handled outside Costì), with Costì's copy
+operational only and legal preservation unchanged?"
 
 **Recommended defaults and sources**
 
@@ -205,6 +213,7 @@ served with no separate take-away, the per-weight rounding, and the monthly supp
 | VAT | 10 % on every dish and drink served, coperto included | **TU IVA** (D.Lgs. 19 Jan 2026 n. 10), art. 34 c. 2: 10 % for Tabella A Parte IV; Parte IV n. 102: "somministrazioni di alimenti e bevande, effettuate anche mediante distributori automatici". The decree is in force (since 31 Jan 2026; the Tabella text read is the version in force from 7 Aug 2026) but **applies from 1 Jan 2027** (art. 171), so it governs sales from go-live. The rate is unchanged from today's rule | **read** (rate and item). Coperto at the same rate, and alcoholic drinks included when served: **inference**. Take-away sold as goods follows the goods' own rate: **inference**, hence take-away is put as a setting to confirm |
 | Rounding | Half-up to the cent, once per line, in the database | `docs/guides/vendita-a-peso.md`, which already says the accountant decides how this matches the register receipt | read (repo) |
 | Export | Monthly invoice CSV, VAT per rate first | Phase 2 scope D6 (`docs/plans/2026-11-11-phase2-scope.md`) | founder default |
+| XML supplier invoices (point 4, Q-X1) | Import TD01, TD24, TD25 only; TD02–TD06, TD16–TD23, TD26–TD29, simplified invoices, withholding, cassa previdenziale, split payment and non-EUR currency refused with a named message (negative lines too, V2, already asked elsewhere); Costì's copy is operational, not conservazione | P2-7 plan, app PR #103, `docs/plans/2026-11-14-p2-7-xml-invoice-upload.md` §7.1 Q-X1 and D-X4; TD codes and labels per the AdE technical specs (Allegato A) as cited by the plan | **read** (plan, 2026-11-14). The plan writes the refused range as "TD16–TD29", which overlaps the supported TD24/TD25; the Italian names the refused categories in plain words, without codes, so it neither repeats that overlap nor mislabels TD26 (flagged to the lead) |
 | SdI / preservation (now on the owner's sheet, row 10) | No SdI integration; XML upload (P2-7) later; Costì's copy is operational only, legal storage stays where it is | AdE "Come si riceve una fattura elettronica dal Sistema di Interscambio": one registered address per VAT number, "l'indirizzo registrato prevale su quello eventualmente indicato dal fornitore". 10-year duty: c.c. art. 2220 | **read**. Preservation route and AdE free service: **prior** (study §3, snippet) |
 
 Not contradicted: the study's recommendations (P1 now, P2/P3 after the commercialista, A1 status quo, R1
@@ -212,7 +221,9 @@ keep the RT). One correction carried from `verification.md` a6: from 1 Jan 2027 
 TU IVA art. 82–83, not art. 2 D.Lgs. 127/2015, so the question cites the TU.
 
 **What the build does until answered.** `menu_item.vat_rate` and the coperto use 10 %. Weight lines round
-half-up per line. No accountant export exists before P2-5. Nothing touches SDI.
+half-up per line. No accountant export exists before P2-5. Nothing touches SdI. When P2-7 ships, XML
+upload imports TD01/TD24/TD25 only and refuses the rest with a message sending it to the commercialista
+(Q-X1 default "yes"; types to add → variant V1 or a new one; "Costì must preserve legally" → a separate plan).
 
 ---
 
@@ -384,6 +395,7 @@ the sending domain (it cannot be changed without deleting the domain, per Resend
 | Registro delle attività di trattamento (Garante) and secondary reports of its FAQ | https://garanteprivacy.it/registro-delle-attivita-di-trattamento · https://www.informazionefiscale.it/registro-dei-trattamenti-privacy-RGPD-istruzioni-soggetti-obbligati-modello-semplificato-pmi | snippet |
 | Reg. (UE) 1169/2011 art. 44 and Annex II | (EUR-Lex blocked) secondary: https://ilfattoalimentare.it/allergeni-ristorante-dario-dongo.html | snippet |
 | Kitchen UX spec, Q-UX-K2, `docs/ux/p4-cucina.md` (app repo main) | `digialto7-byte/osteria-dei-rossi-app` | read 2026-11-14 |
+| P2-7 plan, app PR #103, §7.1 Q-X1 and D-X4, `docs/plans/2026-11-14-p2-7-xml-invoice-upload.md` | `digialto7-byte/osteria-dei-rossi-app` (PR head) | read 2026-11-14 |
 | P2-2 plan, app PR #91, §7.1 (Q-P2, Q-P7, Q-P10), `docs/plans/2026-11-14-p2-2-trace-sell-through.md` | not in the local clone | relayed by the lead, not read by me |
 | Fiscal feasibility study and its verification | `clients/osteria-dei-rossi/deliverables/2026-11-13-fiscal-feasibility/` | prior (2026-11-13) |
 | Hardware research (HACCP practice, Reg. 852/2004) | `clients/osteria-dei-rossi/deliverables/2026-11-05-hardware-research/research.md` | prior (2026-11-05, snippet) |
