@@ -71,3 +71,4 @@
 {"date":"2026-11-13","client":"osteria-dei-rossi","task":"p2-1-totp","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/86"}
 {"date":"2026-11-13","client":"osteria-dei-rossi","task":"ux-quick-wins","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/87"}
 {"date":"2026-11-14","client":"osteria-dei-rossi","task":"costi-product-brand","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/88"}
+{"date":"2026-11-14","client":"osteria-dei-rossi","task":"outside-party-questions","agents":["reviewer"],"result":"pass","path":"clients/osteria-dei-rossi/deliverables/2026-11-14-outside-party-questions/"}
