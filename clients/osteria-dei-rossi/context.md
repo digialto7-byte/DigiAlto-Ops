@@ -26,6 +26,25 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
     - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-14, afternoon (lead's read on fresh `origin/main`, CI green on the merged head):
+  - #102 (merge fdc64da): the shell pages are replaced on every user change, and the comanda SSR no longer depends on `?s` (this removed the React #418). Severity was low: the shell HTML held no user data.
+  - #103 (merge 848c3a7): **P2-7 XML e-invoice upload**.
+    - Parsing: deterministic FatturaPA parse (saxes, DTD/ENTITY refused, limits); the p7m is unwrapped by our own bounded DER reader; TD01/TD24/TD25 only.
+    - Downloads: the original goes only through an app route with attachment, nosniff, octet-stream and the sandbox CSP (next.config exact-path rule).
+    - **Statistics-independent automap**: a max-size import against 5 000 unanalyzed catalogue items took 52 s, past the 8 s `authenticated` statement_timeout read on staging; it's now about 0.8 s. This also protects the AI invoice path.
+    - Five code-review rounds.
+  - Founder decisions:
+    - No fixed go-live date (ready-based, Osteria Dei Rossi only).
+    - Build the Costì admin console now (SP0 → SP1 → SP2 → SP3).
+    - A second builder for the UX screens.
+    - Rules A (polling) and B (fallbacks).
+    - See lead-handoff.md "Build queue".
+  - Open for the founder:
+    - Q-X2 credit notes (default: refuse for now).
+    - Q-P3 late lot entry (default: no).
+    - The producers network: free service vs revenue (default: free pilot).
+    - The Figma plan (the Starter MCP limit was reached).
+    - Whether sessions may re-run CI jobs.
 - Done 2026-11-14 (lead's read on fresh `origin/main`, CI green on the merged head):
   - #88 (merge 893bb28): the Costì product brand and the QW13 rename (CB1–CB10), on head 1c50cea. No migration, API, proxy, CSP, sw or secret-key change; the new SVGs have no script or external link; code-reviewer PASS. Placeholder logos until CB11 / BRAND-1.
   - #89 (merge be23ed5): e2e seeds use the business date the owner reads (02:00 cut-off), guarded by pgTAP 351. The same content was already in #88, so the merge changed no files.
