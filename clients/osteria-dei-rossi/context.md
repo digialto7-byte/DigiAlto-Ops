@@ -31,7 +31,14 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - #89 (merge be23ed5): e2e seeds use the business date the owner reads (02:00 cut-off), guarded by pgTAP 351. The same content was already in #88, so the merge changed no files.
   - #90 (merge e5eade0): the builder hand-off `docs/handoff/builder.md`.
   - Sessions: new lead `session_018fKcCjkR8ikx6DEmuZJMBE`; old build session `session_01TAMK1utM7VhofwoMRfmEdV` retired after its last main-CI report; new builder `session_018fKcCheg3sDvethN84LxK5`; UX/UI `session_018fKcCnL4GBWbt7Xx6dzpoo`; go-live ops `session_018fKcChxwQq79i9fYEAy5qD`.
-  - **Next:** agree the pre-go-live build queue with the founder (proposal: CB11 when the logos arrive, P2-2, P2-7, P2-4, P2-5 if the accountant confirms, small fixes, code freeze around 19 December).
+  - Founder decisions 2026-11-14:
+    - Pre-go-live queue: CB11 → P2-2 → P2-7 (before P2-5) → SP0 → P2-4 → P2-5 → small fixes → code freeze ~19 December (lead-handoff.md "Build queue").
+    - SP0 hosted checks on a temporary free EU Supabase project, created and deleted the same day by the lead; staging untouched.
+    - Future **local producers network**: producers sign up and reach Costì venues (discovery of fornitori, suggestions, possible producer offers, local traceability such as protected designations). Separate plan after the SaaS platform milestones; P2-2 only leaves origin hooks.
+    - Outside parties: research first, recommended default, one thoughtful question per party. Sheet merged as DigiAlto-Ops #65 (`deliverables/2026-11-14-outside-party-questions/`).
+  - App docs merged 2026-11-14 (UX/UI session): #92 Costì design system and `docs/ux/` index; #93 P2-2 screen spec (D1–D7 accepted); #94 sign-in reference spec (S1–S3 to the small-fixes batch, S4 later).
+  - In build: P2-2 trace and sell-through (app PR #91, plan approved with LFD-1…LFD-6; Q-P3 late lot entry default "no", asked to the founder).
+  - Open: the UX/UI session cannot use the Figma connector (tool calls denied); the founder checks the connector's tool permissions.
 - Done 2026-11-11/13 (all with the lead's read, CI green on the merged head):
   - **P2-0 go-live carry-overs:**
     - #74 (merge 21fd860): the supplier_item mapping columns are closed to direct writes;

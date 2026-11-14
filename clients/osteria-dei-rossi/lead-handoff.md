@@ -105,15 +105,26 @@ confirm a failure that isn't the PR's. "Flake" is not a root cause. Ask for the 
 - The pre-go-live build queue is being agreed with the founder (below).
 
 ## Build queue (plans in the app repo `docs/plans/`)
-The founder said on 2026-11-14 that more features are to be built **before** go-live (12 January).
-Agree the order with the founder. Candidates:
-- UX redesign phases (`2026-11-13-ux-strategy.md`).
-- SaaS platform SP0–SP13 (`2026-11-13-platform-saas.md`, ADR-037–040, FD1–FD36).
-- Phase 2 P2-2 to P2-7 (`2026-11-11-phase2-scope.md`), including C18 "esaurito" on the public menu
-  (needs the menu site's source location) and P2-7 supplier XML import.
-- Google booking (GBP-1; the founder supplies the Google link).
-- Fiscal direction (`deliverables/2026-11-13-fiscal-feasibility/`): Costì stays the back office next
-  to an approved RT (the RCH LDP03). No till of our own until a software RT is approved.
+Agreed with the founder on 2026-11-14. Pre-go-live (go-live 12 January), in order, one item at a time:
+1. **CB11**: the founder's Costì logo files, when they arrive.
+2. **P2-2 trace and sell-through**: plan approved (app PR #91, LFD-1…LFD-6), UX spec #93; in build.
+3. **P2-7 XML e-invoice upload** (moved before P2-5 by the founder).
+4. **SP0 SaaS spike**: hosted checks on a temporary free EU Supabase project the lead creates and deletes the same
+   day, before production exists; staging never touched (founder 2026-11-14). Local-stack parts in CI.
+5. **P2-4 alert rules** (in-app only).
+6. **P2-5 accountant file**: research first, one question to the commercialista (see the outside-party sheet).
+7. **Small fixes**: Phase 2 polish batch (F3 first); UX sign-in S1 (send PIN on the 4th digit), S2 (role=status on
+   the expired-session line), S3 (PIN paste allowed, autocomplete stays off: shared kitchen phone).
+8. **Code freeze around 19 December**: fixes only after.
+
+After go-live: UX redesign P3–P7 (UX/UI session designs ahead), SaaS SP1–SP13, P2-3 labels (after the printer
+purchase), C18 "esaurito" (needs the menu site's source location; asked), GBP-1, and the **local producers
+network** (founder idea 2026-11-14; plan on app branch `docs/local-producers-plan`, after the SaaS platform
+milestones). Fiscal direction unchanged: Costì stays the back office next to the approved RT.
+
+**Founder rule for outside parties (2026-11-14):** research official sources first, fact-check, recommend a
+default, and ask at most one thoughtful question per party, never a questionnaire. The sheet is
+`deliverables/2026-11-14-outside-party-questions/questions.md`.
 
 ## Waiting on the founder
 The full list, grouped and numbered, is in `founder-steps.md` (next to this file). Keep it current:
