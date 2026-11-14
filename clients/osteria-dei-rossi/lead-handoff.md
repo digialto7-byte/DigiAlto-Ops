@@ -38,7 +38,7 @@ blockers" added. The founder talks to each one directly in its own chat. Record 
 |---|---|
 | Lead | `session_018fKcCjkR8ikx6DEmuZJMBE` |
 | Costì builder | `session_018fKcCheg3sDvethN84LxK5` |
-| Costì UX/UI | `session_018fKcCnL4GBWbt7Xx6dzpoo` |
+| Costì UX/UI | `session_018fKcCiZW2Z9V7NyYmVkuJb` (replaced `session_018fKcCnL4GBWbt7Xx6dzpoo`, retired 2026-11-14: Figma tools blocked) |
 | Costì go-live ops | `session_018fKcChxwQq79i9fYEAy5qD` |
 | Costì go-to-market | not created yet (founder asks) |
 | Old build session `session_01TAMK1utM7VhofwoMRfmEdV` | Retired 2026-11-14 after #88–#90 merged and its last main-CI report |
@@ -107,14 +107,16 @@ confirm a failure that isn't the PR's. "Flake" is not a root cause. Ask for the 
 ## Build queue (plans in the app repo `docs/plans/`)
 Agreed with the founder on 2026-11-14. Pre-go-live (go-live 12 January), in order, one item at a time:
 1. **CB11**: the founder's Costì logo files, when they arrive.
-2. **P2-2 trace and sell-through**: plan approved (app PR #91, LFD-1…LFD-6), UX spec #93; in build.
+2. **P2-2 trace and sell-through**: merged 2026-11-14 (app #91, merge 3164ef1).
 3. **P2-7 XML e-invoice upload** (moved before P2-5 by the founder).
 4. **SP0 SaaS spike**: hosted checks on a temporary free EU Supabase project the lead creates and deletes the same
    day, before production exists; staging never touched (founder 2026-11-14). Local-stack parts in CI.
 5. **P2-4 alert rules** (in-app only).
 6. **P2-5 accountant file**: research first, one question to the commercialista (see the outside-party sheet).
 7. **Small fixes**: Phase 2 polish batch (F3 first); UX sign-in S1 (send PIN on the 4th digit), S2 (role=status on
-   the expired-session line), S3 (PIN paste allowed, autocomplete stays off: shared kitchen phone).
+   the expired-session line), S3 (PIN paste allowed, autocomplete stays off: shared kitchen phone); W-d and K-b (pressed
+   secondary toggles, no reveal animation on /cucina), G-a and G-b (/prenota selected state and purpose line); React #418
+   hydration warnings (cause first).
 8. **Code freeze around 19 December**: fixes only after.
 
 After go-live: UX redesign P3–P7 (UX/UI session designs ahead), SaaS SP1–SP13, P2-3 labels (after the printer
