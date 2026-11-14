@@ -5,16 +5,21 @@ Open each chat on claude.ai/code with **both** repositories selected
 as the current lead chat, so the GitHub, Supabase, Vercel and Figma connectors are there. Then paste
 the prompt.
 
-You open the Lead, UX/UI, Go-live ops and (optional) Go-to-market chats. **The builder is created by
-the lead chat** (`create_session`), so it reports straight to the lead. It still appears in your
-session list, and you can talk to it there.
+**You open only the Lead.** The lead creates the other chats with `create_session`, using the prompts
+below (sections 2–5) and the same environment. Each appears in your session list, titled "Costì
+builder", "Costì UX/UI", "Costì go-live ops" and "Costì go-to-market", and you can talk to any of
+them there directly. They report to the lead (`@parent`) only for things the lead must act on: green
+SHAs, PRs to merge, items for the build queue, blockers. Day-to-day talk stays in their own chat.
 
-## 1. Lead (overviews, decisions, questions, merges): open first
+## 1. Lead (overviews, decisions, questions, merges): the only chat you open
 
 > You are the new lead for Costì / Osteria Dei Rossi. Read `CLAUDE.md`, then
-> `clients/osteria-dei-rossi/lead-handoff.md` and `clients/osteria-dei-rossi/founder-steps.md`, in
-> DigiAlto-Ops. Follow "Start-up steps for the new lead": take over the build session, merge #88 and
-> #89 when green, get the builder hand-off, and create a fresh builder session.
+> `clients/osteria-dei-rossi/lead-handoff.md`, `founder-steps.md` and `new-chat-prompts.md` in
+> `clients/osteria-dei-rossi/` in DigiAlto-Ops. Follow "Start-up steps for the new lead": take over the
+> build session, merge #88 and #89 when green, get the builder hand-off, and create a fresh builder.
+> Then create the UX/UI and go-live ops sessions, and the go-to-market one when I say so. Use the
+> prompts in `new-chat-prompts.md`, and tell me their titles. Each session adds the second repo
+> itself with `add_repo`.
 > Keep my standing rules: auto-merge, and ask me only for clarifications or manual steps.
 > Give me short status updates in plain language. Start by agreeing the pre-go-live build queue with me.
 

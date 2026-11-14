@@ -23,8 +23,14 @@ and `knowledge/agency/products/costi/brand.md`.
 | Lead chat (you) | Plans with the founder; owns the build queue and the founder's step list (`founder-steps.md`); reads every app PR for security; merges; records in DigiAlto-Ops |
 | Old build session `session_01TAMK1utM7VhofwoMRfmEdV` | Finishes #88 and #89, writes a builder hand-off, then retires |
 | New builder (created by the lead) | One app milestone at a time with `/feature`, code-reviewer and CI; opens PRs; never merges; reports to the lead (`@parent`) |
-| UX/UI chat (opened by the founder) | Flows, screen specs and Figma designs in the Costì brand; docs-only PRs in the app repo (`docs/ux/`); no app code. Its specs go to the builder through the lead, and its screens and design system feed go-to-market |
-| Go-live ops chat (opened by the founder) | Walks the founder through `founder-steps.md` and checks each step read-only; no code, no app merges |
+| UX/UI (created by the lead) | Flows, screen specs and Figma designs in the Costì brand; docs-only PRs in the app repo (`docs/ux/`); no app code. Its specs go to the builder through the lead, and its screens and design system feed go-to-market |
+| Go-live ops (created by the lead) | Walks the founder through `founder-steps.md` and checks each step read-only; no code, no app merges |
+| Go-to-market (created by the lead when the founder asks) | Costì positioning, tiers, website and launch posts, in DigiAlto-Ops only |
+
+The founder opens only the lead. Prompts for every other session are in `new-chat-prompts.md`. Each is
+created with `create_session`: same environment, `source_url` = its main repo, and the prompt from
+that file with "Report to `@parent` only for green SHAs, PRs to merge, build-queue items and
+blockers" added. The founder talks to each one directly in its own chat. Record every session id here.
 | Previous lead `session_01A5hMMzpWmqjyPgSAYpD5kG` | Retired on 2026-11-14 after this hand-off |
 
 Only **one** session writes app code at a time (the builder), so migrations and merges never collide.
@@ -44,8 +50,13 @@ Only **one** session writes app code at a time (the builder), so migrations and 
    - same environment, `source_url` = the app repo, title "Costì builder";
    - prompt: read `CLAUDE.md` and `docs/handoff/builder.md`, then wait for the lead's first assignment.
    Then tell the old build session it is retired, and record the new builder's id here.
-5. Keep the build queue with the founder: the pre-go-live features first, then the queue below.
+5. Create the UX/UI session (`source_url` = the app repo) and the go-live ops session
+   (`source_url` = DigiAlto-Ops) from `new-chat-prompts.md`, and tell the founder their titles.
+   Create go-to-market only when the founder asks.
+6. Keep the build queue with the founder: the pre-go-live features first, then the queue below.
    Hand the builder one item at a time.
+7. When a child session's context gets heavy, replace it the same way. Ask it for a short hand-off
+   file, merge that, and create a fresh session from it.
 
 ## Standing founder rules
 - "Vercel plan is hobby; this is not paid work. Continue and auto-merge without approval. Only ask
