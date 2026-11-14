@@ -4,7 +4,7 @@ slug: osteria-dei-rossi
 task: outside-party-questions
 date: 2026-11-14
 author: lead (draft, internal)
-status: draft, not reviewed
+status: reviewed (reviewer PASS 2026-11-14, incl. chef sheet row 5)
 language: en (internal notes); it (the questions to send)
 covers: founder-steps.md items 22-26 and section F (accountant, RCH)
 ---
@@ -111,8 +111,8 @@ manca ancora") lists the missing privacy e-mail and settings.
 
 **Who and why.** The one question closes the chef's half of item 23 (the reference portion of each per-etto
 dish, raw or cooked), the risk rated highest below. An attached sheet ("scheda") closes the rest of item 22
-(allergens A-01…A-24, recipe quantities, yields, shelf lives, cost-sheet format) and the P2-2 point Q-P7, as
-rows to confirm or correct. The chef is addressed as "tu"; "tenete/avete" in the sheet means the kitchen as a whole.
+(allergens A-01…A-24, recipe quantities, yields, shelf lives, cost-sheet format), the P2-2 point Q-P7 and
+the kitchen UX point Q-UX-K2, as rows to confirm or correct. The chef is addressed as "tu"; "tenete/avete" in the sheet means the kitchen as a whole.
 
 **The question (Italian, ready to send).**
 
@@ -134,6 +134,8 @@ other rows of the attached sheet.)"
 > 3. Foglio costi per piatto: se ne tieni uno, in che formato? Proposta: un file con "piatto; costo cibo".
 > 4. Schermata Produzione: oggi mostriamo solo le prenotazioni confermate e i coperti per servizio. Vuoi
 >    vedere anche, a parte, il numero delle richieste non ancora confermate? Proposta: no, solo confermate.
+> 5. Durante il servizio, vuoi vedere da quanto tempo aspetta ogni comanda, scritto in parole (es. "da 12
+>    min"), senza colori? Proposta: sì.
 
 **Recommended defaults and sources**
 
@@ -160,6 +162,8 @@ other rows of the attached sheet.)"
 - **Sheet row 3, cost sheet.** CSV `piatto;costo_cibo`, ±5 % (M8 Q8).
 - **Sheet row 4, Q-P7.** Source: P2-2 plan, app PR #91, §7.1 (Q-P7), as relayed by the lead on 2026-11-14 (the
   plan is not in the local clone, so I did not read it). Default: confirmed bookings only; "yes" → variant V4.
+- **Sheet row 5, Q-UX-K2.** Source: app repo `docs/ux/p4-cucina.md` (Q-UX-K2, read on main 2026-11-14), added at
+  the lead's request. Default: yes, the waiting time of each comanda as words ("da 12 min"), no colours.
 
 **What the build does until answered.** Per-etto dishes cannot be set up, so a waiter cannot ring up a
 Fiorentina by weight. Allergens show "da confermare" at every recipe depth; imports never confirm (M7). No
@@ -379,6 +383,7 @@ the sending domain (it cannot be changed without deleting the domain, per Resend
 | Data Processing Addendum (Vercel) | https://vercel.com/legal/dpa | snippet |
 | Registro delle attività di trattamento (Garante) and secondary reports of its FAQ | https://garanteprivacy.it/registro-delle-attivita-di-trattamento · https://www.informazionefiscale.it/registro-dei-trattamenti-privacy-RGPD-istruzioni-soggetti-obbligati-modello-semplificato-pmi | snippet |
 | Reg. (UE) 1169/2011 art. 44 and Annex II | (EUR-Lex blocked) secondary: https://ilfattoalimentare.it/allergeni-ristorante-dario-dongo.html | snippet |
+| Kitchen UX spec, Q-UX-K2, `docs/ux/p4-cucina.md` (app repo main) | `digialto7-byte/osteria-dei-rossi-app` | read 2026-11-14 |
 | P2-2 plan, app PR #91, §7.1 (Q-P2, Q-P7, Q-P10), `docs/plans/2026-11-14-p2-2-trace-sell-through.md` | not in the local clone | relayed by the lead, not read by me |
 | Fiscal feasibility study and its verification | `clients/osteria-dei-rossi/deliverables/2026-11-13-fiscal-feasibility/` | prior (2026-11-13) |
 | Hardware research (HACCP practice, Reg. 852/2004) | `clients/osteria-dei-rossi/deliverables/2026-11-05-hardware-research/research.md` | prior (2026-11-05, snippet) |
