@@ -33,6 +33,16 @@ that file with "Report to `@parent` only for green SHAs, PRs to merge, build-que
 blockers" added. The founder talks to each one directly in its own chat. Record every session id here.
 | Previous lead `session_01A5hMMzpWmqjyPgSAYpD5kG` | Retired on 2026-11-14 after this hand-off |
 
+### Session ids (2026-11-14)
+| Session | Id |
+|---|---|
+| Lead | `session_018fKcCjkR8ikx6DEmuZJMBE` |
+| Costì builder | `session_018fKcCheg3sDvethN84LxK5` |
+| Costì UX/UI | `session_018fKcCnL4GBWbt7Xx6dzpoo` |
+| Costì go-live ops | `session_018fKcChxwQq79i9fYEAy5qD` |
+| Costì go-to-market | not created yet (founder asks) |
+| Old build session `session_01TAMK1utM7VhofwoMRfmEdV` | Retired 2026-11-14 after #88–#90 merged and its last main-CI report |
+
 Only **one** session writes app code at a time (the builder), so migrations and merges never collide.
 
 ### Start-up steps for the new lead
@@ -87,20 +97,12 @@ Only **one** session writes app code at a time (the builder), so migrations and 
 CI failures: the lead cannot re-run jobs (403). The build session can, once per failure, and only to
 confirm a failure that isn't the PR's. "Flake" is not a root cause. Ask for the trace tail first.
 
-## In flight on 2026-11-14 (about 01:00Z)
-- **#88 Costì product brand** (`feat/costi-product-brand`, head 07efe4b):
-  - CB1–CB10 done; no migration, dependency, proxy or sw change; code-reviewer PASS.
-  - The mfa.spec timeout fix (TOTP step wait, 60 s on one test) passed.
-  - counts.spec failed at 00:59 Rome. Cause: the test seeded its invoice with the calendar date
-    while the report defaults to the business date (cut-off 02:00). It is not in the brand diff.
-  - Next: the build session re-runs the failed job after 01:05Z, comments on #88, then sends the
-    green SHA. Then do the read and merge.
-- **#89 test fix** (`fix/e2e-seed-business-date`, head 62c70df):
-  - test-only; seeds with the business date read through the owner's session;
-  - pgTAP 351 guards the app behaviour; code-reviewer PASS; CI in progress.
-  - Next: the read and merge, then record #88 and #89.
-- **CB11**: swap in the founder's own Costì logo files when they arrive. The placeholders are in
-  `knowledge/agency/products/costi/assets/`.
+## In flight on 2026-11-14 (about 01:50Z)
+- Start-up steps 1–5 done: #88 (893bb28), #89 (be23ed5) and #90 builder hand-off (e5eade0) merged; builder, UX/UI and go-live
+  ops created (ids above).
+- **CB11**: swap in the founder's own Costì logo files when they arrive (builder; recipe in `docs/handoff/builder.md` §6). The
+  placeholders are in `knowledge/agency/products/costi/assets/`.
+- The pre-go-live build queue is being agreed with the founder (below).
 
 ## Build queue (plans in the app repo `docs/plans/`)
 The founder said on 2026-11-14 that more features are to be built **before** go-live (12 January).
