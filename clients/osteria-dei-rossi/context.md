@@ -37,8 +37,14 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Future **local producers network**: producers sign up and reach Costì venues (discovery of fornitori, suggestions, possible producer offers, local traceability such as protected designations). Separate plan after the SaaS platform milestones; P2-2 only leaves origin hooks.
     - Outside parties: research first, recommended default, one thoughtful question per party. Sheet merged as DigiAlto-Ops #65 (`deliverables/2026-11-14-outside-party-questions/`).
   - App docs merged 2026-11-14 (UX/UI session): #92 Costì design system and `docs/ux/` index; #93 P2-2 screen spec (D1–D7 accepted); #94 sign-in reference spec (S1–S3 to the small-fixes batch, S4 later).
-  - In build: P2-2 trace and sell-through (app PR #91, plan approved with LFD-1…LFD-6; Q-P3 late lot entry default "no", asked to the founder).
-  - Open: the UX/UI session cannot use the Figma connector (tool calls denied); the founder checks the connector's tool permissions.
+  - **P2-2 trace and sell-through merged** (app #91, merge 3164ef1, head 69b2a5c; 2026-11-14):
+    - six function-only migrations (20261203100000–100500); no table, policy or grant change; every definer has `search_path=''` and checks the role first, takes the tenant from the session, and only `authenticated` may execute it; routes are owner/admin/chef (covers also waiter); the chef gets no prices or invoice data;
+    - CI green on attempt 2 (pgTAP 283 files / 12 319 tests; Playwright 134 + 129). Attempt 1 failed in a reservations-staff.spec teardown (browser context closed), unrelated to the diff, and did not reproduce; the founder re-ran it;
+    - the pgTAP 359 constraint pin now hashes structure in the owned schemas only (the old `::regclass` text depended on `search_path`); a Postgres major upgrade needs the 359 pins refreshed;
+    - code-reviewer PASS; Q-P3 late lot entry stays "no" until the founder answers.
+  - Also merged 2026-11-14: app #96 local producers network plan (LP0–LP6, after SaaS SP0/2/3/5/6/7/10; founder question: free service vs. revenue line, default free pilot around Siena); app #95, #97–#101 UX specs P3 Sala, P4 Cucina, P5 owner, P7 booking and Figma library (Figma Starter MCP call limit reached; resumes next month or on upgrade).
+  - UX/UI session replaced (Figma tools blocked in the first one): new `session_018fKcCiZW2Z9V7NyYmVkuJb`; old `session_018fKcCnL4GBWbt7Xx6dzpoo` retired.
+  - Next: P2-7 XML e-invoice upload, plan first. Small-fixes batch gained W-d, K-b, G-a, G-b (UX) and the React #418 hydration warnings.
 - Done 2026-11-11/13 (all with the lead's read, CI green on the merged head):
   - **P2-0 go-live carry-overs:**
     - #74 (merge 21fd860): the supplier_item mapping columns are closed to direct writes;
