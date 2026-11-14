@@ -40,6 +40,7 @@ blockers" added. The founder talks to each one directly in its own chat. Record 
 | Costì builder | `session_018fKcCheg3sDvethN84LxK5` |
 | Costì UX/UI | `session_018fKcCiZW2Z9V7NyYmVkuJb` (replaced `session_018fKcCnL4GBWbt7Xx6dzpoo`, retired 2026-11-14: Figma tools blocked) |
 | Costì go-live ops | `session_018fKcChxwQq79i9fYEAy5qD` |
+| Costì builder (UX screens) | `session_018fKcCkQ5oUYS4RbwBx1AE8` (second builder, created 2026-11-14: screens only; no supabase/, src/server/, src/app/api/, sw.js, proxy, next.config, CI or deps) |
 | Costì go-to-market | not created yet (founder asks) |
 | Old build session `session_01TAMK1utM7VhofwoMRfmEdV` | Retired 2026-11-14 after #88–#90 merged and its last main-CI report |
 
@@ -105,28 +106,38 @@ confirm a failure that isn't the PR's. "Flake" is not a root cause. Ask for the 
 - The pre-go-live build queue is being agreed with the founder (below).
 
 ## Build queue (plans in the app repo `docs/plans/`)
-Agreed with the founder on 2026-11-14. Pre-go-live (go-live 12 January), in order, one item at a time:
-1. **CB11**: the founder's Costì logo files, when they arrive.
-2. **P2-2 trace and sell-through**: merged 2026-11-14 (app #91, merge 3164ef1).
-3. **P2-7 XML e-invoice upload** (moved before P2-5 by the founder).
-4. **SP0 SaaS spike**: hosted checks on a temporary free EU Supabase project the lead creates and deletes the same
-   day, before production exists; staging never touched (founder 2026-11-14). Local-stack parts in CI.
-5. **P2-4 alert rules** (in-app only).
-6. **P2-5 accountant file**: research first, one question to the commercialista (see the outside-party sheet).
-7. **Small fixes**: Phase 2 polish batch (F3 first); UX sign-in S1 (send PIN on the 4th digit), S2 (role=status on
-   the expired-session line), S3 (PIN paste allowed, autocomplete stays off: shared kitchen phone); W-d and K-b (pressed
-   secondary toggles, no reveal animation on /cucina), G-a and G-b (/prenota selected state and purpose line); React #418
-   hydration warnings (cause first).
-8. **Code freeze around 19 December**: fixes only after.
+**Founder decisions 2026-11-14 (later the same day):**
+- **No fixed go-live date.** Go-live happens when the founder judges Osteria Dei Rossi ready, with that tenant only until decided otherwise. A freeze is set before whatever date is chosen.
+- **The Costì admin console is built now.**
+- **A second builder builds the UX screens in parallel.**
 
-After go-live: UX redesign P3–P7 (UX/UI session designs ahead), SaaS SP1–SP13, P2-3 labels (after the printer
-purchase), C18 "esaurito" (needs the menu site's source location; asked), GBP-1, and the **local producers
-network** (founder idea 2026-11-14; plan on app branch `docs/local-producers-plan`, after the SaaS platform
-milestones). Fiscal direction unchanged: Costì stays the back office next to the approved RT.
+Done: CB1–CB10 (#88), P2-2 trace and sell-through (#91), shell isolation (#102), P2-7 XML e-invoice upload with the statistics-independent automap (#103).
 
-**Founder rule for outside parties (2026-11-14):** research official sources first, fact-check, recommend a
-default, and ask at most one thoughtful question per party, never a questionnaire. The sheet is
-`deliverables/2026-11-14-outside-party-questions/questions.md`.
+**Builder 1** (`session_018fKcCheg3sDvethN84LxK5`, database, server and platform), one item at a time:
+1. **SP0 spike.** Plan PR #106. Hosted checks run on a temporary free EU project, created and deleted the same day by the lead. No secret ever enters a chat: SQL goes through the Supabase connector, and the secret key is injected by the proxy after the founder enters it in a secure form. The founder clicks a short dashboard list. Production always comes first for the Free project slots.
+2. **SP1** per-tenant configuration.
+3. **SP2** memberships.
+4. **SP3** platform layer and the **Costì console** (tenant list, detail with settings, health, audit). The UX/UI session designs it now.
+5. **SP4.**
+6. **P2-4** alert rules, **P2-5** accountant file, then the backend small fixes (pgTAP 366 NOTEs 1–2, the orphan-object cleanup only via a script with the founder's OK after go-live).
+7. **CB11** when the logos arrive.
+
+**Builder 2** (`session_018fKcCkQ5oUYS4RbwBx1AE8`, screens only):
+1. **P3 Sala** with W-d and K-b.
+2. **P4 Cucina.**
+3. **P5 Owner.**
+4. The frontend small fixes: S1–S3 PIN, G-a/G-b (/prenota), the /tavoli and comanda polling pause, line-search's silent fallback, and the review screen's file-url load report.
+
+P7 (booking) waits for the design-system phase (DS5/DS6).
+
+After that: SP5–SP13 in the plan order, P2-3 labels (after the printer purchase), C18 "esaurito" (needs the menu site's source location), GBP-1, and the local producers network (LP0–LP6, after SP0/2/3/5/6/7/10). For SaaS scale, the kitchen and tables move from polling to server-pushed events (Realtime with a server-issued token, or SSE), keeping the access token out of the browser.
+
+**Standing engineering rules (founder, 2026-11-14):**
+- **Rule A, polling:** prefer events; a new poll needs a reason in the plan, and every poll pauses while the page is hidden.
+- **Rule B, fallbacks:** allowed only as a product requirement or when they report the failure; no silent catch, no "either value" test. No backward-compatibility shims before go-live; after go-live, migrations handle existing rows, with no dual code paths.
+- **Process:** mark a PR ready as soon as the code is written, so CI and code-reviewer run in parallel. Grep e2e/ and tests/ for every list the change extends before pushing.
+
+**Founder rule for outside parties (2026-11-14):** research official sources first, fact-check, recommend a default, and ask at most one thoughtful question per party, never a questionnaire. The sheet is `deliverables/2026-11-14-outside-party-questions/questions.md`.
 
 ## Waiting on the founder
 The full list, grouped and numbered, is in `founder-steps.md` (next to this file). Keep it current:
