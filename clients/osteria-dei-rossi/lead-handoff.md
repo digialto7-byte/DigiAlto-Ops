@@ -20,13 +20,32 @@ and `knowledge/agency/products/costi/brand.md`.
 ## Who does what
 | Session | Role |
 |---|---|
-| Lead chat (you) | Plans with the founder, coordinates the build session, reads every PR for security, merges, records in DigiAlto-Ops |
-| Build session `session_01TAMK1utM7VhofwoMRfmEdV` | Builds in the app repo with `/feature`, code-reviewer, CI; opens PRs; never merges; reports to the lead with `send_message` |
+| Lead chat (you) | Plans with the founder; owns the build queue and the founder's step list (`founder-steps.md`); reads every app PR for security; merges; records in DigiAlto-Ops |
+| Old build session `session_01TAMK1utM7VhofwoMRfmEdV` | Finishes #88 and #89, writes a builder hand-off, then retires |
+| New builder (created by the lead) | One app milestone at a time with `/feature`, code-reviewer and CI; opens PRs; never merges; reports to the lead (`@parent`) |
+| UX/UI chat (opened by the founder) | Flows, screen specs and Figma designs in the Costì brand; docs-only PRs in the app repo (`docs/ux/`); no app code. Its specs go to the builder through the lead, and its screens and design system feed go-to-market |
+| Go-live ops chat (opened by the founder) | Walks the founder through `founder-steps.md` and checks each step read-only; no code, no app merges |
 | Previous lead `session_01A5hMMzpWmqjyPgSAYpD5kG` | Retired on 2026-11-14 after this hand-off |
 
-On start, the new lead calls `get_session` (no id) for its own session id and sends it to the build
-session: "I am the lead from now on; send reports to <id>." The previous lead has told the build
-session to expect that message.
+Only **one** session writes app code at a time (the builder), so migrations and merges never collide.
+
+### Start-up steps for the new lead
+1. Call `get_session` (no id) for your own id. Send it to the old build session: "I am the lead
+   from now on; send reports to <id>." The previous lead has told it to expect this message.
+2. Merge #88 and #89 once they are green (procedure below).
+3. Ask the old build session for a builder hand-off as a docs-only app PR,
+   `docs/handoff/builder.md`. It covers:
+   - branch conventions and how CI is run;
+   - the known flaky areas and their diagnostics;
+   - local limits (no Docker);
+   - the open plans and the next milestone.
+   Merge it.
+4. Create the new builder with `create_session`:
+   - same environment, `source_url` = the app repo, title "Costì builder";
+   - prompt: read `CLAUDE.md` and `docs/handoff/builder.md`, then wait for the lead's first assignment.
+   Then tell the old build session it is retired, and record the new builder's id here.
+5. Keep the build queue with the founder: the pre-go-live features first, then the queue below.
+   Hand the builder one item at a time.
 
 ## Standing founder rules
 - "Vercel plan is hobby; this is not paid work. Continue and auto-merge without approval. Only ask
@@ -72,7 +91,9 @@ confirm a failure that isn't the PR's. "Flake" is not a root cause. Ask for the 
 - **CB11**: swap in the founder's own Costì logo files when they arrive. The placeholders are in
   `knowledge/agency/products/costi/assets/`.
 
-## Queue after go-live (plans in the app repo `docs/plans/`)
+## Build queue (plans in the app repo `docs/plans/`)
+The founder said on 2026-11-14 that more features are to be built **before** go-live (12 January).
+Agree the order with the founder. Candidates:
 - UX redesign phases (`2026-11-13-ux-strategy.md`).
 - SaaS platform SP0–SP13 (`2026-11-13-platform-saas.md`, ADR-037–040, FD1–FD36).
 - Phase 2 P2-2 to P2-7 (`2026-11-11-phase2-scope.md`), including C18 "esaurito" on the public menu
@@ -82,8 +103,12 @@ confirm a failure that isn't the PR's. "Flake" is not a root cause. Ask for the 
   to an approved RT (the RCH LDP03). No till of our own until a software RT is approved.
 
 ## Waiting on the founder
-- Costì logo files (CB11); approval of the placeholders (BRAND-1); hosted e-mail settings (BRAND-2).
-- Go-live checklist manual steps: custom domain, Resend sending domain, privacy text and contact,
-  booking hours, `SUPABASE_SECRET_KEY` in the GitHub `production-backup` and `staging` environments.
-- Per-etto dishes, prices and reference weights; what the number 01358391 is; the disclosure text.
-- Questions for the accountant (commercialista) and RCH; a trademark check on "Costì".
+The full list, grouped and numbered, is in `founder-steps.md` (next to this file). Keep it current:
+tick the steps the founder reports done, add the new ones that PRs bring, and tell the founder about
+blockers. Top items:
+- the production Supabase project and settings, the Vercel production env, and the GitHub
+  `production` and `production-backup` environments;
+- the custom domain and Resend;
+- the client facts and allergens with the chef, and the per-etto dishes;
+- the Costì logo files (CB11 / BRAND-1);
+- GitHub billing.
