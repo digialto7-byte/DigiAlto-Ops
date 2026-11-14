@@ -1,6 +1,6 @@
 ---
 slug: osteria-dei-rossi
-updated: 2026-11-08
+updated: 2026-11-14
 ---
 
 # Osteria Dei Rossi — engagement context
@@ -26,6 +26,12 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
     - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-14 (lead's read on fresh `origin/main`, CI green on the merged head):
+  - #88 (merge 893bb28): the Costì product brand and the QW13 rename (CB1–CB10), on head 1c50cea. No migration, API, proxy, CSP, sw or secret-key change; the new SVGs have no script or external link; code-reviewer PASS. Placeholder logos until CB11 / BRAND-1.
+  - #89 (merge be23ed5): e2e seeds use the business date the owner reads (02:00 cut-off), guarded by pgTAP 351. The same content was already in #88, so the merge changed no files.
+  - #90 (merge e5eade0): the builder hand-off `docs/handoff/builder.md`.
+  - Sessions: new lead `session_018fKcCjkR8ikx6DEmuZJMBE`; old build session `session_01TAMK1utM7VhofwoMRfmEdV` retired after its last main-CI report; new builder `session_018fKcCheg3sDvethN84LxK5`; UX/UI `session_018fKcCnL4GBWbt7Xx6dzpoo`; go-live ops `session_018fKcChxwQq79i9fYEAy5qD`.
+  - **Next:** agree the pre-go-live build queue with the founder (proposal: CB11 when the logos arrive, P2-2, P2-7, P2-4, P2-5 if the accountant confirms, small fixes, code freeze around 19 December).
 - Done 2026-11-11/13 (all with the lead's read, CI green on the merged head):
   - **P2-0 go-live carry-overs:**
     - #74 (merge 21fd860): the supplier_item mapping columns are closed to direct writes;
@@ -46,7 +52,6 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - **UX quick wins before go-live:**
     - #84 (merge 1ec1c9d): the guest booking page;
     - #87 (merge 035486c): staff screens. New booking requests on Home, "Carica una fattura" higher, day close in one tap, a warning about unsent dishes, "Esci" in the header, and smaller fixes.
-  - **Next:** the Costì product brand (name and look on the product surfaces; the founder's logo files to come).
 - Done 2026-11-10/11 (all with the lead's read):
   - #70 (merge 6dfc145): only owner, admin and waiter reads may be stored offline, so the chef's screens are never stored on a device.
   - #71 (merge 865b28d): follow-ups from the #69 review. A permanent Resend 409 now fails at once; the anon default-ACL tests are stricter.
