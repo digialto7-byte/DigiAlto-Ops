@@ -1,6 +1,6 @@
 ---
 slug: osteria-dei-rossi
-updated: 2026-11-14
+updated: 2026-11-15
 ---
 
 # Osteria Dei Rossi — engagement context
@@ -26,6 +26,30 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
     - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-14 late / 2026-11-15 night (lead's read on fresh `origin/main`; every merge had CI green on its head and a code-reviewer PASS):
+  - **UX P2b, Sala with Direct comanda** (#127, merge 455df832): tapping an occupied table opens its comanda with the lines visible; a free table asks for covers first; "Conto richiesto" is one tap; "Tavolo ▾" holds Modifica coperti. Designer check PASS after one finding (an offline tile does a full page load). Review caught the tab bar covering "Apri tavolo" on owner phones (fixed). New Italian strings are marked "da approvare" for the founder.
+  - **Offline tile shows only what the phone knows** (#128): a table opened offline carries no invented open time or coperto (Rule B).
+  - **Grid scroll restore** (#136): the grid follows the page size (ResizeObserver, a 3 s stop bound, no polling) until the saved offset is reachable; it also turned every one-shot style read in e2e/ into a retrying assertion.
+  - **Test and CI fixes:**
+    - #130 and #132: the link sign-in helper ends on a full load and waits for Oggi's own GET and POST, not for networkidle. 0 failures in 20 stability repetitions.
+    - #133: the stack ports are reserved as the first step of every stack job, and the timeout listing always decodes /proc/net/tcp.
+    - #134: pgTAP 341 passed the calendar date instead of the business date. The product was right; the test failed between 00:00 UTC and the 02:00 Rome cutoff. A full suite run inside the window found no other clock-dependent test.
+  - **Docs:** #129 (only main deploys on Vercel). Vercel confirmed main-only in practice; staging is on e223ed93 and later, and the staging DB matches (no migrations since f6c85e23).
+  - **SP2 memberships** (#131, draft): the plan is accepted with every lead default (Q-S1..Q-S8). The ungated steps S1, S2 and S8 are built and reviewed; the tenant VAT guard covers every role, and pgTAP 365 moved 127 → 128 (ratified). S3–S7 and S9–S13 wait for the hosted SP0 verdicts. The organisation-side VAT guard is SP3's first step.
+  - **In flight:**
+    - #135: P2c, the Cucina re-skin plus the P2b follow-ups. Designer PASS; final CI running.
+    - #137: the report replies carry `businessDate`, so the period picker can cap at the business date. Review PASS; CI running.
+    - The SP3 console plan, being written.
+  - **Lessons:**
+    - an e2e spec that holds or intercepts requests needs a `--repeat-each` run before merge;
+    - style reads after a scheme switch must retry;
+    - pgTAP must pass the venue's business date, never `current_date`.
+  - **Founder open items:**
+    - the SP0 hosted slot (about 30 min);
+    - whether the app is used in real service yet (the SP2 rollout day);
+    - accept ADR-038 before SP2 merges;
+    - tenant #1's legal name (the organisation record stays empty until then);
+    - approve the "da approvare" Sala strings.
 - Done 2026-11-14, evening (lead's read on fresh `origin/main`, CI green on the merged head):
   - **SaaS SP0 spike**: plan #106; scripts #110 and #118. Every local check (T1–T5 and self-checks A–D) passes on the real local stack:
     - sign-up is closed;
