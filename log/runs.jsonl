@@ -75,3 +75,5 @@
 {"date":"2026-11-14","client":"osteria-dei-rossi","task":"p2-2-trace-sell-through","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/91"}
 {"date":"2026-11-14","client":"osteria-dei-rossi","task":"p2-7-xml-invoice-upload","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/103"}
 {"date":"2026-11-14","client":"osteria-dei-rossi","task":"ux-p3-sala-and-ds-p2a","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/120"}
+{"date":"2026-11-15","client":"osteria-dei-rossi","task":"ux-p2b-sala-direct-comanda","agents":["architect","tdd-guide","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/127"}
+{"date":"2026-11-15","client":"osteria-dei-rossi","task":"ci-test-stability-fixes","agents":["tdd-guide","build-error-resolver","code-reviewer"],"result":"pass","path":"https://github.com/digialto7-byte/osteria-dei-rossi-app/pull/136"}
