@@ -26,6 +26,37 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
     - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-15 morning (lead's read on fresh `origin/main`; every merge had CI green on its head and a code-reviewer PASS):
+  - **UX:**
+    - #135: P2c, the Cucina re-skin (kitchen, produzione, riordino, margini; kitchen contrast ≥ 7:1). It also brought the P2b follow-ups: the fold arrow, "Tavolo ▾" usable offline, and a bad tap time reading "Apertura in coda" (Rule B). Designer PASS.
+    - #145: long single-word titles wrap at 360 px.
+    - #146: the report period picker caps at the business date from the reply (needs #137).
+    - #148 (P2d Home) has a designer PASS and is in CI.
+  - **Report business date:**
+    - #137: kpis, items and services carry `businessDate`.
+    - #141: the exported reply types, and the e2e helper names a wrong dashboard reply.
+  - **Console (SP3):**
+    - Plan #138 is accepted, with lead decisions P1–P16. The founder's own TOTP enrolment is in-app, not by script.
+    - #140 put on main: codes.ts, api.ts and the console band; the Realtime guard (publication pinned at zero tables); and the break-glass confirm plus `platform-ops.yml`.
+      - Secret-key scripts run only as workflow_dispatch jobs in the protected `platform-ops` environment, with the founder as required reviewer (FS-1, before the first dispatch).
+      - Inputs are read from the event file and masked before any use. The lead read the public log of a temporary probe and confirmed that a fake uuid never appeared.
+      - Actions are pinned by SHA, with no cache and `npm ci --ignore-scripts` in the secret jobs.
+      - The guard test has 120 checks; three review rounds closed every accidental-leak shape. Changes to this file need the lead's line-by-line read.
+    - #142 (console screens, step 18) is code-complete and waits for step 16 (the console host).
+    - The stacked DB steps 1–4 are built on feat/sp3-console. Review found a staff/member race, now being fixed with an advisory lock and a race harness.
+  - **CI hardening:**
+    - #144: every workflow action is pinned to a SHA the lead verified. Secret jobs use `--ignore-scripts`; the first deploy-staging with it succeeded on real staging.
+    - #147: the enrolment-code randomness test is deflaked (birthday bound and chi² budget).
+    - Tracked: a headless_shell segfault in context.close, once.
+  - **Test fixes:** #139 (the grid scroll measured at the tap, with a layout-shift probe), #143 (the kitchen tap-guard race).
+  - **Lesson:** a PR's heavy run only happens on a ready PR, and a docs-only push doesn't start CI. Mark ready before pushing, and never toggle draft or push empty commits to kick CI.
+  - **Founder open items (unchanged):**
+    - the SP0 slot;
+    - whether the app is used in real service yet;
+    - ADR-038;
+    - tenant #1's legal name;
+    - approve the "da approvare" strings (Sala, console: «Data non valida.», «Non riesco a segnare questo locale come avvisato.»);
+    - FS-1 when the first platform-ops dispatch is needed.
 - Done 2026-11-14 late / 2026-11-15 night (lead's read on fresh `origin/main`; every merge had CI green on its head and a code-reviewer PASS):
   - **UX P2b, Sala with Direct comanda** (#127, merge 455df832): tapping an occupied table opens its comanda with the lines visible; a free table asks for covers first; "Conto richiesto" is one tap; "Tavolo ▾" holds Modifica coperti. Designer check PASS after one finding (an offline tile does a full page load). Review caught the tab bar covering "Apri tavolo" on owner phones (fixed). New Italian strings are marked "da approvare" for the founder.
   - **Offline tile shows only what the phone knows** (#128): a table opened offline carries no invented open time or coperto (Rule B).
