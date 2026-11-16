@@ -26,6 +26,22 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
     - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-15 midday to 2026-11-16 early (lead's read of every diff; CI green on each head; code-reviewer PASS unless noted):
+  - **Console (SP3):**
+    - #155 step 16: the console on its own host (`CONSOLE_HOST`). Matcher with a `brand/` prefix; the manifest is a route handler linked only in the venue layouts; noindex on every console answer; the app host's /console answers 404.
+    - #142: the console screens (sign-in, Locali, venue, Registro, Avvisi). Designer FAIL with 6 findings, all fixed in #161 (designer PASS). #166: «Ancora nessuna risposta» (da approvare) after a repeated failed retry.
+    - Steps 20, 21 and 21a were already on main with the foundation (#140). The console shows its error state until the gated /api/platform/* routes land (T2.H/T3.H, SP2).
+  - **UX:**
+    - #156: SegmentedControl arrow keys (manual activation); both Tracciabilità panels stay mounted; the period picker is a SegmentedControl. Designer PASS.
+    - #160: print fill rule in costi-design-system.md §10.5 (fills print white with a 1 px #000 line). Designer ruling.
+    - #159: alignment pass (badge→trailing, <strong> on key figures, print black on white, the report period tabpanel). Designer FAIL with 2 print findings, fixed in #167 (lead read). The last e2e probe fix in #159 had a lead read instead of a code-reviewer pass (usage limit).
+  - **Backend small fixes:**
+    - #157: device_enrolment.code_hash comment (HMAC-SHA-256 with pepper), pgTAP 388, builder.md §5 segfault row. Applied to staging by deploy run 43714405447.
+    - #158 and #165: Storage failures on invoice file links and uploads are now reported (status token and invoice id only; 401/403 not reported). Shared `storageStatus()`.
+    - #163: the runbook explains the staging deploy run label (it checks out workflow_run.head_sha).
+    - #164: read-only orphan invoice-object report (`scripts/reports/orphan-invoice-objects.sql`). Run on staging 2026-11-15: 0 orphans, 7 objects. No production Supabase project exists yet (go-live step A1).
+  - **Held:** #162 (366 NOTEs 1–2, ADR-044 and ADR-027 notes). CI headroom is 1.6× against the 2× rule (cold FK-check plans on PG17). Fix: `analyze supplier_item` before the timed import, after the usage reset.
+  - **Usage limit:** the account's weekly limit was hit on 2026-11-16 (resets 2026-11-18 10:00 UTC). Subagent work is paused; the SP1 plan (ungated, confirmed by builder 1) resumes after the reset.
 - Done 2026-11-15 morning (lead's read on fresh `origin/main`; every merge had CI green on its head and a code-reviewer PASS):
   - **UX:**
     - #135: P2c, the Cucina re-skin (kitchen, produzione, riordino, margini; kitchen contrast ≥ 7:1). It also brought the P2b follow-ups: the fold arrow, "Tavolo ▾" usable offline, and a bad tap time reading "Apertura in coda" (Rule B). Designer PASS.
