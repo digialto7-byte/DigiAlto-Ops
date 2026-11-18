@@ -26,6 +26,13 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
     - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-16 to 2026-11-18 (#168–#207; lead V1's read of every diff, CI green on each head; details in each PR):
+  - **SP1 per-tenant config, complete:** plan #168; #173, #177, #182, #187, #192 (VAT rates, close codes, locale, `tenant_settings`, PATCH `/api/settings/venue`, venue-neutral extraction prompt).
+  - **Costì re-skin, complete (P2a–P2j):** #169 (P2h), #178 (P2i prenota), #181 (P2j root), #179 slot picker, #180 and #188 docs; #183 guest mail restyle; #201 G-b ink line.
+  - **UX fixes:** #191 PIN S1–S3 (autofill stays off on the shared phone); #197 line-search Rule B errors (Tracciabilità retries); #204 Scontrino preselected when closing a table (the tenant's first receipt type).
+  - **CI and stability:** #170, #171, #193 picomatch advisory and audit exceptions; #174 e2e Chromium channel; #175, #184 pgTAP job-run races; #176 e2e in three shards; #185 Next 16.4.6; #186 zone guard parses once; #189 e2e invoice original bytes; #190 ledger title test; #199 drift-alert job keys.
+  - **Plans and specs:** #194 P2-4 alert rules plan; #195, #198, #205, #206 comanda per uscita spec, decisions, server plan, auto-call rulings; #196, #200, #202, #203 avvio magazzino / opening stock spec and plan.
+  - **#207 opening stock PR 1** (steps 0–4): enum `opening`, `stock_movement_opening_ck`.
 - Done 2026-11-15 midday to 2026-11-16 early (lead's read of every diff; CI green on each head; code-reviewer PASS unless noted):
   - **Console (SP3):**
     - #155 step 16: the console on its own host (`CONSOLE_HOST`). Matcher with a `brand/` prefix; the manifest is a route handler linked only in the venue layouts; noindex on every console answer; the app host's /console answers 404.
