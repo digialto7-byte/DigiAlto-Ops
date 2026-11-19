@@ -34,8 +34,8 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
 ## Sessions (2026-11-19)
 | Session | Id | State |
 |---|---|---|
-| Lead | the newest "Costì Lead" chat (V3) | Talks to the founder; merges |
-| Comanda PR 4 builder | to be started by lead V3 (fresh Opus) | Finishes comanda PR 4 from the hand-off below |
+| Lead | V3 `session_018fKcCmuFkjv4yhpCbKERjo` | Talks to the founder; merges |
+| Comanda PR 4 builder | `session_018fKcCk6qy2mws1vqGWgjke` (Opus, started 2026-11-19) | Finishes comanda PR 4 from the hand-off below |
 | Retired 2026-11-19 | lead V2 `session_018fKcChwys4xfgaHhAfdmR7`, comanda builder PRs 1–3 `session_018fKcCjj4XgXUZJ1LNuyC3v` (context 528k), opening stock builder `session_018fKcCmFm2N3cjcMr9Paifu` | Work merged or in this file. The founder may archive them (the lead's archive call is blocked by permissions) |
 | Retired 2026-11-18 | lead V1 `session_018fKcCjkR8ikx6DEmuZJMBE` and others | See git history of this file |
 
