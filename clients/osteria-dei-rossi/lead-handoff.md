@@ -71,7 +71,17 @@ Merged by lead V2 (lead read of every migration, CI green on each head):
 course shows as 1; a legacy segue edit moves 3→2) → P2-4 alert rules (2026120623*, pgTAP 397–406) → SP2.
 
 **Comanda PR 4 builder brief** (paste into a fresh Opus session on branch `feat/comanda-uscite-4`; report to the lead by id):
-BUILDER_HANDOFF
+Branch `feat/comanda-uscite-4`, head ac6fc4afc22632645002dbd904dbc216dfac802a, WIP draft PR #214 (the WIP commit lists the red tests).
+- Done test-first: step 17 M7 `20261206220600_uscita_tables_order_view.sql` (pgTAP 428, 12 green); step 18 M8
+  `20261206220700_uscita_close.sql` (429, 7 green); step 19 TS (tablesListOutput/orderViewOutput.uscite, uscita_waiting → 422 with
+  lineIds, it/en messages with the Italian one «da approvare», overlay-tables.ts offline tile uscite: null); config pins
+  (uscite-preserves, close_session_at UPDATE rule with self-tests, repin_newest.py). Vitest 909 files / 15 904 tests green.
+- Still red, to re-pin. Inside §3.15: 179 t2/t20, 222 t15/t17, 229 t9/t10/t13, 240, 286, 296 t2/t18, 389 t7, 367 t3. Outside §3.15
+  (approved): 157 t4, 166 t8, 214 t7, 301 t2/t17, 327 t2, 359 t8, 367 t2/t7/t8/t17/t20–t22.
+- Then step 23: one code-review round, mark ready, report CI with the full head sha and both migrations' full text.
+- Left to the screens session (B2, step 20): the client mirror `unsentLines` (src/lib/orders/order-view.ts) still skips segue drafts.
+- Local setup: race script needs PGHOST=127.0.0.1 PGPORT=54322 PGUSER=postgres PGPASSWORD=postgres; start dockerd with setsid;
+  `supabase db reset` after any Playwright run.
 
 Lead rulings in force for PR 4: re-pin each moved pin with a "re-pinned on purpose by comanda-uscite (step N; was …)" comment, list them
 under "Pins outside §3.15" in the PR body and add them to plan §3.15 in a docs commit, together with PR 3's e2e/kitchen.spec.ts and
