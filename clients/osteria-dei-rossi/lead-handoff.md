@@ -1,6 +1,6 @@
 ---
 slug: osteria-dei-rossi
-updated: 2026-11-18
+updated: 2026-11-19
 ---
 
 # Costì / Osteria Dei Rossi: lead hand-off
@@ -31,17 +31,19 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
   `send_later` safety net per PR. Read migrations yourself; don't spawn reviewers for the lead's reads.
 - The lead itself is replaced the same way: update this file, start a fresh lead, tell the founder.
 
-## Sessions (2026-11-18)
+## Sessions (2026-11-19)
 | Session | Id | State |
 |---|---|---|
-| Lead | the newest "Costì Lead" chat | Talks to the founder; merges |
-| Opening stock builder (PRs 2–4) | `session_018fKcCmFm2N3cjcMr9Paifu` | Active, Opus. Reports to the lead by id |
-| Retired 2026-11-18 | lead V1 `session_018fKcCjkR8ikx6DEmuZJMBE`, builder `…Cheg3sDvethN84LxK5`, UX screens builder `…CkQ5oUYS4RbwBx1AE8`, UX/UI designer `…CiZW2Z9V7NyYmVkuJb`, go-live ops `…ChxwQq79i9fYEAy5qD` | Their work is merged or in this file |
+| Lead | the newest "Costì Lead" chat (V3) | Talks to the founder; merges |
+| Comanda PR 4 builder | to be started by lead V3 (fresh Opus) | Finishes comanda PR 4 from the hand-off below |
+| Retired 2026-11-19 | lead V2 `session_018fKcChwys4xfgaHhAfdmR7`, comanda builder PRs 1–3 `session_018fKcCjj4XgXUZJ1LNuyC3v` (context 528k), opening stock builder `session_018fKcCmFm2N3cjcMr9Paifu` | Work merged or in this file. The founder may archive them (the lead's archive call is blocked by permissions) |
+| Retired 2026-11-18 | lead V1 `session_018fKcCjkR8ikx6DEmuZJMBE` and others | See git history of this file |
 
-The new lead's first step: `get_session` (no id) for its own id, then message the opening stock
-builder: "I am the lead from now on; send reports to <id>."
+The new lead's first step: `get_session` (no id) for its own id, then start the PR 4 builder (brief below).
 
 ## How to merge an app PR
+0. The lead's GitHub tools only reach repos attached to its session: call `add_repo` (owner `digialto7-byte`, repo
+   `osteria-dei-rossi-app`, access push) once, and clone to `/home/user/osteria-dei-rossi-app`.
 1. On the builder's message: `git fetch origin +refs/heads/main:refs/remotes/origin/main refs/pull/<n>/head:refs/remotes/pr<n>`,
    then `git diff origin/main...pr<n>`. Never read a stale checkout.
 2. Security read: new migrations sort after main's newest (`db push` has no `--include-all`); every SECURITY
@@ -55,52 +57,31 @@ builder: "I am the lead from now on; send reports to <id>."
    Known hazard: "ports still in use … 54322" when the runner's own agent holds that port (seen once, on
    #207). If it recurs, fix it by moving the stack ports (54320–54329) below the 32768 ephemeral range.
 
-## State on 2026-11-18 (evening)
-Merged since the records (#168–#207, not yet in `context.md`/`runs.jsonl`):
-- SP1 per-tenant config complete: VAT rates, close codes, locale, `tenant_settings`, PATCH
-  `/api/settings/venue`, a venue-neutral extraction prompt.
-- The Costì re-skin, complete (P2a–P2j); the guest mail restyle; PIN fixes S1–S3; line-search Rule B
-  fixes; CI stability fixes; the Next 16.4.6 bump.
-- Plans: comanda per uscita (#205, #206), opening stock, P2-4 alert rules.
-- **#204**: Scontrino preselected when closing a table (the tenant's first receipt type).
-- **#207**: opening stock PR 1 (enum `opening`, `stock_movement_opening_ck`).
+## State on 2026-11-19 (early morning)
+Merged by lead V2 (lead read of every migration, CI green on each head):
+- **Opening stock server complete:** #208 (PR 2: tables, draft, confirm), #209 (PR 3: reversal, cost fallback, reconciliation),
+  #210 (PR 4: API routes, Home step via `opening_stock_summary` for owner/admin only, ADR-048 decision 9 = Q2 option A).
+- **Comanda per uscita PRs 1–3:** #211 (tests/docs, 389 UTC, M5 ruling and m21 addendum in the plan), #212 (M1–M5: uscita column,
+  `uscita_call`, order entry, fire/call, not_prepared void, open-session backfill, default 1 with the Rule B guard in 423),
+  #213 (M6: kitchen board by uscita; legacy kitchen bodies get 22023; runbook: deploy outside service, reload kitchen devices).
+- Records for #208–#213 are in `context.md` and `runs.jsonl`.
 
-**Build order:** opening stock PRs 2–4 → comanda per uscita PRs 1–4 → the screens (opening stock PR 5,
-comanda PR 5) in a Sonnet session → P2-4 alert rules (2026120623*, pgTAP 397–406) → SP2.
+**Build order:** comanda PR 4 (steps 17–19 + docs) → the screens in ONE Sonnet session (opening stock PR 5 = steps 20–25 incl. the
+§3.12 draft-race note; comanda PR 5 = steps 15–16 kitchen card + Playwright, plus the PR 4 UI; known UI notes: a queued drink without a
+course shows as 1; a legacy segue edit moves 3→2) → P2-4 alert rules (2026120623*, pgTAP 397–406) → SP2.
 
-**Opening stock** (`docs/plans/2026-11-18-opening-stock.md`; range 2026120621*, pgTAP 407–416, ADR-048):
-- PR 2: steps 5–8. PR 3: steps 9–11. PR 4: steps 12–19. PR 5 (UI): steps 20–25.
-- Approved for PR 2: re-pin the audit-CHECK md5s and purge-list pins outside §3.11 on purpose
-  (the reservations precedent), including `check-constraint-union.test.ts:105` → 20261206210200,
-  listed in the PR body under "Pins outside §3.11" and added to §3.11 in a docs commit.
+**Comanda PR 4 builder brief** (paste into a fresh Opus session on branch `feat/comanda-uscite-4`; report to the lead by id):
+BUILDER_HANDOFF
 
-**Comanda per uscita** (`docs/plans/2026-11-18-comanda-uscite.md`; range 2026120622*, pgTAP 417–430, ADR-049):
-- PR 1 is on branch `feat/comanda-uscite-1` (head eabc8dee, pushed, no PR yet): golden test 417, cross-tenant
-  test 418, and the review fixes.
-- Before opening PR 1:
-  - a separate commit adding `set local timezone='UTC'` to 389, with no pin change;
-  - a docs commit with the lead's M5 ruling (below) in plan step 8, §3.8 and R1. It also fixes the
-    "G/417 unchanged" contradiction and adds the m21 addendum (next point).
-- **m21 addendum**: `docs/plans/2026-10-30-m21-bill-close.md` lines ~300 and ~383, under each: "Addendum
-  2026-11-18: the founder ruled the tenant's first receipt type (Scontrino for tenant #1) is preselected;
-  see #204." Don't edit the originals.
-- **M5 ruling (option a):**
-  - `order_line.uscita set default 1`, keeping the NOT VALID check, plus a `comment on column`;
-  - the one sanctioned Rule B exception for that column, so a new pgTAP guard must prove no app writer
-    relies on it:
-    - INSERT on `order_line` is false for authenticated and anon (verified today);
-    - a `pg_proc` scan of every public/app function that inserts into `order_line` checks that it names
-      `uscita`, with a positive control so an empty scan can't pass;
-    - each writer refuses a null `uscita`;
-  - PR 2 also carries the step 10 sync strict-parse fix and re-pins the 359:94 `demo_purge_tables` md5.
+Lead rulings in force for PR 4: re-pin each moved pin with a "re-pinned on purpose by comanda-uscite (step N; was …)" comment, list them
+under "Pins outside §3.15" in the PR body and add them to plan §3.15 in a docs commit, together with PR 3's e2e/kitchen.spec.ts and
+e2e/simulation/service.spec.ts; add `app.session_uscite` to the step-17 `p27_objs` insert; in 367 rename each changed test to state the new
+rule ("a segue draft counts in unsentCount", §3.10) and add one positive case that fails under the old rule.
 
-**Small items:**
-- CronJob parity in `tests/parity/drift-keys-sql-parity.test.ts`;
-- `price_variance_pct` as a typed, audited setting, after P2-4;
-- remove "segue" at least 30 days after go-live.
+**Small items:** CronJob parity in `tests/parity/drift-keys-sql-parity.test.ts`; `price_variance_pct` as a typed, audited setting after
+P2-4; remove "segue" at least 30 days after go-live.
 
-**Records:** update `context.md` and `log/runs.jsonl` for #168–#207. GitHub Actions doesn't run in this
-repo (billing), so merge on a clean local `python3 scripts/check_repo.py`.
+**Records:** GitHub Actions doesn't run in this repo (billing); merge on a clean local `python3 scripts/check_repo.py`.
 
 ## Standing founder rules
 - "Vercel plan is hobby; this is not paid work. Continue and auto-merge without approval. Only ask

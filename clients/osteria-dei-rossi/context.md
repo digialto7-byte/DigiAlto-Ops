@@ -26,6 +26,15 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     - Hardening found by its CI: anon lost Supabase's default grants on sequences, tables and functions in `public` and `app`, and pgTAP 301 pins it.
     - Founder setup before real customers: `docs/guides/prenotazioni.md` in the app repo (Vault secrets, Vercel env, Resend).
   - **Going live with real customers needs:** the custom domain, Resend with a verified sending domain, the client facts (legal name, VAT, privacy contact) and the approved privacy text.
+- Done 2026-11-18 evening to 2026-11-19 (lead V2's line-by-line read of every migration, CI green on each head, one code-reviewer round per PR):
+  - **Opening stock server, complete:** #208 PR 2 (stock_opening, opening_draft_line, draft procedures, post_opening_stock); #209 PR 3
+    (reverse_opening_stock, cost fallback from the carico, reconciliation folds the carico into openingQty); #210 PR 4 (API routes, Home
+    set-up step for owner/admin via opening_stock_summary outside the dashboard snapshot, lead ruling). ADR-048 decision 9: first-receipt vs
+    concurrent approve_invoice accepted (Q2 option A).
+  - **Comanda per uscita PRs 1–3:** #211 (golden 417, cross-tenant 418, 389 UTC, M5 ruling and m21 addendum in the plans); #212 (M1–M5:
+    uscita column and uscita_call, order entry, fire hold and call_uscita, not_prepared void, open-session backfill, default 1 with the
+    Rule B guard in 423); #213 (M6 kitchen board by uscita; old kitchen bundles error until reloaded; runbook updated).
+  - Pins moved outside the plans' lists were re-pinned on purpose with comments and added to the plans (§3.11, §3.15).
 - Done 2026-11-16 to 2026-11-18 (#168–#207; lead V1's read of every diff, CI green on each head; details in each PR):
   - **SP1 per-tenant config, complete:** plan #168; #173, #177, #182, #187, #192 (VAT rates, close codes, locale, `tenant_settings`, PATCH `/api/settings/venue`, venue-neutral extraction prompt).
   - **Costì re-skin, complete (P2a–P2j):** #169 (P2h), #178 (P2i prenota), #181 (P2j root), #179 slot picker, #180 and #188 docs; #183 guest mail restyle; #201 G-b ink line.
