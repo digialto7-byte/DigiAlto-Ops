@@ -1,0 +1,130 @@
+{
+ "source": "https://menu.osteriadeirossi.it/ page source, DRINKS block, captured 2026-11-24",
+ "id": "bevande",
+ "it": "Bevande",
+ "en": "Drinks",
+ "blocks": [
+  {
+   "it": "Vino",
+   "en": "Wine",
+   "rows": [
+    {
+     "it": "Vino l’Osteria Rosso · bottiglia 0,75 l",
+     "en": "L’Osteria red wine · 0.75 l bottle",
+     "p": "18 €"
+    },
+    {
+     "it": "Vino l’Osteria Bianco · bottiglia 0,75 l",
+     "en": "L’Osteria white wine · 0.75 l bottle",
+     "p": "15 €"
+    },
+    {
+     "it": "Vino al calice · Rosso",
+     "en": "Red wine by the glass",
+     "p": "7 €",
+     "note": "Chianti Classico Gallo Nero · IGT Toscano · Maremma DOC"
+    },
+    {
+     "it": "Vino al calice · Bianco",
+     "en": "White wine by the glass",
+     "p": "6 €",
+     "note": "Vernaccia di San Gimignano · Vermentino Toscano"
+    }
+   ]
+  },
+  {
+   "it": "Birra e bibite",
+   "en": "Beer and soft drinks",
+   "rows": [
+    {
+     "it": "Bionda alla spina · Lager media",
+     "en": "Draught lager · medium",
+     "p": "7 €"
+    },
+    {
+     "it": "Bionda alla spina · Lager piccola",
+     "en": "Draught lager · small",
+     "p": "4,50 €"
+    },
+    {
+     "it": "Coca-Cola / Coca-Cola Zero",
+     "en": "Coca-Cola / Coca-Cola Zero",
+     "p": "3,50 €"
+    },
+    {
+     "it": "Acqua",
+     "en": "Water",
+     "p": "2,50 €"
+    }
+   ]
+  },
+  {
+   "it": "Caffetteria",
+   "en": "Coffee",
+   "rows": [
+    {
+     "it": "Caffè",
+     "en": "Espresso",
+     "p": "2 €"
+    },
+    {
+     "it": "Caffè corretto",
+     "en": "Espresso with a dash of liqueur",
+     "p": "2,50 €"
+    },
+    {
+     "it": "Caffè d’orzo",
+     "en": "Barley coffee",
+     "p": "2 €"
+    },
+    {
+     "it": "Caffè decaffeinato",
+     "en": "Decaf espresso",
+     "p": "2 €"
+    }
+   ]
+  },
+  {
+   "it": "Amari e grappe",
+   "en": "Digestifs and grappas",
+   "rows": [
+    {
+     "it": "Vecchio Toscano",
+     "p": "4 €"
+    },
+    {
+     "it": "Amaro di Siena",
+     "p": "4 €"
+    },
+    {
+     "it": "Jefferson",
+     "p": "4 €"
+    },
+    {
+     "it": "Bomba Carta",
+     "p": "4 €"
+    },
+    {
+     "it": "Grappa Poli Aromatizzata",
+     "p": "4 €"
+    },
+    {
+     "it": "Montenegro",
+     "p": "3,50 €"
+    },
+    {
+     "it": "Capo",
+     "p": "3,50 €"
+    },
+    {
+     "it": "Grappa Poli Bianca",
+     "p": "3 €"
+    },
+    {
+     "it": "Grappa Poli Barricata",
+     "p": "3 €"
+    }
+   ]
+  }
+ ]
+}

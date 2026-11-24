@@ -127,7 +127,7 @@ Researched on the web (src: `clients/osteria-dei-rossi/deliverables/2026-11-24-w
 - Phase 2+: Telegram Bot API, Brother QL label printer via a Raspberry Pi bridge, open-meteo, AdE corrispettivi import; Phase 3: WhatsApp Business [unverified] (src: sources/prd-2026-10-21.md)
 
 ## Tracking & legal
-- Tracking approved (GA4, Meta pixel, ...):
+- Tracking approved (GA4, Meta pixel, ...): none. Version 1 of the website is built without cookies, analytics, forms or third-party embeds; fonts, scripts and images are served from the site itself; the map, WhatsApp, Instagram and Facebook are plain links that open those services (lead's build decision, 2026-11-24; the founder asked for no third-party scripts in the handover)
 - Cookie / privacy texts supplied by:
 
 ## Sources
