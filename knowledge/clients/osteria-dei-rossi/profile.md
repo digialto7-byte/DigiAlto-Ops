@@ -14,18 +14,20 @@ updated: 2026-11-24
 
 ## Identity
 - Trading name: Osteria Dei Rossi (src: founder, chat 2026-10-21; approved by the founder 2026-10-22)
+- Public name for the website and for every listing: Osteria dei Rossi, with a lower-case "dei" and without "L'" (src: founder's answer in chat 2026-11-24)
 - Legal name: ML SNC DI LANARO E FRESI (src: sources/founder-legal-2026-11-11.md; given by the founder 2026-11-11)
 - VAT number (P. IVA): IT00354250524 (src: sources/founder-legal-2026-11-11.md; given by the founder 2026-11-11)
 - Registered address: Via dei Rossi 79/81, 53100 Siena (SI), Italy (src: sources/founder-legal-2026-11-11.md; given by the founder 2026-11-11)
 - Other number given with the legal name: 01358391, meaning to confirm (REA or other) [unverified] (src: sources/founder-legal-2026-11-11.md)
 - Sector: osteria (restaurant), one venue, one kitchen, one storage area at start, one service shift per day [unverified] (src: sources/prd-2026-10-21.md)
 - Address: Via dei Rossi, 79/81 · 53100 Siena (src: sources/menu-site-2026-10-22.md; confirmed by the founder 2026-11-11, sources/founder-legal-2026-11-11.md)
-- Phone / email (public): +39 0577 287592 [unverified] (src: sources/menu-site-2026-10-22.md)
+- Phone (public): +39 0577 287592 (src: sources/menu-live-2026-11-24.md; approved by the founder in chat 2026-11-24). No public email is approved.
 - Website / domains: live online menu https://menu.osteriadeirossi.it/ (src: founder 2026-11-11, sources/menu-live-2026-11-11.md); the earlier preview https://azure-locust-452058.hostingersite.com/ is superseded
+- Website domain: https://www.osteriadeirossi.it/ (src: founder's answer in chat 2026-11-24)
 - Instagram: https://www.instagram.com/osteriadeirossi/ (src: sources/founder-website-brief-2026-11-24.md; given by the founder 2026-11-24)
-- Facebook: https://www.facebook.com/osteriadeirossi [unverified] (src: sources/menu-site-2026-10-22.md; other Facebook URLs circulate, see the research notes)
-- Public spelling of the name: "Osteria dei Rossi" on the osteria's own menu site; Google, TripAdvisor and most directories list it as "L'Osteria dei Rossi" [unverified] (src: website research 2026-11-24, `01_osteria_own_presence.md`)
-- Google Maps link: https://maps.google.com/?cid=5066073290586870112 [unverified] (src: sources/menu-site-2026-10-22.md)
+- Facebook: https://www.facebook.com/osteriadeirossi (src: sources/menu-live-2026-11-24.md; approved by the founder in chat 2026-11-24)
+- Name on third-party listings today: Google, TripAdvisor and most directories list it as "L'Osteria dei Rossi"; other Facebook URLs also circulate [unverified] (src: website research 2026-11-24, `01_osteria_own_presence.md`)
+- Google Maps link: https://maps.google.com/?cid=5066073290586870112 (src: sources/menu-live-2026-11-24.md; approved by the founder in chat 2026-11-24)
 
 ## Offer
 - What they sell: food and drink service in the osteria; menu courses antipasti, primi, secondi, dolci, bevande [unverified] (src: sources/prd-2026-10-21.md)
@@ -33,9 +35,12 @@ updated: 2026-11-24
 - Key products / services / menu highlights: draft menu of 39 items in six sections (antipasti, primi, secondi, griglia, contorni, dolci) plus drinks. "Consigliato dall'Oste" picks include Tartare dell'Oste, Pici al Ragù Tradizionale di Anatra, Tegamata di Cinta Senese and Bistecca alla Fiorentina. Full list, prices and allergen codes in the source [unverified] (src: sources/menu-site-2026-10-22.md)
 - Prices (public): per dish in the source (e.g. Bistecca alla Fiorentina 9 € / etto); coperto 2,50 € [unverified] (src: sources/menu-site-2026-10-22.md)
 - Dishes priced by weight on the live menu, per 100 g: Bistecca alla Fiorentina 9 €/100 g, Bistecca Fritta 12 €/100 g, Costata del Vamosh 7 €/100 g; coperto 2,50 € a persona (src: sources/menu-live-2026-11-11.md; founder 2026-11-11: weight items are priced per 100 g and the waiter enters the weight the customer asks for, e.g. fiorentina 1,2 kg, porcini fritti 250 g)
-- Full live menu (items, prices, allergen numbers 1–14): see the source; per-item prices and allergens are for the app's menu import only after the founder and chef confirm them [unverified] (src: sources/menu-live-2026-11-11.md)
-- Opening hours / availability: critical service window 11:00–24:00 [unverified] (src: sources/prd-2026-10-21.md)
-- Booking / purchase channel (URL):
+- Live menu approved for the website: dishes, descriptions and prices exactly as published on https://menu.osteriadeirossi.it/ on 2026-11-24, and the cover charge of 2,50 € a persona (src: sources/menu-live-2026-11-24.md; approved by the founder in chat 2026-11-24). Allergens are not approved and stay off the website until the chef confirms them.
+- Wines on the live menu: Vino l'Osteria red and white by the bottle; by the glass, red (Chianti Classico Gallo Nero, IGT Toscano, Maremma DOC) and white (Vernaccia di San Gimignano, Vermentino Toscano) (src: sources/menu-live-2026-11-24.md; approved by the founder in chat 2026-11-24)
+- Full live menu (items, prices, allergen numbers 1–14) for the app: see the source; per-item prices and allergens are for the app's menu import only after the founder and chef confirm them [unverified] (src: sources/menu-live-2026-11-11.md)
+- Opening hours for the public: Tuesday to Saturday lunch 12:30–15:00 and dinner 19:00–22:30; Sunday lunch only, 12:30–15:00; closed on Sunday evening and on Monday. Hours are subject to change: the website says so and asks guests to call to confirm (src: founder's answers in chat 2026-11-24)
+- Internal service window for the app: 11:00–24:00 [unverified] (src: sources/prd-2026-10-21.md)
+- Booking channel: by phone on +39 0577 287592 (tel:+390577287592) and by WhatsApp on the same number (https://wa.me/390577287592); the "Prenota" button offers both. It can switch to the online booking page when that goes live (src: founder's answer in chat 2026-11-24)
 
 ## Audience
 - Who buys:
@@ -70,23 +75,23 @@ From the founder's own photo captions (src: sources/photos-2026-11-24.md; given 
 - On the table: gran tagliere di salumi; tagliere of salumi and cheeses with local wines; tagliere di formaggi; lardo toscano; fresh truffle all year round; fiorentina in different cuts and from different breeds; cinghiale in dolceforte, a medieval recipe; cinghiale in umido; rich dishes with side dishes; a choice of liqueurs and amari.
 - Photographs of Siena and the contrada hang on the walls as inspiration.
 
-What the founder's photos show (lead's description of the pictures) [unverified] (src: sources/photos-2026-11-24.md):
-- Outside: an old brick wall with blind arches, green shutters, cream parasols and tables on the street, a barrel by the door [unverified]
-- Inside: beamed ceilings, wood-panelled walls, terracotta floors, brick arches and vaults, wooden tables with green paper and green-and-white check napkins, wrought-iron lanterns, black-and-white photographs of Siena [unverified]
-- The stews are served in terracotta bowls; the boards are slices of wood [unverified]
+What the founder's photos show (lead's description of the pictures; src: sources/photos-2026-11-24.md; approved by the founder in chat 2026-11-24):
+- Outside: an old brick wall with blind arches, green shutters, cream parasols and tables on the street, a barrel by the door
+- Inside: beamed ceilings, wood-panelled walls, terracotta floors, brick arches and vaults, wooden tables with green paper and green-and-white check napkins, wrought-iron lanterns, black-and-white photographs of Siena
+- The stews are served in terracotta bowls; the boards are slices of wood
 
-Researched on the web, to be confirmed by the founder (src: `clients/osteria-dei-rossi/deliverables/2026-11-24-website/research_notes/`):
-- Opening hours: Monday to Saturday 12:30–15:00 and 19:00–22:30; Sunday either closed or lunch only (listings disagree) [unverified]
-- Opened in 1992 by Giuseppe "Beppe" Carrieri, a brucaiolo; run since early 2024 by Luca and Max, with Luca in the kitchen (Gazzetta di Siena, about April 2024; one source says 1975) [unverified]
+Researched on the web (src: `clients/osteria-dei-rossi/deliverables/2026-11-24-website/research_notes/`); lines without a marker were approved by the founder in chat on 2026-11-24:
+- Opened in 1992 by Giuseppe "Beppe" Carrieri, a brucaiolo; run since early 2024 by Luca and Max, with Luca in the kitchen (Gazzetta di Siena, about April 2024; approved by the founder in chat 2026-11-24)
 - Earlier trading name: "L'Osteria" [unverified]
-- Booking is by phone only; no TheFork, Quandoo or OpenTable booking found [unverified]
+- No TheFork, Quandoo or OpenTable booking found for the osteria [unverified]
 - Emails that circulate on directories: osteriadeirossi@virgilio.it and losteriarossi@gmail.com; a second phone number, +39 0577 1460316, appears on one directory [unverified]
-- Listed by Gambero Rosso among Siena's restaurants for meat [unverified]
-- Via dei Rossi runs from Banchi di Sopra down to Piazza San Francesco and takes its name from the 13th-century castellare of the Rossi family (state heritage catalogue) [unverified]
-- The Bruco's side of Via dei Rossi is the left side coming from Banchi di Sopra; Porta Ovile, a 13th-century brick gate with a pointed arch and a crenellated forework, is the only city gate in the Bruco's territory [unverified]
-- The Basilica di San Francesco stands at the end of the street; Piazza del Campo is about 300 m, 3 to 5 minutes on foot; the San Francesco car park (Via Baldassarre Peruzzi) is linked to the centre by escalators; the whole walled centre is a limited-traffic zone [unverified]
-- Cinghiale in dolceforte: the sweet-and-sour principle is medieval; the version with chocolate is documented from the 19th century [unverified]
-- Siena's historic centre has been a UNESCO World Heritage site since 1995; the Palio is run on 2 July and 16 August [unverified]
+- Listed by Gambero Rosso among Siena's restaurants for meat (approved by the founder in chat 2026-11-24)
+- Via dei Rossi runs from Banchi di Sopra down to Piazza San Francesco and takes its name from the 13th-century castellare of the Rossi family (state heritage catalogue; approved by the founder in chat 2026-11-24)
+- The Bruco's side of Via dei Rossi is the left side coming from Banchi di Sopra; Porta Ovile, a 13th-century brick gate with a pointed arch and a crenellated forework, is the only city gate in the Bruco's territory (approved by the founder in chat 2026-11-24)
+- The Basilica di San Francesco stands at the end of the street; Piazza del Campo is about 5 minutes on foot (approved by the founder in chat 2026-11-24)
+- The San Francesco car park (Via Baldassarre Peruzzi) is linked to the centre by escalators; the whole walled centre is a limited-traffic zone (ZTL). No parking tariff is to be shown (approved by the founder in chat 2026-11-24)
+- Cinghiale in dolceforte: the sweet-and-sour dolceforte goes back to medieval cooking; the chocolate in today's recipe was added in later centuries (approved by the founder in chat 2026-11-24)
+- Siena's historic centre has been a UNESCO World Heritage site since 1995; the Palio is run on 2 July and 16 August (approved by the founder in chat 2026-11-24)
 
 ## Operations (build-relevant)
 - Fiscal register: RCH LDP03 (ASSO 3, Xstore back office); it only fiscalizes sales and exports supplier invoices as PDF; it stays in use, keyed in separately by the cashier [unverified] (src: sources/prd-2026-10-21.md)

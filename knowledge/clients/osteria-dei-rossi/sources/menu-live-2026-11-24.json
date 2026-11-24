@@ -1,0 +1,722 @@
+{
+    "version": 48,
+    "updated_at": "2026-11-24T22:08:05+00:00",
+    "updated_by": "osteria",
+    "updated_by_label": "Osteria dei Rossi",
+    "sections": [
+        {
+            "id": "antipasti",
+            "groups": [
+                {
+                    "title": null,
+                    "items": [
+                        {
+                            "id": "tagliere-del-cacciatore-rt",
+                            "n": "Tagliere del Cacciatore",
+                            "p": "22",
+                            "unita": "",
+                            "a": "8",
+                            "a_ok": true,
+                            "it": "Una selezione di salumi di cinta senese e selvaggina, espressione dei sapori più autentici del territorio.",
+                            "en": "A selection of cured Cinta Senese pork and game meats, bringing the most authentic flavours of the local area to your table.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "tartare-dell-oste-ru",
+                            "n": "Tartare dell’Oste",
+                            "p": "15",
+                            "unita": "",
+                            "a": "6, 10",
+                            "a_ok": true,
+                            "it": "Battuta di manzo al coltello, preparata al momento per esaltarne la qualità della carne e il sapore autentico. Servita su una croccante cialda di parmigiano e accompagnata da senape antica in grani.",
+                            "en": "Beef tartare, hand-cut with a knife and prepared to order to bring out the quality of the meat and its authentic flavour. Served on a crispy Parmesan wafer and accompanied by antique wholegrain mustard.",
+                            "oste": true,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "tagliere-del-contadino-rv",
+                            "n": "Tagliere del Contadino",
+                            "p": "16",
+                            "unita": "",
+                            "a": "7",
+                            "a_ok": true,
+                            "it": "Formaggi toscani abbinati a miele e confetture genuini e ricchi di sapore che portano in tavola tutta la bontà della nostra terra.",
+                            "en": "Tuscan pecorino cheeses paired with honey and preserves that bring all the goodness of the region straight to your table.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "bis-di-crostoni-rw",
+                            "n": "Bis di crostoni",
+                            "p": "12",
+                            "unita": "",
+                            "a": "1, 7",
+                            "a_ok": true,
+                            "it": "Due crostoni dai sapori distinti: uno con gorgonzola e tartufo, l’altro con cacio, pere e miele. Due abbinamenti che uniscono carattere, cremosità e delicate note dolci.",
+                            "en": "Two toasted bread slices with very different flavours: one topped with Gorgonzola and slices of truffle, the other with Tuscan cheese, pears and honey. Two combinations that bring together bold flavours, creaminess and delicate sweet notes.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "acciughe-sotto-pesto-rx",
+                            "n": "Acciughe sotto pesto",
+                            "p": "10",
+                            "unita": "",
+                            "a": "4",
+                            "a_ok": true,
+                            "it": "Acciughe con pesto senese al dragoncello: profumate, saporite e con quel tocco in più che non ti aspetti.",
+                            "en": "Anchovies with Senese tarragon pesto: fragrant, full of flavour and with that unexpected little something extra.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "crostini-neri-senesi-ry",
+                            "n": "Crostini neri senesi",
+                            "p": "9",
+                            "unita": "",
+                            "a": "1, 8, 9",
+                            "a_ok": true,
+                            "it": "Un simbolo della cucina senese, dal gusto intenso e inconfondibile, che porta in tavola i sapori di Siena.",
+                            "en": "A true symbol of Senese cuisine, with an unmistakable classic flavour that brings the tastes of Siena straight to your table.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "primi",
+            "groups": [
+                {
+                    "title": null,
+                    "items": [
+                        {
+                            "id": "tagliatelle-ai-funghi-porcini-rz",
+                            "n": "Tagliatelle ai Funghi Porcini",
+                            "p": "20",
+                            "unita": "",
+                            "a": "",
+                            "a_ok": false,
+                            "it": "Tagliatelle con funghi porcini: il profumo del bosco toscano, nel piatto dell’autunno.",
+                            "en": "Tagliatelle with porcini mushrooms: the scent of the Tuscan woods in an autumn dish.",
+                            "oste": false,
+                            "stagione": true,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "tagliatelle-al-tartufo-di-stagione-s0",
+                            "n": "Tagliatelle al Tartufo di Stagione",
+                            "p": "18",
+                            "unita": "",
+                            "a": "1, 3, 7",
+                            "a_ok": true,
+                            "it": "Tagliatella accompagnata dal profumo intenso di tartufo di stagione.",
+                            "en": "Tagliatelle served with the intense aroma of sliced, seasonal fresh truffle.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "pici-al-ragu-tradizionale-di-anatra-s1",
+                            "n": "Pici al Ragù Tradizionale di Anatra",
+                            "p": "16",
+                            "unita": "",
+                            "a": "1, 5, 8, 9",
+                            "a_ok": true,
+                            "it": "Pici della tradizione conditi con un ragù d’anatra ricco e saporito. Un piatto rustico, di quelli che sanno di casa e di cucina toscana.",
+                            "en": "Traditional pici tossed in a rich, flavourful duck ragù. A rustic dish, the kind that tastes of home and proper Tuscan cooking.",
+                            "oste": true,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "pici-al-ragu-bianco-di-cinta-senese-s2",
+                            "n": "Pici al Ragù Bianco di Cinta Senese",
+                            "p": "16",
+                            "unita": "",
+                            "a": "1, 5, 8, 9",
+                            "a_ok": true,
+                            "it": "Ragù bianco di cinta senese, senza pomodoro, con la miscela segreta di erbe e spezie della casa.",
+                            "en": "White Cinta Senese pork ragù, made without tomato and seasoned with our house’s secret blend of herbs and spices.",
+                            "oste": true,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "tagliatelle-al-ragu-di-cinghiale-s3",
+                            "n": "Tagliatelle al Ragù di Cinghiale",
+                            "p": "16",
+                            "unita": "",
+                            "a": "1, 3, 5, 8, 9",
+                            "a_ok": true,
+                            "it": "Tagliatelle accompagnate da un ragù di cinghiale dai sapori autentici e rustici della tradizione toscana.",
+                            "en": "Tagliatelle served with wild boar ragù, full of the authentic, rustic flavours of Tuscan tradition.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "pici-cacio-e-pepe-s4",
+                            "n": "Pici Cacio e Pepe",
+                            "p": "15",
+                            "unita": "",
+                            "a": "1, 7",
+                            "a_ok": true,
+                            "it": "Pici con pecorino toscano e pepe nero, una versione in stile toscano di un grande classico della cucina italiana.",
+                            "en": "Pici with Tuscan pecorino cheese and black pepper, our Tuscan take on a great Italian classic.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "spaghetti-alla-chitarra-con-sugo-dell-osteria-s5",
+                            "n": "Spaghetti alla Chitarra con Sugo dell’Osteria",
+                            "p": "14",
+                            "unita": "",
+                            "a": "1, 3, 7",
+                            "a_ok": true,
+                            "it": "Una ricetta storica ed esclusiva dell’Osteria dei Rossi, in menù dal 1992: sugo a base di pomodoro, gorgonzola e peperoncino, per un incontro deciso e inconfondibile di sapori.",
+                            "en": "A historic, exclusive recipe from Osteria dei Rossi, on the menu since 1992: a tomato-based sauce with Gorgonzola and chilli, bringing together bold, unmistakable flavours.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "caserecce-con-zucca-gialla-porri-e-pecorino-s6",
+                            "n": "Ravioli con Zucca Gialla, Pancetta e stracciatella",
+                            "p": "16",
+                            "unita": "",
+                            "a": "1, 3, 5, 7, 8, 9",
+                            "a_ok": true,
+                            "it": "Pasta corta con zucca gialla, porri e pecorino, una preparazione vegetariana dai sapori delicati e genuini.",
+                            "en": "Short pasta with yellow pumpkin, leeks and pecorino, a vegetarian dish with delicate flavours.",
+                            "oste": false,
+                            "stagione": true,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "ribollita-s7",
+                            "n": "Ribollita",
+                            "p": "13",
+                            "unita": "",
+                            "a": "1, 5, 6, 9",
+                            "a_ok": true,
+                            "it": "La celebre zuppa toscana della tradizione contadina, ricca di storia. A volte le cose semplici sono le migliori.",
+                            "en": "The famous Tuscan peasant soup, steeped in history. Sometimes the simplest things are the best.",
+                            "oste": false,
+                            "stagione": true,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "secondi",
+            "groups": [
+                {
+                    "title": {
+                        "it": "Specialità della cucina",
+                        "en": "House specialties"
+                    },
+                    "items": [
+                        {
+                            "id": "cinghiale-in-dolce-forte-s8",
+                            "n": "Cinghiale in Dolce Forte",
+                            "p": "20",
+                            "unita": "",
+                            "a": "1, 5, 6, 7, 9",
+                            "a_ok": true,
+                            "it": "Un’antica ricetta medievale toscana, in cui il sapore intenso del cinghiale incontra il caratteristico equilibrio agrodolce del dolce forte.",
+                            "en": "An ancient Tuscan medieval recipe, where the intense flavour of wild boar meets the distinctive sweet-and-sour balance of dolce forte.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "tegamata-di-cinta-senese-s9",
+                            "n": "Tegamata di Cinta Senese",
+                            "p": "19",
+                            "unita": "",
+                            "a": "1, 9",
+                            "a_ok": true,
+                            "it": "Uno stufato di cinta senese a cottura lenta, preparato senza base di pomodoro con carne proveniente da un allevamento allo stato brado nel cuore delle Crete Senesi.",
+                            "en": "A slow-cooked Cinta Senese pork stew, made without a tomato base, using meat from free-range pigs raised in the heart of the Crete Senesi.",
+                            "oste": true,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "agnello-allo-scottadito-sa",
+                            "n": "Agnello allo Scottadito",
+                            "p": "18",
+                            "unita": "",
+                            "a": "",
+                            "a_ok": false,
+                            "it": "Costolette d’agnello cotte alla griglia, da gustare calde secondo la tradizione.",
+                            "en": "Grilled lamb chops, best enjoyed piping hot, just as tradition dictates.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "cinghiale-al-coccio-con-polenta-sb",
+                            "n": "Cinghiale al Coccio con Polenta",
+                            "p": "18",
+                            "unita": "",
+                            "a": "1, 5, 8",
+                            "a_ok": true,
+                            "it": "Spezzatino di cinghiale dalla cottura lenta e aromatica, accompagnato da polenta: un grande classico della cucina toscana.",
+                            "en": "Slow-cooked, aromatic wild boar stew served with polenta: a true classic of Tuscan cooking.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "sovracosce-di-pollo-alla-diavola-sc",
+                            "n": "Sovracosce di Pollo alla Diavola",
+                            "p": "16",
+                            "unita": "",
+                            "a": "3, 7",
+                            "a_ok": true,
+                            "it": "Sovracosce di pollo croccanti, cotte alla griglia e accompagnate da una salsa piccante fatta in casa.",
+                            "en": "Crispy grilled chicken thighs served with our homemade spicy sauce.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "trippa-sd",
+                            "n": "Trippa alla Senese",
+                            "p": "14",
+                            "unita": "",
+                            "a": "1, 9",
+                            "a_ok": true,
+                            "it": "Una ricetta della tradizione popolare senese, particolarmente legata al periodo del Palio. Sugo a base di pomodoro, salsiccia e peperoncino.",
+                            "en": "A dish rooted in traditional Senese home cooking, especially associated with Palio season. Served in a tomato sauce with sausage and chilli.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "griglia",
+            "groups": [
+                {
+                    "title": {
+                        "it": "Bistecche e tagli alla griglia",
+                        "en": "Steaks and grilled cuts"
+                    },
+                    "items": [
+                        {
+                            "id": "bistecca-alla-fiorentina-se",
+                            "n": "Bistecca alla Fiorentina",
+                            "p": "9",
+                            "unita": "etto",
+                            "a": "",
+                            "a_ok": true,
+                            "it": "La specialità della casa: una selezione settimanale curata da Alessio, il nostro macellaio di fiducia. Selezioniamo le migliori carni provenienti da razze e allevamenti di tutto il mondo, per offrire un’esperienza alla griglia sempre distintiva e unica.",
+                            "en": "The house speciality: a weekly selection hand-picked by Alessio, our trusted butcher. We choose the finest beef from breeds and farms around the world to offer a truly distinctive and unique grilling experience every time.",
+                            "oste": true,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "bistecca-fritta-sf",
+                            "n": "Bistecca Fritta",
+                            "p": "12",
+                            "unita": "etto",
+                            "a": "1, 3",
+                            "a_ok": true,
+                            "it": "La nostra versione fuori dagli schemi della regina della tavola toscana: una bella bistecca alla fiorentina, impanata e fritta, croccante fuori e succosa dentro. Una specialità unica: siamo gli unici a Siena e provincia a proporvela così. Da provare almeno una volta!",
+                            "en": "Our unconventional take on the queen of the Tuscan table: a proper Florentine steak, breaded and fried until crispy on the outside and juicy on the inside. A one-of-a-kind speciality: we’re the only ones in Siena and the surrounding province serving it this way. You have to try it at least once!",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "costata-del-vamosh-sg",
+                            "n": "Costata del macellaio",
+                            "p": "7",
+                            "unita": "etto",
+                            "a": "",
+                            "a_ok": true,
+                            "it": "Un taglio di manzo simile alla Fiorentina, ma senza filetto, ideale per chi ama il gusto autentico della carne alla griglia.",
+                            "en": "A cut of beef similar to a Florentine steak, but without the tenderloin, perfect for those who love the authentic taste of grilled meat.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        }
+                    ]
+                },
+                {
+                    "title": {
+                        "it": "Filetto di manzo",
+                        "en": "Beef fillet"
+                    },
+                    "items": [
+                        {
+                            "id": "medaglione-di-filetto-alla-griglia-sh",
+                            "n": "Medaglione di Filetto alla Griglia",
+                            "p": "25",
+                            "unita": "",
+                            "a": "",
+                            "a_ok": true,
+                            "it": "Medaglione di filetto di manzo cotto alla griglia, da gustare al naturale oppure nelle sue varianti.",
+                            "en": "A beef fillet medallion cooked on the grill, to enjoy just as it is or with one of our toppings.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": [
+                                {
+                                    "n": "Con Tartufo",
+                                    "p": "30",
+                                    "a": "7",
+                                    "it": "Per chi al profumo del tartufo non sa proprio dire di no.",
+                                    "en": "For those who simply can’t say no to truffle."
+                                },
+                                {
+                                    "n": "Con Lardo di Colonnata",
+                                    "p": "28",
+                                    "a": "",
+                                    "it": "Lardo di Colonnata, morbido e saporito, per un abbinamento ricco e tutto da gustare.",
+                                    "en": "Delicate, flavourful cured pork fat from Colonnata, bringing a rich and satisfying pairing to the fillet."
+                                },
+                                {
+                                    "n": "Con salsa al Pepe Verde",
+                                    "p": "28",
+                                    "a": "7",
+                                    "it": "Delicata salsa al pepe verde sfumata al brandy",
+                                    "en": "Delicate green peppercorn sauce, finished with brandy"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "contorni",
+            "groups": [
+                {
+                    "title": null,
+                    "items": [
+                        {
+                            "id": "fagioli-all-uccelletto-si",
+                            "n": "Fagioli all’Uccelletto",
+                            "p": "7",
+                            "unita": "",
+                            "a": "7, 9",
+                            "a_ok": true,
+                            "it": "Un grande classico toscano: fagioli saporiti, perfetti per accompagnare i piatti della casa.",
+                            "en": "A Tuscan favourite: flavourful beans, perfect alongside our house dishes.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "p-d1b04479ab",
+                            "n": "Chips di Patate Croccanti",
+                            "p": "7",
+                            "unita": "",
+                            "a": "1, 3",
+                            "a_ok": true,
+                            "it": "Dorate, croccanti e una tira l’altra. C’è davvero bisogno di aggiungere altro?",
+                            "en": "Golden, crispy and impossible to stop eating. Do we really need to say more?",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "patate-prezzemolate-sj",
+                            "n": "Patate Prezzemolate",
+                            "p": "6",
+                            "unita": "",
+                            "a": "",
+                            "a_ok": false,
+                            "it": "Patate lesse condite con prezzemolo tritato, olio, sale e pepe. Semplici, genuine e sempre al posto giusto.",
+                            "en": "Boiled potatoes dressed with chopped parsley, oil, salt and pepper. Simple, honest and always right at home on the plate.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "erbe-saltate-sk",
+                            "n": "Erbe Saltate",
+                            "p": "8",
+                            "unita": "",
+                            "a": "1, 7, 9",
+                            "a_ok": true,
+                            "it": "Bietole, cicoria e spinaci saltati in padella con aglio, olio e peperoncino. Verdure sì, ma con carattere.",
+                            "en": "Swiss chard, chicory and spinach sautéed with garlic, olive oil and chilli. Greens with a bit of attitude.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "insalata-mista-sl",
+                            "n": "Insalata Mista",
+                            "p": "5",
+                            "unita": "",
+                            "a": "",
+                            "a_ok": false,
+                            "it": "Insalata fresca, ideale per chi vuole qualcosa di leggero e genuino.",
+                            "en": "Fresh mixed salad with seasonal vegetables, for something light and wholesome.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "dolci",
+            "groups": [
+                {
+                    "title": null,
+                    "items": [
+                        {
+                            "id": "il-tiramisu-di-manu-sm",
+                            "n": "Il Tiramisù di Manu",
+                            "p": "8",
+                            "unita": "",
+                            "a": "1, 3, 7",
+                            "a_ok": true,
+                            "it": "",
+                            "en": "Manu’s tiramisù.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "cantuccini-e-vin-santo-sn",
+                            "n": "Cantuccini e Vin Santo",
+                            "p": "7",
+                            "unita": "",
+                            "a": "1, 3, 8, 12",
+                            "a_ok": true,
+                            "it": "",
+                            "en": "Tuscan almond biscuits with Vin Santo dessert wine.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "panna-cotta-so",
+                            "n": "Panna Cotta",
+                            "p": "6",
+                            "unita": "",
+                            "a": "7",
+                            "a_ok": true,
+                            "it": "",
+                            "en": "",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [
+                                {
+                                    "it": "Al cioccolato",
+                                    "en": "Chocolate"
+                                },
+                                {
+                                    "it": "Ai frutti di bosco",
+                                    "en": "Wild berries"
+                                },
+                                {
+                                    "it": "Al caramello",
+                                    "en": "Caramel"
+                                }
+                            ],
+                            "varianti": []
+                        },
+                        {
+                            "id": "tortino-al-cioccolato-con-cuore-caldo-sp",
+                            "n": "Tortino al Cioccolato con Cuore Caldo",
+                            "p": "8",
+                            "unita": "",
+                            "a": "",
+                            "a_ok": false,
+                            "it": "",
+                            "en": "Chocolate fondant with a warm, melting centre.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "cheesecake-sq",
+                            "n": "Cheesecake",
+                            "p": "7",
+                            "unita": "",
+                            "a": "",
+                            "a_ok": false,
+                            "it": "",
+                            "en": "",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [
+                                {
+                                    "it": "Al cioccolato",
+                                    "en": "Chocolate"
+                                },
+                                {
+                                    "it": "Ai frutti di bosco",
+                                    "en": "Wild berries"
+                                },
+                                {
+                                    "it": "Al caramello",
+                                    "en": "Caramel"
+                                }
+                            ],
+                            "varianti": []
+                        },
+                        {
+                            "id": "tris-di-dolci-senesi-sr",
+                            "n": "Tris di Dolci Senesi",
+                            "p": "8",
+                            "unita": "",
+                            "a": "",
+                            "a_ok": false,
+                            "it": "",
+                            "en": "A trio of traditional Sienese sweets.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        },
+                        {
+                            "id": "carpaccio-di-pere-e-scaglie-di-cioccolato-fondente-ss",
+                            "n": "Carpaccio di Pere e Scaglie di Cioccolato Fondente",
+                            "p": "6",
+                            "unita": "",
+                            "a": "",
+                            "a_ok": false,
+                            "it": "",
+                            "en": "Thinly sliced pears with dark chocolate shavings.",
+                            "oste": false,
+                            "stagione": false,
+                            "esaurito": false,
+                            "visibile": true,
+                            "opz": [],
+                            "varianti": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
