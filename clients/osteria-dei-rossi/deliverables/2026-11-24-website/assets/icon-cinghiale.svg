@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+  <title>Cinghiale</title>
+  <path d="M10 32 C16 28 28 18 38 18 L46 24 L56 36 L57 40 L52 41 L44 44 L41 46 V54 H38 V47 C30 49 22 46 17 46 V54 H14 V44 C10 42 9 36 10 32 Z"/>
+  <path d="M26.3 21.4 L25.5 17 M30.25 19.6 L30 15 M34.5 18.3 L34.5 13.5 M38 18 L38.5 13"/>
+  <path d="M41 21 L43 15 L46 23"/>
+  <path d="M54 41 Q53 38 55 36"/>
+  <path d="M10 32 L7 28 M7 28 L5.5 26 M7 28 L5.5 29.5 M7 28 L7 25.5"/>
+  <circle cx="47" cy="29" r="0.9" fill="currentColor"/>
+</svg>
