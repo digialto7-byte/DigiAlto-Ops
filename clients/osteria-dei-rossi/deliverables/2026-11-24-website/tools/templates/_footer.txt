@@ -31,6 +31,8 @@
     </div>
     <ul class="site-footer__links">
       <li><a href="{{u:menu}}">{{c:global-footer.menu_link}}</a></li>
+      <li><a href="{{u:vini}}">{{c:global-footer.vini_link}}</a></li>
+      <li><a href="{{u:dove}}">{{c:global-footer.dove_link}}</a></li>
       <li><a href="{{u:privacy}}">{{c:global-footer.privacy_link}}</a></li>
       <li><a href="{{u:top}}">{{c:global-footer.back_to_top}}</a></li>
     </ul>

@@ -28,7 +28,7 @@
 <noscript><link rel="stylesheet" href="../../assets/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="../../motion.css">
-<script>(function(d){var c=d.documentElement.classList;c.remove('no-js');c.add('js');try{if(sessionStorage.getItem('odr-intro')||location.hash)c.add('intro-done')}catch(e){c.add('intro-done')}var h=d.head,a='../../assets/fonts/',s=d.getElementById('fonts-css'),f=function(r,u,x){var l=d.createElement('link');l.rel=r;l.href=u;if(x){l.as='font';l.type='font/woff2';l.crossOrigin='anonymous'}h.appendChild(l)};if(location.protocol==='file:'){if(s)s.remove();f('stylesheet',a+'fonts-embedded.css')}else{if(s)s.media='all';f('preload',a+'bodoni-moda-latin-opsz-normal.woff2',1);f('preload',a+'figtree-latin-wght-normal.woff2',1)}})(document)</script>
+<script>(function(d){var c=d.documentElement.classList;c.remove('no-js');c.add('js');try{var k='m',v=sessionStorage.getItem('odr-intro')||'';if(!k||v.indexOf(k)>-1||(v==='1'&&k==='g')||location.hash)c.add('intro-done')}catch(e){c.add('intro-done')}var h=d.head,a='../../assets/fonts/',s=d.getElementById('fonts-css'),f=function(r,u,x){var l=d.createElement('link');l.rel=r;l.href=u;if(x){l.as='font';l.type='font/woff2';l.crossOrigin='anonymous'}h.appendChild(l)};if(location.protocol==='file:'){if(s)s.remove();f('stylesheet',a+'fonts-embedded.css')}else{if(s)s.media='all';f('preload',a+'bodoni-moda-latin-opsz-normal.woff2',1);f('preload',a+'figtree-latin-wght-normal.woff2',1)}})(document)</script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -718,6 +718,73 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://www.osteriadeirossi.it/en/menu/#domande",
+  "url": "https://www.osteriadeirossi.it/en/menu/#domande",
+  "inLanguage": "en",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are the house dishes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The dishes marked Consigliato dall'Oste (recommended by the host) include the beef tartare, pici with traditional duck ragù, pici with white Cinta Senese ragù, the slow-cooked Cinta Senese stew and the bistecca alla fiorentina. Spaghetti alla chitarra with the osteria's own sauce has also been on the menu since 1992."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is cinghiale in dolceforte?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is a wild boar dish with dolceforte, a sweet-and-sour sauce that goes back to medieval cooking. The chocolate in today's recipe was added in later centuries. The dish is on the menu as Cinghiale in Dolce Forte."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are pici, and how do you serve them?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pici are thick, hand-rolled strands of pasta made from flour and water, typical of the Siena area. At the osteria they are served with white Cinta Senese ragù, duck ragù, cacio e pepe and wild boar ragù."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is Cinta Senese?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cinta Senese is the native pig breed of the Siena hills, dark with a white band, the ‘cinta’, around its shoulders. It is painted in Ambrogio Lorenzetti's fresco of 1338–39 in Siena's Palazzo Pubblico and has protected-origin (DOP) status. On the menu it appears in the pici with white ragù and in the tegamata."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are cantucci and Vin Santo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cantucci are Tuscan almond biscuits; the tradition is to dip them in Vin Santo, the sweet Tuscan dessert wine, to end the meal. The osteria serves cantucci and Vin Santo, listed among the desserts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much is the cover charge?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The cover charge is 2.50 € per person. Steaks are sold by weight, at the price per 100 g shown on the menu. The weight is agreed at the table with the waiter."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you handle allergens and intolerances?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Please ask the staff before ordering: the allergen list for each dish is being confirmed and is not yet published on this site. It will not be published before the chef confirms it."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body class="page-text-body">
 <a class="skip-link" href="#contenuto">Skip to content</a>
@@ -734,11 +801,11 @@
     </button>
     <nav class="site-nav" id="menu-panel" aria-label="Osteria dei Rossi">
       <ul class="site-nav__links">
-        <li><a href="../#via">The street</a></li>
+        <li><a href="../#casa">The story</a></li>
         <li><a href="../#tavola">The table</a></li>
-        <li><a href="../#cantina">The cellar</a></li>
-        <li><a href="../#contrada">The contrada</a></li>
         <li><a href="./" aria-current="page">Menu</a></li>
+        <li><a href="../wine-list/">Wine list</a></li>
+        <li><a href="../find-us/">Find us</a></li>
       </ul>
       <div class="lang" role="group" aria-label="Change language">
         <a href="../../menu/" lang="it" hreflang="it">IT</a>
@@ -767,7 +834,75 @@
 <main id="contenuto">
 
 <section class="menu-hero" aria-labelledby="menu-title">
-  <div class="container">
+  <svg class="menu-hero__skyline" preserveAspectRatio="xMidYMax slice" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <g id="skyline-tetti">
+    <path vector-effect="non-scaling-stroke" d="M0 506 H16 L36 490 L56 506 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M56 520 H76 L96 502 L116 520 H132 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M132 560 V504 L146 490 L160 504 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M172 560 C165 540 165 500 172 464 C179 500 179 540 172 560"/>
+    <path vector-effect="non-scaling-stroke" d="M40 493 V482 H46 V498"/>
+    <path vector-effect="non-scaling-stroke" d="M420 560 V496 H440 L458 480 L476 496 H490 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M490 510 H506 L522 498 L538 510 H560 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M446 491 V476 H452 V485"/>
+    <path vector-effect="non-scaling-stroke" d="M560 560 V516 H580 L600 504 L620 516 H640 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M640 526 H664 L682 514 L700 526 H720 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M720 520 H742 L760 506 L778 520 H800 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M800 530 H820 L838 518 L856 530 H880 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M880 512 H900 L918 498 L936 512 H956 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M590 510 V497 H596 V507"/>
+    <path vector-effect="non-scaling-stroke" d="M748 516 V502 H754 V511"/>
+    <path vector-effect="non-scaling-stroke" d="M906 508 V494 H912 V503"/>
+    <path vector-effect="non-scaling-stroke" d="M1200 560 V520 H1220 L1240 504 L1260 520 H1276 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M1276 530 H1296 L1316 516 L1336 530 H1350 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M1370 560 C1362 540 1362 490 1370 450 C1378 490 1378 540 1370 560"/>
+    <path vector-effect="non-scaling-stroke" d="M1384 560 V508 H1404 L1424 492 L1444 508 H1462 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M1462 524 H1480 L1498 510 L1516 524 H1530 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M1552 560 C1544 540 1544 496 1552 458 C1560 496 1560 540 1552 560"/>
+    <path vector-effect="non-scaling-stroke" d="M1568 560 V524 H1580 L1590 512 L1600 522"/>
+    <path vector-effect="non-scaling-stroke" d="M1228 514 V500 H1234 V509"/>
+    <path vector-effect="non-scaling-stroke" d="M1302 526 V512 H1308 V522"/>
+    <path vector-effect="non-scaling-stroke" d="M1410 503 V490 H1416 V498"/>
+  </g>
+  <g id="skyline-duomo">
+    <path vector-effect="non-scaling-stroke" d="M184 560 V474 L196 450 H300"/>
+    <path vector-effect="non-scaling-stroke" d="M184 474 H300"/>
+    <path vector-effect="non-scaling-stroke" d="M184 560 H380"/>
+    <path vector-effect="non-scaling-stroke" d="M300 450 V418 M370 450 V418"/>
+    <path vector-effect="non-scaling-stroke" d="M300 418 A35 44 0 0 1 370 418"/>
+    <path vector-effect="non-scaling-stroke" d="M327 376 V356 H343 V376 M327 356 L335 338 L343 356 M335 338 V328"/>
+    <path vector-effect="non-scaling-stroke" d="M313 424 V442 M335 424 V442 M357 424 V442"/>
+    <path vector-effect="non-scaling-stroke" d="M370 450 H380"/>
+    <path vector-effect="non-scaling-stroke" d="M200 540 V524 A5 5 0 0 1 210 524 V540 M224 540 V524 A5 5 0 0 1 234 524 V540 M248 540 V524 A5 5 0 0 1 258 524 V540 M272 540 V524 A5 5 0 0 1 282 524 V540"/>
+    <path vector-effect="non-scaling-stroke" d="M380 560 V300 L400 262 L420 300 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M400 262 V250"/>
+    <path vector-effect="non-scaling-stroke" d="M380 316 H420 M380 332 H420 M380 348 H420 M380 364 H420 M380 380 H420 M380 396 H420 M380 412 H420 M380 428 H420 M380 444 H420 M380 460 H420 M380 476 H420 M380 492 H420 M380 508 H420 M380 524 H420 M380 540 H420"/>
+  </g>
+  <g id="skyline-palazzo">
+    <path vector-effect="non-scaling-stroke" d="M960 560 V486 H970 V478 H980 V486 H990 V478 H1000 V486 H1010 V478 H1020 V486 H1030 V478 H1040 V486 H1050 V432 H1056 V424 H1066 V432 H1076 V424 H1086 V432 H1100"/>
+    <path vector-effect="non-scaling-stroke" d="M1130 432 H1136 V424 H1146 V432 H1150 V486 H1160 V478 H1170 V486 H1180 V478 H1190 V486 H1200 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M960 560 H1100 M1130 560 H1200"/>
+    <path vector-effect="non-scaling-stroke" d="M972 530 V518 L976 510 L980 518 V530 M992 530 V518 L996 510 L1000 518 V530 M1012 530 V518 L1016 510 L1020 518 V530 M1032 530 V518 L1036 510 L1040 518 V530"/>
+    <path vector-effect="non-scaling-stroke" d="M1058 466 V454 L1062 446 L1066 454 V466 M1076 466 V454 L1080 446 L1084 454 V466 M1136 466 V454 L1140 446 L1144 454 V466"/>
+    <path vector-effect="non-scaling-stroke" d="M1058 516 V504 L1062 496 L1066 504 V516 M1076 516 V504 L1080 496 L1084 504 V516 M1136 516 V504 L1140 496 L1144 504 V516"/>
+    <path vector-effect="non-scaling-stroke" d="M1162 530 V518 L1166 510 L1170 518 V530 M1182 530 V518 L1186 510 L1190 518 V530"/>
+  </g>
+  <g id="skyline-torre">
+    <path vector-effect="non-scaling-stroke" d="M1100 560 V160"/>
+    <path vector-effect="non-scaling-stroke" d="M1130 560 V160"/>
+    <path vector-effect="non-scaling-stroke" d="M1115 452 V440 M1115 372 V360 M1115 292 V280 M1115 212 V200"/>
+    <path vector-effect="non-scaling-stroke" d="M1086 150 A5.8 5.8 0 0 0 1097.6 150 A5.8 5.8 0 0 0 1109.2 150 A5.8 5.8 0 0 0 1120.8 150 A5.8 5.8 0 0 0 1132.4 150 A5.8 5.8 0 0 0 1144 150"/>
+    <path vector-effect="non-scaling-stroke" d="M1086 150 V118 H1144 V150"/>
+    <path vector-effect="non-scaling-stroke" d="M1086 118 V108 H1097.6 V114 H1109.2 V108 H1120.8 V114 H1132.4 V108 H1144 V118"/>
+    <path vector-effect="non-scaling-stroke" d="M1094 146 V134 A5 5 0 0 1 1104 134 V146 M1110 146 V134 A5 5 0 0 1 1120 134 V146 M1126 146 V134 A5 5 0 0 1 1136 134 V146"/>
+    <path vector-effect="non-scaling-stroke" d="M1098 108 V78 H1132 V108"/>
+    <path vector-effect="non-scaling-stroke" d="M1103 106 V92 A3 3 0 0 1 1109 92 V106 M1112 106 V92 A3 3 0 0 1 1118 92 V106 M1121 106 V92 A3 3 0 0 1 1127 92 V106"/>
+    <path vector-effect="non-scaling-stroke" d="M1094 78 H1136"/>
+    <path vector-effect="non-scaling-stroke" d="M1104 78 V56 A11 11 0 0 1 1126 56 V78"/>
+    <path vector-effect="non-scaling-stroke" d="M1108 72 H1122 C1121 66 1120 61 1115 59 C1110 61 1109 66 1108 72 Z"/>
+    <path vector-effect="non-scaling-stroke" d="M1115 45 V38"/>
+  </g>
+</svg>
+  <div class="container menu-hero__inner">
     <p class="kicker">Osteria dei Rossi · Siena</p>
     <h1 id="menu-title"><span class="hl">The osteria's menu</span> <em>in Siena</em></h1>
     <p class="menu-hero__intro">The dishes and drinks of our osteria in Via dei Rossi, from starter to dessert, with every price. Updated on 24 November 2026.</p>
@@ -922,8 +1057,8 @@
     </ul>
 </section>
 <figure class="menu-band">
-  <div class="menu-band__media ph-cinghiale-in-umido-coccio">
-    <picture><source type="image/avif" srcset="../../assets/img/cinghiale-in-umido-coccio-640.avif 640w, ../../assets/img/cinghiale-in-umido-coccio-960.avif 960w, ../../assets/img/cinghiale-in-umido-coccio-1280.avif 1280w, ../../assets/img/cinghiale-in-umido-coccio-1600.avif 1600w, ../../assets/img/cinghiale-in-umido-coccio-2048.avif 2048w" sizes="(max-width: 44.99rem) 200vw, 100vw"><img class="menu-band__img" src="../../assets/img/cinghiale-in-umido-coccio-960.jpg" width="960" height="768" alt="Terracotta bowl of wild boar stew with a bay leaf, side dishes, bread and red wine on the table" loading="lazy" decoding="async" data-parallax></picture>
+  <div class="menu-band__media ph-dark ph-tagliatelle-ai-porcini-freschi-1">
+    <picture><source type="image/avif" srcset="../../assets/img/tagliatelle-ai-porcini-freschi-1-480.avif 480w, ../../assets/img/tagliatelle-ai-porcini-freschi-1-720.avif 720w, ../../assets/img/tagliatelle-ai-porcini-freschi-1-960.avif 960w, ../../assets/img/tagliatelle-ai-porcini-freschi-1-1280.avif 1280w, ../../assets/img/tagliatelle-ai-porcini-freschi-1-1600.avif 1600w" sizes="100vw"><img class="menu-band__img" src="../../assets/img/tagliatelle-ai-porcini-freschi-1-720.jpg" width="720" height="480" alt="Tagliatelle ai porcini freschi with parsley, seen from a little further away" loading="lazy" decoding="async" data-parallax></picture>
   </div>
 </figure>
 <section class="menu-section" id="secondi" aria-labelledby="h-secondi" data-reveal>
@@ -1038,8 +1173,8 @@
     </ul>
 </section>
 <figure class="menu-band">
-  <div class="menu-band__media ph-bistecca-alla-fiorentina-siena">
-    <picture><source type="image/avif" srcset="../../assets/img/bistecca-alla-fiorentina-siena-640.avif 640w, ../../assets/img/bistecca-alla-fiorentina-siena-960.avif 960w, ../../assets/img/bistecca-alla-fiorentina-siena-1280.avif 1280w, ../../assets/img/bistecca-alla-fiorentina-siena-1600.avif 1600w, ../../assets/img/bistecca-alla-fiorentina-siena-2048.avif 2048w" sizes="(max-width: 44.99rem) 200vw, 100vw"><img class="menu-band__img" src="../../assets/img/bistecca-alla-fiorentina-siena-960.jpg" width="960" height="768" alt="A raw T-bone Florentine steak standing on a dark wooden board with a knife and rosemary, brick wall behind" loading="lazy" decoding="async" data-parallax></picture>
+  <div class="menu-band__media ph-bistecca-alla-fiorentina-siena ph-bistecca-alla-fiorentina-siena">
+    <picture><source type="image/avif" srcset="../../assets/img/bistecca-alla-fiorentina-siena-640.avif 640w, ../../assets/img/bistecca-alla-fiorentina-siena-960.avif 960w, ../../assets/img/bistecca-alla-fiorentina-siena-1280.avif 1280w, ../../assets/img/bistecca-alla-fiorentina-siena-1600.avif 1600w, ../../assets/img/bistecca-alla-fiorentina-siena-2048.avif 2048w" sizes="100vw"><img class="menu-band__img" src="../../assets/img/bistecca-alla-fiorentina-siena-960.jpg" width="960" height="768" alt="A raw T-bone Florentine steak standing on a dark wooden board with a knife and rosemary, brick wall behind" loading="lazy" decoding="async" data-parallax></picture>
   </div>
 </figure>
 <section class="menu-section" id="contorni" aria-labelledby="h-contorni" data-reveal>
@@ -1229,6 +1364,13 @@
     </ul>
 </section>
 
+<p class="menu-wine" data-reveal><a class="link" href="../wine-list/">See the wine list <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M14 24 H214"/>
+  <path d="M230 24 L210 14 L216 24 L210 34 Z"/>
+  <path d="M62 24 C76 24 86 5 72 5 C58 5 62 24 90 24"/>
+  <path d="M30 24 L18 10 M30 24 L18 38 M42 24 L30 10 M42 24 L30 38 M54 24 L42 10 M54 24 L42 38"/>
+</svg></a></p>
+
 <div class="menu-notes" id="coperto" data-reveal>
   <p>Dishes priced all'etto: the price is per 100 g, you choose the weight and we note it on your order.</p>
   <p>Cover charge 2.50 € per person.</p>
@@ -1236,29 +1378,82 @@
   <p>Please ask our staff about allergens and intolerances before you order: the allergen list is being confirmed with the kitchen.</p>
 </div>
 
-<section class="section section--green battlement menu-closing" id="prenota" aria-labelledby="prenota-title">
-  <div class="container menu-closing__inner" data-reveal-group>
-    <h2 id="prenota-title" data-reveal><span class="hl">A table</span> <em>for you</em></h2>
-    <div class="prenota__actions" data-reveal>
-      <a class="btn btn--light" href="tel:+390577287592">Call +39 0577 287592 <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-  <path d="M14 24 H214"/>
-  <path d="M230 24 L210 14 L216 24 L210 34 Z"/>
-  <path d="M62 24 C76 24 86 5 72 5 C58 5 62 24 90 24"/>
-  <path d="M30 24 L18 10 M30 24 L18 38 M42 24 L30 10 M42 24 L30 38 M54 24 L42 10 M54 24 L42 38"/>
-</svg></a>
-      <a class="btn btn--line" href="https://wa.me/390577287592" target="_blank" rel="noopener">Message on WhatsApp <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-  <path d="M14 24 H214"/>
-  <path d="M230 24 L210 14 L216 24 L210 34 Z"/>
-  <path d="M62 24 C76 24 86 5 72 5 C58 5 62 24 90 24"/>
-  <path d="M30 24 L18 10 M30 24 L18 38 M42 24 L30 10 M42 24 L30 38 M54 24 L42 10 M54 24 L42 38"/>
-</svg></a>
+<section class="section domande" id="domande" aria-labelledby="domande-title">
+  <div class="container domande__inner">
+    <h2 id="domande-title" data-reveal><span class="hl">Questions about the menu</span> <em>and the dishes</em></h2>
+    <div class="faq">
+      <details class="faq__item" data-reveal open>
+        <summary><span class="faq__q">What are the house dishes?</span></summary>
+        <div class="faq__a"><p>The dishes marked Consigliato dall'Oste (recommended by the host) include the beef tartare, pici with traditional duck ragù, pici with white Cinta Senese ragù, the slow-cooked Cinta Senese stew and the bistecca alla fiorentina. Spaghetti alla chitarra with the osteria's own sauce has also been on the menu since 1992.</p></div>
+      </details>
+      <details class="faq__item" data-reveal>
+        <summary><span class="faq__q">What is cinghiale in dolceforte?</span></summary>
+        <div class="faq__a"><p>It is a wild boar dish with dolceforte, a sweet-and-sour sauce that goes back to medieval cooking. The chocolate in today's recipe was added in later centuries. The dish is on the menu as Cinghiale in Dolce Forte.</p></div>
+      </details>
+      <details class="faq__item" data-reveal>
+        <summary><span class="faq__q">What are pici, and how do you serve them?</span></summary>
+        <div class="faq__a"><p>Pici are thick, hand-rolled strands of pasta made from flour and water, typical of the Siena area. At the osteria they are served with white Cinta Senese ragù, duck ragù, cacio e pepe and wild boar ragù.</p></div>
+      </details>
+      <details class="faq__item" data-reveal>
+        <summary><span class="faq__q">What is Cinta Senese?</span></summary>
+        <div class="faq__a"><p>Cinta Senese is the native pig breed of the Siena hills, dark with a white band, the ‘cinta’, around its shoulders. It is painted in Ambrogio Lorenzetti's fresco of 1338–39 in Siena's Palazzo Pubblico and has protected-origin (DOP) status. On the menu it appears in the pici with white ragù and in the tegamata.</p></div>
+      </details>
+      <details class="faq__item" data-reveal>
+        <summary><span class="faq__q">What are cantucci and Vin Santo?</span></summary>
+        <div class="faq__a"><p>Cantucci are Tuscan almond biscuits; the tradition is to dip them in Vin Santo, the sweet Tuscan dessert wine, to end the meal. The osteria serves cantucci and Vin Santo, listed among the desserts.</p></div>
+      </details>
+      <details class="faq__item" data-reveal>
+        <summary><span class="faq__q">How much is the cover charge?</span></summary>
+        <div class="faq__a"><p>The cover charge is 2.50 € per person. Steaks are sold by weight, at the price per 100 g shown on the menu. The weight is agreed at the table with the waiter.</p></div>
+      </details>
+      <details class="faq__item" data-reveal>
+        <summary><span class="faq__q">How do you handle allergens and intolerances?</span></summary>
+        <div class="faq__a"><p>Please ask the staff before ordering: the allergen list for each dish is being confirmed and is not yet published on this site. It will not be published before the chef confirms it.</p></div>
+      </details>
     </div>
-    <p data-reveal><a class="link" href="../">Back to the home page <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  </div>
+</section>
+
+<section id="prenota" class="section section--green battlement prenota__book" aria-labelledby="prenota-title">
+  <div class="container grid">
+    <div class="prenota__main stack" data-reveal-group>
+      <h2 id="prenota-title" data-reveal><span class="hl">A table</span> <em>for you</em></h2>
+      <div class="prenota__actions" data-reveal>
+        <a class="btn btn--light" href="tel:+390577287592">Call +39 0577 287592 <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M14 24 H214"/>
+  <path d="M230 24 L210 14 L216 24 L210 34 Z"/>
+  <path d="M62 24 C76 24 86 5 72 5 C58 5 62 24 90 24"/>
+  <path d="M30 24 L18 10 M30 24 L18 38 M42 24 L30 10 M42 24 L30 38 M54 24 L42 10 M54 24 L42 38"/>
+</svg></a>
+        <a class="btn btn--line" href="https://wa.me/390577287592" target="_blank" rel="noopener">Message on WhatsApp <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M14 24 H214"/>
+  <path d="M230 24 L210 14 L216 24 L210 34 Z"/>
+  <path d="M62 24 C76 24 86 5 72 5 C58 5 62 24 90 24"/>
+  <path d="M30 24 L18 10 M30 24 L18 38 M42 24 L30 10 M42 24 L30 38 M54 24 L42 10 M54 24 L42 38"/>
+</svg></a>
+      </div>
+      <p data-reveal><a class="link" href="../find-us/">Where we are and how to get here <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
   <path d="M14 24 H214"/>
   <path d="M230 24 L210 14 L216 24 L210 34 Z"/>
   <path d="M62 24 C76 24 86 5 72 5 C58 5 62 24 90 24"/>
   <path d="M30 24 L18 10 M30 24 L18 38 M42 24 L30 10 M42 24 L30 38 M54 24 L42 10 M54 24 L42 38"/>
 </svg></a></p>
+      <p data-reveal><a class="link" href="../">Back to the home page <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M14 24 H214"/>
+  <path d="M230 24 L210 14 L216 24 L210 34 Z"/>
+  <path d="M62 24 C76 24 86 5 72 5 C58 5 62 24 90 24"/>
+  <path d="M30 24 L18 10 M30 24 L18 38 M42 24 L30 10 M42 24 L30 38 M54 24 L42 10 M54 24 L42 38"/>
+</svg></a></p>
+    </div>
+    <div class="prenota__hours" data-reveal-group>
+      <h3 class="label-title" data-reveal>Opening hours</h3>
+      <dl class="hours">
+  <div class="hours__row" data-reveal><dt>Tuesday to Saturday</dt><dd>12:30–15:00 and 19:00–22:30</dd></div>
+  <div class="hours__row" data-reveal><dt>Sunday</dt><dd>12:30–15:00, lunch only</dd></div>
+  <div class="hours__row" data-reveal><dt>Sunday evening and Monday</dt><dd>closed</dd></div>
+</dl>
+      <p class="note" data-reveal>Hours may change: please call to confirm.</p>
+    </div>
   </div>
 </section>
 
@@ -1297,6 +1492,8 @@
     </div>
     <ul class="site-footer__links">
       <li><a href="./">Menu</a></li>
+      <li><a href="../wine-list/">Wine list</a></li>
+      <li><a href="../find-us/">Find us</a></li>
       <li><a href="../privacy/">Privacy</a></li>
       <li><a href="#contenuto">Back to top</a></li>
     </ul>

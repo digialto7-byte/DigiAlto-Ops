@@ -29,6 +29,10 @@ const PAGES = [
   { id: 'home-en', url: '/en/', lang: 'en', pair: '/' },
   { id: 'menu-it', url: '/menu/', lang: 'it', pair: '/en/menu/' },
   { id: 'menu-en', url: '/en/menu/', lang: 'en', pair: '/menu/' },
+  { id: 'vini-it', url: '/vini/', lang: 'it', pair: '/en/wine-list/' },
+  { id: 'vini-en', url: '/en/wine-list/', lang: 'en', pair: '/vini/' },
+  { id: 'dove-it', url: '/dove-siamo/', lang: 'it', pair: '/en/find-us/' },
+  { id: 'dove-en', url: '/en/find-us/', lang: 'en', pair: '/dove-siamo/' },
   { id: 'privacy-it', url: '/privacy/', lang: 'it', pair: '/en/privacy/' },
   { id: 'privacy-en', url: '/en/privacy/', lang: 'en', pair: '/privacy/' },
   { id: '404', url: '/404.html', lang: 'it', pair: null },
@@ -282,7 +286,7 @@ async function introPass(browser, base, vp) {
     await checkPage(browser, base, pg, VIEWPORTS[1], { nojs: true, store });
   }
   if (pages.some((p) => p.id === 'home-it')) { await introPass(browser, base, VIEWPORTS[0]); await introPass(browser, base, VIEWPORTS[1]); }
-  [['home-it', 'home-en'], ['menu-it', 'menu-en'], ['privacy-it', 'privacy-en']].forEach(([a, b]) => {
+  [['home-it', 'home-en'], ['menu-it', 'menu-en'], ['vini-it', 'vini-en'], ['dove-it', 'dove-en'], ['privacy-it', 'privacy-en']].forEach(([a, b]) => {
     if (!store[a] || !store[b]) return;
     if (store[a].heads !== store[b].heads) add('FAIL', a, 'parity', `heading count differs from ${b}: ${store[a].heads} vs ${store[b].heads}`);
     if (store[a].imgs !== store[b].imgs) add('FAIL', a, 'parity', `image count differs from ${b}: ${store[a].imgs} vs ${store[b].imgs}`);

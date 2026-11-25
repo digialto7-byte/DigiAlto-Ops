@@ -10,11 +10,11 @@
     </button>
     <nav class="site-nav" id="menu-panel" aria-label="{{alt:logo}}">
       <ul class="site-nav__links">
-        <li><a href="{{u:homeanchor}}#via">{{c:global-nav.nav_via}}</a></li>
+        <li><a href="{{u:homeanchor}}#casa">{{c:global-nav.nav_storia}}</a></li>
         <li><a href="{{u:homeanchor}}#tavola">{{c:global-nav.nav_tavola}}</a></li>
-        <li><a href="{{u:homeanchor}}#cantina">{{c:global-nav.nav_cantina}}</a></li>
-        <li><a href="{{u:homeanchor}}#contrada">{{c:global-nav.nav_contrada}}</a></li>
         <li><a href="{{u:menu}}"{{cur_menu}}>{{c:global-nav.nav_menu}}</a></li>
+        <li><a href="{{u:vini}}"{{cur_vini}}>{{c:global-nav.nav_vini}}</a></li>
+        <li><a href="{{u:dove}}"{{cur_dove}}>{{c:global-nav.nav_dove}}</a></li>
       </ul>
       <div class="lang" role="group" aria-label="{{c:global-nav.lang_switch_label}}">
         <a href="{{u:lang_it}}" lang="it" hreflang="it"{{cur_it}}>{{c:global-nav.lang_it}}</a>

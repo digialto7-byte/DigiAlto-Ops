@@ -1,0 +1,90 @@
+<body class="page-text-body">
+<a class="skip-link" href="#contenuto">{{c:global-nav.skip_link}}</a>
+
+{{include:_header}}
+
+{{include:_ctabar}}
+
+<main id="contenuto">
+
+<section class="menu-hero vini-hero" aria-labelledby="vini-title">
+  <div class="container menu-hero__inner vini-hero__grid">
+    <div class="vini-hero__text">
+      <p class="kicker">{{c:vini-page.kicker}}</p>
+      <h1 id="vini-title">{{h:vini-page.h1_line1|h1_em}}</h1>
+      <p class="menu-hero__intro">{{c:vini-page.intro}}</p>
+    </div>
+    <div class="vini-hero__art" aria-hidden="true">
+      {{svg:mescita|focusable="false"}}
+    </div>
+  </div>
+</section>
+
+<nav class="menu-nav" data-allow-overflow aria-label="{{c:vini-page.h1_line1}}">
+  <ul>
+    {{wine_nav}}
+  </ul>
+</nav>
+
+<div class="wine-layout wine-layout--reds">
+  <div class="wine-layout__list">
+{{wine_rossi}}
+  </div>
+  <figure class="arch wine-layout__door">
+    <div class="arch__box">
+      {{archline}}
+      <div class="arch__photo ph-cantina-porta-insegna-ceramica" data-mask>
+        {{pic:cantina-porta-insegna-ceramica|(min-width: 64rem) 22vw, 70vw|}}
+      </div>
+    </div>
+  </figure>
+</div>
+
+<figure class="menu-band wine-band">
+  <div class="menu-band__media ph-grotta-volte-in-mattoni-cantina">
+    {{pic:grotta-volte-in-mattoni-cantina|100vw|menu-band__img|parallax}}
+  </div>
+</figure>
+
+<div class="wine-layout wine-layout--whites">
+{{wine_bianchi}}
+{{wine_bollicine}}
+</div>
+
+<div class="menu-notes" id="note" data-reveal>
+  <p>{{c:vini-page.note_prices}}</p>
+  <p>{{c:vini-page.note_glass}}</p>
+  <p>{{c:vini-page.note_names}}</p>
+  <p><a class="link" href="{{u:menu}}">{{c:vini-page.back_menu_link}} {{arrow}}</a></p>
+</div>
+
+<section class="section domande" id="domande" aria-labelledby="domande-title">
+  <div class="container domande__inner">
+    <h2 id="domande-title" data-reveal>{{h:vini-page.faq_h2_line1|faq_h2_em}}</h2>
+    <div class="faq">
+{{faq}}
+    </div>
+  </div>
+</section>
+
+<section id="prenota" class="section section--green battlement prenota__book" aria-labelledby="prenota-title">
+  <div class="container grid">
+    <div class="prenota__main stack" data-reveal-group>
+      <h2 id="prenota-title" data-reveal>{{h:vini-page.closing_h2_line1|closing_h2_em}}</h2>
+      <div class="prenota__actions" data-reveal>
+        <a class="btn btn--light" href="tel:+390577287592">{{c:vini-page.closing_btn_call}} {{arrow}}</a>
+        <a class="btn btn--line" href="https://wa.me/390577287592" target="_blank" rel="noopener">{{c:vini-page.closing_btn_whatsapp}} {{arrow}}</a>
+      </div>
+      <p data-reveal><a class="link" href="{{u:dove}}">{{c:prenota.link_dove}} {{arrow}}</a></p>
+    </div>
+    <div class="prenota__hours" data-reveal-group>
+      <h3 class="label-title" data-reveal>{{c:prenota.hours_title}}</h3>
+      {{hours}}
+      <p class="note" data-reveal>{{c:prenota.hours_note}}</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+{{include:_footer}}

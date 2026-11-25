@@ -28,7 +28,7 @@
 <noscript><link rel="stylesheet" href="../assets/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="../motion.css">
-<script>(function(d){var c=d.documentElement.classList;c.remove('no-js');c.add('js');try{if(sessionStorage.getItem('odr-intro')||location.hash)c.add('intro-done')}catch(e){c.add('intro-done')}var h=d.head,a='../assets/fonts/',s=d.getElementById('fonts-css'),f=function(r,u,x){var l=d.createElement('link');l.rel=r;l.href=u;if(x){l.as='font';l.type='font/woff2';l.crossOrigin='anonymous'}h.appendChild(l)};if(location.protocol==='file:'){if(s)s.remove();f('stylesheet',a+'fonts-embedded.css')}else{if(s)s.media='all';f('preload',a+'bodoni-moda-latin-opsz-normal.woff2',1);f('preload',a+'figtree-latin-wght-normal.woff2',1)}})(document)</script>
+<script>(function(d){var c=d.documentElement.classList;c.remove('no-js');c.add('js');try{var k='',v=sessionStorage.getItem('odr-intro')||'';if(!k||v.indexOf(k)>-1||(v==='1'&&k==='g')||location.hash)c.add('intro-done')}catch(e){c.add('intro-done')}var h=d.head,a='../assets/fonts/',s=d.getElementById('fonts-css'),f=function(r,u,x){var l=d.createElement('link');l.rel=r;l.href=u;if(x){l.as='font';l.type='font/woff2';l.crossOrigin='anonymous'}h.appendChild(l)};if(location.protocol==='file:'){if(s)s.remove();f('stylesheet',a+'fonts-embedded.css')}else{if(s)s.media='all';f('preload',a+'bodoni-moda-latin-opsz-normal.woff2',1);f('preload',a+'figtree-latin-wght-normal.woff2',1)}})(document)</script>
 </head>
 <body class="page-text-body">
 <a class="skip-link" href="#contenuto">Vai al contenuto</a>
@@ -45,11 +45,11 @@
     </button>
     <nav class="site-nav" id="menu-panel" aria-label="Osteria dei Rossi">
       <ul class="site-nav__links">
-        <li><a href="../#via">La via</a></li>
+        <li><a href="../#casa">La storia</a></li>
         <li><a href="../#tavola">La tavola</a></li>
-        <li><a href="../#cantina">La cantina</a></li>
-        <li><a href="../#contrada">La contrada</a></li>
         <li><a href="../menu/">Il menù</a></li>
+        <li><a href="../vini/">I vini</a></li>
+        <li><a href="../dove-siamo/">Dove siamo</a></li>
       </ul>
       <div class="lang" role="group" aria-label="Cambia lingua">
         <a href="./" lang="it" hreflang="it" aria-current="page">IT</a>
@@ -81,7 +81,7 @@
   <h2>Chi pubblica il sito</h2>
   <p>Il sito è pubblicato da ML SNC DI LANARO E FRESI, che gestisce l'Osteria dei Rossi. Sede: Via dei Rossi 79/81, 53100 Siena (SI). Partita IVA: IT00354250524.</p>
   <h2>Cookie e strumenti di analisi</h2>
-  <p>Il sito non imposta cookie e non ha tracciamento né strumenti di analisi. Non ha moduli da compilare e non incorpora nulla da terzi. Conserva una sola voce tecnica nella session storage del browser, perché l'animazione di apertura si veda una volta per visita; il browser la cancella alla chiusura della scheda.</p>
+  <p>Il sito non imposta cookie e non ha tracciamento né strumenti di analisi. Non ha moduli da compilare e non incorpora nulla da terzi. Conserva una sola voce tecnica nella session storage del browser, perché le animazioni di apertura (il cancello, il libro del menù e la mescita della carta dei vini) si vedano una volta per visita; il browser la cancella alla chiusura della scheda.</p>
   <h2>Caratteri, script e immagini</h2>
   <p>I caratteri, gli script e le immagini sono forniti dal sito stesso.</p>
   <h2>Link ad altri servizi</h2>
@@ -89,7 +89,7 @@
   <h2>Come contattarci</h2>
   <p>Potete scrivere per posta a ML SNC DI LANARO E FRESI, Via dei Rossi 79/81, 53100 Siena (SI), oppure telefonare al +39 0577 287592.</p>
   <h2>Data</h2>
-  <p>Questa informativa è del 24 novembre 2026.</p>
+  <p>Questa informativa è del 25 novembre 2026.</p>
 </article>
 </main>
 
@@ -126,6 +126,8 @@
     </div>
     <ul class="site-footer__links">
       <li><a href="../menu/">Il menù</a></li>
+      <li><a href="../vini/">La carta dei vini</a></li>
+      <li><a href="../dove-siamo/">Dove siamo</a></li>
       <li><a href="./">Privacy</a></li>
       <li><a href="#contenuto">Torna su</a></li>
     </ul>

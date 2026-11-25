@@ -1,0 +1,116 @@
+<body class="page-text-body">
+<a class="skip-link" href="#contenuto">{{c:global-nav.skip_link}}</a>
+
+{{include:_header}}
+
+{{include:_ctabar}}
+
+<main id="contenuto">
+
+<section class="dove-hero" aria-labelledby="dove-title">
+  <div class="container dove-hero__inner">
+    <p class="kicker">{{c:dove-page.kicker}}</p>
+    <h1 id="dove-title">{{h:dove-page.h1_line1|h1_em}}</h1>
+    <p class="dove-hero__lead">{{c:dove-page.lead}}</p>
+    <address class="dove-hero__address">{{address}}</address>
+    <div class="dove-hero__actions">
+      <a class="btn" href="https://maps.google.com/?cid=5066073290586870112" target="_blank" rel="noopener">{{c:dove-page.btn_maps}} {{arrow}}</a>
+      <a class="btn btn--line" href="tel:+390577287592">{{c:dove-page.btn_call}} {{arrow}}</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ La via ============ -->
+<section id="via" class="section via" aria-labelledby="via-title">
+  <div class="container grid">
+    <div class="via__text">
+      <div class="stack" data-reveal-group>
+        <p class="kicker" data-reveal>{{c:via.kicker}}</p>
+        <h2 id="via-title" data-reveal>{{h:via.h2_line1|h2_em}}</h2>
+        <p class="body" data-reveal>{{c:via.body}}</p>
+      </div>
+      <ul class="facts" data-reveal-group>
+        <li data-reveal>{{c:via.fact_1}}</li>
+        <li data-reveal>{{c:via.fact_2}}</li>
+        <li data-reveal>{{c:via.fact_3}}</li>
+      </ul>
+      {{svg:freccia-osteria|class="via__arrow" focusable="false" data-draw}}
+    </div>
+    <div class="via__media">
+      <figure class="arch via__arch">
+        <div class="arch__box">
+          {{archline}}
+          <div class="arch__photo ph-via-dei-rossi-targa-e-insegna-osteria" data-mask>
+            {{pic:via-dei-rossi-targa-e-insegna-osteria|(min-width: 45rem) 28vw, 74vw|}}
+          </div>
+        </div>
+        <figcaption class="caption" data-reveal>{{c:via.caption_plate}}</figcaption>
+      </figure>
+      <figure class="tile via__tile">
+        <div class="tile__box tile--54 ph-insegna-storica-osteria-ferro" data-mask>
+          {{pic:insegna-storica-osteria-ferro|(min-width: 45rem) 22vw, 56vw|}}
+        </div>
+        <figcaption class="caption" data-reveal>{{c:via.caption_sign}}</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ La mappa ============ -->
+<section class="section dove" aria-labelledby="mappa-title">
+  <div class="container grid">
+    <div class="dove__text stack" data-reveal-group>
+      <h2 class="h3" id="mappa-title" data-reveal>{{h:dove-siamo.h3_line1|h3_em}}</h2>
+      <div class="dove__way" data-reveal>
+        <h3 class="label-title">{{c:dove-page.foot_title}}</h3>
+        <p class="body">{{c:dove-siamo.walk_line}}</p>
+      </div>
+      <div class="dove__way" data-reveal>
+        <h3 class="label-title">{{c:dove-page.car_title}}</h3>
+        <p class="body">{{c:dove-siamo.parking_line}}</p>
+        <p class="body">{{c:dove-siamo.ztl_line}}</p>
+      </div>
+      <p data-reveal><a class="link" href="https://maps.google.com/?cid=5066073290586870112" target="_blank" rel="noopener">{{c:dove-siamo.link_maps}} {{arrow}}</a></p>
+    </div>
+    <figure class="map">
+      <div class="map__box" id="mappa" data-draw="map">
+        {{svg:mappa-dentro-le-mura|class="map__svg" focusable="false"}}
+        {{maplabels}}
+      </div>
+      <figcaption class="caption">{{c:dove-siamo.map_caption}}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ Orari e prenotazione ============ -->
+<section id="prenota" class="section section--green battlement prenota__book" aria-labelledby="prenota-title">
+  <div class="container grid">
+    <div class="prenota__main stack" data-reveal-group>
+      <h2 id="prenota-title" data-reveal>{{h:dove-page.hours_h2_line1|hours_h2_em}}</h2>
+      <p class="body" data-reveal>{{c:prenota.lead}}</p>
+      <div class="prenota__actions" data-reveal>
+        <a class="btn btn--light" href="tel:+390577287592">{{c:prenota.btn_call}} {{arrow}}</a>
+        <a class="btn btn--line" href="https://wa.me/390577287592" target="_blank" rel="noopener">{{c:prenota.btn_whatsapp}} {{arrow}}</a>
+      </div>
+    </div>
+    <div class="prenota__hours" data-reveal-group>
+      <h3 class="label-title" data-reveal>{{c:prenota.hours_title}}</h3>
+      {{hours}}
+      <p class="note" data-reveal>{{c:prenota.hours_note}}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Domande ============ -->
+<section id="domande" class="section domande" aria-labelledby="domande-title">
+  <div class="container domande__inner">
+    <h2 id="domande-title" data-reveal>{{h:domande.h2_line1|h2_em}}</h2>
+    <div class="faq">
+{{faq}}
+    </div>
+  </div>
+</section>
+
+</main>
+
+{{include:_footer}}
