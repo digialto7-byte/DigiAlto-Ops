@@ -215,7 +215,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 **IT**
 - h3_line1: Pici, cinghiale, tartufo
 - h3_em: *dalla carta*
-- intro: Otto piatti dalla carta, che cambia con la stagione e con quello che trova il mercato.
+- intro: Otto dei piatti che trovate in carta.
 - dish_1: Pici al Ragù Bianco di Cinta Senese | Ragù bianco di cinta senese, senza pomodoro, con erbe e spezie | 16 € | Consigliato dall'Oste
 - dish_2: Pici Cacio e Pepe | Pici con pecorino toscano e pepe nero, un classico alla toscana | 15 € |
 - dish_3: Tagliatelle al Tartufo di Stagione | Tagliatelle con tartufo fresco affettato, secondo la stagione | 18 € |
@@ -228,13 +228,13 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - caption_lardo: Crostone con lardo toscano
 - caption_formaggi: Formaggi, miele e noci
 - caption_tartufo: Tartufo fresco, tutto l'anno
-- caption_contorni: Cinghiale con polenta e contorni
+- caption_contorni: Piatti ricchi, con i contorni
 - caption_umido: Cinghiale in umido nel coccio
 
 **EN**
 - h3_line1: Pici, wild boar, truffle
 - h3_em: *from the menu*
-- intro: Eight dishes from a menu that changes with the season and with what the market offers.
+- intro: Eight of the dishes you will find on the menu.
 - dish_1: Pici al Ragù Bianco di Cinta Senese | White ragù of Cinta Senese pork, without tomato, with herbs and spices | 16 € | Consigliato dall'Oste
 - dish_2: Pici Cacio e Pepe | Pici with Tuscan pecorino and black pepper, a classic in Tuscan style | 15 € |
 - dish_3: Tagliatelle al Tartufo di Stagione | Tagliatelle with sliced fresh truffle, according to the season | 18 € |
@@ -247,7 +247,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - caption_lardo: Crostone with Tuscan lardo
 - caption_formaggi: Cheese, honey and walnuts
 - caption_tartufo: Fresh truffle, all year round
-- caption_contorni: Wild boar with polenta and side dishes
+- caption_contorni: Rich dishes with side dishes
 - caption_umido: Cinghiale in umido, in a terracotta bowl
 
 **Facts used:** names, prices, descriptions' content and the "Consigliato dall'Oste" flag on Pici al Ragù Bianco di Cinta Senese and Tegamata di Cinta Senese only (sources/menu-live-2026-11-24.md, Primi, Secondi/Specialità della cucina, Antipasti); the menu follows season and market (plan.md 4g, honesty lines); photo captions: gran tagliere di salumi, lardo toscano, tagliere di formaggi, fresh truffle all year round, cinghiale in umido, rich dishes with side dishes (profile.md, Place and story, photo captions; sources/photos-2026-11-24.md, photos 8, 12, 18, 20, 15, 16); stews served in terracotta bowls (Place and story, what the photos show). No allergens.
@@ -257,7 +257,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - h3_line1: La fiorentina
 - h3_em: *al peso*
 - body: Ogni settimana Alessio, il nostro macellaio di fiducia, sceglie la selezione: tagli diversi, di razze diverse. La fiorentina è alla griglia e si paga al peso: la misura la decidete voi.
-- price_line: Bistecca alla Fiorentina 9 € all'etto / per 100 g
+- price_line: Bistecca alla Fiorentina · 9 € all'etto
 - gambero_line: Siamo tra gli indirizzi scelti da Gambero Rosso per la carne a Siena.
 - cta: Guarda il menù completo
 
@@ -265,7 +265,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - h3_line1: The fiorentina
 - h3_em: *by weight*
 - body: Every week Alessio, our trusted butcher, chooses the selection: different cuts, from different breeds. The fiorentina is cooked on the grill and priced by weight; you decide how much.
-- price_line: Bistecca alla Fiorentina 9 € all'etto / per 100 g
+- price_line: Bistecca alla Fiorentina · 9 € per 100 g
 - gambero_line: We are among the addresses Gambero Rosso chose for meat in Siena.
 - cta: See the full menu
 
@@ -369,7 +369,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - address_block: Via dei Rossi, 79/81 // 53100 Siena
 - walk_line: Da Piazza del Campo si arriva a piedi in circa 5 minuti. In fondo alla via c'è la Basilica di San Francesco.
 - parking_line: In auto, il parcheggio San Francesco, in Via Baldassarre Peruzzi, è collegato al centro dalle scale mobili.
-- ztl_line: Il centro murato è ZTL, zona a traffico limitato: lasciate l'auto fuori dalle mura.
+- ztl_line: Il centro dentro le mura è ZTL, zona a traffico limitato: verificate le regole prima di entrare in auto.
 - link_maps: Come arrivare
 - map_caption: Disegno schematico, non in scala
 - map_labels: Porta Camollia | Porta Ovile | Basilica di San Francesco | Osteria dei Rossi | Piazza del Campo | Duomo | Porta Romana
@@ -380,7 +380,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - address_block: Via dei Rossi, 79/81 // 53100 Siena
 - walk_line: From Piazza del Campo it is about 5 minutes on foot. The Basilica di San Francesco stands at the end of the street.
 - parking_line: By car, use the San Francesco car park in Via Baldassarre Peruzzi; escalators connect it to the centre.
-- ztl_line: The walled centre is a limited-traffic zone (ZTL): leave the car outside the walls.
+- ztl_line: The centre inside the walls is a limited-traffic zone (ZTL): check the rules before driving in.
 - link_maps: Directions
 - map_caption: A sketch, not to scale
 - map_labels: Porta Camollia | Porta Ovile | Basilica di San Francesco | Osteria dei Rossi | Piazza del Campo | Duomo | Porta Romana
@@ -404,8 +404,8 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 **IT**
 - kicker: Osteria dei Rossi · Siena
 - h1_line1: Il menù dell'osteria
-- h1_em: *dall'antipasto al dolce*
-- intro: I piatti e le bevande dell'osteria di Via dei Rossi, a Siena, con tutti i prezzi. Aggiornato al 24 novembre 2026.
+- h1_em: *a Siena*
+- intro: I piatti e le bevande dell'osteria di Via dei Rossi, dall'antipasto al dolce, con tutti i prezzi. Aggiornato al 24 novembre 2026.
 - section_antipasti: Antipasti
 - section_primi: Primi
 - section_secondi: Secondi
@@ -417,7 +417,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - badge_stagione: Piatto di stagione
 - note_weight: Bistecche e tagli all'etto: il prezzo è per 100 g, voi scegliete il peso e noi lo segniamo in comanda.
 - note_cover: Coperto 2,50 € a persona.
-- note_season: Il menù segue la stagione e il mercato.
+- note_season: I piatti contrassegnati come «Piatto di stagione» sono quelli stagionali.
 - note_allergens: Per allergie e intolleranze chiedete al personale prima di ordinare: l'elenco degli allergeni è in corso di conferma con la cucina.
 - closing_h2_line1: Un tavolo
 - closing_h2_em: *per voi*
@@ -428,8 +428,8 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 **EN**
 - kicker: Osteria dei Rossi · Siena
 - h1_line1: The osteria's menu
-- h1_em: *from starter to dessert*
-- intro: The dishes and drinks of our osteria in Via dei Rossi, Siena, with every price. Updated on 24 November 2026.
+- h1_em: *in Siena*
+- intro: The dishes and drinks of our osteria in Via dei Rossi, from starter to dessert, with every price. Updated on 24 November 2026.
 - section_antipasti: Starters
 - section_primi: First courses
 - section_secondi: Main courses
@@ -440,8 +440,8 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - badge_oste: Consigliato dall'Oste
 - badge_stagione: Seasonal dish
 - note_weight: Dishes priced all'etto: the price is per 100 g, you choose the weight and we note it on your order.
-- note_cover: Cover charge 2,50 € per person.
-- note_season: The menu follows the season and the market.
+- note_cover: Cover charge 2.50 € per person.
+- note_season: The dishes marked "Seasonal dish" are the seasonal ones.
 - note_allergens: Please ask our staff about allergens and intolerances before you order: the allergen list is being confirmed with the kitchen.
 - closing_h2_line1: A table
 - closing_h2_em: *for you*
@@ -459,7 +459,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - p1_title: Chi pubblica il sito
 - p1_text: Il sito è pubblicato da ML SNC DI LANARO E FRESI, che gestisce l'Osteria dei Rossi. Sede: Via dei Rossi 79/81, 53100 Siena (SI). Partita IVA: IT00354250524.
 - p2_title: Cookie e strumenti di analisi
-- p2_text: Il sito non usa cookie, non usa strumenti di analisi e non ha moduli da compilare. Non incorpora nulla da terzi.
+- p2_text: Il sito non imposta cookie e non ha tracciamento né strumenti di analisi. Non ha moduli da compilare e non incorpora nulla da terzi. Conserva una sola voce tecnica nella session storage del browser, perché l'animazione di apertura si veda una volta per visita; il browser la cancella alla chiusura della scheda.
 - p3_title: Caratteri, script e immagini
 - p3_text: I caratteri, gli script e le immagini sono forniti dal sito stesso.
 - p4_title: Link ad altri servizi
