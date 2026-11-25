@@ -7,6 +7,8 @@
  *   "motion-off": motion.css then shows everything and only the plain behaviours stay
  *   (header states, phone menu, booking bar, rail, anchor links).
  * - With reduced motion nothing is animated: no intro, no smooth scroll, no scroll triggers.
+ * - The h1 is never hidden by a scroll reveal. Only while the gate intro plays
+ *   (html.intro-playing) does the hero text block, h1 included, wait out of sight.
  *
  * Hooks in the HTML
  *   #intro (.intro__svg with the porta-* ids, .intro__label), #intro-skip
@@ -731,7 +733,7 @@
 
   function isProtected(element) {
     if (element.tagName === 'H1' || element.querySelector('h1') || element.closest('h1')) {
-      return true; // the h1 is never animated in
+      return true; // no scroll reveal ever hides the h1 (only the gate intro holds it back)
     }
     const hero = byId('porta');
     return !!(hero && hero.contains(element) && (element.matches('img,picture') || element.querySelector('img,picture')));
@@ -966,8 +968,8 @@
 
   /* ---------- The gate intro ---------- */
 
-  /* What fades up when the gate has opened: every [data-reveal] in the hero and the blocks
-     next to the h1. The h1 itself and the hero image are never touched. */
+  /* The hero text next to the h1: every [data-reveal] in the hero and the h1's siblings.
+     Scroll reveals leave these to the intro when it plays. The hero image is never touched. */
   function heroText(hero) {
     if (!hero) {
       return [];
@@ -995,6 +997,7 @@
       skip: byId('intro-skip'),
       label: element ? qs('.intro__label', element) : null,
       heroItems: heroText(hero),
+      title: hero ? qs('h1', hero) : null,
       timeline: null,
       playing: false,
       started: false,
@@ -1147,17 +1150,24 @@
       timeline.to(fading, { opacity: 0, duration: 0.3, ease: 'power1.in' }, 2.1);
     }
 
-    /* 2.4 s: the overlay goes, scroll is released, header and hero text come up */
+    /* 2.1 to 2.5 s, the last third of the zoom: the hero text block comes in as one, the h1
+       with it, by opacity alone and without any movement. It is out of sight only while the
+       gate plays (motion.css holds the h1 under html.intro-playing; the tween sets the same
+       state inline), so cut-off letters never show through the arch. The tween must end after
+       the call at 2.4 s that removes intro-playing. */
+    const heroBlock = intro.heroItems.concat(intro.title ? [intro.title] : []);
+    if (heroBlock.length) {
+      timeline.fromTo(heroBlock,
+        { opacity: 0, transition: 'none' },
+        { opacity: 1, duration: 0.4, ease: 'power1.out', clearProps: 'opacity,transition' }, 2.1);
+    }
+
+    /* 2.4 s: the overlay goes and scroll is released; the header comes down into place */
     const header = S.ui && S.ui.header;
     if (header) {
       timeline.fromTo(header,
         { autoAlpha: 0, y: -16, transition: 'none' },
         { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', clearProps: 'opacity,visibility,transform,transition' }, 2.3);
-    }
-    if (intro.heroItems.length) {
-      timeline.fromTo(intro.heroItems,
-        { opacity: 0, y: 16, transition: 'none' },
-        { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.04, clearProps: 'opacity,transform,transition' }, 2.3);
     }
     timeline.call(finishIntro, null, 2.4);
     return timeline;
