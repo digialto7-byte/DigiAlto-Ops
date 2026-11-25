@@ -1,6 +1,22 @@
 <body class="page-text-body">
 <a class="skip-link" href="#contenuto">{{c:global-nav.skip_link}}</a>
 
+<div class="intro intro--book" id="book-intro" data-intro="m" aria-hidden="true">
+  <div class="intro__art"></div>
+  <div class="book">
+    <div class="book__page"></div>
+    <div class="book__cover">
+      <div class="book__inside"></div>
+      <div class="book__front">
+        {{svg:libro-copertina|class="book__face" focusable="false"}}
+        <p class="book__text"><span class="book__name">{{c:menu-intro.cover_name}}</span><span class="book__title">{{c:menu-intro.cover_title}}</span><span class="book__sub">{{c:menu-intro.cover_sub}}</span></p>
+      </div>
+    </div>
+    <div class="book__sheet"></div>
+  </div>
+</div>
+<button class="intro__skip" id="intro-skip" type="button">{{c:menu-intro.skip}}</button>
+
 {{include:_header}}
 
 {{include:_ctabar}}

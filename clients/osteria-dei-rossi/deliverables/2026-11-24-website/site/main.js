@@ -8,10 +8,27 @@
  *   (header states, phone menu, booking bar, rail, anchor links).
  * - With reduced motion nothing is animated: no intro, no smooth scroll, no scroll triggers.
  * - The h1 is never hidden by a scroll reveal. Only while the gate intro plays
- *   (html.intro-playing) does the hero text block, h1 included, wait out of sight.
+ *   (html.intro-playing) does the hero text block, h1 included, wait out of sight. The book
+ *   and the pour never touch the page under them: its h1 is painted from the first frame.
+ *
+ * Page intros: one overlay per page at most, of kind gate (home), book (menu) or pour (wine
+ * list). Each plays once per session, never with reduced motion, never when the URL has a
+ * hash, never later than 4 s after navigation; any key, click, wheel or touch jumps to its
+ * end, #intro-skip is its button, key P replays it.
  *
  * Hooks in the HTML
- *   #intro (.intro__svg with the porta-* ids, .intro__label), #intro-skip
+ *   gate: #intro (.intro__svg with the porta-* ids, .intro__label)
+ *   book: .intro--book[data-intro="m"] (.intro__art, .book, .book__page, .book__cover,
+ *     .book__face with the libro-* ids, .book__text, .book__sheet) and the page's own
+ *     svg.menu-hero__skyline, copied into .intro__art as svg.intro__skyline
+ *   pour: .intro--pour[data-intro="v"] (.intro__art, .pour-card, .pour-card__sheet,
+ *     .pour-card__leaf, .pour-card__text) and the page's own .vini-hero__art svg, copied into
+ *     .intro__art as svg.intro__pour. In a copy every id starts with "intro-".
+ *   #intro-skip (one per page, outside the overlay)
+ *   svg.menu-hero__skyline (draws itself once when the book intro is ruled out before the
+ *     first paint: a repeat visit or a hash)
+ *   [data-pici] > svg with the pici-* ids (strands fall, the nest draws: scrubbed from 900 px,
+ *     played once below), [data-boar] > svg with the cinghiale-* ids, inside a .band (walks in)
  *   .site-header (is-solid, is-hidden), #menu-toggle, #menu-panel
  *   .rail, .rail__line, .rail__dot, .rail__stops [data-stop] (is-active, is-on-dark)
  *   .cta-bar (is-visible); sections #porta ... #prenota
@@ -21,7 +38,9 @@
  * Classes set on <html>
  *   motion-ready, motion-off, intro-playing, intro-done, menu-open, menu-closing, header-hidden
  * Custom property set on <html>: --odr-header-h (height of the fixed header in px)
- * Session storage: "odr-intro" (the gate intro has been shown in this session)
+ * Session storage: "odr-intro", the keys of the intros shown in this session, one letter each
+ *   (g gate, m menu book, v wine-list pour; the old value "1" reads as "g"). Keys are added,
+ *   never removed; the inline script in <head> reads the same entry before the first paint.
  */
 (function () {
   'use strict';
@@ -56,6 +75,36 @@
     { ids: ['mappa-mura', 'mappa-porte', 'mappa-osteria'], at: 0, duration: 0.5 },
     { ids: ['mappa-vie', 'mappa-luoghi', 'mappa-via-dei-rossi', 'mappa-percorso'], at: 0.2, duration: 0.6 }
   ];
+
+  /* The book and the pour, in the units of their drawings. `view` is the part of the drawing a
+     landscape or a portrait screen sees. */
+  const COPY_ID = 'intro-'; // prefix of every id in a drawing copied into an overlay
+  const BOOK = {
+    view: { landscape: '0 0 1600 600', portrait: '540 0 650 600' }, // portrait: the tower stands right of the book
+    open: -160 // degrees the cover turns on its spine
+  };
+  const POUR = {
+    view: { landscape: '250 0 1100 850', portrait: '575 0 570 900' }, // the sleeve runs off the top edge
+    wrist: '941 73', // centre of the cuff: the arm turns about it
+    carry: { x: 205, y: -78, rotation: 56 }, // the bottle as it is carried in, mouth up, the sleeve off the top edge
+    enter: { x: 420, y: -280 }, // where it comes from (upper right)
+    lift: { x: 10, y: -16, rotation: 9 }, // after the pour
+    mouth: '760 430', // where the stream leaves the bottle
+    reach: 1.39, // the stream is this much longer while the glass is still empty
+    bowl: { x: [606, 608, 662, 696], y: [570, 620, 650, 662], centre: 700 }, // lower half of #mescita-coppa
+    level: 580, // the wine surface when the glass is poured (centre of #mescita-livello, 8 high)
+    rise: 80, // units the surface climbs
+    wine: { y: 572, bottom: 666 } // #mescita-vino as drawn
+  };
+
+  /* The pici: the order in which the strands come down (the low ones first) and their turn. */
+  const MQ_PICI_SCRUB = '(min-width: 56.25rem)';
+  const MQ_PICI_ONCE = 'not all and (min-width: 56.25rem)';
+  const PICI_ORDER = [5, 4, 6, 2, 1, 3];
+  const PICI_TURN = [-7, 6, -5, 7, -6, 5];
+
+  /* The boar: the legs that move together, their swing, the four steps, the nod. */
+  const BOAR = { pairs: [1, -1, -1, 1], swing: 7, steps: [0.24, 0.28, 0.34, 0.4], walk: 1.5, snout: 452, hooves: '160 262', nod: 1.8 };
 
   /* ---------- Small helpers ---------- */
 
@@ -664,13 +713,15 @@
 
   /* Length of a stroke as the dash pattern sees it. With vector-effect="non-scaling-stroke" the
      browser dashes in screen pixels, so the length is taken on screen (sampled when the scale is
-     uneven, as in the arch outlines with preserveAspectRatio="none"). 0 = cannot be drawn. */
-  function strokeLength(node) {
+     uneven, as in the arch outlines with preserveAspectRatio="none"). 0 = cannot be drawn.
+     `redo` measures a stroke again that this script has dashed itself (after a resize). */
+  function strokeLength(node, redo) {
     if (typeof node.getTotalLength !== 'function') {
       return 0;
     }
     const style = win.getComputedStyle(node);
-    if (style.stroke === 'none' || parseFloat(style.strokeWidth) === 0 || (style.strokeDasharray && style.strokeDasharray !== 'none')) {
+    if (style.stroke === 'none' || parseFloat(style.strokeWidth) === 0 ||
+      (!redo && style.strokeDasharray && style.strokeDasharray !== 'none')) {
       return 0;
     }
     let length = 0;
@@ -736,6 +787,14 @@
       timeline.set(nodes, { clearProps: 'strokeDasharray,strokeDashoffset' }, at);
     }
   };
+
+  /* One stroke drawn at its own time, its length already measured (addDrawing spreads a set
+     evenly instead). */
+  function drawStroke(timeline, node, length, at, duration, ease) {
+    timeline.fromTo(node,
+      { strokeDasharray: length + 'px', strokeDashoffset: length + 'px' },
+      { strokeDashoffset: '0px', duration, ease: ease || 'power2.inOut' }, at);
+  }
 
   /* ---------- Scroll choreography ---------- */
 
@@ -979,38 +1038,55 @@
     });
   }
 
-  /* ---------- The gate intro ---------- */
+  /* ---------- The page intros: shared life cycle ---------- */
 
-  /* The hero text next to the h1: every [data-reveal] in the hero and the h1's siblings.
-     Scroll reveals leave these to the intro when it plays. The hero image is never touched. */
-  function heroText(hero) {
-    if (!hero) {
-      return [];
+  /* The kinds of intro by the letter kept in the session entry. `find` collects the parts and
+     says whether they are all there, `fit` adapts the drawing to the screen, `build` returns
+     the paused timeline, which ends with a call to finishIntro. */
+  const INTROS = {
+    g: { kind: 'gate', find: findGate, fit: fitGate, build: buildGate },
+    m: { kind: 'book', find: findBook, fit: fitBook, build: buildBook },
+    v: { kind: 'pour', find: findPour, fit: fitPour, build: buildPour }
+  };
+
+  /* The keys of the intros already shown in this session ("1", the value of version 1, is the
+     gate); null when session storage is closed. */
+  function seenIntros() {
+    try {
+      return (win.sessionStorage.getItem(SESSION_KEY) || '').replace('1', 'g');
+    } catch (error) {
+      return null;
     }
-    const items = qsa('[data-reveal]', hero);
-    const title = qs('h1', hero);
-    if (title && title.parentElement) {
-      Array.prototype.forEach.call(title.parentElement.children, (sibling) => {
-        if (sibling !== title && !sibling.hasAttribute('data-reveal') && !sibling.querySelector('[data-reveal]') &&
-          !sibling.closest('[data-reveal]')) {
-          items.push(sibling);
-        }
-      });
+  }
+
+  function markIntroSeen(key) {
+    const seen = seenIntros();
+    if (seen === null || seen.indexOf(key) !== -1) {
+      return; // storage is closed (the intro still plays this once) or the key is there
     }
-    return items.filter((item) => !isProtected(item));
+    try {
+      win.sessionStorage.setItem(SESSION_KEY, seen + key);
+    } catch (error) {
+      /* storage is full or closed: the intro still plays this once */
+    }
   }
 
   function planIntro() {
-    const element = byId('intro');
-    const svg = element ? qs('svg', element) : null;
-    const hero = byId('porta');
+    const element = qs('.intro[data-intro]') || byId('intro');
+    const key = element ? element.getAttribute('data-intro') || 'g' : '';
+    const type = INTROS[key] || null;
     const intro = {
-      el: element,
-      svg,
+      el: type ? element : null,
+      key,
+      type,
+      svg: null, // the drawing `fit` adapts: the gate, the skyline, the pour
       skip: byId('intro-skip'),
-      label: element ? qs('.intro__label', element) : null,
-      heroItems: heroText(hero),
-      title: hero ? qs('h1', hero) : null,
+      label: null,
+      heroItems: [], // gate only: the hero text it holds back; the other kinds hide nothing
+      title: null,
+      parts: {},
+      ready: false,
+      ruledOut: root.classList.contains('intro-done'), // the inline head script decided before the first paint
       timeline: null,
       playing: false,
       started: false,
@@ -1019,17 +1095,13 @@
       height: 0
     };
     S.intro = intro;
-    if (!element) {
+    if (!intro.el) {
       return;
     }
-    let seen = true; // without session storage "once per session" cannot be kept: do not play
-    try {
-      seen = win.sessionStorage.getItem(SESSION_KEY) !== null;
-    } catch (error) {
-      seen = true;
-    }
+    intro.ready = !!(S.motion && type.find(intro));
+    const seen = seenIntros(); // without session storage "once per session" cannot be kept: do not play
     const late = !!(win.performance && typeof win.performance.now === 'function' && win.performance.now() > INTRO_LATEST_START);
-    intro.will = !!(S.motion && svg && !seen && !win.location.hash && !late);
+    intro.will = !!(intro.ready && seen !== null && seen.indexOf(key) === -1 && !win.location.hash && !late);
     if (!intro.will) {
       closeIntro();
     }
@@ -1048,142 +1120,52 @@
     root.classList.add('intro-done');
   }
 
-  /* Portrait screens see 900 units across, centred on the gate; landscape keeps the full drawing. */
+  /* The size of the overlay is kept (a later change of size ends the intro) and the drawing is
+     fitted to it. */
   function fitIntro(intro) {
     const box = intro.el.getBoundingClientRect();
     const width = box.width || win.innerWidth;
     const height = box.height || win.innerHeight;
     intro.width = width;
     intro.height = height;
-    if (!(width > 0 && height > 0)) {
-      return;
-    }
-    if (width / height < 0.8) {
-      const span = (900 * height) / width;
-      intro.svg.setAttribute('viewBox', '350 ' + round2(500 - span / 2) + ' 900 ' + round2(span));
-    } else {
-      intro.svg.setAttribute('viewBox', '0 0 1600 1000');
+    if (width > 0 && height > 0) {
+      intro.type.fit(intro, width, height);
     }
   }
 
-  /* Smallest scale about the arch centre at which the whole screen lies inside the opening,
-     plus a margin so the hairlines of the arch leave the screen too. */
-  function introZoom(intro, reference) {
-    const matrix = reference && typeof reference.getScreenCTM === 'function' ? reference.getScreenCTM() : null;
-    const box = intro.el.getBoundingClientRect();
-    if (!matrix || !matrix.a || !(box.width > 0)) {
-      return 12;
-    }
-    const unit = Math.hypot(matrix.a, matrix.b); // screen px per drawing unit
-    const px = matrix.a * ARCH.cx + matrix.c * ARCH.cy + matrix.e;
-    const py = matrix.b * ARCH.cx + matrix.d * ARCH.cy + matrix.f;
-    const inside = (x, y) => x >= ARCH.left && x <= ARCH.right && y >= ARCH.top && y <= ARCH.bottom &&
-      (y >= ARCH.spring || (Math.hypot(x - ARCH.leftArcX, y - ARCH.spring) <= ARCH.radius &&
-        Math.hypot(x - ARCH.rightArcX, y - ARCH.spring) <= ARCH.radius));
-    const fits = (scale) => {
-      const k = 1 / (scale * unit);
-      const left = ARCH.cx - (px - box.left) * k;
-      const right = ARCH.cx + (box.right - px) * k;
-      const top = ARCH.cy - (py - box.top) * k;
-      const bottom = ARCH.cy + (box.bottom - py) * k;
-      return inside(left, top) && inside(right, top) && inside(left, bottom) && inside(right, bottom);
-    };
-    let low = 1;
-    let high = 96;
-    for (let i = 0; i < 24; i += 1) {
-      const mid = (low + high) / 2;
-      if (fits(mid)) {
-        high = mid;
-      } else {
-        low = mid;
-      }
-    }
-    return high * 1.12;
-  }
+  const isPortrait = (width, height) => width / height < 0.8;
 
-  function buildIntro(intro) {
-    const gsap = S.gsap;
-    const part = (id) => qs('#' + id, intro.svg);
-    const scene = part('porta-scene');
-    const lines = part('porta-lines');
-    const skyline = part('porta-skyline');
-    const bricks = part('porta-bricks');
-    const doors = part('porta-doors');
-    const doorLeft = part('porta-door-left');
-    const doorRight = part('porta-door-right');
-    /* Works with or without the wrapper group: the four layers take the same transform. */
-    const zoomed = scene ? [scene] : ['porta-wall', 'porta-skyline', 'porta-doors', 'porta-lines'].map(part).filter(Boolean);
-    const zoom = introZoom(intro, scene || lines || intro.svg);
-    const timeline = gsap.timeline({ paused: true });
-    let drawn = [];
-
-    /* 0 to 0.9 s: the lines draw themselves, group after group */
-    INTRO_GROUPS.forEach((id, index) => {
-      const group = part(id);
-      if (group) {
-        drawn = drawn.concat(addDrawing(timeline, qsa(GEOMETRY, group), index * 0.1, 0.5));
-      }
+  /* A copy of a drawing the page already shows, for the overlay. Every id in the copy gets a
+     prefix, so no id is in the document twice: a second #mescita-coppa-clip would take over the
+     clip of the page's own drawing and lose it whenever the overlay is not displayed. */
+  function copyDrawing(source, holder, className) {
+    if (!source || !holder) {
+      return null;
+    }
+    const kept = qs('svg', holder);
+    if (kept) {
+      return kept; // made by an earlier run (back/forward cache, a change of the motion setting)
+    }
+    const copy = source.cloneNode(true);
+    copy.removeAttribute('id');
+    copy.removeAttribute('preserveAspectRatio');
+    copy.setAttribute('class', className);
+    qsa('[id]', copy).forEach((node) => node.setAttribute('id', COPY_ID + node.getAttribute('id')));
+    qsa('[clip-path]', copy).forEach((node) => {
+      node.setAttribute('clip-path', node.getAttribute('clip-path').replace('url(#', 'url(#' + COPY_ID));
     });
-    if (doors) {
-      drawn = drawn.concat(addDrawing(timeline, qsa('path', doors), 0.3, 0.6));
-      const studs = qsa('circle', doors);
-      if (studs.length) {
-        timeline.fromTo(studs, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none' }, 0.6);
-      }
-    }
-    const faint = [skyline, bricks].filter(Boolean);
-    if (faint.length) {
-      timeline.from(faint, { opacity: 0, duration: 0.35, ease: 'none' }, 0.55);
-    }
-    clearDashes(timeline, drawn, 0.92); // dashes are in screen pixels: they must be gone before the zoom
-    if (intro.label) {
-      timeline.fromTo(intro.label, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.15);
-      timeline.to(intro.label, { opacity: 0, duration: 0.3, ease: 'power1.in' }, 1.4);
-    }
+    holder.appendChild(copy);
+    return copy;
+  }
 
-    /* 0.9 to 1.6 s: the two leaves open */
-    if (doorLeft) {
-      timeline.fromTo(doorLeft, { scaleX: 1, svgOrigin: DOOR_LEFT_ORIGIN }, { scaleX: 0, duration: 0.7, ease: 'power2.inOut' }, 0.9);
-    }
-    if (doorRight) {
-      timeline.fromTo(doorRight, { scaleX: 1, svgOrigin: DOOR_RIGHT_ORIGIN }, { scaleX: 0, duration: 0.7, ease: 'power2.inOut' }, 0.9);
-    }
-    if (doors) {
-      timeline.set(doors, { visibility: 'hidden' }, 1.6);
-    }
+  const copyPart = (intro, id) => qs('#' + COPY_ID + id, intro.svg);
 
-    /* 1.5 to 2.4 s: through the arch; the strokes stay hairlines (non-scaling-stroke) */
-    if (zoomed.length) {
-      timeline.fromTo(zoomed,
-        { scale: 1, svgOrigin: ARCH.cx + ' ' + ARCH.cy },
-        { scale: zoom, duration: 0.9, ease: 'power3.in' }, 1.5);
-    }
-    const fading = [lines, skyline].filter(Boolean);
-    if (fading.length) {
-      timeline.to(fading, { opacity: 0, duration: 0.3, ease: 'power1.in' }, 2.1);
-    }
-
-    /* The hero text stays painted under the closed gate (the green overlay covers the hero) and
-       is hidden only at 0.8 s, just before the doors open, so cut-off letters never show through
-       the arch. 2.1 to 2.5 s, the last third of the zoom: the block comes in as one, the h1 with
-       it, by opacity alone and without any movement. The tween must end after the call at 2.4 s
-       that removes intro-playing. */
-    const heroBlock = intro.heroItems.concat(intro.title ? [intro.title] : []);
-    if (heroBlock.length) {
-      timeline.set(heroBlock, { opacity: 0, transition: 'none' }, 0.8);
-      timeline.to(heroBlock,
-        { opacity: 1, duration: 0.4, ease: 'power1.out', clearProps: 'opacity,transition' }, 2.1);
-    }
-
-    /* 2.4 s: the overlay goes and scroll is released; the header comes down into place */
-    const header = S.ui && S.ui.header;
-    if (header) {
-      timeline.fromTo(header,
-        { autoAlpha: 0, y: -16, transition: 'none' },
-        { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', clearProps: 'opacity,visibility,transform,transition' }, 2.3);
-    }
-    timeline.call(finishIntro, null, 2.4);
-    return timeline;
+  /* The cream sheet that ends the book and the pour grows from its own size until it covers
+     the screen; a small margin keeps its edges out of sight. */
+  function coverScale(intro, sheet) {
+    const box = sheet.getBoundingClientRect();
+    return box.width > 0 && box.height > 0 ?
+      round2(Math.max(intro.width / box.width, intro.height / box.height) * 1.06) : 8;
   }
 
   function prepareIntro() {
@@ -1195,20 +1177,16 @@
     }
     fitIntro(intro);
     S.ctx.add(() => {
-      intro.timeline = buildIntro(intro);
+      intro.timeline = intro.type.build(intro);
     });
   }
 
   function startIntro() {
     const intro = S && S.intro;
-    if (!intro || !intro.el || !intro.svg || !S.motion || (S.menu && S.menu.open)) {
+    if (!intro || !intro.el || !intro.ready || !S.motion || (S.menu && S.menu.open)) {
       return;
     }
-    try {
-      win.sessionStorage.setItem(SESSION_KEY, '1');
-    } catch (error) {
-      /* storage is closed: the intro still plays this once */
-    }
+    markIntroSeen(intro.key);
     intro.playing = true;
     intro.started = false;
     intro.el.hidden = false;
@@ -1218,7 +1196,7 @@
     root.classList.remove('intro-done');
     root.classList.add('intro-playing');
 
-    /* The gate opens on the hero: start from the top, and hold the scroll until the end. */
+    /* Every intro opens on the top of its page: start there, and hold the scroll until the end. */
     if (S.lenis) {
       S.lenis.scrollTo(0, { immediate: true, force: true });
       S.lenis.stop();
@@ -1310,6 +1288,509 @@
     }
   }
 
+  function setupIntro() {
+    const intro = S.intro;
+    if (!intro || !intro.el || !S.motion) {
+      return;
+    }
+    const skipIfPlaying = () => {
+      if (S && S.intro && S.intro.playing) {
+        skipIntro();
+      }
+    };
+    listen(doc, 'click', skipIfPlaying);
+    listen(win, 'wheel', skipIfPlaying, { passive: true });
+    listen(win, 'touchmove', skipIfPlaying, { passive: true });
+    listen(doc, 'keydown', onIntroKey);
+    if (intro.will) {
+      startIntro();
+    }
+  }
+
+  /* ---------- The gate intro (home) ---------- */
+
+  /* The hero text next to the h1: every [data-reveal] in the hero and the h1's siblings.
+     Scroll reveals leave these to the intro when it plays. The hero image is never touched. */
+  function heroText(hero) {
+    if (!hero) {
+      return [];
+    }
+    const items = qsa('[data-reveal]', hero);
+    const title = qs('h1', hero);
+    if (title && title.parentElement) {
+      Array.prototype.forEach.call(title.parentElement.children, (sibling) => {
+        if (sibling !== title && !sibling.hasAttribute('data-reveal') && !sibling.querySelector('[data-reveal]') &&
+          !sibling.closest('[data-reveal]')) {
+          items.push(sibling);
+        }
+      });
+    }
+    return items.filter((item) => !isProtected(item));
+  }
+
+  function findGate(intro) {
+    const hero = byId('porta');
+    intro.svg = qs('svg', intro.el);
+    intro.label = qs('.intro__label', intro.el);
+    intro.heroItems = heroText(hero);
+    intro.title = hero ? qs('h1', hero) : null;
+    return !!intro.svg;
+  }
+
+  /* Portrait screens see 900 units across, centred on the gate; landscape keeps the full drawing. */
+  function fitGate(intro, width, height) {
+    if (isPortrait(width, height)) {
+      const span = (900 * height) / width;
+      intro.svg.setAttribute('viewBox', '350 ' + round2(500 - span / 2) + ' 900 ' + round2(span));
+    } else {
+      intro.svg.setAttribute('viewBox', '0 0 1600 1000');
+    }
+  }
+
+  /* Smallest scale about the arch centre at which the whole screen lies inside the opening,
+     plus a margin so the hairlines of the arch leave the screen too. */
+  function introZoom(intro, reference) {
+    const matrix = reference && typeof reference.getScreenCTM === 'function' ? reference.getScreenCTM() : null;
+    const box = intro.el.getBoundingClientRect();
+    if (!matrix || !matrix.a || !(box.width > 0)) {
+      return 12;
+    }
+    const unit = Math.hypot(matrix.a, matrix.b); // screen px per drawing unit
+    const px = matrix.a * ARCH.cx + matrix.c * ARCH.cy + matrix.e;
+    const py = matrix.b * ARCH.cx + matrix.d * ARCH.cy + matrix.f;
+    const inside = (x, y) => x >= ARCH.left && x <= ARCH.right && y >= ARCH.top && y <= ARCH.bottom &&
+      (y >= ARCH.spring || (Math.hypot(x - ARCH.leftArcX, y - ARCH.spring) <= ARCH.radius &&
+        Math.hypot(x - ARCH.rightArcX, y - ARCH.spring) <= ARCH.radius));
+    const fits = (scale) => {
+      const k = 1 / (scale * unit);
+      const left = ARCH.cx - (px - box.left) * k;
+      const right = ARCH.cx + (box.right - px) * k;
+      const top = ARCH.cy - (py - box.top) * k;
+      const bottom = ARCH.cy + (box.bottom - py) * k;
+      return inside(left, top) && inside(right, top) && inside(left, bottom) && inside(right, bottom);
+    };
+    let low = 1;
+    let high = 96;
+    for (let i = 0; i < 24; i += 1) {
+      const mid = (low + high) / 2;
+      if (fits(mid)) {
+        high = mid;
+      } else {
+        low = mid;
+      }
+    }
+    return high * 1.12;
+  }
+
+  function buildGate(intro) {
+    const gsap = S.gsap;
+    const part = (id) => qs('#' + id, intro.svg);
+    const scene = part('porta-scene');
+    const lines = part('porta-lines');
+    const skyline = part('porta-skyline');
+    const bricks = part('porta-bricks');
+    const doors = part('porta-doors');
+    const doorLeft = part('porta-door-left');
+    const doorRight = part('porta-door-right');
+    /* Works with or without the wrapper group: the four layers take the same transform. */
+    const zoomed = scene ? [scene] : ['porta-wall', 'porta-skyline', 'porta-doors', 'porta-lines'].map(part).filter(Boolean);
+    const zoom = introZoom(intro, scene || lines || intro.svg);
+    const timeline = gsap.timeline({ paused: true });
+    let drawn = [];
+
+    /* 0 to 0.9 s: the lines draw themselves, group after group */
+    INTRO_GROUPS.forEach((id, index) => {
+      const group = part(id);
+      if (group) {
+        drawn = drawn.concat(addDrawing(timeline, qsa(GEOMETRY, group), index * 0.1, 0.5));
+      }
+    });
+    if (doors) {
+      drawn = drawn.concat(addDrawing(timeline, qsa('path', doors), 0.3, 0.6));
+      const studs = qsa('circle', doors);
+      if (studs.length) {
+        timeline.fromTo(studs, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none' }, 0.6);
+      }
+    }
+    const faint = [skyline, bricks].filter(Boolean);
+    if (faint.length) {
+      timeline.from(faint, { opacity: 0, duration: 0.35, ease: 'none' }, 0.55);
+    }
+    clearDashes(timeline, drawn, 0.92); // dashes are in screen pixels: they must be gone before the zoom
+    if (intro.label) {
+      timeline.fromTo(intro.label, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.15);
+      timeline.to(intro.label, { opacity: 0, duration: 0.3, ease: 'power1.in' }, 1.4);
+    }
+
+    /* 0.9 to 1.6 s: the two leaves open */
+    if (doorLeft) {
+      timeline.fromTo(doorLeft, { scaleX: 1, svgOrigin: DOOR_LEFT_ORIGIN }, { scaleX: 0, duration: 0.7, ease: 'power2.inOut' }, 0.9);
+    }
+    if (doorRight) {
+      timeline.fromTo(doorRight, { scaleX: 1, svgOrigin: DOOR_RIGHT_ORIGIN }, { scaleX: 0, duration: 0.7, ease: 'power2.inOut' }, 0.9);
+    }
+    if (doors) {
+      timeline.set(doors, { visibility: 'hidden' }, 1.6);
+    }
+
+    /* 1.5 to 2.4 s: through the arch; the strokes stay hairlines (non-scaling-stroke) */
+    if (zoomed.length) {
+      timeline.fromTo(zoomed,
+        { scale: 1, svgOrigin: ARCH.cx + ' ' + ARCH.cy },
+        { scale: zoom, duration: 0.9, ease: 'power3.in' }, 1.5);
+    }
+    const fading = [lines, skyline].filter(Boolean);
+    if (fading.length) {
+      timeline.to(fading, { opacity: 0, duration: 0.3, ease: 'power1.in' }, 2.1);
+    }
+
+    /* The hero text stays painted under the closed gate (the green overlay covers the hero) and
+       is hidden only at 0.8 s, just before the doors open, so cut-off letters never show through
+       the arch. 2.1 to 2.5 s, the last third of the zoom: the block comes in as one, the h1 with
+       it, by opacity alone and without any movement. The tween must end after the call at 2.4 s
+       that removes intro-playing. */
+    const heroBlock = intro.heroItems.concat(intro.title ? [intro.title] : []);
+    if (heroBlock.length) {
+      timeline.set(heroBlock, { opacity: 0, transition: 'none' }, 0.8);
+      timeline.to(heroBlock,
+        { opacity: 1, duration: 0.4, ease: 'power1.out', clearProps: 'opacity,transition' }, 2.1);
+    }
+
+    /* 2.4 s: the overlay goes and scroll is released; the header comes down into place */
+    const header = S.ui && S.ui.header;
+    if (header) {
+      timeline.fromTo(header,
+        { autoAlpha: 0, y: -16, transition: 'none' },
+        { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', clearProps: 'opacity,visibility,transform,transition' }, 2.3);
+    }
+    timeline.call(finishIntro, null, 2.4);
+    return timeline;
+  }
+
+  /* ---------- The book intro (menu) ---------- */
+
+  function findBook(intro) {
+    const el = intro.el;
+    const parts = {
+      book: qs('.book', el),
+      page: qs('.book__page', el),
+      cover: qs('.book__cover', el),
+      face: qs('.book__face', el),
+      text: qs('.book__text', el),
+      sheet: qs('.book__sheet', el)
+    };
+    intro.parts = parts;
+    intro.svg = copyDrawing(qs('svg.menu-hero__skyline'), qs('.intro__art', el), 'intro__skyline');
+    return !!(intro.svg && parts.book && parts.cover && parts.face && parts.sheet);
+  }
+
+  function fitBook(intro, width, height) {
+    intro.svg.setAttribute('viewBox', BOOK.view[isPortrait(width, height) ? 'portrait' : 'landscape']);
+  }
+
+  /* 0 to 0.7 s. Each stroke of the skyline starts when a sweep from the left edge of the screen
+     reaches it; the Torre del Mangia waits and then rises from the ground up. Reads first. */
+  function addSkyline(timeline, intro) {
+    const tower = copyPart(intro, 'skyline-torre');
+    const plan = qsa(GEOMETRY, intro.svg).map((node) => {
+      const rect = node.getBoundingClientRect();
+      return { node, length: strokeLength(node), left: rect.left, bottom: rect.bottom, tower: !!(tower && tower.contains(node)) };
+    }).filter((item) => item.length > 0);
+    const rising = plan.filter((item) => item.tower).sort((a, b) => b.bottom - a.bottom);
+    plan.forEach((item) => {
+      if (!item.tower) {
+        drawStroke(timeline, item.node, item.length, round2(clamp(item.left / intro.width, 0, 1) * 0.4), 0.25);
+      }
+    });
+    rising.forEach((item, index) => {
+      /* the two long lines of the shaft first, then the crown, part after part */
+      drawStroke(timeline, item.node, item.length,
+        round2(0.36 + (index / Math.max(1, rising.length - 1)) * 0.16), index < 2 ? 0.26 : 0.18);
+    });
+    return plan.map((item) => item.node);
+  }
+
+  function buildBook(intro) {
+    const gsap = S.gsap;
+    const parts = intro.parts;
+    const grow = coverScale(intro, parts.sheet);
+    const frame = qsa('#libro-cornice path, #libro-angoli path, #libro-fregi path', parts.face);
+    const timeline = gsap.timeline({ paused: true });
+
+    /* 0 to 0.8 s: the skyline draws behind; the book rises 12 px and fades in, the frame of
+       its cover draws, the title follows */
+    let drawn = addSkyline(timeline, intro);
+    timeline.fromTo(parts.book, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.1);
+    drawn = drawn.concat(addDrawing(timeline, frame, 0.2, 0.55));
+    if (parts.text) {
+      timeline.fromTo(parts.text, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'none' }, 0.4);
+    }
+    clearDashes(timeline, drawn, 0.9);
+
+    /* 1.0 to 1.6 s: the cover turns on its spine over the cream page */
+    timeline.fromTo(parts.cover, { rotationY: 0 }, { rotationY: BOOK.open, duration: 0.6, ease: 'power2.inOut' }, 1);
+
+    /* 1.5 to 2.0 s: the page (its twin on top, shown now that the cover has left it) grows over
+       the open cover until it fills the screen; the overlay fades and the menu page is there */
+    timeline.fromTo(parts.sheet, { opacity: 0 }, { opacity: 1, duration: 0.02, ease: 'none' }, 1.5);
+    timeline.fromTo(parts.sheet, { scale: 1 }, { scale: grow, duration: 0.36, ease: 'power2.in' }, 1.5);
+    timeline.to([intro.el, intro.skip].filter(Boolean), { opacity: 0, duration: 0.24, ease: 'power1.in' }, 1.78);
+    timeline.call(finishIntro, null, 2.02);
+    return timeline;
+  }
+
+  /* ---------- The pour intro (wine list) ---------- */
+
+  function findPour(intro) {
+    const el = intro.el;
+    const parts = {
+      card: qs('.pour-card', el),
+      sheet: qs('.pour-card__sheet', el),
+      leaves: qsa('.pour-card__leaf', el),
+      text: qs('.pour-card__text', el)
+    };
+    intro.parts = parts;
+    intro.svg = copyDrawing(qs('.vini-hero__art svg'), qs('.intro__art', el), 'intro__pour');
+    if (intro.svg) {
+      intro.svg.setAttribute('preserveAspectRatio', 'xMidYMin meet'); // the sleeve leaves by the top edge
+    }
+    return !!(intro.svg && parts.card && parts.sheet && parts.leaves.length === 2);
+  }
+
+  function fitPour(intro, width, height) {
+    intro.svg.setAttribute('viewBox', POUR.view[isPortrait(width, height) ? 'portrait' : 'landscape']);
+  }
+
+  /* Half the width of the bowl at a height, read from the curve of its lower half. */
+  function bowlHalfWidth(y) {
+    const curve = (t, p) => {
+      const u = 1 - t;
+      return u * u * u * p[0] + 3 * u * u * t * p[1] + 3 * u * t * t * p[2] + t * t * t * p[3];
+    };
+    let low = 0;
+    let high = 1;
+    for (let i = 0; i < 16; i += 1) {
+      const mid = (low + high) / 2;
+      if (curve(mid, POUR.bowl.y) < y) {
+        low = mid;
+      } else {
+        high = mid;
+      }
+    }
+    return Math.max(0, POUR.bowl.centre - curve((low + high) / 2, POUR.bowl.x));
+  }
+
+  function buildPour(intro) {
+    const gsap = S.gsap;
+    const parts = intro.parts;
+    const part = (name) => copyPart(intro, 'mescita-' + name);
+    const bearer = part('braccio'); // the arm: hand and bottle
+    const stream = part('filo');
+    const wine = part('vino');
+    const surface = part('livello');
+    const still = [part('tavola'), part('calice')].filter(Boolean)
+      .reduce((nodes, group) => nodes.concat(qsa(GEOMETRY, group)), []);
+    const grow = coverScale(intro, parts.sheet);
+    const flow = stream ? Math.ceil(strokeLength(stream) * (POUR.reach + 0.06)) : 0; // long enough when stretched
+    const timeline = gsap.timeline({ paused: true });
+    /* The surface of the wine as it climbs: as wide as the bowl is at its height (an ease made
+       from the curve of the glass), and the top of the wine under it. */
+    const full = bowlHalfWidth(POUR.level) || 1;
+    const share = (progress) => bowlHalfWidth(POUR.level + POUR.rise * (1 - progress)) / full;
+    const top = (progress) => POUR.level + POUR.rise * (1 - progress) - 8 * share(progress);
+    const widen = (progress) => (share(progress) - share(0)) / ((1 - share(0)) || 1);
+    const climb = (progress) => (top(0) - top(progress)) / ((top(0) - POUR.wine.y) || 1);
+
+    /* 0 to 0.6 s: table and glass draw; the hand comes in from the upper right, the bottle
+       carried mouth up */
+    clearDashes(timeline, addDrawing(timeline, still, 0, 0.6), 0.65);
+    if (bearer) {
+      timeline.fromTo(bearer,
+        { x: POUR.enter.x, y: POUR.enter.y, rotation: POUR.carry.rotation, svgOrigin: POUR.wrist, opacity: 0 },
+        { x: POUR.carry.x, y: POUR.carry.y, duration: 0.55, ease: 'power2.out' }, 0.05);
+      timeline.to(bearer, { opacity: 1, duration: 0.25, ease: 'none' }, 0.05);
+
+      /* 0.6 to 1.0 s: the arm turns about the wrist and comes down: the mouth meets the glass */
+      timeline.to(bearer, { x: 0, y: 0, rotation: 0, duration: 0.4, ease: 'power2.inOut' }, 0.6);
+    }
+
+    /* 1.0 to 1.7 s: the stream draws down, the wine rises (the rectangle grows under the clip
+       of the bowl; its surface line climbs and widens with the glass) */
+    if (flow) {
+      /* the stream reaches down to the wine: longer at first, as drawn when the glass is poured */
+      timeline.fromTo(stream, { scaleY: POUR.reach, svgOrigin: POUR.mouth }, { scaleY: 1, duration: 0.58, ease: 'none' }, 1.12);
+      drawStroke(timeline, stream, flow, 1, 0.2, 'power1.in');
+    }
+    if (wine && surface) {
+      timeline.fromTo([wine, surface], { opacity: 0 }, { opacity: 1, duration: 0.08, ease: 'none' }, 1.12);
+      timeline.fromTo(wine,
+        { attr: { y: round2(top(0)), height: round2(POUR.wine.bottom - top(0)) } },
+        { attr: { y: POUR.wine.y, height: POUR.wine.bottom - POUR.wine.y }, duration: 0.58, ease: climb }, 1.12);
+      timeline.fromTo(surface, { y: POUR.rise, svgOrigin: POUR.bowl.centre + ' ' + POUR.level }, { y: 0, duration: 0.58, ease: 'none' }, 1.12);
+      timeline.fromTo(surface, { scale: round2(share(0)) }, { scale: 1, duration: 0.58, ease: widen }, 1.12);
+    }
+
+    /* 1.7 to 2.0 s: the stream ends (its tail falls into the glass), the bottle lifts back */
+    if (flow) {
+      timeline.to(stream, { strokeDashoffset: -flow + 'px', duration: 0.22, ease: 'power1.in' }, 1.7);
+    }
+    if (bearer) {
+      timeline.to(bearer, { x: POUR.lift.x, y: POUR.lift.y, rotation: POUR.lift.rotation, duration: 0.3, ease: 'power2.out' }, 1.72);
+    }
+
+    /* 2.0 to 2.6 s: the card opens from its centre fold, its sheet grows until it fills the
+       screen, the overlay fades and the wine list is there */
+    timeline.fromTo(parts.leaves, { opacity: 0 }, { opacity: 1, duration: 0.05, ease: 'none' }, 2);
+    timeline.fromTo(parts.leaves[0], { rotationY: 86 }, { rotationY: 0, duration: 0.3, ease: 'power2.out' }, 2);
+    timeline.fromTo(parts.leaves[1], { rotationY: -86 }, { rotationY: 0, duration: 0.3, ease: 'power2.out' }, 2);
+    if (parts.text) {
+      timeline.fromTo(parts.text, { opacity: 0 }, { opacity: 1, duration: 0.14, ease: 'none' }, 2.1);
+    }
+    timeline.fromTo(parts.sheet, { opacity: 0 }, { opacity: 1, duration: 0.02, ease: 'none' }, 2.28);
+    timeline.fromTo(parts.sheet, { scale: 1 }, { scale: grow, duration: 0.22, ease: 'power1.in' }, 2.3);
+    timeline.to([intro.el, intro.skip].filter(Boolean), { opacity: 0, duration: 0.18, ease: 'power1.in' }, 2.48);
+    timeline.call(finishIntro, null, 2.66);
+    return timeline;
+  }
+
+  /* ---------- Fine-line scenes: the menu skyline, the pici, the boar ---------- */
+
+  /* Menu page. When the book intro is ruled out before the first paint (a repeat visit, a hash
+     in the URL) the skyline of the hero draws itself once in 0.9 s, like the other line
+     drawings; after the intro, or when it is given up late, it is simply there. */
+  function setupSkyline() {
+    const skyline = qs('svg.menu-hero__skyline');
+    if (!skyline || played.has(skyline)) {
+      return;
+    }
+    played.add(skyline); // decided once per page view
+    if (!S.intro || S.intro.key !== 'm' || !S.intro.ruledOut) {
+      return;
+    }
+    const rect = skyline.getBoundingClientRect();
+    const fold = win.innerHeight || root.clientHeight || 0;
+    setupDrawing(skyline, rect.bottom > 0 && rect.top < fold ? 'now' : 'scroll');
+  }
+
+  /* The strands come down one after the other from above the top edge of the drawing (which
+     clips them), turn a few degrees and settle where they are drawn; as they settle the coils
+     of the nest draw. 1.6 s long: scrubbed by the scroll or played once. The lengths of the
+     coils are functions, so a refresh after a resize measures them again. */
+  function buildPici(svg, once) {
+    const strands = PICI_ORDER.map((number) => qs('#pici-filo-' + number, svg)).filter(Boolean);
+    const coils = qsa('#pici-nido path', svg);
+    const boxes = strands.map((strand) => strand.getBBox());
+    const timeline = S.gsap.timeline({ paused: true });
+    strands.forEach((strand, index) => {
+      const at = round2(index * 0.16);
+      timeline.fromTo(strand,
+        { y: -Math.ceil(boxes[index].y + boxes[index].height + 24), transformOrigin: '50% 50%' },
+        { y: 0, duration: 0.52, ease: 'power2.out' }, at);
+      timeline.fromTo(strand, { rotation: PICI_TURN[index] }, { rotation: 0, duration: 0.62, ease: 'back.out(2.2)' }, at);
+      timeline.fromTo(strand, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: 'none' }, at);
+    });
+    coils.forEach((coil, index) => {
+      const length = () => strokeLength(coil, true) + 'px';
+      timeline.fromTo(coil,
+        { strokeDasharray: length, strokeDashoffset: length },
+        { strokeDashoffset: '0px', duration: 0.42, ease: 'power1.inOut' }, round2(0.46 + index * 0.17));
+    });
+    if (once) {
+      clearDashes(timeline, coils, timeline.duration());
+    }
+    return timeline;
+  }
+
+  function setupPici() {
+    const box = qs('[data-pici]');
+    const svg = box ? qs('svg', box) : null;
+    const section = box ? box.closest('section') || box.parentElement : null;
+    if (!svg || !section) {
+      return;
+    }
+    const sizes = S.gsap.matchMedia(); // made inside S.ctx: reverted with it
+    /* From 900 px the drawing is sticky beside the text: the strands fall with the scroll. */
+    sizes.add(MQ_PICI_SCRUB, () => {
+      S.ST.create({
+        trigger: section,
+        start: 'top 62%',
+        end: 'bottom 110%',
+        scrub: 0.5,
+        animation: buildPici(svg),
+        invalidateOnRefresh: true
+      });
+    });
+    /* Below, it is small at the top of the section: the same sequence, once, when it comes in. */
+    sizes.add(MQ_PICI_ONCE, () => {
+      if (played.has(box)) {
+        return;
+      }
+      const timeline = buildPici(svg, true);
+      S.ST.create({
+        trigger: box,
+        start: 'top 78%',
+        once: true,
+        onEnter: () => {
+          played.add(box);
+          timeline.play();
+        }
+      });
+    });
+  }
+
+  /* When 60% of the dolceforte band is in view, and most of the boar's own place with it (on
+     wide screens it stands on the bottom edge of the band), the boar walks in from outside the
+     left edge of the photo (the band clips it), its legs swinging in two pairs about their top
+     points; the ground line draws under it and it stops with a small nod. Once per page view. */
+  function setupBoar() {
+    const box = qs('[data-boar]');
+    const svg = box ? qs('svg', box) : null;
+    const band = box ? box.closest('.band') || box.parentElement : null;
+    const boar = svg ? qs('#cinghiale', svg) : null;
+    if (!boar || !band || played.has(box)) {
+      return;
+    }
+    const gsap = S.gsap;
+    /* the scroll position at which both are in view; read again at every refresh */
+    const start = () => {
+      const y = scrollTop();
+      const view = win.innerHeight || root.clientHeight || 0;
+      const outer = band.getBoundingClientRect();
+      const inner = box.getBoundingClientRect();
+      return Math.max(0, Math.round(y + Math.max(outer.top + outer.height * 0.6, inner.top + inner.height * 0.7) - view));
+    };
+    gsap.set(box, { autoAlpha: 0 });
+    arm(band, start, () => {
+      played.add(box);
+      const matrix = typeof svg.getScreenCTM === 'function' ? svg.getScreenCTM() : null;
+      const unit = matrix && matrix.a > 0 ? matrix.a : 1; // screen px per drawing unit
+      const away = -Math.ceil((svg.getBoundingClientRect().left - band.getBoundingClientRect().left) / unit + BOAR.snout + 24);
+      const legs = [1, 2, 3, 4].map((number) => qs('#cinghiale-zampa-' + number, svg));
+      const pivots = legs.map((leg) => (leg && typeof leg.getPointAtLength === 'function' ? leg.getPointAtLength(0) : null));
+      const ground = qsa(GEOMETRY, qs('#cinghiale-terra', svg) || svg).filter((node) => !boar.contains(node));
+      const timeline = gsap.timeline();
+      timeline.fromTo(box, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: 'none', clearProps: 'opacity,visibility' }, 0);
+      timeline.fromTo(boar, { x: away, svgOrigin: BOAR.hooves }, { x: 0, duration: BOAR.walk, ease: 'power2.out' }, 0);
+      legs.forEach((leg, index) => {
+        if (!leg || !pivots[index]) {
+          return;
+        }
+        let side = BOAR.pairs[index];
+        let at = 0;
+        timeline.set(leg, { rotation: side * BOAR.swing, svgOrigin: round2(pivots[index].x) + ' ' + round2(pivots[index].y) }, 0);
+        BOAR.steps.forEach((duration) => {
+          side = -side;
+          timeline.to(leg, { rotation: side * BOAR.swing, duration, ease: 'sine.inOut' }, round2(at));
+          at += duration;
+        });
+        timeline.to(leg, { rotation: 0, duration: round2(BOAR.walk - at), ease: 'sine.out' }, round2(at));
+      });
+      clearDashes(timeline, addDrawing(timeline, ground, 0.15, 1.2), 1.4);
+      timeline.to(boar, { rotation: BOAR.nod, duration: 0.16, ease: 'power1.out' }, BOAR.walk);
+      timeline.to(boar, { rotation: 0, duration: 0.3, ease: 'power1.inOut' }, BOAR.walk + 0.16);
+    });
+  }
+
   /* Menu page: the link of the section in view gets aria-current and is kept in view in its row. */
   function setupMenuNav() {
     const nav = qs('.menu-nav');
@@ -1347,25 +1828,6 @@
     S.cleanups.push(() => observer.disconnect());
   }
 
-  function setupIntro() {
-    const intro = S.intro;
-    if (!intro || !intro.el || !S.motion) {
-      return;
-    }
-    const skipIfPlaying = () => {
-      if (S && S.intro && S.intro.playing) {
-        skipIntro();
-      }
-    };
-    listen(doc, 'click', skipIfPlaying);
-    listen(win, 'wheel', skipIfPlaying, { passive: true });
-    listen(win, 'touchmove', skipIfPlaying, { passive: true });
-    listen(doc, 'keydown', onIntroKey);
-    if (intro.will) {
-      startIntro();
-    }
-  }
-
   /* ---------- Start, refresh, stop ---------- */
 
   function settle() {
@@ -1386,7 +1848,13 @@
     const intro = S.intro;
     if (intro && intro.playing) {
       if (!intro.started) {
-        prepareIntro(); // the size changed before the first frame: fit the drawing again
+        /* Before the first frame: fit the drawing again, but only to a size that is really new.
+           Phones send a resize event while the page loads; building the intro twice for it
+           made the first painted frame three times as long. */
+        const box = intro.el.getBoundingClientRect();
+        if (Math.abs((box.width || win.innerWidth) - intro.width) > 1 || Math.abs((box.height || win.innerHeight) - intro.height) > 1) {
+          prepareIntro();
+        }
       } else if (Math.abs(win.innerWidth - intro.width) > 1 || Math.abs(win.innerHeight - intro.height) > 120) {
         skipIntro();
       }
@@ -1579,6 +2047,9 @@
       planIntro();
       if (S.motion) {
         S.ctx.add(setupScrollMotion);
+        S.ctx.add(setupSkyline);
+        S.ctx.add(setupPici);
+        S.ctx.add(setupBoar);
       }
       measure();
       setupIntro();

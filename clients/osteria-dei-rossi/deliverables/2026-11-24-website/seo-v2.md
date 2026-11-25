@@ -941,14 +941,14 @@ Rules as in `seo.md` 4.1: links stay inside the language; internal links are wri
 | Menu, notes and booking block | `/dove-siamo/` · `/en/find-us/` | `Orari, indirizzo e come arrivare` | `Opening hours, address and getting here` |
 | Menu FAQ block (line under it) | `/#pici` · `/en/#pici` | `I pici spiegati` | `Pici explained` |
 | Wine list, intro or notes | `/menu/` · `/en/menu/` | `Il menù con i prezzi` | `The menu with prices` |
-| Wine list, notes | `/menu/#bevande` · `/en/menu/#drinks`* | `vini al calice e altre bevande` | `wines by the glass and other drinks` |
+| Wine list, notes | `/menu/#bevande` · `/en/menu/#bevande` | `vini al calice e altre bevande` | `wines by the glass and other drinks` |
 | Wine list, booking block | `/dove-siamo/` · `/en/find-us/` | `Dove siamo` | `Find us` |
 | Dove siamo, closing block | `/` · `/en/` | `La storia di Osteria dei Rossi` | `The story of Osteria dei Rossi` |
 | Dove siamo, closing block | `/menu/` · `/en/menu/` | `Il menù con i prezzi` | `The menu with prices` |
 | Dove siamo, closing block | `/vini/` · `/en/wine-list/` | `La carta dei vini` | `The wine list` |
 | Footer, every page | `/privacy/` · `/en/privacy/` | `Informativa privacy` | `Privacy notice` |
 
-\* The menu section ids are the Italian ones on both language pages (`seo.md` 2.4: `antipasti`, `primi`, `secondi`, `griglia`, `contorni`, `dolci`, `bevande`, `coperto`, `prenota`). Use `#bevande` on `/en/menu/` too; the starred `#drinks` is not an id.
+The menu section ids are the Italian ones on both language pages (`seo.md` 2.4: `antipasti`, `primi`, `secondi`, `griglia`, `contorni`, `dolci`, `bevande`, `coperto`, `prenota`).
 
 Superseded anchor rows of `seo.md` 4.2: "#cantina, wines → `/menu/#bevande`", "Menu, above Drinks → `/#cantina`" (now to the wine list), "Menu, closing block → `/#prenota`" and "→ `/#domande`" (the menu has its own `#prenota` and `#domande`), and the Home FAQ rows (FAQ 4, 8 and 9: the Home has no FAQ). The language switcher on the new pages links to the twin: `/vini/` ⇄ `/en/wine-list/`, `/dove-siamo/` ⇄ `/en/find-us/`. Every page is within two clicks of Home; the new pages are one click (header).
 

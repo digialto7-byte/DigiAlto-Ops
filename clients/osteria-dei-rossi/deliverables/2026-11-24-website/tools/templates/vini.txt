@@ -1,6 +1,17 @@
 <body class="page-text-body">
 <a class="skip-link" href="#contenuto">{{c:global-nav.skip_link}}</a>
 
+<div class="intro intro--pour" id="pour-intro" data-intro="v" aria-hidden="true">
+  <div class="intro__art"></div>
+  <div class="pour-card">
+    <div class="pour-card__sheet"></div>
+    <div class="pour-card__leaf pour-card__leaf--left"></div>
+    <div class="pour-card__leaf pour-card__leaf--right"></div>
+    <p class="pour-card__text"><span class="pour-card__title">{{c:vini-intro.card_title}}</span><span class="pour-card__sub">{{c:vini-intro.card_sub}}</span></p>
+  </div>
+</div>
+<button class="intro__skip" id="intro-skip" type="button">{{c:vini-intro.skip}}</button>
+
 {{include:_header}}
 
 {{include:_ctabar}}

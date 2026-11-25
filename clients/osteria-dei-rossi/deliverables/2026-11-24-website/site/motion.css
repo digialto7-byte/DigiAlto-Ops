@@ -7,8 +7,8 @@
  *   js             set by the inline script in <head>
  *   motion-ready   main.js has started and now sets start states itself
  *   motion-off     gsap, ScrollTrigger or Lenis is missing, or main.js failed: show everything
- *   intro-playing  the gate intro is on screen
- *   intro-done     the gate intro is over or will not be shown
+ *   intro-playing  the page intro is on screen (gate on home, book on the menu, pour on the wine list)
+ *   intro-done     the page intro is over or will not be shown (also set by the inline head script)
  *   menu-open      the phone menu panel is open
  *   menu-closing   the panel is fading out (about 0.45 s after it closes)
  *   header-hidden  mirrors .site-header.is-hidden (phones, scrolling down)
@@ -38,7 +38,13 @@ html.lenis {
   outline: none;
 }
 
-/* ---------- 2. The gate intro ---------- */
+/* ---------- 2. The page intros: gate (home), book (menu), pour (wine list) ---------- */
+
+/*
+ * One overlay per page: .intro, plus .intro--book or .intro--pour. The shared rules (display,
+ * skip button, failsafe) come first, then the layout of each overlay. main.js copies the page's
+ * own skyline and pour drawing into .intro__art, so no id appears twice in the document.
+ */
 
 .intro,
 .intro__skip {
@@ -119,10 +125,235 @@ html.lenis {
     outline-offset: 3px;
   }
 
-  /* Before main.js takes over: lines wait hidden (they draw themselves), the label waits. */
+  /* The book and the pour stand on a green ground of their own. */
+  .intro--book,
+  .intro--pour {
+    background: var(--green, #1C4130);
+    color: var(--cream, #FFFADF);
+  }
+
+  .intro__art {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* The book: the skyline runs behind it with its ground line at 62% of the height. */
+  .intro--book .intro__art {
+    color: var(--gold, #C89550);
+  }
+
+  .intro__skyline {
+    position: absolute;
+    top: 62%;
+    left: 50%;
+    width: min(100%, 172vh);
+    max-width: none;
+    height: auto;
+    overflow: visible;
+    transform: translate(-50%, -93.333%);
+  }
+
+  .book {
+    --book-w: min(62vw, 20rem, 54vh);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--book-w);
+    aspect-ratio: 3 / 4;
+    margin: calc(var(--book-w) * -2 / 3) 0 0 calc(var(--book-w) / -2);
+    perspective: 1400px;
+  }
+
+  .book__page,
+  .book__cover,
+  .book__front,
+  .book__inside,
+  .book__sheet {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* The first page lies under the cover. Its twin, the sheet, lies over everything and shows
+     only once the cover is open: it is the one that grows. */
+  .book__page,
+  .book__sheet {
+    border-radius: 2px;
+    background: var(--cream, #FFFADF);
+  }
+
+  /* The cover turns on its spine: a front face and the inside of the board. */
+  .book__cover {
+    transform-origin: 0 50%;
+    transform-style: preserve-3d;
+  }
+
+  .book__front,
+  .book__inside {
+    border-radius: 2px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .book__front {
+    background: #24523D;
+  }
+
+  .book__inside {
+    background: #2B5C45;
+    transform: rotateY(180deg);
+  }
+
+  .book__face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  /* The title field of the cover drawing, between its two small rules. */
+  .book__text {
+    position: absolute;
+    inset: 32% 9.6% 30.5% 19.6%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: none;
+    margin: 0;
+    text-align: center;
+  }
+
+  .book__name {
+    font-family: var(--font-display, "Bodoni Moda", Georgia, serif);
+    font-size: calc(var(--book-w) * 0.064);
+    font-variant-caps: small-caps;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+  }
+
+  .book__title {
+    margin-block: 0.14em 0.22em;
+    font-family: var(--font-display, "Bodoni Moda", Georgia, serif);
+    font-size: calc(var(--book-w) * 0.17);
+    font-style: italic;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .book__sub {
+    font-family: var(--font-text, "Figtree", system-ui, sans-serif);
+    font-size: max(0.5625rem, calc(var(--book-w) * 0.034));
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  /* The pour: one drawing, pinned to the top edge (the sleeve leaves the screen there), then
+     the card in front of it. */
+  .intro__pour {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .pour-card {
+    --card-w: min(76vw, 24rem, 96vh);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--card-w);
+    aspect-ratio: 3 / 2;
+    margin: calc(var(--card-w) / -3) 0 0 calc(var(--card-w) / -2);
+    color: var(--green, #1C4130);
+    perspective: 1200px;
+  }
+
+  .pour-card__sheet,
+  .pour-card__leaf {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: var(--cream, #FFFADF);
+  }
+
+  .pour-card__sheet {
+    right: 0;
+    left: 0;
+  }
+
+  /* Two leaves hinged on the centre fold; a gold hairline runs round the open card. */
+  .pour-card__leaf {
+    width: 50%;
+  }
+
+  .pour-card__leaf::after {
+    content: "";
+    position: absolute;
+    inset: 0.625rem;
+    border: 1px solid var(--line, rgb(200 149 80 / 0.55));
+  }
+
+  .pour-card__leaf--left {
+    left: 0;
+    transform-origin: 100% 50%;
+  }
+
+  .pour-card__leaf--left::after {
+    right: 0;
+    border-right: 0;
+  }
+
+  .pour-card__leaf--right {
+    left: 50%;
+    transform-origin: 0 50%;
+  }
+
+  .pour-card__leaf--right::after {
+    left: 0;
+    border-left: 0;
+  }
+
+  .pour-card__text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: none;
+    margin: 0;
+    text-align: center;
+  }
+
+  .pour-card__title {
+    font-family: var(--font-display, "Bodoni Moda", Georgia, serif);
+    font-size: calc(var(--card-w) * 0.13);
+    font-style: italic;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+
+  .pour-card__sub {
+    margin-top: 0.9em;
+    font-family: var(--font-text, "Figtree", system-ui, sans-serif);
+    font-size: max(0.5625rem, calc(var(--card-w) * 0.03));
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  /* Before main.js takes over: lines wait hidden (they draw themselves), the label, the book
+     and the card wait. */
   html.js:not(.motion-ready) .intro__svg #porta-lines,
   html.js:not(.motion-ready) .intro__svg #porta-skyline,
-  html.js:not(.motion-ready) .intro__label {
+  html.js:not(.motion-ready) .intro__label,
+  html.js:not(.motion-ready) .book,
+  html.js:not(.motion-ready) .pour-card {
     visibility: hidden;
   }
 
@@ -194,6 +425,27 @@ html.lenis {
 
   html.js:not(.motion-off) [data-parallax] {
     will-change: transform;
+  }
+
+  /* Menu page without its book intro (intro-done is set before the first paint on a repeat
+     visit or with a hash): the skyline of the hero waits, then draws itself. */
+  html.js.intro-done:not(.motion-ready):not(.motion-off) .menu-hero__skyline {
+    visibility: hidden;
+    animation: odr-failsafe-show 0.01s linear 5s forwards;
+  }
+
+  /* The pici strands and the boar wait out of sight until main.js sets their start states. */
+  html.js:not(.motion-ready):not(.motion-off) [data-pici] #pici-fili,
+  html.js:not(.motion-ready):not(.motion-off) [data-pici] #pici-nido,
+  html.js:not(.motion-ready):not(.motion-off) [data-boar] {
+    visibility: hidden;
+    animation: odr-failsafe-show 0.01s linear 5s forwards;
+  }
+
+  /* The strands come in through the top edge of the drawing, the boar through the left edge of
+     its photo band (which clips already). Nothing of the finished drawing reaches the edges. */
+  html.js:not(.motion-off) [data-pici] svg {
+    overflow: hidden;
   }
 }
 
