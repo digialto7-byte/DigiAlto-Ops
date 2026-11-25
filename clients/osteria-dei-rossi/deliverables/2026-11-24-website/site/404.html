@@ -1,67 +1,33 @@
 <!doctype html>
-<html class="no-js" lang="it">
+<html lang="it">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pagina non trovata | Osteria dei Rossi</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#1C4130">
-<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-<link rel="preload" href="/assets/fonts/bodoni-moda-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/motion.css">
-<script>(function(d){var c=d.documentElement.classList;c.remove('no-js');c.add('js');try{if(sessionStorage.getItem('odr-intro')||location.hash)c.add('intro-done')}catch(e){c.add('intro-done')}})(document)</script>
+<style>
+:root{--cream:#FFFADF;--green:#1C4130;--gold:#C89550;--font-display:"Didot","Bodoni MT",Georgia,serif;--font-text:system-ui,sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;background:var(--cream);color:var(--green);font:400 1.0625rem/1.65 var(--font-text);overflow-x:hidden}
+main{width:min(100% - 2.5rem, 44rem);padding:clamp(3rem, 8vw, 6rem) 0;text-align:center}
+.page-404__arrow{display:block;width:clamp(8rem, 20vw, 12rem);height:auto;margin:0 auto 2.5rem;color:var(--gold);overflow:visible}
+.page-404__arrow path{vector-effect:non-scaling-stroke}
+h1{margin:0;font:400 clamp(2.4rem, 8vw, 4.5rem)/.96 var(--font-display);letter-spacing:-.02em;text-wrap:balance}
+h1 em{display:block;font-style:italic;font-weight:400}
+p{margin:1rem auto 0;max-width:34em}
+.page-404__links{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 2rem;margin-top:2rem}
+.link{display:inline-flex;align-items:center;gap:.75rem;min-height:2.75rem;color:var(--green);font:600 .8125rem/1.2 var(--font-text);letter-spacing:.12em;text-transform:uppercase;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.link:hover{text-decoration-thickness:2px}
+.arrow{width:2.25rem;height:auto;flex:none;overflow:visible}
+.arrow path{vector-effect:non-scaling-stroke}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+</style>
 </head>
-<body class="page-text-body">
-<a class="skip-link" href="#contenuto">Vai al contenuto</a>
-
-<header class="site-header">
-  <div class="site-header__inner">
-    <a class="site-header__logo" href="/" aria-label="Osteria dei Rossi, vai alla pagina iniziale">
-      <img class="logo logo--light" src="/assets/img/logo-osteria-dei-rossi-chiaro-360.webp" srcset="/assets/img/logo-osteria-dei-rossi-chiaro-360.webp 360w, /assets/img/logo-osteria-dei-rossi-chiaro-720.webp 720w" sizes="150px" width="360" height="185" alt="Osteria dei Rossi">
-      <img class="logo logo--color" src="/assets/img/logo-osteria-dei-rossi-360.webp" srcset="/assets/img/logo-osteria-dei-rossi-360.webp 360w, /assets/img/logo-osteria-dei-rossi-720.webp 720w" sizes="150px" width="360" height="185" alt="Osteria dei Rossi">
-    </a>
-    <a class="site-header__book" href="/#prenota">Prenota</a>
-    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Apri il menù di navigazione" data-label-open="Apri il menù di navigazione" data-label-close="Chiudi il menù di navigazione">
-      <span class="menu-toggle__line"></span><span class="menu-toggle__line"></span>
-    </button>
-    <nav class="site-nav" id="menu-panel">
-      <ul class="site-nav__links">
-        <li><a href="/#via">La via</a></li>
-        <li><a href="/#tavola">La tavola</a></li>
-        <li><a href="/#cantina">La cantina</a></li>
-        <li><a href="/#contrada">La contrada</a></li>
-        <li><a href="/menu/">Il menù</a></li>
-      </ul>
-      <div class="lang" role="group" aria-label="Cambia lingua">
-        <a href="/" lang="it" hreflang="it">IT</a>
-        <span class="lang__sep" aria-hidden="true">·</span>
-        <a href="/en/" lang="en" hreflang="en">EN</a>
-      </div>
-      <a class="btn btn--line site-nav__cta" href="/#prenota">Prenota <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-  <path d="M14 24 H214"/>
-  <path d="M230 24 L210 14 L216 24 L210 34 Z"/>
-  <path d="M62 24 C76 24 86 5 72 5 C58 5 62 24 90 24"/>
-  <path d="M30 24 L18 10 M30 24 L18 38 M42 24 L30 10 M42 24 L30 38 M54 24 L42 10 M54 24 L42 38"/>
-</svg></a>
-      <p class="site-nav__contact">
-        <a href="tel:+390577287592" aria-label="Chiama l'osteria al numero +39 0577 287592">Chiama</a>
-        <a href="https://wa.me/390577287592" target="_blank" rel="noopener" aria-label="Scrivi all'osteria su WhatsApp al numero +39 0577 287592">WhatsApp</a>
-      </p>
-    </nav>
-  </div>
-</header>
-
-<div class="cta-bar">
-  <a class="cta-bar__link" href="tel:+390577287592" aria-label="Chiama l'osteria al numero +39 0577 287592">Chiama</a>
-  <a class="cta-bar__link" href="https://wa.me/390577287592" target="_blank" rel="noopener" aria-label="Scrivi all'osteria su WhatsApp al numero +39 0577 287592">WhatsApp</a>
-</div>
-
+<body>
 <main id="contenuto">
-<div class="page-text page-404">
-  <svg class="page-404__arrow" focusable="false" data-draw xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <svg class="page-404__arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
   <path d="M14 24 H214"/>
   <path d="M230 24 L210 14 L216 24 L210 34 Z"/>
   <path d="M62 24 C76 24 86 5 72 5 C58 5 62 24 90 24"/>
@@ -80,52 +46,6 @@
   <path d="M62 24 C76 24 86 5 72 5 C58 5 62 24 90 24"/>
   <path d="M30 24 L18 10 M30 24 L18 38 M42 24 L30 10 M42 24 L30 38 M54 24 L42 10 M54 24 L42 38"/>
 </svg></a></p>
-</div>
 </main>
-
-<footer class="site-footer battlement">
-  <div class="container site-footer__grid">
-    <div class="site-footer__brand">
-      <img class="site-footer__logo" src="/assets/img/logo-osteria-dei-rossi-chiaro-360.webp" srcset="/assets/img/logo-osteria-dei-rossi-chiaro-360.webp 360w, /assets/img/logo-osteria-dei-rossi-chiaro-720.webp 720w" sizes="150px" width="360" height="185" alt="Osteria dei Rossi" loading="lazy" decoding="async">
-      <p>Un'osteria nella Contrada del Bruco, in Via dei Rossi, nel cuore di Siena.</p>
-    </div>
-    <div class="site-footer__col">
-      <p class="site-footer__label">Indirizzo</p>
-      <address>Via dei Rossi, 79/81<br>53100 Siena</address>
-      <p class="site-footer__label">Telefono</p>
-      <p><a href="tel:+390577287592">+39 0577 287592</a></p>
-    </div>
-    <div class="site-footer__col">
-      <p class="site-footer__label">Orari</p>
-      <p>Martedì–sabato 12:30–15:00 · 19:00–22:30<br>Domenica 12:30–15:00 · chiuso domenica sera e lunedì</p>
-      <p class="site-footer__small">Orari soggetti a variazioni: telefonate per conferma.</p>
-    </div>
-    <div class="site-footer__col">
-      <p class="site-footer__label">Seguiteci</p>
-      <ul class="site-footer__list">
-        <li><a href="https://www.instagram.com/osteriadeirossi/" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://www.facebook.com/osteriadeirossi" target="_blank" rel="noopener">Facebook</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="container site-footer__bottom">
-    <div class="lang" role="group" aria-label="Cambia lingua">
-      <a href="/" lang="it" hreflang="it">IT</a>
-      <span class="lang__sep" aria-hidden="true">·</span>
-      <a href="/en/" lang="en" hreflang="en">EN</a>
-    </div>
-    <ul class="site-footer__links">
-      <li><a href="/menu/">Il menù</a></li>
-      <li><a href="/privacy/">Privacy</a></li>
-      <li><a href="#contenuto">Torna su</a></li>
-    </ul>
-    <p class="site-footer__legal">ML SNC DI LANARO E FRESI · P. IVA IT00354250524</p>
-  </div>
-</footer>
-
-<script src="/assets/vendor/gsap.min.js" defer></script>
-<script src="/assets/vendor/ScrollTrigger.min.js" defer></script>
-<script src="/assets/vendor/lenis.min.js" defer></script>
-<script src="/main.js" defer></script>
 </body>
 </html>

@@ -1,17 +1,35 @@
-<body class="page-text-body">
-<a class="skip-link" href="#contenuto">{{c:global-nav.skip_link}}</a>
-
-{{include:_header}}
-
-{{include:_ctabar}}
-
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{meta}}
+<meta name="theme-color" content="#1C4130">
+<style>
+:root{--cream:#FFFADF;--green:#1C4130;--gold:#C89550;--font-display:"Didot","Bodoni MT",Georgia,serif;--font-text:system-ui,sans-serif}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;background:var(--cream);color:var(--green);font:400 1.0625rem/1.65 var(--font-text);overflow-x:hidden}
+main{width:min(100% - 2.5rem, 44rem);padding:clamp(3rem, 8vw, 6rem) 0;text-align:center}
+.page-404__arrow{display:block;width:clamp(8rem, 20vw, 12rem);height:auto;margin:0 auto 2.5rem;color:var(--gold);overflow:visible}
+.page-404__arrow path{vector-effect:non-scaling-stroke}
+h1{margin:0;font:400 clamp(2.4rem, 8vw, 4.5rem)/.96 var(--font-display);letter-spacing:-.02em;text-wrap:balance}
+h1 em{display:block;font-style:italic;font-weight:400}
+p{margin:1rem auto 0;max-width:34em}
+.page-404__links{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 2rem;margin-top:2rem}
+.link{display:inline-flex;align-items:center;gap:.75rem;min-height:2.75rem;color:var(--green);font:600 .8125rem/1.2 var(--font-text);letter-spacing:.12em;text-transform:uppercase;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.link:hover{text-decoration-thickness:2px}
+.arrow{width:2.25rem;height:auto;flex:none;overflow:visible}
+.arrow path{vector-effect:non-scaling-stroke}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+</style>
+</head>
+<body>
 <main id="contenuto">
-<div class="page-text page-404">
-  {{svg:freccia-osteria|class="page-404__arrow" focusable="false" data-draw}}
+  {{svg:freccia-osteria|class="page-404__arrow" focusable="false"}}
   <h1>{{h:404.h1_line1|h1_em}}</h1>
   <p>{{c:404.body}}</p>
   <p class="page-404__links"><a class="link" href="{{u:home}}">{{c:404.link_home}} {{arrow}}</a><a class="link" href="{{u:menu}}">{{c:404.link_menu}} {{arrow}}</a></p>
-</div>
 </main>
-
-{{include:_footer}}
+</body>
+</html>

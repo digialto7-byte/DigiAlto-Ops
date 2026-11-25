@@ -12,6 +12,7 @@ JSON-LD, robots.txt and sitemap.xml come verbatim from seo.md; the dish sections
 JSON-LD are the generated files in assets/menu/, copied byte for byte; SVGs are inlined from
 assets/*.svg unchanged (only class/aria attributes are added). Nothing is typed here.
 """
+import base64
 import json
 import posixpath
 import re
@@ -335,7 +336,9 @@ class Page:
 
     # ---- render
     def render(self):
-        tpl = (TPL / '_head.txt').read_text(encoding='utf-8') + (TPL / f'{self.kind}.txt').read_text(encoding='utf-8')
+        tpl = (TPL / f'{self.kind}.txt').read_text(encoding='utf-8')
+        if self.kind != '404':      # the 404 is a self-contained page with its own head
+            tpl = (TPL / '_head.txt').read_text(encoding='utf-8') + tpl
         tpl = re.sub(r'\{\{include:(\w+)\}\}', lambda m: (TPL / f'{m.group(1)}.txt').read_text(encoding='utf-8').rstrip('\n'), tpl)
         links = self.links()
         tpl = tpl.replace('{{meta}}', self.meta()).replace('{{jsonld}}', self.jsonld())
@@ -376,6 +379,18 @@ class Page:
         return html
 
 
+def build_embedded_fonts():
+    """fonts-embedded.css: the rules of fonts.css with the woff2 files inlined as data: URLs (for file://)."""
+    fonts = SITE / 'assets' / 'fonts'
+
+    def inline(m):
+        data = base64.b64encode((fonts / m.group(1)).read_bytes()).decode('ascii')
+        return 'url("data:font/woff2;base64,' + data + '")'
+    css = re.sub(r'url\("([^"]+\.woff2)"\)', inline, (fonts / 'fonts.css').read_text(encoding='utf-8'))
+    (fonts / 'fonts-embedded.css').write_text(css, encoding='utf-8')
+    print('wrote site/assets/fonts/fonts-embedded.css')
+
+
 def main():
     for cfg in PAGES:
         page = Page(cfg)
@@ -386,6 +401,7 @@ def main():
     (SITE / 'robots.txt').write_text(code_block('7.1 ', 'text') + '\n', encoding='utf-8')
     (SITE / 'sitemap.xml').write_text(code_block('7.2 ', 'xml') + '\n', encoding='utf-8')
     print('wrote site/robots.txt, site/sitemap.xml')
+    build_embedded_fonts()
 
 
 if __name__ == '__main__':
