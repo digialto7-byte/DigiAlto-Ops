@@ -311,7 +311,7 @@ class Page:
             b['menu_sections'] = self.menu_sections()
         if self.kind == 'privacy':
             b['privacy_blocks'] = '\n'.join(
-                f'  <h2>{esc(self.c("privacy", f"p{n}_title"))}</h2>\n  <p>{esc(self.c("privacy", f"p{n}_text"))}</p>' for n in range(1, 8))
+                f'  <h2>{esc(self.c("privacy", f"p{n}_title"))}</h2>\n  <p>{esc(self.c("privacy", f"p{n}_text"))}</p>' for n in range(1, 20) if ('it', 'privacy', f'p{n}_title') in COPY)
         return b
 
     def menu_sections(self):
