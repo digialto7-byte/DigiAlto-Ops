@@ -1163,15 +1163,15 @@
       timeline.to(fading, { opacity: 0, duration: 0.3, ease: 'power1.in' }, 2.1);
     }
 
-    /* 2.1 to 2.5 s, the last third of the zoom: the hero text block comes in as one, the h1
-       with it, by opacity alone and without any movement. It is out of sight only while the
-       gate plays (motion.css holds the h1 under html.intro-playing; the tween sets the same
-       state inline), so cut-off letters never show through the arch. The tween must end after
-       the call at 2.4 s that removes intro-playing. */
+    /* The hero text stays painted under the closed gate (the green overlay covers the hero) and
+       is hidden only at 0.8 s, just before the doors open, so cut-off letters never show through
+       the arch. 2.1 to 2.5 s, the last third of the zoom: the block comes in as one, the h1 with
+       it, by opacity alone and without any movement. The tween must end after the call at 2.4 s
+       that removes intro-playing. */
     const heroBlock = intro.heroItems.concat(intro.title ? [intro.title] : []);
     if (heroBlock.length) {
-      timeline.fromTo(heroBlock,
-        { opacity: 0, transition: 'none' },
+      timeline.set(heroBlock, { opacity: 0, transition: 'none' }, 0.8);
+      timeline.to(heroBlock,
         { opacity: 1, duration: 0.4, ease: 'power1.out', clearProps: 'opacity,transition' }, 2.1);
     }
 

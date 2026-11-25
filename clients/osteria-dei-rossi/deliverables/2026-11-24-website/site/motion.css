@@ -126,13 +126,6 @@ html.lenis {
     visibility: hidden;
   }
 
-  /* While the gate plays, and only then, the hero text waits out of sight, the h1 included
-     (main.js holds its neighbours the same way and fades the block in during the last third
-     of the zoom). Without intro-playing this rule never applies: no intro, no hidden h1. */
-  html.js.intro-playing:not(.motion-off) #porta h1 {
-    opacity: 0;
-  }
-
   /* Failsafe: if main.js never runs, the intro leaves by itself after 5 s. */
   html.js:not(.motion-ready) .intro,
   html.js:not(.motion-ready) .intro__skip {
