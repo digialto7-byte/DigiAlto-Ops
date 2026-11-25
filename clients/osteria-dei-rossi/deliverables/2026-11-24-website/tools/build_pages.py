@@ -181,6 +181,8 @@ for line in (R / 'assets' / 'images.md').read_text(encoding='utf-8').splitlines(
 def svg(name, attrs=''):
     t = (R / 'assets' / f'{name}.svg').read_text(encoding='utf-8').strip()
     t = re.sub(r'^<\?xml[^>]*>\s*', '', t)
+    if name == 'mappa-dentro-le-mura':       # crop to the walls: the map draws larger (paths untouched)
+        t = t.replace('viewBox="0 0 800 800"', 'viewBox="150 30 600 750"', 1)
     return t.replace('<svg ', '<svg ' + attrs + ' ', 1) if attrs else t
 
 
@@ -188,7 +190,9 @@ ARROW = svg('freccia-osteria', 'class="arrow" focusable="false"')
 ARCH = ('<svg class="arch__line" data-arch-line viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true" focusable="false">'
         '<path vector-effect="non-scaling-stroke" d="M0 125 V48 A62 62 0 0 1 50 0 A62 62 0 0 1 100 48 V125"/></svg>')
 DISH_ICONS = ['icon-pici', 'icon-pici', 'icon-tartufo', 'icon-cinghiale', 'icon-coccio', 'icon-coccio', 'icon-tagliere', 'icon-tagliere']
-MAP_POS = [(41, 4), (64, 33), (73, 40), (61, 48), (57, 62), (31, 70), (85, 93)]
+# map labels: SVG coordinates of the place and where the label sits (r right, l left, b below, w wraps)
+MAP_VIEWBOX = (150, 30, 600, 750)
+MAP_POS = [(330, 60, 'r'), (478, 282, 'l'), (545, 345, 'rw'), (486, 360, 'b'), (430, 470, 'l'), (330, 520, 'r'), (668, 722, 'l')]
 
 
 # ---------------------------------------------------------------- one page
@@ -273,17 +277,18 @@ class Page:
     # ---- composed blocks
     def dish(self, n):
         name, line, price, badge = [p.strip() for p in (self.c('tavola-carta', f'dish_{n}') + ' ').split('|')]
-        b = f'\n      <p class="dish__badges"><span class="badge badge--oste">{esc(badge)}</span></p>' if badge else ''
+        b = f'<p class="dish__badges"><span class="badge badge--oste">{esc(badge)}</span></p>\n      ' if badge else ''
         return (f'<li class="dish carta__dish" data-reveal>\n'
                 f'    <span class="carta__icon">{svg(DISH_ICONS[n - 1], "aria-hidden=\"true\" focusable=\"false\"")}</span>\n'
                 f'    <div class="carta__body">\n'
                 f'      <div class="dish__head"><span class="dish__name">{esc(name)}</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">{esc(price)}</span></div>\n'
-                f'      <p class="dish__desc">{esc(line)}</p>{b}\n'
+                f'      {b}<p class="dish__desc">{esc(line)}</p>\n'
                 f'    </div>\n  </li>')
 
     def blocks(self):
         b = {'arrow': ARROW, 'archline': ARCH}
-        b['address'] = '<br>'.join(esc(p) for p in self.c('dove-siamo', 'address_block').split(' // '))
+        lines = self.c('dove-siamo', 'address_block').split(' // ')
+        b['address'] = '<br>'.join(esc(p) if i else re.sub(r'(\d+(?:/\d+)?)$', r'<span class="dove__num">\1</span>', esc(p)) for i, p in enumerate(lines))
         b['hours_compact'] = '<br>'.join(esc(p) for p in self.c('global-footer', 'hours_compact').split(' / '))
         if self.kind == 'home':
             b['dishes'] = ('<ul class="carta__list carta__list--a" data-reveal-group>\n  ' + '\n  '.join(self.dish(n) for n in range(1, 5)) + '\n</ul>\n'
@@ -298,9 +303,14 @@ class Page:
             if len(labels) != len(MAP_POS):
                 fail('map_labels must have seven labels')
             spans = []
-            for (x, y), lab in zip(MAP_POS, labels):
-                cls = 'map__label map__label--osteria' if lab == 'Osteria dei Rossi' else 'map__label'
-                spans.append(f'<span class="{cls}" style="left:{x}%;top:{y}%">{esc(lab)}</span>')
+            vx, vy, vw, vh = MAP_VIEWBOX
+            for (x, y, place), lab in zip(MAP_POS, labels):
+                cls = 'map__label map__label--' + place[0]
+                if 'w' in place:
+                    cls += ' map__label--wrap'
+                if lab == 'Osteria dei Rossi':
+                    cls += ' map__label--osteria'
+                spans.append(f'<span class="{cls}" style="left:{(x - vx) / vw * 100:.2f}%;top:{(y - vy) / vh * 100:.2f}%">{esc(lab)}</span>')
             b['maplabels'] = '\n          '.join(spans)
             b['faq'] = '\n'.join(
                 f'      <details class="faq__item" data-reveal{" open" if i == 0 else ""}>\n'
@@ -326,7 +336,7 @@ class Page:
             end = raw.index('</section>', start) + len('</section>\n')
             out.append(raw[pos:end])
             out.append(f'<figure class="menu-band">\n  <div class="menu-band__media ph-{slug}">\n    '
-                       f'{self.pic(slug, "100vw", "menu-band__img", "parallax")}\n  </div>\n</figure>\n')
+                       f'{self.pic(slug, "(max-width: 44.99rem) 200vw, 100vw", "menu-band__img", "parallax")}\n  </div>\n</figure>\n')
             pos = end
         out.append(raw[pos:])
         joined = ''.join(out)
@@ -344,10 +354,11 @@ class Page:
         tpl = tpl.replace('{{meta}}', self.meta()).replace('{{jsonld}}', self.jsonld())
         hero = ''
         if self.kind == 'home':
-            hero = (f'<link rel="preload" as="image" type="image/avif" fetchpriority="high" imagesizes="100vw" '
+            hero = (f'<link rel="preload" as="image" type="image/avif" fetchpriority="high" imagesizes="(max-width: 44.99rem) 200vw, 100vw" '
                     f'imagesrcset="{self.srcset("osteria-dei-rossi-siena-esterno")}">\n')
         tpl = tpl.replace('{{preload_hero}}', hero).replace('{{lang}}', self.lang).replace('{{a}}', self.a)
         tpl = tpl.replace('{{cur_it}}', ' aria-current="page"' if self.lang == 'it' and self.kind != '404' else '')
+        tpl = tpl.replace('{{cur_menu}}', ' aria-current="page"' if self.kind == 'menu' else '')
         tpl = tpl.replace('{{cur_en}}', ' aria-current="page"' if self.lang == 'en' else '')
         for key, val in self.blocks().items():
             tpl = tpl.replace('{{' + key + '}}', val)

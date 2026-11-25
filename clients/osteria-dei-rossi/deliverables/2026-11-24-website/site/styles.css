@@ -64,7 +64,13 @@ p,ul,ol,dl,dd,figure,h1,h2,h3,h4,blockquote{margin:0}
 ul,ol{padding:0;list-style:none}
 address{font-style:normal}
 button{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+/* Gold only on dark surfaces */
+.hero :focus-visible,.band :focus-visible,.section--green :focus-visible,.site-footer :focus-visible,.menu-hero :focus-visible,
+.cta-bar :focus-visible,html.menu-open .site-nav :focus-visible,html.menu-open .site-header :focus-visible,
+.site-header:not(.is-solid) :focus-visible,.menu-closing :focus-visible{outline-color:var(--gold)}
+.page-text-body .site-header:not(.is-solid) :focus-visible{outline-color:var(--green)}
+html.menu-open .page-text-body .site-header :focus-visible,.page-text-body html.menu-open .site-header :focus-visible{outline-color:var(--gold)}
 ::selection{background:var(--gold);color:var(--green)}
 
 .container{width:var(--container);margin-inline:auto}
@@ -204,14 +210,24 @@ html.menu-open .site-nav{visibility:visible;opacity:1;transition:opacity var(--d
   .site-nav__links{display:flex;gap:1.75rem}
   .site-nav__links li+li{margin-top:0}
   .site-nav__links a{
+    white-space:nowrap;
     font:500 .8125rem/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;
     padding-block:.75rem;background:linear-gradient(currentColor,currentColor) left calc(100% - .35rem)/0 1px no-repeat;
     transition:background-size var(--d1) var(--ease);
   }
   .site-nav__links a:hover{font-style:normal;background-size:100% 1px}
-  .site-nav__cta{min-height:2.75rem}
+  .site-nav__cta{min-height:2.75rem;white-space:nowrap}
   .site-nav__contact{display:none}
   html.menu-open .site-header{background:inherit}
+}
+
+@media (min-width:64rem) and (max-width:68.74rem){
+  .site-nav{gap:1.25rem}
+  .site-nav__links{gap:1.1rem}
+  .site-nav__links a{letter-spacing:.08em}
+}
+@media (min-width:64rem) and (hover:hover) and (pointer:fine){
+  .site-header.is-solid .site-nav .btn--line:hover,.page-text-body .site-header .site-nav .btn--line:hover{background:var(--green);color:var(--cream);border-color:var(--green)}
 }
 
 /* ---------- 7. Rail, intro, booking bar (motion.css takes over) ---------- */
@@ -252,7 +268,7 @@ picture img{width:100%;height:100%;object-fit:cover}
 }
 .arch__line{
   position:absolute;left:-12px;top:-12px;width:calc(100% + 24px);height:calc(100% + 12px);
-  fill:none;stroke:var(--gold);stroke-width:1;overflow:visible;pointer-events:none;
+  max-width:none;fill:none;stroke:var(--gold);stroke-width:1;overflow:visible;pointer-events:none;
 }
 
 .tile__box{position:relative;isolation:isolate;overflow:visible}
@@ -337,18 +353,34 @@ picture img{width:100%;height:100%;object-fit:cover}
 .hero__cue{display:inline-flex;flex-direction:column;align-items:center;gap:.75rem;text-decoration:none;text-align:center;min-height:2.75rem}
 .hero__cue span{white-space:nowrap}
 .hero__cue-arrow{width:4.5rem;height:auto;transform:rotate(90deg);margin-block:1.6rem .4rem;color:var(--gold)}
-/* Phones: the scrim follows the text block, however tall it is */
+/* Phones: the scrim follows the text block, graded from its top to the bottom edge */
 @media (max-width:44.99rem){
-  .hero__media::after{background:linear-gradient(to bottom, rgb(15 15 13 / .45) 0%, rgb(15 15 13 / 0) 22%),rgb(28 65 48 / .2)}
+  .hero__media::after{background:linear-gradient(to bottom, rgb(15 15 13 / .45) 0%, rgb(15 15 13 / 0) 22%)}
   .hero__body::before{
     content:"";position:absolute;z-index:-1;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);
-    background:linear-gradient(to top, rgb(28 65 48 / .95) 0%, rgb(28 65 48 / .88) calc(100% - 7rem), rgb(28 65 48 / 0) 100%);
+    background:linear-gradient(to top, rgb(28 65 48 / .92) 0%, rgb(28 65 48 / .8) 45%, rgb(28 65 48 / .45) 78%, rgb(28 65 48 / 0) 100%);
   }
+  .hero__opening{display:none}
+  .hero__aside{justify-content:center}
+  .ph-osteria-dei-rossi-siena-esterno img{object-position:50% 100%}
 }
 @media (min-width:45rem){
   .hero__body{grid-template-columns:minmax(0,1fr) auto;align-items:end}
   .hero__aside{flex-direction:column;align-items:flex-end;border-top:0;padding-top:0;text-align:right}
   .hero__lead{font-size:1.125rem}
+  .ph-osteria-dei-rossi-siena-esterno img{object-position:50% 100%}
+  .hero__media::after{
+    background:
+      linear-gradient(to top, rgb(28 65 48 / .9) 0%, rgb(28 65 48 / .7) 30%, rgb(28 65 48 / .25) 52%, rgb(28 65 48 / 0) 68%),
+      linear-gradient(to bottom, rgb(15 15 13 / .5) 0%, rgb(15 15 13 / .2) 18%, rgb(15 15 13 / 0) 30%),
+      rgb(28 65 48 / .1);
+  }
+  /* The left gradient sits behind the lower 60% of the text block only */
+  .hero__body::before{
+    content:"";position:absolute;z-index:-1;left:calc(50% - 50vw);bottom:0;width:calc(50vw + 38rem);height:78%;
+    background:linear-gradient(to right, rgb(28 65 48 / .78) 0%, rgb(28 65 48 / .62) 55%, rgb(28 65 48 / 0) 100%);
+    -webkit-mask:linear-gradient(to top, #000 0%, #000 60%, transparent 100%);mask:linear-gradient(to top, #000 0%, #000 60%, transparent 100%);
+  }
 }
 
 /* ---------- 12. Photo bands ---------- */
@@ -381,7 +413,7 @@ picture img{width:100%;height:100%;object-fit:cover}
 .band__content .kicker+h2{margin-top:1.25rem}
 .band .kicker{color:var(--cream)}
 .band .icon--large{color:var(--gold)}
-.price-line{font:400 1.375rem/1.3 var(--font-display);font-style:italic}
+.price-line{font:600 1.125rem/1.4 var(--font-text)}
 .band__actions{padding-top:.5rem}
 
 @media (min-width:45rem){
@@ -423,13 +455,16 @@ picture img{width:100%;height:100%;object-fit:cover}
 .via__tile{width:58%;margin-top:-26%;position:relative;z-index:1}
 @media (min-width:45rem){
   .via__text{grid-column:1/6;padding-top:1rem}
-  .facts{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
-  .facts li{border-bottom:0;padding:1.125rem 1rem 1.125rem 0}
-  .facts li+li{border-left:1px solid var(--line);padding-left:1rem}
   .via__arrow{transform:none;width:clamp(10rem, 22vw, 17rem);margin:3rem calc(-1 * var(--gap) - 4rem) 0 auto}
   .via__media{grid-column:7/13;margin-top:8rem}
   .via__arch{width:66%}
   .via__tile{width:52%;margin-top:-24%}
+}
+
+@media (min-width:64rem){
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+  .facts li{border-bottom:0;padding:1.125rem 1rem 1.125rem 0}
+  .facts li+li{border-left:1px solid var(--line);padding-left:1rem}
 }
 
 /* ---------- 14. La Sala ---------- */
@@ -463,21 +498,24 @@ picture img{width:100%;height:100%;object-fit:cover}
   .carta__tagliere{grid-column:7/13;grid-row:1/3}
   .carta__lardo{grid-column:1/4;grid-row:2}
   .carta__formaggi{grid-column:4/7;grid-row:2;margin-top:5rem}
-  .carta__list{grid-row:3;margin-top:1rem}
-  .carta__list--a{grid-column:1/7}
-  .carta__list--b{grid-column:7/13;margin-top:1rem;border-top:1px solid var(--line)}
-  .carta__umido{grid-column:2/13;grid-row:4}
+  .carta__list{grid-column:1/-1;grid-row:3;margin-top:1rem}
+  .carta__list--b{grid-row:4;margin-top:-3rem;border-top:0}
   .carta__tartufo{grid-column:1/5;grid-row:5;align-self:end}
   .carta__contorni{grid-column:6/12;grid-row:5;margin-top:0}
+}
+@media (min-width:64rem){
+  .carta__list--a{grid-column:1/7}
+  .carta__list--b{grid-column:7/13;grid-row:3;margin-top:1rem;border-top:1px solid var(--line)}
+  .carta__tartufo,.carta__contorni{grid-row:4}
 }
 
 /* Dish rows: shared by the home list and the menu page */
 .dish__head{display:flex;align-items:baseline;gap:.75rem}
-.dish__name,.variant__name{font:400 1.3rem/1.2 var(--font-display);min-width:0}
+.dish__name,.variant__name{font:400 1.3rem/1.2 var(--font-display);font-variation-settings:"opsz" 12;min-width:0}
 .dish__dots{flex:1 1 1.5rem;min-width:1.5rem;height:3px;align-self:baseline;background:radial-gradient(circle, currentColor 0 .8px, transparent 1.1px) left center/6px 3px repeat-x;opacity:.55}
 .dish__price{font:600 .9375rem/1.2 var(--font-text);white-space:nowrap;font-variant-numeric:tabular-nums}
 .dish__desc{margin-top:.375rem;font-size:.9375rem;line-height:1.55;color:var(--soft);max-width:36em}
-.dish__badges{margin-top:.625rem;display:flex;flex-wrap:wrap;gap:.5rem}
+.dish__badges{margin-top:.375rem;display:flex;flex-wrap:wrap;gap:.5rem}
 .badge{
   display:inline-flex;align-items:center;gap:.5rem;
   font:600 .6875rem/1.2 var(--font-text);letter-spacing:.14em;text-transform:uppercase;
@@ -490,7 +528,13 @@ picture img{width:100%;height:100%;object-fit:cover}
 .variant+.variant{margin-top:.75rem}
 .variant__name{font-size:1.0625rem;font-style:italic}
 
+@media (max-width:63.99rem){
+  .dish__dots{display:none}
+  .dish__name,.variant__name{flex:1 1 auto;text-wrap:balance}
+}
+
 /* ---------- 16. La Cantina ---------- */
+.cantina{margin-top:var(--section)}
 .wines{padding-top:.5rem}
 .wines__label{font:600 var(--fs-kicker)/1.4 var(--font-text);letter-spacing:.18em;text-transform:uppercase}
 .wines__list{margin-top:.75rem;border-top:1px solid rgb(255 250 223 / .4)}
@@ -521,13 +565,15 @@ picture img{width:100%;height:100%;object-fit:cover}
 .timeline__steps li{position:relative;padding-left:2rem}
 .timeline__steps li+li{margin-top:1.75rem}
 .timeline__steps li::before{content:"";position:absolute;left:0;top:.45rem;width:.6875rem;height:.6875rem;border-radius:50%;background:var(--cream-deep);border:1px solid var(--gold)}
-.timeline__year{display:block;font:400 1.75rem/1 var(--font-display)}
+.timeline__year{display:block;font:400 1.75rem/1 var(--font-display);font-variation-settings:"opsz" 12}
 .timeline__text{display:block;margin-top:.5rem;font-size:.9375rem;line-height:1.5;color:var(--soft)}
 .contrada__palio{margin-top:3rem;display:flex;align-items:center;gap:1.25rem;padding-top:1.5rem;border-top:1px solid var(--line)}
 .contrada__palio .icon--large{color:var(--green)}
 @media (min-width:45rem){
-  .contrada__arch{grid-column:1/6;width:auto;margin-inline:12px}
-  .contrada__text{grid-column:7/13}
+  .contrada__arch{grid-column:1/6;grid-row:1;width:auto;margin-inline:12px}
+  .contrada__text{grid-column:7/13;grid-row:1}
+}
+@media (min-width:64rem){
   .timeline__line{left:0;right:0;top:.3125rem;bottom:auto;width:100%;height:2px}
   .timeline__h{display:inline}
   .timeline__v{display:none}
@@ -546,13 +592,15 @@ picture img{width:100%;height:100%;object-fit:cover}
 .prenota__hours .label-title{color:var(--cream);font-size:.8125rem}
 .hours{margin-top:1rem;border-top:1px solid var(--line)}
 .hours__row{padding:.875rem 0;border-bottom:1px solid var(--line)}
-.hours dt{font:400 1.25rem/1.3 var(--font-display)}
+.hours dt{font:400 1.25rem/1.3 var(--font-display);white-space:nowrap}
 .hours dd{font-size:.9375rem;margin-top:.25rem}
 .prenota__hours .note{margin-top:1.25rem;color:rgb(255 250 223 / .86)}
 @media (min-width:45rem){
   .prenota__main{grid-column:1/7}
   .prenota__hours{grid-column:8/13;padding-top:1rem}
   .prenota__actions .btn{width:auto}
+}
+@media (min-width:64rem){
   .hours__row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:baseline}
   .hours dd{margin-top:0;text-align:right}
 }
@@ -560,15 +608,19 @@ picture img{width:100%;height:100%;object-fit:cover}
 .dove .grid{row-gap:3.5rem;align-items:center}
 .dove__text,.map{grid-column:1/-1}
 .dove__address{font:400 1.5rem/1.3 var(--font-display)}
-.map__box{position:relative;aspect-ratio:1;width:100%}
+.dove__num{font:600 .85em/1 var(--font-text)}
+.map__box{position:relative;aspect-ratio:4/5;width:100%}
 .map__svg{width:100%;height:100%}
 .map__label{
   position:absolute;transform:translate(-50%,-50%);white-space:nowrap;
-  font:600 .6875rem/1 var(--font-text);letter-spacing:.1em;text-transform:uppercase;font-variant:small-caps;
+  font:600 11px/1.1 var(--font-text);letter-spacing:.06em;text-transform:uppercase;
   color:var(--green);background:rgb(255 250 223 / .85);padding:.2rem .3rem;
 }
-.map__label--osteria{font-weight:800;transform:translate(1.1rem,-50%);box-shadow:inset 0 -2px 0 var(--gold)}
-@media (max-width:44.99rem){.map__label{font-size:.625rem;letter-spacing:.06em}}
+.map__label--r{transform:translate(.65rem,-50%)}
+.map__label--l{transform:translate(calc(-100% - .65rem),-50%)}
+.map__label--b{transform:translate(-50%,.65rem)}
+.map__label--wrap{white-space:normal;width:6.5rem;box-sizing:border-box}
+.map__label--osteria{font-weight:800;box-shadow:inset 0 -2px 0 var(--gold)}
 .map figcaption{text-align:center}
 @media (min-width:45rem){
   .dove__text{grid-column:1/6}
@@ -584,7 +636,7 @@ picture img{width:100%;height:100%;object-fit:cover}
   padding:1.375rem 0;min-height:2.75rem;
 }
 .faq__item summary::-webkit-details-marker{display:none}
-.faq__q{font:400 1.35rem/1.3 var(--font-display);text-wrap:pretty}
+.faq__q{font:400 1.35rem/1.3 var(--font-display);font-variation-settings:"opsz" 12;text-wrap:pretty}
 .faq__item summary::after{
   content:"";flex:none;width:14px;height:14px;margin-top:.45rem;
   background:linear-gradient(currentColor,currentColor) center/14px 1px no-repeat,linear-gradient(currentColor,currentColor) center/1px 14px no-repeat;
@@ -600,7 +652,7 @@ picture img{width:100%;height:100%;object-fit:cover}
 .site-footer__brand p{margin-top:1.5rem;max-width:24em;font:400 1.25rem/1.35 var(--font-display);font-style:italic}
 .site-footer__label{font:600 var(--fs-kicker)/1.4 var(--font-text);letter-spacing:.18em;text-transform:uppercase;color:var(--cream);margin-bottom:.625rem}
 .site-footer__col address+.site-footer__label{margin-top:1.5rem}
-.site-footer__col a{text-underline-offset:4px;display:inline-block;padding-block:.35rem}
+.site-footer__col a{text-underline-offset:4px;display:inline-flex;align-items:center;min-height:2.75rem}
 .site-footer__small{margin-top:.75rem;font-size:.8125rem;color:rgb(255 250 223 / .82)}
 .site-footer__bottom{
   margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);
@@ -639,6 +691,11 @@ picture img{width:100%;height:100%;object-fit:cover}
   overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
 }
 .menu-nav ul::-webkit-scrollbar{display:none}
+.menu-nav::after{
+  content:"";position:absolute;top:0;right:0;bottom:0;width:2.5rem;pointer-events:none;
+  background:linear-gradient(to right, rgb(255 250 223 / 0), var(--cream));
+}
+@media (min-width:52rem){.menu-nav::after{display:none}}
 .menu-nav a{
   display:inline-flex;align-items:center;min-height:3rem;white-space:nowrap;text-decoration:none;
   font:600 .75rem/1 var(--font-text);letter-spacing:.14em;text-transform:uppercase;

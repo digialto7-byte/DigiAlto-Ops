@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#1C4130">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="preload" as="image" type="image/avif" fetchpriority="high" imagesizes="100vw" imagesrcset="assets/img/osteria-dei-rossi-siena-esterno-640.avif 640w, assets/img/osteria-dei-rossi-siena-esterno-960.avif 960w, assets/img/osteria-dei-rossi-siena-esterno-1280.avif 1280w, assets/img/osteria-dei-rossi-siena-esterno-1600.avif 1600w, assets/img/osteria-dei-rossi-siena-esterno-2048.avif 2048w">
+<link rel="preload" as="image" type="image/avif" fetchpriority="high" imagesizes="(max-width: 44.99rem) 200vw, 100vw" imagesrcset="assets/img/osteria-dei-rossi-siena-esterno-640.avif 640w, assets/img/osteria-dei-rossi-siena-esterno-960.avif 960w, assets/img/osteria-dei-rossi-siena-esterno-1280.avif 1280w, assets/img/osteria-dei-rossi-siena-esterno-1600.avif 1600w, assets/img/osteria-dei-rossi-siena-esterno-2048.avif 2048w">
 <link rel="stylesheet" href="assets/fonts/fonts.css" id="fonts-css">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="motion.css">
@@ -348,7 +348,7 @@
     <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Apri il menù di navigazione" data-label-open="Apri il menù di navigazione" data-label-close="Chiudi il menù di navigazione">
       <span class="menu-toggle__line"></span><span class="menu-toggle__line"></span>
     </button>
-    <nav class="site-nav" id="menu-panel">
+    <nav class="site-nav" id="menu-panel" aria-label="Osteria dei Rossi">
       <ul class="site-nav__links">
         <li><a href="#via">La via</a></li>
         <li><a href="#tavola">La tavola</a></li>
@@ -378,13 +378,13 @@
 <aside class="rail" aria-hidden="true">
   <span class="rail__line"></span><span class="rail__dot"></span>
   <ol class="rail__stops">
-    <li data-stop="porta"><span>I</span><b>La Porta</b></li>
-    <li data-stop="via"><span>II</span><b>La Via</b></li>
-    <li data-stop="sala"><span>III</span><b>La Sala</b></li>
-    <li data-stop="tavola"><span>IV</span><b>La Tavola</b></li>
-    <li data-stop="cantina"><span>V</span><b>La Cantina</b></li>
-    <li data-stop="contrada"><span>VI</span><b>La Contrada</b></li>
-    <li data-stop="prenota"><span>VII</span><b>Prenota</b></li>
+    <li data-stop="porta"><span>·</span><b>La Porta</b></li>
+    <li data-stop="via"><span>I</span><b>La Via</b></li>
+    <li data-stop="sala"><span>II</span><b>La Sala</b></li>
+    <li data-stop="tavola"><span>III</span><b>La Tavola</b></li>
+    <li data-stop="cantina"><span>IV</span><b>La Cantina</b></li>
+    <li data-stop="contrada"><span>V</span><b>La Contrada</b></li>
+    <li data-stop="prenota"><span>VI</span><b>Prenota</b></li>
   </ol>
 </aside>
 
@@ -398,7 +398,7 @@
 <!-- ============ 0 · La Porta ============ -->
 <section id="porta" class="hero" aria-labelledby="porta-title">
   <div class="hero__media ph-osteria-dei-rossi-siena-esterno">
-    <picture><source type="image/avif" srcset="assets/img/osteria-dei-rossi-siena-esterno-640.avif 640w, assets/img/osteria-dei-rossi-siena-esterno-960.avif 960w, assets/img/osteria-dei-rossi-siena-esterno-1280.avif 1280w, assets/img/osteria-dei-rossi-siena-esterno-1600.avif 1600w, assets/img/osteria-dei-rossi-siena-esterno-2048.avif 2048w" sizes="100vw"><img class="hero__img" src="assets/img/osteria-dei-rossi-siena-esterno-960.jpg" width="960" height="768" alt="Ingresso dell'osteria a Siena: muro di mattoni, persiane verdi, ombrelloni crema, tavoli sulla strada e una botte" loading="eager" fetchpriority="high" decoding="async"></picture>
+    <picture><source type="image/avif" srcset="assets/img/osteria-dei-rossi-siena-esterno-640.avif 640w, assets/img/osteria-dei-rossi-siena-esterno-960.avif 960w, assets/img/osteria-dei-rossi-siena-esterno-1280.avif 1280w, assets/img/osteria-dei-rossi-siena-esterno-1600.avif 1600w, assets/img/osteria-dei-rossi-siena-esterno-2048.avif 2048w" sizes="(max-width: 44.99rem) 200vw, 100vw"><img class="hero__img" src="assets/img/osteria-dei-rossi-siena-esterno-960.jpg" width="960" height="768" alt="Ingresso dell'osteria a Siena: muro di mattoni, persiane verdi, ombrelloni crema, tavoli sulla strada e una botte" loading="eager" fetchpriority="high" decoding="async"></picture>
   </div>
   <div class="hero__body container">
     <div class="hero__content" data-on-photo>
@@ -483,7 +483,7 @@
 <section id="sala" class="sala" aria-labelledby="sala-title">
   <div class="band band--left band--sala">
     <div class="band__media ph-sala-osteria-tradizionale-toscana">
-      <picture><source type="image/avif" srcset="assets/img/sala-osteria-tradizionale-toscana-640.avif 640w, assets/img/sala-osteria-tradizionale-toscana-960.avif 960w, assets/img/sala-osteria-tradizionale-toscana-1280.avif 1280w, assets/img/sala-osteria-tradizionale-toscana-1600.avif 1600w, assets/img/sala-osteria-tradizionale-toscana-2048.avif 2048w" sizes="100vw"><img class="band__img" src="assets/img/sala-osteria-tradizionale-toscana-960.jpg" width="960" height="640" alt="Sala con soffitto a travi, pareti in legno, pavimento in cotto, tavoli con carta verde e fotografie in bianco e nero" loading="lazy" decoding="async" data-parallax></picture>
+      <picture><source type="image/avif" srcset="assets/img/sala-osteria-tradizionale-toscana-640.avif 640w, assets/img/sala-osteria-tradizionale-toscana-960.avif 960w, assets/img/sala-osteria-tradizionale-toscana-1280.avif 1280w, assets/img/sala-osteria-tradizionale-toscana-1600.avif 1600w, assets/img/sala-osteria-tradizionale-toscana-2048.avif 2048w" sizes="(max-width: 44.99rem) 200vw, 100vw"><img class="band__img" src="assets/img/sala-osteria-tradizionale-toscana-960.jpg" width="960" height="640" alt="Sala con soffitto a travi, pareti in legno, pavimento in cotto, tavoli con carta verde e fotografie in bianco e nero" loading="lazy" decoding="async" data-parallax></picture>
     </div>
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
@@ -535,7 +535,7 @@
 <section id="tavola" class="tavola" aria-labelledby="tavola-title">
   <div class="band band--right band--tavola">
     <div class="band__media ph-cinghiale-in-dolceforte-ricetta-medievale">
-      <picture><source type="image/avif" srcset="assets/img/cinghiale-in-dolceforte-ricetta-medievale-640.avif 640w, assets/img/cinghiale-in-dolceforte-ricetta-medievale-960.avif 960w, assets/img/cinghiale-in-dolceforte-ricetta-medievale-1280.avif 1280w, assets/img/cinghiale-in-dolceforte-ricetta-medievale-1600.avif 1600w, assets/img/cinghiale-in-dolceforte-ricetta-medievale-2048.avif 2048w" sizes="100vw"><img class="band__img" src="assets/img/cinghiale-in-dolceforte-ricetta-medievale-960.jpg" width="960" height="768" alt="Primo piano di una ciotola di terracotta a due manici con cinghiale in dolceforte scuro e lucido e una foglia di alloro" loading="lazy" decoding="async" data-parallax></picture>
+      <picture><source type="image/avif" srcset="assets/img/cinghiale-in-dolceforte-ricetta-medievale-640.avif 640w, assets/img/cinghiale-in-dolceforte-ricetta-medievale-960.avif 960w, assets/img/cinghiale-in-dolceforte-ricetta-medievale-1280.avif 1280w, assets/img/cinghiale-in-dolceforte-ricetta-medievale-1600.avif 1600w, assets/img/cinghiale-in-dolceforte-ricetta-medievale-2048.avif 2048w" sizes="(max-width: 44.99rem) 200vw, 100vw"><img class="band__img" src="assets/img/cinghiale-in-dolceforte-ricetta-medievale-960.jpg" width="960" height="768" alt="Primo piano di una ciotola di terracotta a due manici con cinghiale in dolceforte scuro e lucido e una foglia di alloro" loading="lazy" decoding="async" data-parallax></picture>
     </div>
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
@@ -583,8 +583,8 @@
 </svg></span>
     <div class="carta__body">
       <div class="dish__head"><span class="dish__name">Pici al Ragù Bianco di Cinta Senese</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">16 €</span></div>
-      <p class="dish__desc">Ragù bianco di cinta senese, senza pomodoro, con erbe e spezie</p>
       <p class="dish__badges"><span class="badge badge--oste">Consigliato dall'Oste</span></p>
+      <p class="dish__desc">Ragù bianco di cinta senese, senza pomodoro, con erbe e spezie</p>
     </div>
   </li>
   <li class="dish carta__dish" data-reveal>
@@ -658,8 +658,8 @@
 </svg></span>
     <div class="carta__body">
       <div class="dish__head"><span class="dish__name">Tegamata di Cinta Senese</span><span class="dish__dots" aria-hidden="true"></span><span class="dish__price">19 €</span></div>
-      <p class="dish__desc">Stufato di cinta senese a cottura lenta, senza pomodoro, dalle Crete Senesi</p>
       <p class="dish__badges"><span class="badge badge--oste">Consigliato dall'Oste</span></p>
+      <p class="dish__desc">Stufato di cinta senese a cottura lenta, senza pomodoro, dalle Crete Senesi</p>
     </div>
   </li>
   <li class="dish carta__dish" data-reveal>
@@ -695,12 +695,6 @@
     </div>
   </li>
 </ul>
-      <figure class="tile carta__umido">
-        <div class="tile__box tile--wide ph-cinghiale-in-umido-coccio" data-mask>
-          <picture><source type="image/avif" srcset="assets/img/cinghiale-in-umido-coccio-640.avif 640w, assets/img/cinghiale-in-umido-coccio-960.avif 960w, assets/img/cinghiale-in-umido-coccio-1280.avif 1280w, assets/img/cinghiale-in-umido-coccio-1600.avif 1600w, assets/img/cinghiale-in-umido-coccio-2048.avif 2048w" sizes="(min-width: 45rem) 80vw, 92vw"><img src="assets/img/cinghiale-in-umido-coccio-960.jpg" width="960" height="768" alt="Ciotola di terracotta con cinghiale in umido e una foglia di alloro, contorni, pane e vino rosso" loading="lazy" decoding="async"></picture>
-        </div>
-        <figcaption class="caption" data-reveal>Cinghiale in umido nel coccio</figcaption>
-      </figure>
       <figure class="tile carta__tartufo">
         <div class="tile__box tile--54 ph-tartufo-nero-fresco" data-mask>
           <picture><source type="image/avif" srcset="assets/img/tartufo-nero-fresco-480.avif 480w, assets/img/tartufo-nero-fresco-720.avif 720w, assets/img/tartufo-nero-fresco-960.avif 960w, assets/img/tartufo-nero-fresco-1280.avif 1280w" sizes="(min-width: 45rem) 28vw, 44vw"><img src="assets/img/tartufo-nero-fresco-720.jpg" width="720" height="576" alt="Alcuni tartufi neri interi su carta bianca, uno tagliato a metà" loading="lazy" decoding="async"></picture>
@@ -718,7 +712,7 @@
 
   <div class="band band--left band--fiorentina">
     <div class="band__media ph-bistecca-alla-fiorentina-siena">
-      <picture><source type="image/avif" srcset="assets/img/bistecca-alla-fiorentina-siena-640.avif 640w, assets/img/bistecca-alla-fiorentina-siena-960.avif 960w, assets/img/bistecca-alla-fiorentina-siena-1280.avif 1280w, assets/img/bistecca-alla-fiorentina-siena-1600.avif 1600w, assets/img/bistecca-alla-fiorentina-siena-2048.avif 2048w" sizes="100vw"><img class="band__img" src="assets/img/bistecca-alla-fiorentina-siena-960.jpg" width="960" height="768" alt="Bistecca alla fiorentina cruda con l'osso a T su un tagliere scuro, con coltello e rosmarino, muro di mattoni dietro" loading="lazy" decoding="async" data-parallax></picture>
+      <picture><source type="image/avif" srcset="assets/img/bistecca-alla-fiorentina-siena-640.avif 640w, assets/img/bistecca-alla-fiorentina-siena-960.avif 960w, assets/img/bistecca-alla-fiorentina-siena-1280.avif 1280w, assets/img/bistecca-alla-fiorentina-siena-1600.avif 1600w, assets/img/bistecca-alla-fiorentina-siena-2048.avif 2048w" sizes="(max-width: 44.99rem) 200vw, 100vw"><img class="band__img" src="assets/img/bistecca-alla-fiorentina-siena-960.jpg" width="960" height="768" alt="Bistecca alla fiorentina cruda con l'osso a T su un tagliere scuro, con coltello e rosmarino, muro di mattoni dietro" loading="lazy" decoding="async" data-parallax></picture>
     </div>
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
@@ -748,7 +742,7 @@
 <section id="cantina" class="cantina" aria-labelledby="cantina-title">
   <div class="band band--left band--cantina">
     <div class="band__media ph-grotta-volte-in-mattoni-cantina">
-      <picture><source type="image/avif" srcset="assets/img/grotta-volte-in-mattoni-cantina-640.avif 640w, assets/img/grotta-volte-in-mattoni-cantina-960.avif 960w, assets/img/grotta-volte-in-mattoni-cantina-1280.avif 1280w, assets/img/grotta-volte-in-mattoni-cantina-1600.avif 1600w, assets/img/grotta-volte-in-mattoni-cantina-2048.avif 2048w" sizes="100vw"><img class="band__img" src="assets/img/grotta-volte-in-mattoni-cantina-960.jpg" width="960" height="640" alt="Sala con volte in mattoni a più arcate, una porta in legno in fondo e tavoli apparecchiati con tovaglioli a quadretti" loading="lazy" decoding="async" data-parallax></picture>
+      <picture><source type="image/avif" srcset="assets/img/grotta-volte-in-mattoni-cantina-640.avif 640w, assets/img/grotta-volte-in-mattoni-cantina-960.avif 960w, assets/img/grotta-volte-in-mattoni-cantina-1280.avif 1280w, assets/img/grotta-volte-in-mattoni-cantina-1600.avif 1600w, assets/img/grotta-volte-in-mattoni-cantina-2048.avif 2048w" sizes="(max-width: 44.99rem) 200vw, 100vw"><img class="band__img" src="assets/img/grotta-volte-in-mattoni-cantina-960.jpg" width="960" height="640" alt="Sala con volte in mattoni a più arcate, una porta in legno in fondo e tavoli apparecchiati con tovaglioli a quadretti" loading="lazy" decoding="async" data-parallax></picture>
     </div>
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
@@ -809,15 +803,6 @@
 <!-- ============ V · La Contrada ============ -->
 <section id="contrada" class="section contrada" aria-labelledby="contrada-title">
   <div class="container grid">
-    <figure class="arch contrada__arch">
-      <div class="arch__box">
-        <svg class="arch__line" data-arch-line viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path vector-effect="non-scaling-stroke" d="M0 125 V48 A62 62 0 0 1 50 0 A62 62 0 0 1 100 48 V125"/></svg>
-        <div class="arch__photo ph-contrada-del-bruco-barbero-tappi" data-mask>
-          <picture><source type="image/avif" srcset="assets/img/contrada-del-bruco-barbero-tappi-480.avif 480w, assets/img/contrada-del-bruco-barbero-tappi-720.avif 720w, assets/img/contrada-del-bruco-barbero-tappi-960.avif 960w, assets/img/contrada-del-bruco-barbero-tappi-1280.avif 1280w" sizes="(min-width: 45rem) 34vw, 74vw"><img src="assets/img/contrada-del-bruco-barbero-tappi-720.jpg" width="720" height="900" alt="Piccola sfera di legno dipinta di verde, giallo e blu appoggiata su un vaso di vetro pieno di tappi di sughero" loading="lazy" decoding="async"></picture>
-        </div>
-      </div>
-      <figcaption class="caption" data-reveal>Una palla di legno dipinta sui tappi</figcaption>
-    </figure>
     <div class="contrada__text">
       <div class="stack" data-reveal-group>
         <p class="kicker" data-reveal>V · La contrada</p>
@@ -843,6 +828,15 @@
         <p class="body">Il Palio si corre il 2 luglio e il 16 agosto.</p>
       </div>
     </div>
+    <figure class="arch contrada__arch">
+      <div class="arch__box">
+        <svg class="arch__line" data-arch-line viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path vector-effect="non-scaling-stroke" d="M0 125 V48 A62 62 0 0 1 50 0 A62 62 0 0 1 100 48 V125"/></svg>
+        <div class="arch__photo ph-contrada-del-bruco-barbero-tappi" data-mask>
+          <picture><source type="image/avif" srcset="assets/img/contrada-del-bruco-barbero-tappi-480.avif 480w, assets/img/contrada-del-bruco-barbero-tappi-720.avif 720w, assets/img/contrada-del-bruco-barbero-tappi-960.avif 960w, assets/img/contrada-del-bruco-barbero-tappi-1280.avif 1280w" sizes="(min-width: 45rem) 34vw, 74vw"><img src="assets/img/contrada-del-bruco-barbero-tappi-720.jpg" width="720" height="900" alt="Piccola sfera di legno dipinta di verde, giallo e blu appoggiata su un vaso di vetro pieno di tappi di sughero" loading="lazy" decoding="async"></picture>
+        </div>
+      </div>
+      <figcaption class="caption" data-reveal>Una palla di legno dipinta sui tappi</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -883,7 +877,7 @@
     <div class="container grid">
       <div class="dove__text stack" data-reveal-group>
         <h3 class="h3" data-reveal><span class="hl">Dove siamo</span> <em>in Via dei Rossi</em></h3>
-        <address class="dove__address" data-reveal>Via dei Rossi, 79/81<br>53100 Siena</address>
+        <address class="dove__address" data-reveal>Via dei Rossi, <span class="dove__num">79/81</span><br>53100 Siena</address>
         <p class="body" data-reveal>Da Piazza del Campo si arriva a piedi in circa 5 minuti. In fondo alla via c'è la Basilica di San Francesco.</p>
         <p class="body" data-reveal>In auto, il parcheggio San Francesco, in Via Baldassarre Peruzzi, è collegato al centro dalle scale mobili.</p>
         <p class="body" data-reveal>Il centro dentro le mura è ZTL, zona a traffico limitato: verificate le regole prima di entrare in auto.</p>
@@ -896,7 +890,7 @@
       </div>
       <figure class="map">
         <div class="map__box" id="mappa" data-draw="map">
-          <svg class="map__svg" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="map__svg" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="150 30 600 750" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
   <g id="mappa-mura" stroke="#1C4130" stroke-width="1.5">
     <polygon points="330,60 390,110 430,200 470,270 560,330 600,400 590,470 640,540 700,640 680,720 560,700 480,640 430,690 360,740 270,700 200,620 190,520 250,440 300,380 290,280 270,170"/>
     <path d="M340 68.33 L343.84 63.72 M360 85 L363.84 80.39 M380 101.67 L383.84 97.06 M395 121.25 L400.48 118.81 M405 143.75 L410.48 141.31 M415 166.25 L420.48 163.81 M425 188.75 L430.48 186.31 M436.67 211.67 L441.88 208.69 M450 235 L455.21 232.02 M463.33 258.33 L468.54 255.35 M488 282 L491.33 277.01 M506 294 L509.33 289.01 M524 306 L527.33 301.01 M542 318 L545.33 313.01 M566.67 341.67 L571.88 338.69 M580 365 L585.21 362.02 M593.33 388.33 L598.54 385.35 M598.33 411.67 L604.27 412.52 M595 435 L600.94 435.85 M591.67 458.33 L597.61 459.18 M596.25 478.75 L601.13 475.26 M608.75 496.25 L613.63 492.76 M621.25 513.75 L626.13 510.26 M633.75 531.25 L638.63 527.76 M646 550 L651.15 546.91 M658 570 L663.15 566.91 M670 590 L675.15 586.91 M682 610 L687.15 606.91 M696.67 653.33 L702.49 654.78 M690 680 L695.82 681.45 M683.33 706.67 L689.15 708.12 M644 714 L643.01 719.92 M620 710 L619.01 715.92 M596 706 L595.01 711.92 M572 702 L571.01 707.92 M550 692.5 L546.4 697.3 M530 677.5 L526.4 682.3 M510 662.5 L506.4 667.3 M490 647.5 L486.4 652.3 M471.67 648.33 L475.91 652.57 M455 665 L459.24 669.24 M438.33 681.67 L442.57 685.91 M421.25 696.25 L424.74 701.13 M403.75 708.75 L407.24 713.63 M386.25 721.25 L389.74 726.13 M348.75 735 L346.31 740.48 M326.25 725 L323.81 730.48 M303.75 715 L301.31 720.48 M281.25 705 L278.81 710.48 M261.25 690 L256.73 693.95 M243.75 670 L239.23 673.95 M226.25 650 L221.73 653.95 M198.75 607.5 L192.78 608.1 M196.25 582.5 L190.28 583.1 M193.75 557.5 L187.78 558.1 M191.25 532.5 L185.28 533.1 M197.5 510 L192.7 506.4 M212.5 490 L207.7 486.4 M227.5 470 L222.7 466.4 M242.5 450 L237.7 446.4 M262.5 425 L257.89 421.16 M277.5 407 L272.89 403.16 M292.5 389 L287.89 385.16 M298.75 367.5 L292.78 368.1 M296.25 342.5 L290.28 343.1 M293.75 317.5 L287.78 318.1 M291.25 292.5 L285.28 293.1 M288 269 L282.1 270.07 M284 247 L278.1 248.07 M280 225 L274.1 226.07 M276 203 L270.1 204.07 M272 181 L266.1 182.07 M276 159 L270.73 156.13 M288 137 L282.73 134.13 M300 115 L294.73 112.13 M312 93 L306.73 90.13 M324 71 L318.73 68.13"/>
@@ -936,13 +930,13 @@
     <circle cx="486" cy="360" r="15" stroke="#C89550" stroke-width="1.25"/>
   </g>
 </svg>
-          <span class="map__label" style="left:41%;top:4%">Porta Camollia</span>
-          <span class="map__label" style="left:64%;top:33%">Porta Ovile</span>
-          <span class="map__label" style="left:73%;top:40%">Basilica di San Francesco</span>
-          <span class="map__label map__label--osteria" style="left:61%;top:48%">Osteria dei Rossi</span>
-          <span class="map__label" style="left:57%;top:62%">Piazza del Campo</span>
-          <span class="map__label" style="left:31%;top:70%">Duomo</span>
-          <span class="map__label" style="left:85%;top:93%">Porta Romana</span>
+          <span class="map__label map__label--r" style="left:30.00%;top:4.00%">Porta Camollia</span>
+          <span class="map__label map__label--l" style="left:54.67%;top:33.60%">Porta Ovile</span>
+          <span class="map__label map__label--r map__label--wrap" style="left:65.83%;top:42.00%">Basilica di San Francesco</span>
+          <span class="map__label map__label--b map__label--osteria" style="left:56.00%;top:44.00%">Osteria dei Rossi</span>
+          <span class="map__label map__label--l" style="left:46.67%;top:58.67%">Piazza del Campo</span>
+          <span class="map__label map__label--r" style="left:30.00%;top:65.33%">Duomo</span>
+          <span class="map__label map__label--l" style="left:86.33%;top:92.27%">Porta Romana</span>
         </div>
         <figcaption class="caption">Disegno schematico, non in scala</figcaption>
       </figure>
@@ -1009,7 +1003,7 @@
     </div>
     <div class="site-footer__col">
       <p class="site-footer__label">Indirizzo</p>
-      <address>Via dei Rossi, 79/81<br>53100 Siena</address>
+      <address>Via dei Rossi, <span class="dove__num">79/81</span><br>53100 Siena</address>
       <p class="site-footer__label">Telefono</p>
       <p><a href="tel:+390577287592">+39 0577 287592</a></p>
     </div>

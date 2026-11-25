@@ -284,6 +284,10 @@ html.header-hidden .rail {
   transform: translate3d(0, calc(-1 * var(--odr-header-h, 0px)), 0);
 }
 
+html.header-hidden .menu-nav {
+  top: 0;
+}
+
 html.menu-open .rail,
 html.intro-playing .rail {
   opacity: 0;
@@ -297,8 +301,8 @@ html.intro-playing .rail {
   }
 }
 
-/* Desktop: the fixed line with seven ticks and the travelling dot. */
-@media (min-width: 1100px) {
+/* From 1400 px: the fixed line with seven ticks, numerals, names and the travelling dot. */
+@media (min-width: 1400px) {
   html.js .rail {
     --rail-h: min(56vh, 30rem);
     top: 50%;
@@ -373,14 +377,9 @@ html.intro-playing .rail {
     color: var(--cream, #FFFADF);
   }
 
-  /* 1100 to 1359 px: the page gutter is narrow, so only line, ticks and dot show. */
-  .rail__stops li span,
-  .rail__stops li b {
-    display: none;
-  }
 }
 
-@media (min-width: 1360px) {
+@media (min-width: 1400px) {
   .rail__stops li span {
     display: block;
     margin-left: 0.4375rem;
@@ -410,9 +409,18 @@ html.intro-playing .rail {
     opacity: 1;
     transform: none;
   }
+
+  /* Ink is chosen at each label's own position (numeral and name are sampled separately). */
+  .rail__stops li b {
+    color: var(--green, #1C4130);
+  }
+
+  .rail__stops li.is-name-on-dark b {
+    color: var(--cream, #FFFADF);
+  }
 }
 
-@media (min-width: 1360px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 1400px) and (prefers-reduced-motion: no-preference) {
   .rail__stops li,
   .rail__stops li span,
   .rail__stops li b,

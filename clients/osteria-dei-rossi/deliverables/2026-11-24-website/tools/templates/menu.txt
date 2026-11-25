@@ -15,7 +15,7 @@
   </div>
 </section>
 
-<nav class="menu-nav" data-allow-overflow>
+<nav class="menu-nav" data-allow-overflow aria-label="{{c:menu-page.h1_line1}}">
   <ul>
     <li><a href="#antipasti">{{c:menu-page.section_antipasti}}</a></li>
     <li><a href="#primi">{{c:menu-page.section_primi}}</a></li>

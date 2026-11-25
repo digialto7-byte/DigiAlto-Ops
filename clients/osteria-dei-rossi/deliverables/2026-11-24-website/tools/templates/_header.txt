@@ -8,13 +8,13 @@
     <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="{{c:global-nav.menu_open_label}}" data-label-open="{{c:global-nav.menu_open_label}}" data-label-close="{{c:global-nav.menu_close_label}}">
       <span class="menu-toggle__line"></span><span class="menu-toggle__line"></span>
     </button>
-    <nav class="site-nav" id="menu-panel">
+    <nav class="site-nav" id="menu-panel" aria-label="{{alt:logo}}">
       <ul class="site-nav__links">
         <li><a href="{{u:homeanchor}}#via">{{c:global-nav.nav_via}}</a></li>
         <li><a href="{{u:homeanchor}}#tavola">{{c:global-nav.nav_tavola}}</a></li>
         <li><a href="{{u:homeanchor}}#cantina">{{c:global-nav.nav_cantina}}</a></li>
         <li><a href="{{u:homeanchor}}#contrada">{{c:global-nav.nav_contrada}}</a></li>
-        <li><a href="{{u:menu}}">{{c:global-nav.nav_menu}}</a></li>
+        <li><a href="{{u:menu}}"{{cur_menu}}>{{c:global-nav.nav_menu}}</a></li>
       </ul>
       <div class="lang" role="group" aria-label="{{c:global-nav.lang_switch_label}}">
         <a href="{{u:lang_it}}" lang="it" hreflang="it"{{cur_it}}>{{c:global-nav.lang_it}}</a>

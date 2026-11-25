@@ -38,7 +38,7 @@
   const SESSION_KEY = 'odr-intro';
   const MQ_MOTION = '(prefers-reduced-motion: no-preference)';
   const MQ_PHONE = '(max-width: 719.98px)';
-  const MQ_RAIL = '(min-width: 1100px)';
+  const MQ_RAIL = '(min-width: 1400px)';
   const SOLID_AFTER = 80; // px of scroll before the header turns solid
   const PROBE = 0.4; // share of the viewport height at which a stop becomes the current one
   const MASK_BLEED = 20; // px around a masked photo that uncover with it (offset hairline frames)
@@ -53,9 +53,8 @@
   const DOOR_RIGHT_ORIGIN = '940 650';
   const INTRO_GROUPS = ['porta-gate', 'porta-arch', 'porta-walls', 'porta-forework', 'porta-ground'];
   const MAP_PHASES = [
-    { ids: ['mappa-mura', 'mappa-porte'], at: 0, duration: 0.9 },
-    { ids: ['mappa-vie', 'mappa-luoghi'], at: 0.55, duration: 0.7 },
-    { ids: ['mappa-via-dei-rossi', 'mappa-percorso', 'mappa-osteria'], at: 1.1, duration: 0.6 }
+    { ids: ['mappa-mura', 'mappa-porte', 'mappa-osteria'], at: 0, duration: 0.5 },
+    { ids: ['mappa-vie', 'mappa-luoghi', 'mappa-via-dei-rossi', 'mappa-percorso'], at: 0.2, duration: 0.6 }
   ];
 
   /* ---------- Small helpers ---------- */
@@ -102,6 +101,7 @@
       dot: rail ? qs('.rail__dot', rail) : null,
       stops: [],
       zones: [],
+      nameZones: [],
       wide: null,
       railTop: 0,
       railHeight: 0,
@@ -245,8 +245,8 @@
     return zones;
   }
 
-  function toneAt(y) {
-    const zones = S.ui.zones;
+  function toneAt(y, list) {
+    const zones = list || S.ui.zones;
     let dark = false;
     for (let i = 0; i < zones.length; i += 1) {
       if (y >= zones[i].top && y < zones[i].bottom) {
@@ -291,9 +291,11 @@
         const rect = ui.rail.getBoundingClientRect();
         ui.railTop = rect.top;
         ui.railHeight = rect.height;
-        ui.zones = readZones(y, rect.left);
+        ui.zones = readZones(y, rect.left + 14);
+        ui.nameZones = readZones(y, rect.left + 40);
       } else {
         ui.zones = [];
+        ui.nameZones = [];
       }
     }
     const headerHeight = ui.header ? ui.header.offsetHeight : 0;
@@ -316,7 +318,8 @@
         }
         ui.stops.forEach((stop) => {
           stop.dark = null;
-          stop.li.classList.remove('is-on-dark');
+          stop.nameDark = null;
+          stop.li.classList.remove('is-on-dark', 'is-name-on-dark');
         });
       }
       ui.stops.forEach((stop) => {
@@ -403,6 +406,11 @@
           if (dark !== stop.dark) {
             stop.dark = dark;
             stop.li.classList.toggle('is-on-dark', dark);
+          }
+          const nameDark = toneAt(y + ui.railTop + stop.at * ui.railHeight + 56, ui.nameZones);
+          if (nameDark !== stop.nameDark) {
+            stop.nameDark = nameDark;
+            stop.li.classList.toggle('is-name-on-dark', nameDark);
           }
         });
         if (ui.dot) {
@@ -802,12 +810,17 @@
     });
     const rest = nodes.filter((node) => !used.has(node));
     if (rest.length) {
-      drawn = drawn.concat(addDrawing(timeline, rest, 0, 0.9));
+      drawn = drawn.concat(addDrawing(timeline, rest, 0, 0.6));
     }
-    clearDashes(timeline, drawn, 1.72);
-    const labels = qsa('.map__label', wrapper);
+    clearDashes(timeline, drawn, 0.82);
+    /* The osteria's own label comes with its pin in the first phase, the others follow. */
+    const pin = qs('.map__label--osteria', wrapper);
+    const labels = qsa('.map__label', wrapper).filter((label) => label !== pin);
+    if (pin) {
+      timeline.fromTo(pin, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none', clearProps: 'opacity' }, 0.2);
+    }
     if (labels.length) {
-      timeline.fromTo(labels, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'none', stagger: 0.05, clearProps: 'opacity' }, 1.5);
+      timeline.fromTo(labels, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none', stagger: 0.04, clearProps: 'opacity' }, 0.6);
     }
   }
 
@@ -1297,6 +1310,43 @@
     }
   }
 
+  /* Menu page: the link of the section in view gets aria-current and is kept in view in its row. */
+  function setupMenuNav() {
+    const nav = qs('.menu-nav');
+    const row = nav ? qs('ul', nav) : null;
+    if (!row || typeof win.IntersectionObserver !== 'function') {
+      return;
+    }
+    const entries = qsa('a[href^="#"]', nav)
+      .map((link) => ({ link, section: byId(link.getAttribute('href').slice(1)) }))
+      .filter((entry) => entry.section);
+    const show = (current) => {
+      entries.forEach((entry) => {
+        if (entry.link === current) {
+          entry.link.setAttribute('aria-current', 'true');
+        } else {
+          entry.link.removeAttribute('aria-current');
+        }
+      });
+      if (current && row.scrollWidth > row.clientWidth) {
+        const left = current.offsetLeft - (row.clientWidth - current.offsetWidth) / 2;
+        row.scrollTo({ left: Math.max(0, left), behavior: S.motionPref ? 'smooth' : 'auto' });
+      }
+    };
+    const observer = new win.IntersectionObserver((changes) => {
+      changes.forEach((change) => {
+        if (change.isIntersecting) {
+          const hit = entries.find((entry) => entry.section === change.target);
+          if (hit) {
+            show(hit.link);
+          }
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    entries.forEach((entry) => observer.observe(entry.section));
+    S.cleanups.push(() => observer.disconnect());
+  }
+
   function setupIntro() {
     const intro = S.intro;
     if (!intro || !intro.el || !S.motion) {
@@ -1523,6 +1573,7 @@
       }
       setupScrollUi();
       setupMenu();
+      setupMenuNav();
       setupSmoothScroll();
       setupAnchors();
       planIntro();

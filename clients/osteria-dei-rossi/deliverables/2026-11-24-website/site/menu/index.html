@@ -726,13 +726,13 @@
     <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="Apri il menù di navigazione" data-label-open="Apri il menù di navigazione" data-label-close="Chiudi il menù di navigazione">
       <span class="menu-toggle__line"></span><span class="menu-toggle__line"></span>
     </button>
-    <nav class="site-nav" id="menu-panel">
+    <nav class="site-nav" id="menu-panel" aria-label="Osteria dei Rossi">
       <ul class="site-nav__links">
         <li><a href="../#via">La via</a></li>
         <li><a href="../#tavola">La tavola</a></li>
         <li><a href="../#cantina">La cantina</a></li>
         <li><a href="../#contrada">La contrada</a></li>
-        <li><a href="./">Il menù</a></li>
+        <li><a href="./" aria-current="page">Il menù</a></li>
       </ul>
       <div class="lang" role="group" aria-label="Cambia lingua">
         <a href="./" lang="it" hreflang="it" aria-current="page">IT</a>
@@ -768,7 +768,7 @@
   </div>
 </section>
 
-<nav class="menu-nav" data-allow-overflow>
+<nav class="menu-nav" data-allow-overflow aria-label="Il menù dell'osteria">
   <ul>
     <li><a href="#antipasti">Antipasti</a></li>
     <li><a href="#primi">Primi</a></li>
@@ -917,7 +917,7 @@
 </section>
 <figure class="menu-band">
   <div class="menu-band__media ph-cinghiale-in-umido-coccio">
-    <picture><source type="image/avif" srcset="../assets/img/cinghiale-in-umido-coccio-640.avif 640w, ../assets/img/cinghiale-in-umido-coccio-960.avif 960w, ../assets/img/cinghiale-in-umido-coccio-1280.avif 1280w, ../assets/img/cinghiale-in-umido-coccio-1600.avif 1600w, ../assets/img/cinghiale-in-umido-coccio-2048.avif 2048w" sizes="100vw"><img class="menu-band__img" src="../assets/img/cinghiale-in-umido-coccio-960.jpg" width="960" height="768" alt="Ciotola di terracotta con cinghiale in umido e una foglia di alloro, contorni, pane e vino rosso" loading="lazy" decoding="async" data-parallax></picture>
+    <picture><source type="image/avif" srcset="../assets/img/cinghiale-in-umido-coccio-640.avif 640w, ../assets/img/cinghiale-in-umido-coccio-960.avif 960w, ../assets/img/cinghiale-in-umido-coccio-1280.avif 1280w, ../assets/img/cinghiale-in-umido-coccio-1600.avif 1600w, ../assets/img/cinghiale-in-umido-coccio-2048.avif 2048w" sizes="(max-width: 44.99rem) 200vw, 100vw"><img class="menu-band__img" src="../assets/img/cinghiale-in-umido-coccio-960.jpg" width="960" height="768" alt="Ciotola di terracotta con cinghiale in umido e una foglia di alloro, contorni, pane e vino rosso" loading="lazy" decoding="async" data-parallax></picture>
   </div>
 </figure>
 <section class="menu-section" id="secondi" aria-labelledby="h-secondi" data-reveal>
@@ -1033,7 +1033,7 @@
 </section>
 <figure class="menu-band">
   <div class="menu-band__media ph-bistecca-alla-fiorentina-siena">
-    <picture><source type="image/avif" srcset="../assets/img/bistecca-alla-fiorentina-siena-640.avif 640w, ../assets/img/bistecca-alla-fiorentina-siena-960.avif 960w, ../assets/img/bistecca-alla-fiorentina-siena-1280.avif 1280w, ../assets/img/bistecca-alla-fiorentina-siena-1600.avif 1600w, ../assets/img/bistecca-alla-fiorentina-siena-2048.avif 2048w" sizes="100vw"><img class="menu-band__img" src="../assets/img/bistecca-alla-fiorentina-siena-960.jpg" width="960" height="768" alt="Bistecca alla fiorentina cruda con l'osso a T su un tagliere scuro, con coltello e rosmarino, muro di mattoni dietro" loading="lazy" decoding="async" data-parallax></picture>
+    <picture><source type="image/avif" srcset="../assets/img/bistecca-alla-fiorentina-siena-640.avif 640w, ../assets/img/bistecca-alla-fiorentina-siena-960.avif 960w, ../assets/img/bistecca-alla-fiorentina-siena-1280.avif 1280w, ../assets/img/bistecca-alla-fiorentina-siena-1600.avif 1600w, ../assets/img/bistecca-alla-fiorentina-siena-2048.avif 2048w" sizes="(max-width: 44.99rem) 200vw, 100vw"><img class="menu-band__img" src="../assets/img/bistecca-alla-fiorentina-siena-960.jpg" width="960" height="768" alt="Bistecca alla fiorentina cruda con l'osso a T su un tagliere scuro, con coltello e rosmarino, muro di mattoni dietro" loading="lazy" decoding="async" data-parallax></picture>
   </div>
 </figure>
 <section class="menu-section" id="contorni" aria-labelledby="h-contorni" data-reveal>
@@ -1261,7 +1261,7 @@
     </div>
     <div class="site-footer__col">
       <p class="site-footer__label">Indirizzo</p>
-      <address>Via dei Rossi, 79/81<br>53100 Siena</address>
+      <address>Via dei Rossi, <span class="dove__num">79/81</span><br>53100 Siena</address>
       <p class="site-footer__label">Telefono</p>
       <p><a href="tel:+390577287592">+39 0577 287592</a></p>
     </div>

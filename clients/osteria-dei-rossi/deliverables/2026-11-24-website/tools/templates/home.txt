@@ -12,13 +12,13 @@
 <aside class="rail" aria-hidden="true">
   <span class="rail__line"></span><span class="rail__dot"></span>
   <ol class="rail__stops">
-    <li data-stop="porta"><span>I</span><b>{{c:global-rail.stop_1}}</b></li>
-    <li data-stop="via"><span>II</span><b>{{c:global-rail.stop_2}}</b></li>
-    <li data-stop="sala"><span>III</span><b>{{c:global-rail.stop_3}}</b></li>
-    <li data-stop="tavola"><span>IV</span><b>{{c:global-rail.stop_4}}</b></li>
-    <li data-stop="cantina"><span>V</span><b>{{c:global-rail.stop_5}}</b></li>
-    <li data-stop="contrada"><span>VI</span><b>{{c:global-rail.stop_6}}</b></li>
-    <li data-stop="prenota"><span>VII</span><b>{{c:global-rail.stop_7}}</b></li>
+    <li data-stop="porta"><span>·</span><b>{{c:global-rail.stop_1}}</b></li>
+    <li data-stop="via"><span>I</span><b>{{c:global-rail.stop_2}}</b></li>
+    <li data-stop="sala"><span>II</span><b>{{c:global-rail.stop_3}}</b></li>
+    <li data-stop="tavola"><span>III</span><b>{{c:global-rail.stop_4}}</b></li>
+    <li data-stop="cantina"><span>IV</span><b>{{c:global-rail.stop_5}}</b></li>
+    <li data-stop="contrada"><span>V</span><b>{{c:global-rail.stop_6}}</b></li>
+    <li data-stop="prenota"><span>VI</span><b>{{c:global-rail.stop_7}}</b></li>
   </ol>
 </aside>
 
@@ -29,7 +29,7 @@
 <!-- ============ 0 · La Porta ============ -->
 <section id="porta" class="hero" aria-labelledby="porta-title">
   <div class="hero__media ph-osteria-dei-rossi-siena-esterno">
-    {{pic:osteria-dei-rossi-siena-esterno|100vw|hero__img|eager}}
+    {{pic:osteria-dei-rossi-siena-esterno|(max-width: 44.99rem) 200vw, 100vw|hero__img|eager}}
   </div>
   <div class="hero__body container">
     <div class="hero__content" data-on-photo>
@@ -89,7 +89,7 @@
 <section id="sala" class="sala" aria-labelledby="sala-title">
   <div class="band band--left band--sala">
     <div class="band__media ph-sala-osteria-tradizionale-toscana">
-      {{pic:sala-osteria-tradizionale-toscana|100vw|band__img|parallax}}
+      {{pic:sala-osteria-tradizionale-toscana|(max-width: 44.99rem) 200vw, 100vw|band__img|parallax}}
     </div>
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
@@ -131,7 +131,7 @@
 <section id="tavola" class="tavola" aria-labelledby="tavola-title">
   <div class="band band--right band--tavola">
     <div class="band__media ph-cinghiale-in-dolceforte-ricetta-medievale">
-      {{pic:cinghiale-in-dolceforte-ricetta-medievale|100vw|band__img|parallax}}
+      {{pic:cinghiale-in-dolceforte-ricetta-medievale|(max-width: 44.99rem) 200vw, 100vw|band__img|parallax}}
     </div>
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
@@ -167,12 +167,6 @@
         <figcaption class="caption" data-reveal>{{c:tavola-carta.caption_formaggi}}</figcaption>
       </figure>
       {{dishes}}
-      <figure class="tile carta__umido">
-        <div class="tile__box tile--wide ph-cinghiale-in-umido-coccio" data-mask>
-          {{pic:cinghiale-in-umido-coccio|(min-width: 45rem) 80vw, 92vw|}}
-        </div>
-        <figcaption class="caption" data-reveal>{{c:tavola-carta.caption_umido}}</figcaption>
-      </figure>
       <figure class="tile carta__tartufo">
         <div class="tile__box tile--54 ph-tartufo-nero-fresco" data-mask>
           {{pic:tartufo-nero-fresco|(min-width: 45rem) 28vw, 44vw|}}
@@ -190,7 +184,7 @@
 
   <div class="band band--left band--fiorentina">
     <div class="band__media ph-bistecca-alla-fiorentina-siena">
-      {{pic:bistecca-alla-fiorentina-siena|100vw|band__img|parallax}}
+      {{pic:bistecca-alla-fiorentina-siena|(max-width: 44.99rem) 200vw, 100vw|band__img|parallax}}
     </div>
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
@@ -209,7 +203,7 @@
 <section id="cantina" class="cantina" aria-labelledby="cantina-title">
   <div class="band band--left band--cantina">
     <div class="band__media ph-grotta-volte-in-mattoni-cantina">
-      {{pic:grotta-volte-in-mattoni-cantina|100vw|band__img|parallax}}
+      {{pic:grotta-volte-in-mattoni-cantina|(max-width: 44.99rem) 200vw, 100vw|band__img|parallax}}
     </div>
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
@@ -259,15 +253,6 @@
 <!-- ============ V · La Contrada ============ -->
 <section id="contrada" class="section contrada" aria-labelledby="contrada-title">
   <div class="container grid">
-    <figure class="arch contrada__arch">
-      <div class="arch__box">
-        {{archline}}
-        <div class="arch__photo ph-contrada-del-bruco-barbero-tappi" data-mask>
-          {{pic:contrada-del-bruco-barbero-tappi|(min-width: 45rem) 34vw, 74vw|}}
-        </div>
-      </div>
-      <figcaption class="caption" data-reveal>{{c:contrada.caption_ball}}</figcaption>
-    </figure>
     <div class="contrada__text">
       <div class="stack" data-reveal-group>
         <p class="kicker" data-reveal>{{c:contrada.kicker}}</p>
@@ -287,6 +272,15 @@
         <p class="body">{{c:contrada.palio_line}}</p>
       </div>
     </div>
+    <figure class="arch contrada__arch">
+      <div class="arch__box">
+        {{archline}}
+        <div class="arch__photo ph-contrada-del-bruco-barbero-tappi" data-mask>
+          {{pic:contrada-del-bruco-barbero-tappi|(min-width: 45rem) 34vw, 74vw|}}
+        </div>
+      </div>
+      <figcaption class="caption" data-reveal>{{c:contrada.caption_ball}}</figcaption>
+    </figure>
   </div>
 </section>
 
