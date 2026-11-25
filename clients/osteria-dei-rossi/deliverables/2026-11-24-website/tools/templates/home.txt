@@ -180,8 +180,8 @@
         <figcaption class="caption" data-reveal>{{c:tavola-carta.caption_tartufo}}</figcaption>
       </figure>
       <figure class="tile carta__contorni">
-        <div class="tile__box tile--54 ph-cinghiale-con-contorni-tavola" data-mask>
-          {{pic:cinghiale-con-contorni-tavola|(min-width: 45rem) 50vw, 44vw|}}
+        <div class="tile__box tile--54 ph-piatti-con-contorni-tavola" data-mask>
+          {{pic:piatti-con-contorni-tavola|(min-width: 45rem) 50vw, 44vw|}}
         </div>
         <figcaption class="caption" data-reveal>{{c:tavola-carta.caption_contorni}}</figcaption>
       </figure>

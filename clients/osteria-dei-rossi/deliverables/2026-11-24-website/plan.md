@@ -187,7 +187,7 @@ Close: *Prenota*, by phone or WhatsApp.
 | 5 La Cantina | #11 `grotta-volte-in-mattoni-cantina` | #5 `cantina-porta-insegna-ceramica` (portrait), #6 `amaro-al-bancone` |
 | 6 La Contrada | none (green ground with `mappa-dentro-le-mura.svg` as a faint line drawing) | #9 `fotografie-storiche-siena-contrada`, #14 `contrada-del-bruco-barbero-tappi` (portrait) |
 | 7 Prenota e dove siamo | #7 `tagliere-salumi-formaggi-vino-rosso` | `assets/mappa-dentro-le-mura.svg` (a drawing, with the street, San Francesco and the car park marked) |
-| FAQ | none | #15 `cinghiale-con-contorni-tavola` |
+| FAQ | none | #15 `piatti-con-contorni-tavola` |
 | Footer | none (logo, battlement line) | none |
 | /menu/, /en/menu/ | #16 `cinghiale-in-umido-coccio` (short header band) | none (the menu is text) |
 | 404 | none | #19 `insegna-storica-osteria-ferro` (the arrow points back home) |

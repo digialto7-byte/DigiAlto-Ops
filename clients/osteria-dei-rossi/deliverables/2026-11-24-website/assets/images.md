@@ -18,7 +18,7 @@ All files are in `site/assets/img/`. AVIF at every width; one JPEG fallback per 
 | `crostone-lardo-toscano` | tile | 5:4 landscape | 480, 720, 960, 1280 | `crostone-lardo-toscano-720.jpg` (720×576) | `#985838` | lardo toscano |
 | `lanterna-ferro-battuto` | tile | 4:5 portrait | 480, 720, 960, 1280 | `lanterna-ferro-battuto-720.jpg` (720×900) | `#483808` | luci, stile tradizionale |
 | `contrada-del-bruco-barbero-tappi` | tile | 4:5 portrait | 480, 720, 960, 1280 | `contrada-del-bruco-barbero-tappi-720.jpg` (720×900) | `#d87828` | osteria dei rossi nella contrada del brucco |
-| `cinghiale-con-contorni-tavola` | tile | 5:4 landscape | 480, 720, 960, 1280 | `cinghiale-con-contorni-tavola-720.jpg` (720×576) | `#180808` | piatti ricchi con contorni |
+| `piatti-con-contorni-tavola` | tile | 5:4 landscape | 480, 720, 960, 1280 | `piatti-con-contorni-tavola-720.jpg` (720×576) | `#180808` | piatti ricchi con contorni |
 | `cinghiale-in-umido-coccio` | bg | 5:4 landscape | 640, 960, 1280, 1600, 2048 | `cinghiale-in-umido-coccio-960.jpg` (960×768) | `#682808` | piatti tipici toscani, cinghiale in umido |
 | `cinghiale-in-dolceforte-ricetta-medievale` | bg | 5:4 landscape | 640, 960, 1280, 1600, 2048 | `cinghiale-in-dolceforte-ricetta-medievale-960.jpg` (960×768) | `#280808` | ricetta medievale, cinghiale dolce forte |
 | `tagliere-di-formaggi-miele-noci` | tile | 5:4 landscape | 480, 720, 960, 1280 | `tagliere-di-formaggi-miele-noci-720.jpg` (720×576) | `#b86828` | tagliere di formaggi |

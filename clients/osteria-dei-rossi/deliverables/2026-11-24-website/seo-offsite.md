@@ -123,7 +123,7 @@ Rules: real photos of the real place and food only; no stock, no colour-changing
 | 17 | Tagliatelle al tartufo di stagione, truffle being sliced | Seasonal dish | new |
 | 18 | Cinghiale in dolceforte in its terracotta bowl | Medieval sauce | have: cinghiale-in-dolceforte-ricetta-medievale |
 | 19 | Tegamata di cinta senese | Recommended dish | new |
-| 20 | Cinghiale al coccio con polenta and sides | Main course | have: cinghiale-con-contorni-tavola |
+| 20 | Cinghiale al coccio con polenta and sides | Main course | have: piatti-con-contorni-tavola |
 | 21 | Raw bistecca alla fiorentina with knife and rosemary | Grill | have: bistecca-alla-fiorentina-siena |
 | 22 | Fiorentina grilled and sliced at the table | Grill | new |
 | 23 | Bistecca fritta | Distinctive dish | new |

@@ -242,30 +242,57 @@
      "name": "Bistecca alla Fiorentina",
      "offers": {
       "@type": "Offer",
-      "price": "9",
-      "priceCurrency": "EUR"
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+       "@type": "UnitPriceSpecification",
+       "price": "9",
+       "priceCurrency": "EUR",
+       "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "100",
+        "unitCode": "GRM"
+       }
+      }
      },
-     "description": "The house speciality: a weekly selection hand-picked by Alessio, our trusted butcher. We choose the finest beef from breeds and farms around the world to offer a truly distinctive and unique grilling experience every time. Priced per 100 g."
+     "description": "The house speciality: a weekly selection hand-picked by Alessio, our trusted butcher. We choose the finest beef from breeds and farms around the world to offer a truly distinctive and unique grilling experience every time."
     },
     {
      "@type": "MenuItem",
      "name": "Bistecca Fritta",
      "offers": {
       "@type": "Offer",
-      "price": "12",
-      "priceCurrency": "EUR"
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+       "@type": "UnitPriceSpecification",
+       "price": "12",
+       "priceCurrency": "EUR",
+       "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "100",
+        "unitCode": "GRM"
+       }
+      }
      },
-     "description": "Our unconventional take on the queen of the Tuscan table: a proper Florentine steak, breaded and fried until crispy on the outside and juicy on the inside. You have to try it at least once! Priced per 100 g."
+     "description": "Our unconventional take on the queen of the Tuscan table: a proper Florentine steak, breaded and fried until crispy on the outside and juicy on the inside. You have to try it at least once!"
     },
     {
      "@type": "MenuItem",
      "name": "Costata del macellaio",
      "offers": {
       "@type": "Offer",
-      "price": "7",
-      "priceCurrency": "EUR"
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+       "@type": "UnitPriceSpecification",
+       "price": "7",
+       "priceCurrency": "EUR",
+       "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "100",
+        "unitCode": "GRM"
+       }
+      }
      },
-     "description": "A cut of beef similar to a Florentine steak, but without the tenderloin, perfect for those who love the authentic taste of grilled meat. Priced per 100 g."
+     "description": "A cut of beef similar to a Florentine steak, but without the tenderloin, perfect for those who love the authentic taste of grilled meat."
     },
     {
      "@type": "MenuItem",

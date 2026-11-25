@@ -36,8 +36,8 @@ SECTIONS = {
 }
 ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII"]
 BADGE = {
-    "oste": ("Consigliato dall’Oste", "The host recommends"),
-    "stagione": ("Piatto di stagione", "Seasonal special"),
+    "oste": ("Consigliato dall’Oste", "Consigliato dall’Oste"),
+    "stagione": ("Piatto di stagione", "Seasonal dish"),
     "esaurito": ("Esaurito oggi", "Sold out today"),
 }
 UNIT = {"etto": ("all’etto", "per 100 g")}
@@ -142,10 +142,13 @@ def build(lang: int) -> tuple[str, dict]:
                 desc = text_of(item, key)
                 unit = item.get("unita", "")
                 if unit:
-                    note = "Prezzo all’etto (100 g)." if lang == 0 else "Priced per 100 g."
-                    desc = f"{desc} {note}".strip()
-                entry = {"@type": "MenuItem", "name": item["n"],
-                         "offers": {"@type": "Offer", "price": number(item["p"]), "priceCurrency": "EUR"}}
+                    offer = {"@type": "Offer", "priceCurrency": "EUR",
+                             "priceSpecification": {"@type": "UnitPriceSpecification", "price": number(item["p"]),
+                                                    "priceCurrency": "EUR",
+                                                    "referenceQuantity": {"@type": "QuantitativeValue", "value": "100", "unitCode": "GRM"}}}
+                else:
+                    offer = {"@type": "Offer", "price": number(item["p"]), "priceCurrency": "EUR"}
+                entry = {"@type": "MenuItem", "name": item["n"], "offers": offer}
                 if desc:
                     entry["description"] = desc
                 ld_items.append(entry)
