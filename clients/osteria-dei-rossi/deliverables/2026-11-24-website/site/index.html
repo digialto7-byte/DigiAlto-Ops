@@ -29,7 +29,7 @@
 <link rel="preload" as="image" type="image/avif" fetchpriority="high" imagesizes="100vw" imagesrcset="assets/img/osteria-dei-rossi-siena-esterno-640.avif 640w, assets/img/osteria-dei-rossi-siena-esterno-960.avif 960w, assets/img/osteria-dei-rossi-siena-esterno-1280.avif 1280w, assets/img/osteria-dei-rossi-siena-esterno-1600.avif 1600w, assets/img/osteria-dei-rossi-siena-esterno-2048.avif 2048w">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="motion.css">
-<script>document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js');</script>
+<script>(function(d){var c=d.documentElement.classList;c.remove('no-js');c.add('js');try{if(sessionStorage.getItem('odr-intro')||location.hash)c.add('intro-done')}catch(e){c.add('intro-done')}})(document)</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -405,7 +405,7 @@
   <div class="hero__body container">
     <div class="hero__content" data-on-photo>
       <p class="kicker">Osteria dei Rossi · Via dei Rossi, Siena</p>
-      <h1 class="hero__title" id="porta-title">Osteria a Siena <em>dentro le mura</em></h1>
+      <h1 class="hero__title" id="porta-title"><span class="hl">Osteria a Siena</span> <em>dentro le mura</em></h1>
       <p class="hero__lead">A tavola, tra lanterne di ferro battuto: pici, cinghiale in dolceforte, tartufo fresco, fiorentina e i vini della cantina.</p>
       <div class="hero__actions">
         <a class="btn btn--light" href="#prenota">Prenota <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -440,7 +440,7 @@
     <div class="via__text">
       <div class="stack" data-reveal-group>
         <p class="kicker" data-reveal>I · La via</p>
-        <h2 id="via-title" data-reveal>Seguite la freccia <em>in Via dei Rossi</em></h2>
+        <h2 id="via-title" data-reveal><span class="hl">Seguite la freccia</span> <em>in Via dei Rossi</em></h2>
         <p class="body" data-reveal>Via dei Rossi scende da Banchi di Sopra a Piazza San Francesco e prende il nome dal castellare duecentesco della famiglia Rossi. La targa di marmo e l'insegna di ferro con la freccia segnano la strada fino alla nostra porta.</p>
       </div>
       <ul class="facts" data-reveal-group>
@@ -490,7 +490,7 @@
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
         <p class="kicker" data-reveal>II · La sala</p>
-        <h2 id="sala-title" data-reveal>Mattoni e lanterne <em>sotto le volte</em></h2>
+        <h2 id="sala-title" data-reveal><span class="hl">Mattoni e lanterne</span> <em>sotto le volte</em></h2>
         <p class="body" data-reveal>Travi, pareti di legno, pavimento in cotto, archi di mattoni e lanterne di ferro battuto. Tovaglioli a quadretti verdi e bianchi sui tavoli, dal bancone si vede la cucina; fuori, tavoli in strada sotto ombrelloni crema.</p>
       </div>
     </div>
@@ -542,7 +542,7 @@
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
         <p class="kicker" data-reveal>III · La tavola</p>
-        <h2 id="tavola-title" data-reveal>Cinghiale in dolceforte <em>dalla cucina medievale</em></h2>
+        <h2 id="tavola-title" data-reveal><span class="hl">Cinghiale in dolceforte</span> <em>dalla cucina medievale</em></h2>
         <p class="body" data-reveal>Il dolceforte, la salsa agrodolce del cinghiale, risale alla cucina medievale; il cioccolato della ricetta di oggi è arrivato nei secoli successivi. Arriva a tavola nel coccio di terracotta.</p>
       </div>
     </div>
@@ -551,7 +551,7 @@
   <div class="section carta">
     <div class="container grid carta__grid">
       <div class="carta__head stack" data-reveal-group>
-        <h3 class="h3" data-reveal>Pici, cinghiale, tartufo <em>dalla carta</em></h3>
+        <h3 class="h3" data-reveal><span class="hl">Pici, cinghiale, tartufo</span> <em>dalla carta</em></h3>
         <p class="body" data-reveal>Otto piatti dalla carta, che cambia con la stagione e con quello che trova il mercato.</p>
       </div>
       <figure class="tile carta__tagliere">
@@ -731,7 +731,7 @@
   <path d="M42 56 L56 46"/>
   <path d="M46 53 L45 49 M50 51 L49 47 M54 48 L53 44 M46 53 L50 56 M50 51 L54 53"/>
 </svg>
-        <h3 class="h3" data-reveal>La fiorentina <em>al peso</em></h3>
+        <h3 class="h3" data-reveal><span class="hl">La fiorentina</span> <em>al peso</em></h3>
         <p class="body" data-reveal>Ogni settimana Alessio, il nostro macellaio di fiducia, sceglie la selezione: tagli diversi, di razze diverse. La fiorentina è alla griglia e si paga al peso: la misura la decidete voi.</p>
         <p class="price-line" data-reveal>Bistecca alla Fiorentina 9 € all'etto / per 100 g</p>
         <p class="note" data-reveal>Siamo tra gli indirizzi scelti da Gambero Rosso per la carne a Siena.</p>
@@ -755,7 +755,7 @@
     <div class="band__body container">
       <div class="band__content" data-on-photo data-reveal-group>
         <p class="kicker" data-reveal>IV · La cantina</p>
-        <h2 id="cantina-title" data-reveal>La grotta <em>verso la cantina</em></h2>
+        <h2 id="cantina-title" data-reveal><span class="hl">La grotta</span> <em>verso la cantina</em></h2>
         <p class="body" data-reveal>Una grotta di archi successivi e volte in mattoni conduce alla cantina, dove stanno i vini della carta. Chiedete la carta dei vini al personale.</p>
         <div class="wines" data-reveal>
           <p class="wines__label">Tra i vini</p>
@@ -823,7 +823,7 @@
     <div class="contrada__text">
       <div class="stack" data-reveal-group>
         <p class="kicker" data-reveal>V · La contrada</p>
-        <h2 id="contrada-title" data-reveal>Dal 1992 <em>in Contrada del Bruco</em></h2>
+        <h2 id="contrada-title" data-reveal><span class="hl">Dal 1992</span> <em>in Contrada del Bruco</em></h2>
         <p class="body" data-reveal>L'osteria è nella Contrada del Bruco, che ha una sola porta nelle mura: Porta Ovile. Giuseppe «Beppe» Carrieri, brucaiolo, l'ha aperta nel 1992; oggi la gestiscono Luca e Max, con Luca in cucina.</p>
       </div>
       <div class="timeline">
@@ -853,7 +853,7 @@
   <div class="section section--green battlement prenota__book">
     <div class="container grid">
       <div class="prenota__main stack" data-reveal-group>
-        <h2 id="prenota-title" data-reveal>Prenota <em>per telefono o WhatsApp</em></h2>
+        <h2 id="prenota-title" data-reveal><span class="hl">Prenota</span> <em>per telefono o WhatsApp</em></h2>
         <p class="body" data-reveal>Il numero è lo stesso: scegliete se parlarci o scriverci.</p>
         <div class="prenota__actions" data-reveal>
           <a class="btn btn--light" href="tel:+390577287592">Chiama +39 0577 287592 <svg class="arrow" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -884,7 +884,7 @@
   <div class="section dove">
     <div class="container grid">
       <div class="dove__text stack" data-reveal-group>
-        <h3 class="h3" data-reveal>Dove siamo <em>in Via dei Rossi</em></h3>
+        <h3 class="h3" data-reveal><span class="hl">Dove siamo</span> <em>in Via dei Rossi</em></h3>
         <address class="dove__address" data-reveal>Via dei Rossi, 79/81<br>53100 Siena</address>
         <p class="body" data-reveal>Da Piazza del Campo si arriva a piedi in circa 5 minuti. In fondo alla via c'è la Basilica di San Francesco.</p>
         <p class="body" data-reveal>In auto, il parcheggio San Francesco, in Via Baldassarre Peruzzi, è collegato al centro dalle scale mobili.</p>
@@ -955,7 +955,7 @@
 <!-- ============ Domande ============ -->
 <section id="domande" class="section domande" aria-labelledby="domande-title">
   <div class="container domande__inner">
-    <h2 id="domande-title" data-reveal>Domande e risposte <em>per la vostra visita</em></h2>
+    <h2 id="domande-title" data-reveal><span class="hl">Domande e risposte</span> <em>per la vostra visita</em></h2>
     <div class="faq">
       <details class="faq__item" data-reveal open>
         <summary><h3 class="faq__q">Dove si trova Osteria dei Rossi e quanto dista da Piazza del Campo?</h3></summary>

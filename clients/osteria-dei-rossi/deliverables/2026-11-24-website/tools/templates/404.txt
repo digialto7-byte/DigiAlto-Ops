@@ -1,0 +1,17 @@
+<body class="page-text-body">
+<a class="skip-link" href="#contenuto">{{c:global-nav.skip_link}}</a>
+
+{{include:_header}}
+
+{{include:_ctabar}}
+
+<main id="contenuto">
+<div class="page-text page-404">
+  {{svg:freccia-osteria|class="page-404__arrow" focusable="false" data-draw}}
+  <h1>{{h:404.h1_line1|h1_em}}</h1>
+  <p>{{c:404.body}}</p>
+  <p class="page-404__links"><a class="link" href="{{u:home}}">{{c:404.link_home}} {{arrow}}</a><a class="link" href="{{u:menu}}">{{c:404.link_menu}} {{arrow}}</a></p>
+</div>
+</main>
+
+{{include:_footer}}
