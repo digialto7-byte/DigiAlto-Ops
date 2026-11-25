@@ -72,7 +72,7 @@ def build(lang):
             parts.append('  </div>')
         parts.append('</section>')
         ld_sections.append({'@type': 'MenuSection', 'name': group[lang], 'hasMenuItem': ld_items})
-    ld = {'@context': 'https://schema.org', '@type': 'Menu', '@id': f'{page}#carta-dei-vini',
+    ld = {'@context': 'https://schema.org', '@type': 'Menu', '@id': f'{page}#menu',
           'name': 'Carta dei vini dell’Osteria dei Rossi' if lang == 'it' else 'Osteria dei Rossi wine list',
           'url': page, 'inLanguage': 'it' if lang == 'it' else 'en-GB',
           'hasMenuSection': ld_sections}

@@ -29,21 +29,21 @@ Other files: `logo-osteria-dei-rossi-{360,720}.webp` (colour, for cream backgrou
 
 ## Second photo set (2026-11-25)
 
-All 3:2 landscape, dark background, white plates. AVIF at 480, 720, 960, 1280 and 1600; JPEG fallback `<slug>-720.jpg` (720×480). Placeholder colour for all: `#141210`. They work as tiles and, at 1600, as wide bands on desktop.
+All 3:2 landscape, dark background, white plates. Same columns as the table above. They work as tiles and, at 1600, as wide bands on desktop.
 
-| Slug | Role | Founder's caption |
-|---|---|---|
-| `filetto-al-tartufo-fresco` | tile / band | Filletto al tratufo fresco |
-| `crostoni-tartufo-e-formaggio-pere-miele` | tile / band | bruschette al tartufo e bruschette a formaggio sfuso, perri e miele |
-| `cantucci-e-vin-santo` | tile / band | cantucci e vin santo |
-| `pici-al-ragu-di-cinghiale` | tile / band | pici al ragu cinghiale |
-| `pici-cacio-e-pepe` | tile / band | pici caccio pepe |
-| `porcini-freschi-grigliati` | tile / band | porcini freschi grigliatti |
-| `porcini-freschi` | tile / band | porcini freschi |
-| `porcini-fritti` | tile / band | porcini fritti, come controno accompagnato |
-| `spaghetti-dell-osteria-sugo-e-gorgonzola` | tile / band | spaghetti di osteria (con suogo e gorgonzola) |
-| `tagliatelle-ai-porcini-freschi-1` | tile / band | tagliatelle ai porcini freschi 1 |
-| `tagliatelle-ai-porcini-freschi` | tile / band | tagliatelle ai porcini freschi |
-| `tagliatelle-al-ragu-di-cinta` | tile / band | tagliatelle al ragu di cinta |
-| `tagliatelle-al-ragu` | tile / band | tagliatelle al ragu |
-| `tagliatelle-al-tartufo-fresco` | tile / band | tagliatelle al tartufo fresco |
+| Slug | Role | Aspect | AVIF widths | JPEG fallback (width×height) | Placeholder colour | Founder's caption |
+|---|---|---|---|---|---|---|
+| `filetto-al-tartufo-fresco` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `filetto-al-tartufo-fresco-720.jpg` (720×480) | `#141210` | Filletto al tratufo fresco |
+| `crostoni-tartufo-e-formaggio-pere-miele` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `crostoni-tartufo-e-formaggio-pere-miele-720.jpg` (720×480) | `#141210` | bruschette al tartufo e bruschette a formaggio sfuso, perri e miele |
+| `cantucci-e-vin-santo` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `cantucci-e-vin-santo-720.jpg` (720×480) | `#141210` | cantucci e vin santo |
+| `pici-al-ragu-di-cinghiale` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `pici-al-ragu-di-cinghiale-720.jpg` (720×480) | `#141210` | pici al ragu cinghiale |
+| `pici-cacio-e-pepe` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `pici-cacio-e-pepe-720.jpg` (720×480) | `#141210` | pici caccio pepe |
+| `porcini-freschi-grigliati` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `porcini-freschi-grigliati-720.jpg` (720×480) | `#141210` | porcini freschi grigliatti |
+| `porcini-freschi` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `porcini-freschi-720.jpg` (720×480) | `#141210` | porcini freschi |
+| `porcini-fritti` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `porcini-fritti-720.jpg` (720×480) | `#141210` | porcini fritti, come controno accompagnato |
+| `spaghetti-dell-osteria-sugo-e-gorgonzola` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `spaghetti-dell-osteria-sugo-e-gorgonzola-720.jpg` (720×480) | `#141210` | spaghetti di osteria (con suogo e gorgonzola) |
+| `tagliatelle-ai-porcini-freschi-1` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `tagliatelle-ai-porcini-freschi-1-720.jpg` (720×480) | `#141210` | tagliatelle ai porcini freschi 1 |
+| `tagliatelle-ai-porcini-freschi` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `tagliatelle-ai-porcini-freschi-720.jpg` (720×480) | `#141210` | tagliatelle ai porcini freschi |
+| `tagliatelle-al-ragu-di-cinta` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `tagliatelle-al-ragu-di-cinta-720.jpg` (720×480) | `#141210` | tagliatelle al ragu di cinta |
+| `tagliatelle-al-ragu` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `tagliatelle-al-ragu-720.jpg` (720×480) | `#141210` | tagliatelle al ragu |
+| `tagliatelle-al-tartufo-fresco` | tile | 3:2 landscape | 480, 720, 960, 1280, 1600 | `tagliatelle-al-tartufo-fresco-720.jpg` (720×480) | `#141210` | tagliatelle al tartufo fresco |

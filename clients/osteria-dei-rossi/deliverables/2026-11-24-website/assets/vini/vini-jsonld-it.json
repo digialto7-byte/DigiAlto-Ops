@@ -1,7 +1,7 @@
 {
  "@context": "https://schema.org",
  "@type": "Menu",
- "@id": "https://www.osteriadeirossi.it/vini/#carta-dei-vini",
+ "@id": "https://www.osteriadeirossi.it/vini/#menu",
  "name": "Carta dei vini dell’Osteria dei Rossi",
  "url": "https://www.osteriadeirossi.it/vini/",
  "inLanguage": "it",
