@@ -589,7 +589,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - note_chianti: Il Chianti Classico è il vino del Gallo Nero: uno dei grandi rossi del Senese.
 - note_montepulciano: Il Vino Nobile di Montepulciano è uno dei grandi rossi del Senese; accanto, il Rosso di Montepulciano.
 - note_montalcino: Il Brunello di Montalcino, il terzo dei grandi rossi del Senese, accanto al Rosso di Montalcino.
-- note_prices: I prezzi sono sulla carta che trovate a tavola.
+- note_prices: I prezzi sono sulla carta dei vini dell'osteria: chiedetela al personale.
 - note_glass: Al calice, dal menù: rosso Chianti Classico Gallo Nero, IGT Toscano, Maremma DOC; bianco Vernaccia di San Gimignano, Vermentino Toscano.
 - note_names: Vini e produttori sono riportati come nella carta stampata dell'osteria.
 - faq_h2_line1: Domande sui vini
@@ -608,7 +608,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - note_chianti: Chianti Classico carries the Gallo Nero, the black rooster: it is one of the great reds of the Siena area.
 - note_montepulciano: Vino Nobile di Montepulciano is one of the great reds of the Siena area; beside it, Rosso di Montepulciano.
 - note_montalcino: Brunello di Montalcino, the third of the great reds of the Siena area, beside Rosso di Montalcino.
-- note_prices: The prices are on the list you find at the table.
+- note_prices: Prices are on the osteria's printed wine list: ask our staff for it.
 - note_glass: By the glass, from the menu: red Chianti Classico Gallo Nero, IGT Toscano, Maremma DOC; white Vernaccia di San Gimignano, Vermentino Toscano.
 - note_names: Wines and producers are given as on the osteria's printed list.
 - faq_h2_line1: Questions about the wines

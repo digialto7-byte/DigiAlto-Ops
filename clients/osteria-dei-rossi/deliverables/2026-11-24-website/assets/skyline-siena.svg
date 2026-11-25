@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <g id="skyline-tetti">
+    <path vector-effect="non-scaling-stroke" d="M0 506 H16 L36 490 L56 506 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M56 520 H76 L96 502 L116 520 H132 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M132 560 V504 L146 490 L160 504 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M172 560 C165 540 165 500 172 464 C179 500 179 540 172 560"/>
+    <path vector-effect="non-scaling-stroke" d="M40 493 V482 H46 V498"/>
+    <path vector-effect="non-scaling-stroke" d="M420 560 V496 H440 L458 480 L476 496 H490 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M490 510 H506 L522 498 L538 510 H560 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M446 491 V476 H452 V485"/>
+    <path vector-effect="non-scaling-stroke" d="M560 560 V516 H580 L600 504 L620 516 H640 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M640 526 H664 L682 514 L700 526 H720 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M720 520 H742 L760 506 L778 520 H800 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M800 530 H820 L838 518 L856 530 H880 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M880 512 H900 L918 498 L936 512 H956 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M590 510 V497 H596 V507"/>
+    <path vector-effect="non-scaling-stroke" d="M748 516 V502 H754 V511"/>
+    <path vector-effect="non-scaling-stroke" d="M906 508 V494 H912 V503"/>
+    <path vector-effect="non-scaling-stroke" d="M1200 560 V520 H1220 L1240 504 L1260 520 H1276 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M1276 530 H1296 L1316 516 L1336 530 H1350 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M1370 560 C1362 540 1362 490 1370 450 C1378 490 1378 540 1370 560"/>
+    <path vector-effect="non-scaling-stroke" d="M1384 560 V508 H1404 L1424 492 L1444 508 H1462 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M1462 524 H1480 L1498 510 L1516 524 H1530 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M1552 560 C1544 540 1544 496 1552 458 C1560 496 1560 540 1552 560"/>
+    <path vector-effect="non-scaling-stroke" d="M1568 560 V524 H1580 L1590 512 L1600 522"/>
+    <path vector-effect="non-scaling-stroke" d="M1228 514 V500 H1234 V509"/>
+    <path vector-effect="non-scaling-stroke" d="M1302 526 V512 H1308 V522"/>
+    <path vector-effect="non-scaling-stroke" d="M1410 503 V490 H1416 V498"/>
+  </g>
+  <g id="skyline-duomo">
+    <path vector-effect="non-scaling-stroke" d="M184 560 V474 L196 450 H300"/>
+    <path vector-effect="non-scaling-stroke" d="M184 474 H300"/>
+    <path vector-effect="non-scaling-stroke" d="M184 560 H380"/>
+    <path vector-effect="non-scaling-stroke" d="M300 450 V418 M370 450 V418"/>
+    <path vector-effect="non-scaling-stroke" d="M300 418 A35 44 0 0 1 370 418"/>
+    <path vector-effect="non-scaling-stroke" d="M327 376 V356 H343 V376 M327 356 L335 338 L343 356 M335 338 V328"/>
+    <path vector-effect="non-scaling-stroke" d="M313 424 V442 M335 424 V442 M357 424 V442"/>
+    <path vector-effect="non-scaling-stroke" d="M370 450 H380"/>
+    <path vector-effect="non-scaling-stroke" d="M200 540 V524 A5 5 0 0 1 210 524 V540 M224 540 V524 A5 5 0 0 1 234 524 V540 M248 540 V524 A5 5 0 0 1 258 524 V540 M272 540 V524 A5 5 0 0 1 282 524 V540"/>
+    <path vector-effect="non-scaling-stroke" d="M380 560 V300 L400 262 L420 300 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M400 262 V250"/>
+    <path vector-effect="non-scaling-stroke" d="M380 316 H420 M380 332 H420 M380 348 H420 M380 364 H420 M380 380 H420 M380 396 H420 M380 412 H420 M380 428 H420 M380 444 H420 M380 460 H420 M380 476 H420 M380 492 H420 M380 508 H420 M380 524 H420 M380 540 H420"/>
+  </g>
+  <g id="skyline-palazzo">
+    <path vector-effect="non-scaling-stroke" d="M960 560 V486 H970 V478 H980 V486 H990 V478 H1000 V486 H1010 V478 H1020 V486 H1030 V478 H1040 V486 H1050 V432 H1056 V424 H1066 V432 H1076 V424 H1086 V432 H1100"/>
+    <path vector-effect="non-scaling-stroke" d="M1130 432 H1136 V424 H1146 V432 H1150 V486 H1160 V478 H1170 V486 H1180 V478 H1190 V486 H1200 V560"/>
+    <path vector-effect="non-scaling-stroke" d="M960 560 H1100 M1130 560 H1200"/>
+    <path vector-effect="non-scaling-stroke" d="M972 530 V518 L976 510 L980 518 V530 M992 530 V518 L996 510 L1000 518 V530 M1012 530 V518 L1016 510 L1020 518 V530 M1032 530 V518 L1036 510 L1040 518 V530"/>
+    <path vector-effect="non-scaling-stroke" d="M1058 466 V454 L1062 446 L1066 454 V466 M1076 466 V454 L1080 446 L1084 454 V466 M1136 466 V454 L1140 446 L1144 454 V466"/>
+    <path vector-effect="non-scaling-stroke" d="M1058 516 V504 L1062 496 L1066 504 V516 M1076 516 V504 L1080 496 L1084 504 V516 M1136 516 V504 L1140 496 L1144 504 V516"/>
+    <path vector-effect="non-scaling-stroke" d="M1162 530 V518 L1166 510 L1170 518 V530 M1182 530 V518 L1186 510 L1190 518 V530"/>
+  </g>
+  <g id="skyline-torre">
+    <path vector-effect="non-scaling-stroke" d="M1100 560 V160"/>
+    <path vector-effect="non-scaling-stroke" d="M1130 560 V160"/>
+    <path vector-effect="non-scaling-stroke" d="M1115 452 V440 M1115 372 V360 M1115 292 V280 M1115 212 V200"/>
+    <path vector-effect="non-scaling-stroke" d="M1086 150 A5.8 5.8 0 0 0 1097.6 150 A5.8 5.8 0 0 0 1109.2 150 A5.8 5.8 0 0 0 1120.8 150 A5.8 5.8 0 0 0 1132.4 150 A5.8 5.8 0 0 0 1144 150"/>
+    <path vector-effect="non-scaling-stroke" d="M1086 150 V118 H1144 V150"/>
+    <path vector-effect="non-scaling-stroke" d="M1086 118 V108 H1097.6 V114 H1109.2 V108 H1120.8 V114 H1132.4 V108 H1144 V118"/>
+    <path vector-effect="non-scaling-stroke" d="M1094 146 V134 A5 5 0 0 1 1104 134 V146 M1110 146 V134 A5 5 0 0 1 1120 134 V146 M1126 146 V134 A5 5 0 0 1 1136 134 V146"/>
+    <path vector-effect="non-scaling-stroke" d="M1098 108 V78 H1132 V108"/>
+    <path vector-effect="non-scaling-stroke" d="M1103 106 V92 A3 3 0 0 1 1109 92 V106 M1112 106 V92 A3 3 0 0 1 1118 92 V106 M1121 106 V92 A3 3 0 0 1 1127 92 V106"/>
+    <path vector-effect="non-scaling-stroke" d="M1094 78 H1136"/>
+    <path vector-effect="non-scaling-stroke" d="M1104 78 V56 A11 11 0 0 1 1126 56 V78"/>
+    <path vector-effect="non-scaling-stroke" d="M1108 72 H1122 C1121 66 1120 61 1115 59 C1110 61 1109 66 1108 72 Z"/>
+    <path vector-effect="non-scaling-stroke" d="M1115 45 V38"/>
+  </g>
+</svg>

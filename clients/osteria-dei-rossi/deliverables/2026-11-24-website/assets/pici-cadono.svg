@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 720" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <g id="pici-fili">
+    <path id="pici-filo-1" vector-effect="non-scaling-stroke" stroke-width="2.5" d="M40 24 C52 60 28 90 44 128 S60 190 52 214"/>
+    <path id="pici-filo-2" vector-effect="non-scaling-stroke" stroke-width="2.5" d="M108 62 C128 96 100 132 122 170 S152 238 140 284"/>
+    <path id="pici-filo-3" vector-effect="non-scaling-stroke" stroke-width="2.5" d="M212 36 C198 74 216 110 194 150 S172 200 160 232"/>
+    <path id="pici-filo-4" vector-effect="non-scaling-stroke" stroke-width="2.5" d="M70 252 C90 282 60 318 86 354 S120 402 108 442"/>
+    <path id="pici-filo-5" vector-effect="non-scaling-stroke" stroke-width="2.5" d="M172 272 C152 312 186 342 162 382 S130 432 140 472"/>
+    <path id="pici-filo-6" vector-effect="non-scaling-stroke" stroke-width="2.5" d="M204 336 C214 376 192 406 206 446 S196 494 202 520"/>
+  </g>
+  <g id="pici-nido">
+    <path vector-effect="non-scaling-stroke" stroke-width="2.5" d="M48 664 C70 642 100 652 120 662 S170 642 192 660"/>
+    <path vector-effect="non-scaling-stroke" stroke-width="2.5" d="M54 652 C82 622 112 638 132 642 S178 624 190 642"/>
+    <path vector-effect="non-scaling-stroke" stroke-width="2.5" d="M70 656 C74 626 120 616 148 628 C176 640 170 662 140 658 C112 654 108 636 130 632"/>
+    <path vector-effect="non-scaling-stroke" stroke-width="2.5" d="M88 668 C100 650 140 648 160 666"/>
+    <path vector-effect="non-scaling-stroke" stroke-width="2.5" d="M100 640 C112 618 150 614 170 630"/>
+  </g>
+  <g id="pici-spianatoia">
+    <path vector-effect="non-scaling-stroke" d="M36 672 H204 Q210 672 210 678 Q210 684 204 684 H36 Q30 684 30 678 Q30 672 36 672 Z"/>
+    <circle cx="62" cy="700" r="1.6" fill="currentColor" stroke="none"/>
+    <circle cx="112" cy="705" r="1.6" fill="currentColor" stroke="none"/>
+    <circle cx="164" cy="699" r="1.6" fill="currentColor" stroke="none"/>
+  </g>
+</svg>
