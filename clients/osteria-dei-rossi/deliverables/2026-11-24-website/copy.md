@@ -679,8 +679,8 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 
 ### dove-siamo
 **IT**
-- h3_line1: Dove siamo
-- h3_em: *in Via dei Rossi*
+- h3_line1: Come arrivare
+- h3_em: *a piedi o in auto*
 - address_block: Via dei Rossi, 79/81 // 53100 Siena
 - walk_line: Da Piazza del Campo si arriva a piedi in circa 5 minuti. In fondo alla via c'è la Basilica di San Francesco.
 - parking_line: In auto, il parcheggio San Francesco, in Via Baldassarre Peruzzi, è collegato al centro dalle scale mobili.
@@ -690,8 +690,8 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - map_labels: Porta Camollia | Porta Ovile | Basilica di San Francesco | Osteria dei Rossi | Piazza del Campo | Duomo | Porta Romana
 
 **EN**
-- h3_line1: Where we are
-- h3_em: *on Via dei Rossi*
+- h3_line1: Getting here
+- h3_em: *on foot or by car*
 - address_block: Via dei Rossi, 79/81 // 53100 Siena
 - walk_line: From Piazza del Campo it is about 5 minutes on foot. The Basilica di San Francesco stands at the end of the street.
 - parking_line: By car, use the San Francesco car park in Via Baldassarre Peruzzi; escalators connect it to the centre.
