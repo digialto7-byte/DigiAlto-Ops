@@ -54,6 +54,7 @@ updated: 2026-11-24
 - Logo files (location): an emblem is embedded in the menu site (used with the "Consigliato dall'Oste" badge); source files to request [unverified] (src: sources/menu-site-2026-10-22.md)
 - Logo (as shown by the founder): varsity-style block capitals, distressed texture, white on dark, with a mustard emblem; SVG/PNG file requested, not yet in any repo [unverified] (src: founder in the project session, 2026-10-22)
 - Brand story points: "in menù dal 1992" (Spaghetti alla Chitarra con Sugo dell'Osteria), weekly steak selection by trusted butcher Alessio, free-range Cinta Senese from the Crete Senesi [unverified] (src: sources/menu-site-2026-10-22.md)
+- The same three statements are part of the live menu descriptions the founder approved on 2026-11-24 (Spaghetti alla Chitarra "in menù dal 1992"; the weekly steak selection by Alessio, "il nostro macellaio di fiducia"; Cinta Senese from a free-range farm in the Crete Senesi). Version 1 of the website repeats them on the home page in the menu's own terms; the founder is asked to confirm that use (src: sources/menu-live-2026-11-24.md)
 - Tone of voice:
 - Words or claims to avoid:
 
