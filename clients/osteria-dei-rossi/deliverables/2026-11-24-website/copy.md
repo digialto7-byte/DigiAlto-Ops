@@ -250,7 +250,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - caption_contorni: Rich dishes with side dishes
 - caption_umido: Cinghiale in umido, in a terracotta bowl
 
-**Facts used:** names, prices, descriptions' content and the "Consigliato dall'Oste" flag on Pici al Ragù Bianco di Cinta Senese and Tegamata di Cinta Senese only (sources/menu-live-2026-11-24.md, Primi, Secondi/Specialità della cucina, Antipasti); the menu follows season and market (plan.md 4g, honesty lines); photo captions: gran tagliere di salumi, lardo toscano, tagliere di formaggi, fresh truffle all year round, cinghiale in umido, rich dishes with side dishes (profile.md, Place and story, photo captions; sources/photos-2026-11-24.md, photos 8, 12, 18, 20, 15, 16); stews served in terracotta bowls (Place and story, what the photos show). No allergens.
+**Facts used:** names, prices, descriptions' content and the "Consigliato dall'Oste" flag on Pici al Ragù Bianco di Cinta Senese and Tegamata di Cinta Senese only (sources/menu-live-2026-11-24.md, Primi, Secondi/Specialità della cucina, Antipasti); photo captions: gran tagliere di salumi, lardo toscano, tagliere di formaggi, fresh truffle all year round, cinghiale in umido, rich dishes with side dishes (profile.md, Place and story, photo captions; sources/photos-2026-11-24.md, photos 8, 12, 18, 20, 15, 16); stews served in terracotta bowls (Place and story, what the photos show). No allergens.
 
 ### tavola-fiorentina
 **IT**
@@ -385,7 +385,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - map_caption: A sketch, not to scale
 - map_labels: Porta Camollia | Porta Ovile | Basilica di San Francesco | Osteria dei Rossi | Piazza del Campo | Duomo | Porta Romana
 
-**Facts used:** address Via dei Rossi, 79/81 · 53100 Siena (profile.md, Identity); Piazza del Campo about 5 minutes on foot, Basilica di San Francesco at the end of the street (Place and story, researched lines approved 2026-11-24); San Francesco car park in Via Baldassarre Peruzzi, escalators to the centre, whole walled centre is a ZTL, no tariff shown (Place and story, researched lines); Google Maps link (Identity); map labels as given in design.md section 5.
+**Facts used:** address Via dei Rossi, 79/81 · 53100 Siena (profile.md, Identity); Piazza del Campo about 5 minutes on foot, Basilica di San Francesco at the end of the street (Place and story, researched lines approved 2026-11-24); San Francesco car park in Via Baldassarre Peruzzi, escalators to the centre, the whole walled centre is a ZTL (the copy says only that and "check the rules"), no tariff shown (Place and story, researched lines); Google Maps link (Identity); map labels as given in design.md section 5.
 
 ### domande
 **IT**
@@ -449,7 +449,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - closing_btn_whatsapp: Message on WhatsApp
 - back_home_link: Back to the home page
 
-**Facts used:** section names and flags "Consigliato dall'Oste" and "Piatto di stagione" (sources/menu-live-2026-11-24.md); menu captured and approved on 2026-11-24 (same file, header); cover charge 2,50 € a persona (profile.md, Offer, live menu approved); weight items priced per 100 g, the waiter enters the weight the guest asks for (Offer, dishes priced by weight); allergens not approved, list to be confirmed with the chef (Offer, live menu approved); phone and WhatsApp (Offer, booking channel).
+**Facts used:** section names and flags "Consigliato dall'Oste" and "Piatto di stagione" (sources/menu-live-2026-11-24.md); menu captured and approved on 2026-11-24 (same file, header); cover charge 2,50 € a persona, written 2.50 € in English (profile.md, Offer, live menu approved); the dishes flagged "Piatto di stagione" are the seasonal ones (sources/menu-live-2026-11-24.md, flags); "Seasonal dish" as the English flag and "Consigliato dall'Oste" in both languages (founder's instruction, reviewer round); the menu is dated 24 November 2026 (same file, header); weight items priced per 100 g, the waiter enters the weight the guest asks for (Offer, dishes priced by weight); allergens not approved, list to be confirmed with the chef (Offer, live menu approved); phone and WhatsApp (Offer, booking channel).
 
 ## SMALL PAGES
 
@@ -464,31 +464,27 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - p3_text: I caratteri, gli script e le immagini sono forniti dal sito stesso.
 - p4_title: Link ad altri servizi
 - p4_text: I link a Google Maps, WhatsApp, Instagram e Facebook aprono quei servizi, che hanno le proprie informative sulla privacy.
-- p5_title: Telefonate e messaggi WhatsApp
-- p5_text: Se ci chiamate o ci scrivete su WhatsApp, l'osteria usa il vostro numero e il vostro messaggio solo per rispondervi e per gestire la prenotazione.
-- p6_title: Come contattarci
-- p6_text: Potete scrivere per posta a ML SNC DI LANARO E FRESI, Via dei Rossi 79/81, 53100 Siena (SI), oppure telefonare al +39 0577 287592.
-- p7_title: Data
-- p7_text: Questa informativa è del 24 novembre 2026.
+- p5_title: Come contattarci
+- p5_text: Potete scrivere per posta a ML SNC DI LANARO E FRESI, Via dei Rossi 79/81, 53100 Siena (SI), oppure telefonare al +39 0577 287592.
+- p6_title: Data
+- p6_text: Questa informativa è del 24 novembre 2026.
 
 **EN**
 - h1: Privacy notice
 - p1_title: Who publishes the site
 - p1_text: The site is published by ML SNC DI LANARO E FRESI, which runs Osteria dei Rossi. Registered address: Via dei Rossi 79/81, 53100 Siena (SI), Italy. VAT number: IT00354250524.
 - p2_title: Cookies and analytics
-- p2_text: The site uses no cookies and no analytics, and it has no forms. It embeds nothing from third parties.
+- p2_text: The site sets no cookies and has no tracking or analytics. It has no forms and embeds nothing from third parties. It keeps one technical entry in the browser's session storage so that the opening animation plays once per visit; the browser deletes it when the tab is closed.
 - p3_title: Fonts, scripts and images
 - p3_text: Fonts, scripts and images are served by the site itself.
 - p4_title: Links to other services
 - p4_text: The links to Google Maps, WhatsApp, Instagram and Facebook open those services, which have their own privacy policies.
-- p5_title: Phone calls and WhatsApp messages
-- p5_text: If you call us or write to us on WhatsApp, the osteria uses your number and your message only to answer you and to manage the booking.
-- p6_title: How to contact us
-- p6_text: You can write by post to ML SNC DI LANARO E FRESI, Via dei Rossi 79/81, 53100 Siena (SI), Italy, or call +39 0577 287592.
-- p7_title: Date
-- p7_text: This notice is dated 24 November 2026.
+- p5_title: How to contact us
+- p5_text: You can write by post to ML SNC DI LANARO E FRESI, Via dei Rossi 79/81, 53100 Siena (SI), Italy, or call +39 0577 287592.
+- p6_title: Date
+- p6_text: This notice is dated 24 November 2026.
 
-**Facts used:** legal name, VAT number and registered address (profile.md, Identity); no cookies, analytics, forms or third-party embeds; fonts, scripts and images served from the site itself; map, WhatsApp, Instagram and Facebook are plain links (Tracking & legal); phone +39 0577 287592, no public email (Identity); notice date 24 November 2026 (task brief).
+**Facts used:** legal name, VAT number and registered address (profile.md, Identity); no cookies, tracking, analytics, forms or third-party embeds; fonts, scripts and images served from the site itself; map, WhatsApp, Instagram and Facebook are plain links (Tracking & legal); one technical entry in session storage so the gate animation plays once per session, removed by the browser when the tab closes (design.md, section 6, "The gate intro"); phone +39 0577 287592, no public email (Identity); notice date 24 November 2026 (task brief).
 
 ### 404
 **IT**
@@ -526,13 +522,13 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 ## Notes for the page builder
 
 - Headings: each h1/h2/h3 is two slots, line 1 upright and the `*italic*` completion on its own line. No full stop in any heading, kicker, label, caption or button. Sentence slots (body, lead, notes, hours_note, positioning_line) keep their full stops.
-- Menu page h1: I did not keep the working completion "piatto per piatto" / "dish by dish" because it does not start with a preposition. The replacement is "dall'antipasto al dolce" / "from starter to dessert". The founder or lead may revert it.
+- Menu page h1: "Il menù dell'osteria / *a Siena*" and "The osteria's menu / *in Siena*" (so the heading carries "menù" and "Siena"). The "dall'antipasto al dolce" idea is in the intro.
 - `address_block` uses " // " as the line break. `hours_compact` uses " / " as the line break (two short lines). `map_labels` uses " | " between the seven labels.
 - `tavola-carta` rows are `name | line | price | badge`. An empty badge is the empty text after the last "|". Names and prices are the approved menu strings; the line is written, not copied. The badge text "Consigliato dall'Oste" is the same in IT and EN; add a `title` or a visually hidden gloss "the host's recommendation" in EN if wanted.
-- `price_line` in tavola-fiorentina is the exact string "Bistecca alla Fiorentina 9 € all'etto / per 100 g" in both languages; keep the slash.
+- `price_line` in tavola-fiorentina: IT "Bistecca alla Fiorentina · 9 € all'etto", EN "Bistecca alla Fiorentina · 9 € per 100 g". English prices and numbers use the form "2.50 €", "9 €".
 - Menu page section slots are named `section_antipasti` to `section_bevande`; badges `badge_oste`, `badge_stagione`. The page builder copies dish names, descriptions and prices from the approved menu file. In EN, show Italian dish names with the menu's English descriptions.
 - Sentences with quotes: the IT body uses «Beppe»; the EN body uses straight double quotes around Beppe.
-- Privacy: slots `h1`, then `p1_title`/`p1_text` to `p7_title`/`p7_text`. Flag the page for the founder's legal check before launch.
+- Privacy: slots `h1`, then `p1_title`/`p1_text` to `p6_title`/`p6_text`. Flag the page for the founder's legal check before launch.
 - Link destinations: Prenota opens the panel with `tel:+390577287592` and `https://wa.me/390577287592`; link_maps goes to `https://maps.google.com/?cid=5066073290586870112`; menu links go to `/menu/` (EN `/en/menu/`); the drinks CTA in cantina goes to `/menu/#bevande`; the tavola-fiorentina CTA goes to `/menu/#griglia` (EN `/en/menu/#griglia`); footer social links are `https://www.instagram.com/osteriadeirossi/` and `https://www.facebook.com/osteriadeirossi`; intro_skip skips the gate animation; the 404 link_home goes to `/`.
 - The meat-guide line appears once per language, in tavola-fiorentina only. Do not repeat it in titles, meta, schema or alt text.
 - Approved facts deliberately not used in Home to keep one idea per screen: the UNESCO listing since 1995, the Bruco's side of the street, the 13th-century description of Porta Ovile. They may serve the SEO file or the journal.
