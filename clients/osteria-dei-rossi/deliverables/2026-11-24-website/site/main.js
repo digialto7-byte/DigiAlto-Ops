@@ -1215,11 +1215,10 @@
     S.y = 0;
     prepareIntro();
 
-    const timeline = intro.timeline;
     const play = () => {
-      if (S && S.intro === intro && intro.playing && intro.timeline === timeline && timeline) {
+      if (S && S.intro === intro && intro.playing && !intro.started && intro.timeline) {
         intro.started = true;
-        timeline.play(0);
+        intro.timeline.play(0);
       }
     };
     /* Two frames so the first state is on screen; a tab opened in the background waits. */

@@ -8,7 +8,7 @@ work. Internal document.
 | Check | Result |
 |---|---|
 | `validate_output.py file` on every HTML, SVG and JS file | pass (28 files) |
-| `check_deliverable.py` on the folder | 0 FAIL, 1 FLAG (`plan.md`: the phrase "number one" inside the list of things we do not claim; judged not a failure by the reviewer) |
+| `check_deliverable.py` on the folder | 0 FAIL, 1 FLAG (`plan.md` line 100: a banned-claims phrase quoted inside the list of things we do not claim; judged not a failure by the reviewer) |
 | `qa/qa-site.cjs` over http: 7 pages at 1440, 390 and 360 px, reduced motion, no JavaScript, the gate intro, real-pixel contrast, axe-core | 0 FAIL |
 | `viewport_check.py` (pages opened from disk at 360 px) | FAIL on every page: no overflow, but Chromium blocks font files opened from `file://` and logs errors; the 404 page used root-relative URLs |
 | Lighthouse, mobile | Home 97 / 100 / 100 / 100 (LCP 1.5 s, CLS 0); menu 100 / 100 / 100 / 100 (LCP 1.4 s) |

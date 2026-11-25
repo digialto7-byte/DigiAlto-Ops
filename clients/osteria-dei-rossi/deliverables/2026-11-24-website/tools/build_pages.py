@@ -357,6 +357,12 @@ class Page:
             if kind == 'c':
                 s, k = arg.split('.', 1)
                 return esc(self.c(s, k))
+            if kind in ('ce', 'he'):          # the English slot, whatever the page language
+                s, rest = arg.split('.', 1)
+                if kind == 'ce':
+                    return esc(copy('en', s, rest))
+                k1, k2 = rest.split('|')
+                return f'<span class="hl">{esc(copy("en", s, k1))}</span> <em>{esc(italic(copy("en", s, k2)))}</em>'
             if kind == 'h':
                 s, rest = arg.split('.', 1)
                 k1, k2 = rest.split('|')
