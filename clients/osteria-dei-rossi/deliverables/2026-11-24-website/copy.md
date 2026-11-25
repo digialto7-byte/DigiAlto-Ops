@@ -213,8 +213,8 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 
 ### tavola-carta
 **IT**
-- h3_line1: Dalla carta
-- h3_em: *per cominciare*
+- h3_line1: Pici, cinghiale, tartufo
+- h3_em: *dalla carta*
 - intro: Otto piatti dalla carta, che cambia con la stagione e con quello che trova il mercato.
 - dish_1: Pici al Ragù Bianco di Cinta Senese | Ragù bianco di cinta senese, senza pomodoro, con erbe e spezie | 16 € | Consigliato dall'Oste
 - dish_2: Pici Cacio e Pepe | Pici con pecorino toscano e pepe nero, un classico alla toscana | 15 € |
@@ -232,8 +232,8 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - caption_umido: Cinghiale in umido nel coccio
 
 **EN**
-- h3_line1: From the menu
-- h3_em: *to begin with*
+- h3_line1: Pici, wild boar, truffle
+- h3_em: *from the menu*
 - intro: Eight dishes from a menu that changes with the season and with what the market offers.
 - dish_1: Pici al Ragù Bianco di Cinta Senese | White ragù of Cinta Senese pork, without tomato, with herbs and spices | 16 € | Consigliato dall'Oste
 - dish_2: Pici Cacio e Pepe | Pici with Tuscan pecorino and black pepper, a classic in Tuscan style | 15 € |
