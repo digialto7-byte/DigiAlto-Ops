@@ -50,3 +50,48 @@ on laptops; the phone hero scrim buried the photo; the focus ring was gold on cr
 header labels wrapped at 1024 px. Minor: tablet breakpoints, dotted leaders on wrapped names,
 repeated photos, map timing and label overlap, hairline figures, soft full-bleed photos on
 phones, section order on phones, footer tap targets. All sent to the builder as one fix pass.
+
+Found by the builder during that pass: on phones a `resize` event just after the start rebuilt
+the intro timeline and left the gate intro unplayed until the 5 s failsafe. Fixed in `main.js`;
+ten fresh loads at 390×844 ended the intro within 3 s every time.
+
+## Round 2: performance (Lighthouse after the fix pass), 2026-11-25
+
+Regression: on the Italian home the largest paint moved to 5.2 s in two runs out of three. Cause:
+the full-viewport hero photo is not a largest-paint candidate, so the candidate is the hero's
+lead paragraph, and the intro was hiding the hero text before its first paint when the script
+started early. Fix: the text now stays painted under the closed gate and is hidden only just
+before the doors open; the font stylesheet no longer blocks rendering.
+
+After the fix (mobile, five runs on the Italian home): 96, 96 and 98 with LCP 1.5 s; 74 and 88
+in two runs where the first paint itself was slow on the test machine (LCP equal to first
+paint in both). English home 97 (LCP 1.5 s). Menu, Italian and English: 100 (LCP 1.4 s).
+Accessibility, best practices and SEO: 100 on every page measured. CLS 0 to 0.008.
+The local test server does not compress or cache; a real host should do both.
+
+## Round 3: facts and brand again (reviewer), 2026-11-25
+
+Second verdict: FAIL with one finding (the owner's photo list in `seo-offsite.md` still named
+photo 15 as a wild boar dish); all ten earlier findings confirmed fixed. The row was corrected
+by the lead (a one-cell change dictated by the finding), together with two documentation notes
+in `copy.md`. Third and final verdict: PASS (about 140 facts verified, none unsupported).
+
+Left for the founder by the lead's decision, noted by the reviewer and not failures: the menu's
+own wording kept word for word ("le migliori carni", "ricetta storica ed esclusiva", "antica
+ricetta medievale toscana"); the intro label "Porta Ovile, la porta del Bruco"; `lang="en"` on
+the English pages; the founder's caption "Tartufo fresco, tutto l'anno"; confirmation of the
+three story points taken from the menu text; a legal check of the privacy note.
+
+## Final gates on the delivered build (2026-11-25)
+
+| Gate | Result |
+|---|---|
+| `validate_output.py file` (28 HTML, SVG and JS files) | pass |
+| `check_deliverable.py` | 0 FAIL, 1 FLAG (judged not a failure) |
+| `viewport_check.py` at 360 px, pages opened from disk | 7 of 7 ok |
+| `qa/qa-site.cjs` with axe-core | 0 FAIL, 7 pages |
+| Lighthouse mobile | at target (see round 2) |
+| Reviewer | PASS on the third verdict, after two fix rounds |
+
+Not checked, and why: real phones and Safari or Firefox (only headless Chromium is available
+here); screen readers; Google's Rich Results test (no network access to it); field data.

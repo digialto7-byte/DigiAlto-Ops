@@ -300,7 +300,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 - caption_amaro: Amari and liqueurs at the counter
 - cta: See the drinks
 
-**Facts used:** a brick-vaulted grotto leads to the cellar, the cellar holds the wines of the wine list, a choice of liqueurs and amari (profile.md, Place and story, photo captions); Chianti, Rosso di Montepulciano, Montalcino (Place and story, founder's brief); wines by the glass; Amaro di Siena, Montenegro and Grappa Poli Barricata (sources/menu-live-2026-11-24.md, Bevande); photos 5, 6, 7, 11 (sources/photos-2026-11-24.md); "ask the staff for the wine list" (plan.md 4g, honesty lines).
+**Facts used:** a brick-vaulted grotto leads to the cellar, the cellar holds the wines of the wine list, a choice of liqueurs and amari (profile.md, Place and story, photo captions); Chianti, Rosso di Montepulciano, Montalcino (Place and story, founder's brief); wines by the glass; Amaro di Siena, Montenegro and Grappa Poli Barricata (sources/menu-live-2026-11-24.md, Bevande); photos 5, 6, 7, 11 (sources/photos-2026-11-24.md); "ask the staff for the wine list" rests on the same caption: the cellar holds the wines of the wine list (profile.md, Place and story, photo captions).
 
 ### contrada
 **IT**
@@ -521,6 +521,7 @@ Sources: profile.md, plan.md 4a/4b/4c/4f/4g, design.md 5 and 7, the approved men
 
 ## Notes for the page builder
 
+- `tavola-carta` caption_umido is not used on the home page since fix round 1: the photo of cinghiale in umido moved to the menu page. Keep the slot for that photo only.
 - Headings: each h1/h2/h3 is two slots, line 1 upright and the `*italic*` completion on its own line. No full stop in any heading, kicker, label, caption or button. Sentence slots (body, lead, notes, hours_note, positioning_line) keep their full stops.
 - Menu page h1: "Il menù dell'osteria / *a Siena*" and "The osteria's menu / *in Siena*" (so the heading carries "menù" and "Siena"). The "dall'antipasto al dolce" idea is in the intro.
 - `address_block` uses " // " as the line break. `hours_compact` uses " / " as the line break (two short lines). `map_labels` uses " | " between the seven labels.

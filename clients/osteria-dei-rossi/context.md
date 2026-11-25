@@ -1,6 +1,6 @@
 ---
 slug: osteria-dei-rossi
-updated: 2026-11-15
+updated: 2026-11-25
 ---
 
 # Osteria Dei Rossi — engagement context
@@ -8,6 +8,13 @@ updated: 2026-11-15
 Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks the work.
 
 ## Status
+- **Website, version 1 (2026-11-24 to 2026-11-25): built, verified and reviewed; waiting for the founder's sign-off.** Folder `clients/osteria-dei-rossi/deliverables/2026-11-24-website/` (start with its `README.md`); draft PR https://github.com/digialto7-byte/DigiAlto-Ops/pull/79.
+  - What exists: Home in Italian and English with the Porta Ovile intro, the full menu as text with prices (Italian and English, generated from the approved live-menu capture), privacy note, 404, robots and sitemap; brand story and strategy (`plan.md`), design and motion specification, copy deck, on-site SEO specification, the owner's off-site kit (Google Business Profile, listing clean-up, reviews, rank tracking, content calendar) and the research behind it.
+  - Decisions the founder gave in chat on 2026-11-24 (all recorded in the profile): public name "Osteria dei Rossi"; domain www.osteriadeirossi.it; hours Tuesday to Saturday 12:30–15:00 and 19:00–22:30, Sunday lunch only, closed Sunday evening and Monday, with a "may change" line; "Prenota" offers a phone call and WhatsApp on the same number; the live menu's dishes, descriptions and prices may be used (not the allergen numbers); history (1992, Beppe Carrieri, Luca and Max), place facts, parking and ZTL, Palio and UNESCO, the Gambero Rosso mention and the dolceforte note may be used.
+  - Lead's decisions: static site in this folder (no framework), Italian plus English now, German later; identity built on the approved palette and fonts and the existing logo; governing idea "Dentro le mura"; one sentence of the menu ("the only ones in Siena and province") and one wrong description (ravioli with pumpkin) are left off the website; no tracking, cookies, forms or third-party scripts.
+  - Verification: file validation, content checks and the 360 px check pass; browser QA 0 FAIL on 7 pages; Lighthouse mobile at target (details in `qa/ledger.md`); reviewer PASS after two fix rounds.
+  - Open items for the founder: sign-off of the pages; the privacy note needs a legal check; a photo of pici; confirm the use on the home page of the three story points taken from the menu text (profile line 57); whether the "only ones" sentence may come back; whether WhatsApp Business is active on the landline; the owner's Google Business Profile steps; hosting and DNS for the domain; the other open questions in `plan.md` section 6.
+  - Side effects to know: the Default cloud environment now allows 16 competitor websites (added during research with the founder's approval of the prompt); a stray empty file `clients/osteria-dei-rossi-website` created on `main` on 2026-11-24 is untouched.
 - Phase: build (plan provisionally approved; repo https://github.com/digialto7-byte/osteria-dei-rossi-app bootstrapped)
 - Phase: **Phase 1 code complete** (2026-11-08): #44 M25 go-live merged (merge ea8376c) with the strict nonce CSP, encrypted backups with restore checks (armed by `PRODUCTION_PROJECT_REF`), the manual production deploy, the runbook and the security walk. The close-out list is in the app repo at `docs/go-live/phase1-closeout.md` (follow-ups, plan questions on defaults, and 89 founder/ops steps, 63 of them blocking). The pre-go-live code is merged (raw stock #64, invoice-file backups #66, reservations #61 and #69). All follow-ups are merged too (#70–#72, 2026-11-11), and staging is deployed and green at cb3aade. SaaS direction decided 2026-11-13 (plans #80/#81, build after go-live). Phase 2 scope merged 2026-11-11 (osteria-dei-rossi-app#73, `docs/plans/2026-11-11-phase2-scope.md`). In build: P2-0, the go-live carry-overs.
 - Customer table reservations (plan `docs/plans/2026-11-08-reservations.md`, ADR-032):
