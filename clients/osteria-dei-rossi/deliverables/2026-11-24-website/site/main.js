@@ -966,6 +966,13 @@
       const onScreen = rect.bottom > 0 && rect.top < fold && (rect.width > 0 || rect.height > 0);
       return onScreen ? (introPlays ? 'later' : 'now') : 'scroll';
     };
+    /* The book and the pour cover the whole page until they lift: text that is on screen under
+       them takes its place at once, so nothing is still fading in when the page appears. */
+    const covered = introPlays && S.intro.key !== 'g';
+    const textMode = (element) => {
+      const mode = modeOf(element);
+      return covered && mode === 'later' ? 'now' : mode;
+    };
     /* A hidden element sits 24 px lower; the start line moves with it. */
     const revealStart = (shifted) => () => 'top ' + Math.round((win.innerHeight || fold) * 0.85 + (shifted ? 24 : 0)) + 'px';
 
@@ -977,10 +984,10 @@
       const items = reveals.filter((element) => element.closest('[data-reveal-group]') === group);
       if (items.length) {
         items.forEach((element) => grouped.add(element));
-        groups.push({ group, items, mode: modeOf(group) });
+        groups.push({ group, items, mode: textMode(group) });
       }
     });
-    const singles = reveals.filter((element) => !grouped.has(element)).map((element) => ({ element, mode: modeOf(element) }));
+    const singles = reveals.filter((element) => !grouped.has(element)).map((element) => ({ element, mode: textMode(element) }));
     const masks = qsa('[data-mask]')
       .filter((element) => !played.has(element) && !inHero(element) && !isProtected(element))
       .map((element) => ({ element, mode: modeOf(element) }));
@@ -1006,7 +1013,7 @@
       S.pending.add(sweep);
     }
     if (present.length) {
-      schedule(introPlays ? 'later' : 'now', null, null, () => playReveal(present));
+      schedule(introPlays && !covered ? 'later' : 'now', null, null, () => playReveal(present));
     }
 
     /* Photo masks (never in the hero): uncover from the bottom, the photo itself does not move. */
