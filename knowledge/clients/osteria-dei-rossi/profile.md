@@ -4,7 +4,7 @@ slug: osteria-dei-rossi
 language: it
 status: prospect
 owner: Mohammad
-updated: 2026-11-24
+updated: 2026-11-25
 ---
 
 # Osteria Dei Rossi — approved facts
@@ -94,6 +94,25 @@ Researched on the web (src: `clients/osteria-dei-rossi/deliverables/2026-11-24-w
 - Cinghiale in dolceforte: the sweet-and-sour dolceforte goes back to medieval cooking; the chocolate in today's recipe was added in later centuries (approved by the founder in chat 2026-11-24)
 - Siena's historic centre has been a UNESCO World Heritage site since 1995; the Palio is run on 2 July and 16 August (approved by the founder in chat 2026-11-24)
 
+## Welcome, food and wine (website version 2, 2026-11-25)
+
+Stated or approved by the founder on 2026-11-25 (src: sources/founder-website-feedback-2026-11-25.md):
+- Osteria dei Rossi is a warm place where you feel at home; the service is very friendly.
+- Welcome line, taken from the menu and approved as the opening of the story: "Mettetevi comodi: qui si mangia come a casa, con la ciccia buona e il vino giusto."
+- Pici are thick, hand-rolled strands of pasta made from flour and water, typical of the Siena area. At the osteria they come with white Cinta Senese ragù, duck ragù, cacio e pepe and wild boar ragù.
+- Cinta Senese is the native pig breed of the Siena hills, dark with a white band (the "cinta") around its shoulders. It is painted in Ambrogio Lorenzetti's fresco of 1338–39 in Siena's Palazzo Pubblico and has protected-origin (DOP) status.
+- Cantucci are Tuscan almond biscuits; the tradition is to dip them in Vin Santo, the sweet Tuscan dessert wine, to end the meal. The osteria serves cantucci e Vin Santo.
+- Chianti Classico (the Gallo Nero, the black rooster), Vino Nobile di Montepulciano and Brunello di Montalcino are the great reds of the Siena area. The wine list carries all three, plus Bolgheri, other Tuscan reds, whites and sparkling wines.
+- Wine list for the website: the wines and producers in `sources/wine-list-2026-11-25.json`, published **without prices**. Three readings wait for the founder's proofreading: "Chianti Domasco DOC", "Bolgheri Bianco Papero" and the producer "Poggio Canzano". The heading "Rosé e bollicine" for the last group is the lead's (the printed heading is not visible in the photo).
+
+From the founder's captions of the second photo set (src: sources/photos-2026-11-25.md; given by the founder 2026-11-25). Dishes shown and named by the founder:
+- Filetto al tartufo fresco; crostoni with truffle, and crostoni with cheese, pears and honey; cantucci e Vin Santo
+- Pici al ragù di cinghiale; pici cacio e pepe
+- Fresh porcini: grilled, and fried as a side dish; tagliatelle ai porcini freschi
+- Spaghetti dell'osteria, with tomato sauce and gorgonzola
+- Tagliatelle al ragù di Cinta; tagliatelle al ragù; tagliatelle al tartufo fresco
+- A dish in these photos that is not on the live menu of 2026-11-24 may be shown and named on the home page, but takes no price and no menu-page entry until the founder adds it to the menu.
+
 ## Operations (build-relevant)
 - Fiscal register: RCH LDP03 (ASSO 3, Xstore back office); it only fiscalizes sales and exports supplier invoices as PDF; it stays in use, keyed in separately by the cashier [unverified] (src: sources/prd-2026-10-21.md)
 - No POS integration and no RCH integration in either direction [unverified] (src: sources/prd-2026-10-21.md)
@@ -138,6 +157,9 @@ Researched on the web (src: `clients/osteria-dei-rossi/deliverables/2026-11-24-w
 - `sources/founder-website-brief-2026-11-24.md` — the founder's website brief of 2026-11-24, verbatim, with the facts and design instructions it contains.
 - `sources/photos-2026-11-24.md` — catalogue of the 20 photos and the logo files the founder gave on 2026-11-24 (the originals are session uploads, not in git).
 - `sources/website-handover-2026-11-24/` — the handover kit from an earlier website project (structure, skills to use, first prompt), given by the founder as a guide, not a rule.
+- `sources/founder-website-feedback-2026-11-25.md` — the founder's feedback on website version 1 (verbatim), the instructions for version 2 and the answers of the question round of 2026-11-25.
+- `sources/photos-2026-11-25.md` — catalogue of the second photo set (14 dishes), with the founder's captions.
+- `sources/wine-list-2026-11-25.md` and `.json` — the printed carta dei vini, transcribed from the founder's photos (the `.md` keeps the printed prices for reference; the `.json` has no prices and feeds the website).
 - `clients/osteria-dei-rossi/deliverables/2026-11-24-website/research_notes/` and `reports/` — web research of 2026-11-24 (the osteria's own listings, Siena search results, competitor sites, place and food history). Research, not approved facts.
 
 ## Open questions

@@ -1,0 +1,57 @@
+{
+ "source": "Printed carta dei vini, pages 3 to 7, photographed by the founder and transcribed on 2026-11-25. Approved for the website without prices; the founder proofreads the names.",
+ "groups": [
+  {"id": "rossi", "it": "Vini rossi", "en": "Red wines", "sections": [
+   {"it": "Chianti", "en": "Chianti", "wines": [
+    {"name": "Chianti Classico Selvolini Gallo Nero", "producer": "Azienda agricola Selvolini"},
+    {"name": "Chianti Domasco DOC", "producer": "Tenuta Ripalta"},
+    {"name": "Chianti Colli Senesi La Foresta", "producer": ""},
+    {"name": "Chianti Classico Due Lame", "producer": "Lamole di Lamole"},
+    {"name": "Chianti Classico Maggiolo", "producer": "Lamole di Lamole"}]},
+   {"it": "Montepulciano", "en": "Montepulciano", "wines": [
+    {"name": "Rosso di Montepulciano", "producer": "Azienda agricola Guidotti"},
+    {"name": "Nobile di Montepulciano", "producer": "Azienda agricola Guidotti"},
+    {"name": "Rosso di Montepulciano", "producer": "Poggio alla Sala"},
+    {"name": "Nobile di Montepulciano", "producer": "Poggio alla Sala"}]},
+   {"it": "Montalcino", "en": "Montalcino", "wines": [
+    {"name": "Rosso di Montalcino La Caduta", "producer": "Caparzo"},
+    {"name": "Brunello di Montalcino La Casa", "producer": "Caparzo"},
+    {"name": "Rosso di Montalcino", "producer": "Camigliano"},
+    {"name": "Brunello di Montalcino", "producer": "Camigliano"}]},
+   {"it": "Bolgheri", "en": "Bolgheri", "wines": [
+    {"name": "Assiolo", "producer": "Campo al Noce"},
+    {"name": "Emilio Primo", "producer": "Terre del Marchesato"},
+    {"name": "Marchesale Bolgheri Superiore", "producer": "Terre del Marchesato"}]},
+   {"it": "IGT toscani", "en": "Tuscan IGT", "wines": [
+    {"name": "IGT L'Osteria", "producer": "Tenute Selvolini"},
+    {"name": "Inedito", "producer": "Terre del Marchesato"},
+    {"name": "IGT Barricato", "producer": "Poggio Canzano"},
+    {"name": "Morellino di Scansano", "producer": "Santa Lucia"},
+    {"name": "Merlot", "producer": "Poggio Canzano"}]},
+   {"it": "Dal Nord Italia", "en": "From northern Italy", "wines": [
+    {"name": "Nebbiolo Langhe", "producer": "Cascina Chicco"},
+    {"name": "Barbera d'Alba", "producer": "Cascina Chicco"},
+    {"name": "Pinot Nero", "producer": "Kettmeir"}]},
+   {"it": "Dal Sud Italia", "en": "From southern Italy", "wines": [
+    {"name": "Primitivo", "producer": "Vetrère"},
+    {"name": "Negroamaro Salento IGP", "producer": "Le Vigne di Sammarco"}]}]},
+  {"id": "bianchi", "it": "Vini bianchi", "en": "White wines", "sections": [
+   {"it": "", "en": "", "wines": [
+    {"name": "Chardonnay", "producer": "La Ripalta"},
+    {"name": "Vermentino", "producer": "La Francesca"},
+    {"name": "Pinot Grigio", "producer": "Sdricca"},
+    {"name": "Bolgheri Bianco Papero", "producer": "Terre del Marchesato"},
+    {"name": "Pinot Bianco", "producer": "Kettmeir"},
+    {"name": "Vernaccia di San Gimignano", "producer": "Guicciardini Strozzi"},
+    {"name": "Vernaccia Riserva", "producer": "Guicciardini Strozzi"},
+    {"name": "Ribolla Gialla", "producer": "Sdricca"},
+    {"name": "Ansonica", "producer": "Costa dell'Argentario"},
+    {"name": "IGT Bianco Emilio Primo", "producer": "Terre del Marchesato"}]}]},
+  {"id": "bollicine", "it": "Rosé e bollicine", "en": "Rosé and sparkling", "sections": [
+   {"it": "", "en": "", "wines": [
+    {"name": "Rosé IGT Selvolini", "producer": ""},
+    {"name": "Prosecco", "producer": ""},
+    {"name": "Franciacorta", "producer": ""},
+    {"name": "Champagne", "producer": ""}]}]}
+ ]
+}

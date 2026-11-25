@@ -26,3 +26,24 @@ All files are in `site/assets/img/`. AVIF at every width; one JPEG fallback per 
 | `tartufo-nero-fresco` | tile | 5:4 landscape | 480, 720, 960, 1280 | `tartufo-nero-fresco-720.jpg` (720×576) | `#080808` | tartufo fresco, tutto l'anno |
 
 Other files: `logo-osteria-dei-rossi-{360,720}.webp` (colour, for cream backgrounds, 720×370 and 360×185), `logo-osteria-dei-rossi-chiaro-{360,720}.webp` (white lettering with the yellow mark, for green or photo backgrounds), `logo-osteria-dei-rossi-bianco-*` and `-nero-*` (one colour), `favicon-32.png`, `apple-touch-icon.png` (180), `icon-512.png`, `og-osteria-dei-rossi-siena.jpg` (1200×630).
+
+## Second photo set (2026-11-25)
+
+All 3:2 landscape, dark background, white plates. AVIF at 480, 720, 960, 1280 and 1600; JPEG fallback `<slug>-720.jpg` (720×480). Placeholder colour for all: `#141210`. They work as tiles and, at 1600, as wide bands on desktop.
+
+| Slug | Role | Founder's caption |
+|---|---|---|
+| `filetto-al-tartufo-fresco` | tile / band | Filletto al tratufo fresco |
+| `crostoni-tartufo-e-formaggio-pere-miele` | tile / band | bruschette al tartufo e bruschette a formaggio sfuso, perri e miele |
+| `cantucci-e-vin-santo` | tile / band | cantucci e vin santo |
+| `pici-al-ragu-di-cinghiale` | tile / band | pici al ragu cinghiale |
+| `pici-cacio-e-pepe` | tile / band | pici caccio pepe |
+| `porcini-freschi-grigliati` | tile / band | porcini freschi grigliatti |
+| `porcini-freschi` | tile / band | porcini freschi |
+| `porcini-fritti` | tile / band | porcini fritti, come controno accompagnato |
+| `spaghetti-dell-osteria-sugo-e-gorgonzola` | tile / band | spaghetti di osteria (con suogo e gorgonzola) |
+| `tagliatelle-ai-porcini-freschi-1` | tile / band | tagliatelle ai porcini freschi 1 |
+| `tagliatelle-ai-porcini-freschi` | tile / band | tagliatelle ai porcini freschi |
+| `tagliatelle-al-ragu-di-cinta` | tile / band | tagliatelle al ragu di cinta |
+| `tagliatelle-al-ragu` | tile / band | tagliatelle al ragu |
+| `tagliatelle-al-tartufo-fresco` | tile / band | tagliatelle al tartufo fresco |
