@@ -619,7 +619,7 @@ picture img{width:100%;height:100%;object-fit:cover}
 .map__label--r{transform:translate(.65rem,-50%)}
 .map__label--l{transform:translate(calc(-100% - .65rem),-50%)}
 .map__label--b{transform:translate(-50%,.65rem)}
-.map__label--wrap{white-space:normal;width:7.75rem;box-sizing:border-box}
+.map__label--wrap{white-space:normal;width:7rem;box-sizing:border-box}
 .map__label--osteria{font-weight:800;box-shadow:inset 0 -2px 0 var(--gold)}
 .map figcaption{text-align:center}
 @media (min-width:45rem){
