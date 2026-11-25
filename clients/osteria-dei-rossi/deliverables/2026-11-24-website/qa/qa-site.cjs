@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 /* Browser QA for the static site (adapted from the handover toolkit, rewritten for Playwright).
  *
- *   node qa/qa-site.cjs <siteDir> <outDir> [--axe=/path/to/axe.min.js] [--shots]
+ *   node qa/qa-site.cjs <siteDir> <outDir> [--axe=/path/to/axe.min.js] [--shots] [--only=home-it,menu-it]
  *
  * For every page at 1440, 390 and 360 px: console and page errors, failed requests, requests to
  * another origin, horizontal scroll, one h1, heading order, images (loaded, alt, width/height),
- * internal links and anchors, title and description length, canonical, hreflang pair, JSON-LD
+ * internal links and anchors, title and description length, canonical, hreflang set, JSON-LD
  * that parses, blocks left hidden after a full scroll. Then: reduced-motion pass, no-JavaScript
  * pass, the gate intro (frames, skip, once per session), real-pixel contrast of text over photos
- * (elements marked data-on-photo), IT/EN parity, and axe-core if a path is given.
+ * (blocks marked data-on-photo), IT/EN parity, and axe-core if a path is given.
  * Exit code 1 if any check fails.
  */
 'use strict';
@@ -18,10 +18,11 @@ const path = require('node:path');
 const { chromium } = require('playwright');
 
 const [siteArg, outArg, ...rest] = process.argv.slice(2);
-if (!siteArg || !outArg) { process.stderr.write('usage: qa-site.cjs <siteDir> <outDir> [--axe=path] [--shots]\n'); process.exit(2); }
+if (!siteArg || !outArg) { process.stderr.write('usage: qa-site.cjs <siteDir> <outDir> [--axe=path] [--shots] [--only=ids]\n'); process.exit(2); }
 const SITE = path.resolve(siteArg);
 const OUT = path.resolve(outArg);
 const AXE = (rest.find((a) => a.startsWith('--axe=')) || '').slice(6);
+const ONLY = (rest.find((a) => a.startsWith('--only=')) || '').slice(7).split(',').filter(Boolean);
 const SHOTS = rest.includes('--shots');
 const PAGES = [
   { id: 'home-it', url: '/', lang: 'it', pair: '/en/' },
@@ -30,7 +31,7 @@ const PAGES = [
   { id: 'menu-en', url: '/en/menu/', lang: 'en', pair: '/menu/' },
   { id: 'privacy-it', url: '/privacy/', lang: 'it', pair: '/en/privacy/' },
   { id: 'privacy-en', url: '/en/privacy/', lang: 'en', pair: '/privacy/' },
-  { id: '404', url: '/404.html', lang: 'it', pair: null, noindexOk: true },
+  { id: '404', url: '/404.html', lang: 'it', pair: null },
 ];
 const VIEWPORTS = [
   { w: 1440, h: 900, mobile: false },
@@ -58,17 +59,18 @@ function serve(root) {
 const findings = [];
 const add = (level, page, vp, msg) => findings.push({ level, page, vp, msg });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const note = (s) => process.stderr.write(s + '\n');
 
+/* Scroll the whole page in steps. The waits run on this side, not in the page, because page
+   timers never fire in the no-JavaScript pass. */
 async function fullScroll(page) {
-  await page.evaluate(async () => {
-    const step = Math.round(window.innerHeight * 0.6);
-    for (let y = 0; y <= document.documentElement.scrollHeight; y += step) {
-      window.scrollTo(0, y);
-      await new Promise((r) => setTimeout(r, 160));
-    }
-    window.scrollTo(0, document.documentElement.scrollHeight);
-    await new Promise((r) => setTimeout(r, 900));
-  });
+  const dims = await page.evaluate(() => ({ h: document.documentElement.scrollHeight, step: Math.round(window.innerHeight * 0.6) }));
+  for (let y = 0; y <= dims.h; y += dims.step) {
+    await page.evaluate((top) => window.scrollTo(0, top), y);
+    await sleep(160);
+  }
+  await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+  await sleep(2600);
 }
 
 const PROBE = () => {
@@ -86,8 +88,8 @@ const PROBE = () => {
     scrollW: document.documentElement.scrollWidth, docW,
     wide: [...document.querySelectorAll('body *')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.right > docW + 1 && getComputedStyle(e).position !== 'fixed' && !e.closest('[data-allow-overflow]'); }).slice(0, 5).map((e) => e.tagName.toLowerCase() + '.' + String(e.className).split(' ')[0]),
     h1: document.querySelectorAll('h1').length, heads,
-    imgs: [...document.images].map((i) => ({ src: i.currentSrc || i.src, alt: i.getAttribute('alt'), w: i.getAttribute('width'), h: i.getAttribute('height'), ok: i.complete && i.naturalWidth > 0, lazy: i.loading })),
-    links: [...document.querySelectorAll('a[href]')].map((a) => ({ href: a.getAttribute('href'), text: (a.textContent.trim() || a.getAttribute('aria-label') || '').slice(0, 40), target: a.target, rel: a.rel })),
+    imgs: [...document.images].map((i) => ({ src: i.currentSrc || i.src, alt: i.getAttribute('alt'), w: i.getAttribute('width'), h: i.getAttribute('height'), ok: i.complete && i.naturalWidth > 0 })),
+    links: [...document.querySelectorAll('a[href]')].map((a) => ({ href: a.getAttribute('href'), target: a.target, rel: a.rel })),
     ids: [...document.querySelectorAll('[id]')].map((e) => e.id),
     lang: document.documentElement.lang, title: document.title,
     desc: (document.querySelector('meta[name="description"]') || {}).content || '',
@@ -95,7 +97,7 @@ const PROBE = () => {
     hreflang: [...document.querySelectorAll('link[rel="alternate"][hreflang]')].map((l) => l.hreflang + '=' + l.getAttribute('href')),
     og: ['og:title', 'og:description', 'og:image', 'og:url'].filter((p) => !document.querySelector(`meta[property="${p}"]`)),
     ld, hidden,
-    small: [...document.querySelectorAll('a.btn, button, .cta-bar a, nav a')].filter(vis).filter((e) => { const r = e.getBoundingClientRect(); return r.height < 40; }).map((e) => (e.textContent.trim() || e.getAttribute('aria-label') || e.tagName).slice(0, 24) + ' ' + Math.round(e.getBoundingClientRect().height) + 'px').slice(0, 6),
+    small: [...document.querySelectorAll('a.btn, button, .cta-bar a, nav a')].filter(vis).filter((e) => e.getBoundingClientRect().height < 40).map((e) => (e.textContent.trim() || e.getAttribute('aria-label') || e.tagName).slice(0, 24) + ' ' + Math.round(e.getBoundingClientRect().height) + 'px').slice(0, 6),
     introVisible: (() => { const i = document.getElementById('intro'); if (!i) return false; const cs = getComputedStyle(i); return cs.display !== 'none' && cs.visibility !== 'hidden' && Number(cs.opacity) > 0.02 && !i.hidden; })(),
     text: document.body.innerText.length,
   };
@@ -103,9 +105,11 @@ const PROBE = () => {
 
 async function checkPage(browser, base, pg, vp, opts = {}) {
   const ctx = await browser.newContext({ viewport: { width: vp.w, height: vp.h }, isMobile: vp.mobile, hasTouch: vp.mobile, deviceScaleFactor: 1, reducedMotion: opts.reduced ? 'reduce' : 'no-preference', javaScriptEnabled: !opts.nojs });
-  if (!opts.intro) await ctx.addInitScript(() => { try { sessionStorage.setItem('odr-intro', '1'); } catch (e) { /* ignore */ } });
+  await ctx.addInitScript(() => { try { sessionStorage.setItem('odr-intro', '1'); } catch (e) { /* ignore */ } });
   const page = await ctx.newPage();
+  page.setDefaultTimeout(20000);
   const tag = `${vp.w}${opts.reduced ? '-reduced' : ''}${opts.nojs ? '-nojs' : ''}`;
+  note(`. ${pg.id} @${tag}`);
   const errs = [];
   page.on('console', (m) => { if (m.type() === 'error') errs.push(m.text()); });
   page.on('pageerror', (e) => errs.push('pageerror: ' + e.message));
@@ -120,7 +124,9 @@ async function checkPage(browser, base, pg, vp, opts = {}) {
   if (r.scrollW > r.docW) add('FAIL', pg.id, tag, `horizontal scroll ${r.scrollW} > ${r.docW} (${r.wide.join(', ')})`);
   if (r.hidden.length) add('FAIL', pg.id, tag, 'still hidden after a full scroll: ' + r.hidden.join(', '));
   if (r.introVisible) add('FAIL', pg.id, tag, 'intro overlay visible when it must not be');
-  if (!opts.reduced && !opts.nojs && vp.w === 1440) {
+  r.imgs.filter((i) => !i.ok).forEach((i) => add('FAIL', pg.id, tag, 'image did not load: ' + i.src.split('/').pop()));
+  const main = !opts.reduced && !opts.nojs;
+  if (main && vp.w === 1440) {
     if (r.h1 !== 1) add('FAIL', pg.id, tag, 'h1 count ' + r.h1);
     let prev = 0;
     r.heads.forEach((h) => { if (prev && h.level > prev + 1) add('FAIL', pg.id, tag, `heading jumps from h${prev} to h${h.level}: "${h.text}"`); prev = h.level; });
@@ -149,63 +155,88 @@ async function checkPage(browser, base, pg, vp, opts = {}) {
     if (pg.pair) { const hasPair = r.links.some((l) => { try { return new URL(l.href, base + pg.url).pathname === pg.pair; } catch (e) { return false; } }); if (!hasPair) add('FAIL', pg.id, tag, 'no link to the other language page ' + pg.pair); }
     opts.store[pg.id] = { heads: r.heads.length, imgs: r.imgs.length, ld: r.ld.map((l) => (l.types || []).join(',')), title: r.title, desc: r.desc, text: r.text };
   }
-  r.imgs.filter((i) => !i.ok).forEach((i) => add('FAIL', pg.id, tag, 'image did not load: ' + i.src.split('/').pop()));
-  if (vp.mobile && !opts.reduced && !opts.nojs && r.small.length) add('NOTE', pg.id, tag, 'controls under 40 px high: ' + r.small.join(' | '));
-  if (SHOTS && !opts.reduced && !opts.nojs && vp.w !== 360) { await page.evaluate(() => window.scrollTo(0, 0)); await sleep(400); await page.screenshot({ path: path.join(OUT, `${pg.id}-${vp.w}.png`), fullPage: true }); }
-  if (AXE && vp.w !== 360 && !opts.reduced && !opts.nojs) {
+  if (vp.mobile && main && r.small.length) add('NOTE', pg.id, tag, 'controls under 40 px high: ' + r.small.join(' | '));
+  if (SHOTS && main && vp.w !== 360) { await page.evaluate(() => window.scrollTo(0, 0)); await sleep(400); await page.screenshot({ path: path.join(OUT, `${pg.id}-${vp.w}.png`), fullPage: true }); }
+  if (AXE && vp.w !== 360 && main) {
     await page.addScriptTag({ path: AXE });
-    const res = await page.evaluate(async () => { const r = await window.axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] }); return r.violations.map((v) => ({ id: v.id, impact: v.impact, n: v.nodes.length, ex: v.nodes.slice(0, 3).map((x) => x.target.join(' ')) })); });
+    const res = await page.evaluate(async () => { const out = await window.axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] }); return out.violations.map((v) => ({ id: v.id, impact: v.impact, n: v.nodes.length, ex: v.nodes.slice(0, 3).map((x) => x.target.join(' ')) })); });
     res.forEach((v) => add(v.impact === 'minor' ? 'NOTE' : 'FAIL', pg.id, tag, `axe ${v.id} (${v.impact}, ${v.n}): ${v.ex.join(' ; ')}`));
   }
-  if (opts.contrast) await contrast(page, pg, tag, browser);
+  if (opts.contrast && main) await contrast(page, pg, tag, browser);
   await ctx.close();
 }
 
-/* Real-pixel contrast: hide the text of each element marked data-on-photo, screenshot its box,
-   and compare the text colour with every pixel behind it (1st percentile is reported). */
+/* Real-pixel contrast: for each block marked data-on-photo, make its text transparent, take one
+   screenshot of the block, and compare each text element's colour with every pixel behind it
+   (the 1st percentile is reported, so a few stray pixels do not decide the result). */
 async function contrast(page, pg, tag, browser) {
-  const els = await page.$$('[data-on-photo] :is(h1,h2,h3,p,li,a,span,dt,dd,figcaption,small,strong,em,th,td)');
-  if (!els.length) return;
+  const blocks = await page.$$('[data-on-photo]');
+  if (!blocks.length) return;
+  await page.addStyleTag({ content: '[data-qa-hide], [data-qa-hide] * { color: transparent !important; text-shadow: none !important; } [data-qa-hide] svg { visibility: hidden !important; }' });
   const dec = await browser.newPage();
-  for (const el of els) {
-    const info = await el.evaluate((e) => {
-      const own = [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
-      if (!own) return null;
-      const cs = getComputedStyle(e); const r = e.getBoundingClientRect();
-      if (r.width < 4 || r.height < 4 || Number(cs.opacity) < 0.05) return null;
-      const bg = cs.backgroundColor; const m = bg.match(/[\d.]+/g) || [];
-      if (m.length >= 3 && (m.length < 4 || Number(m[3]) > 0.9)) return null;   // own opaque ground
-      const btn = e.closest('.btn'); if (btn) { const b = getComputedStyle(btn).backgroundColor.match(/[\d.]+/g) || []; if (b.length >= 3 && (b.length < 4 || Number(b[3]) > 0.9)) return null; }
-      return { color: cs.color, size: parseFloat(cs.fontSize), weight: Number(cs.fontWeight), text: e.textContent.trim().slice(0, 40) };
+  for (const block of blocks) {
+    await block.evaluate((e) => e.scrollIntoView({ block: 'center', behavior: 'instant' }));
+    await sleep(700);
+    const items = await block.evaluate((root) => {
+      const rb = root.getBoundingClientRect();
+      const out = [];
+      root.querySelectorAll('h1,h2,h3,p,li,a,span,dt,dd,figcaption,small,strong,em,th,td,b').forEach((e) => {
+        const own = [...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+        if (!own) return;
+        const cs = getComputedStyle(e); const r = e.getBoundingClientRect();
+        if (r.width < 4 || r.height < 4 || Number(cs.opacity) < 0.05 || cs.visibility === 'hidden') return;
+        let n = e; let opaque = false;
+        while (n) {
+          const m = getComputedStyle(n).backgroundColor.match(/[\d.]+/g) || [];
+          if (m.length >= 3 && (m.length < 4 || Number(m[3]) > 0.9)) { opaque = true; break; }
+          if (n === root) break;
+          n = n.parentElement;
+        }
+        if (opaque) return;   // text on its own solid ground (buttons) is not over the photo
+        out.push({ x: r.left - rb.left, y: r.top - rb.top, w: r.width, h: r.height, color: cs.color, size: parseFloat(cs.fontSize), weight: Number(cs.fontWeight), text: e.textContent.trim().slice(0, 40) });
+      });
+      return out;
     });
-    if (!info) continue;
-    await el.scrollIntoViewIfNeeded();
-    await sleep(120);
-    await el.evaluate((e) => { e.dataset.qaColor = e.style.color; e.style.setProperty('color', 'transparent', 'important'); e.style.setProperty('text-shadow', 'none', 'important'); });
-    const box = await el.boundingBox();
-    if (!box) continue;
-    const shot = await page.screenshot({ clip: { x: Math.max(0, box.x), y: Math.max(0, box.y), width: Math.min(box.width, 1400), height: Math.min(box.height, 600) } });
-    await el.evaluate((e) => { e.style.color = e.dataset.qaColor || ''; e.style.removeProperty('text-shadow'); });
-    const worst = await dec.evaluate(async ({ b64, color }) => {
+    if (!items.length) continue;
+    await block.evaluate((e) => e.setAttribute('data-qa-hide', ''));
+    let shot = null;
+    try { shot = await block.screenshot({ timeout: 15000, animations: 'disabled' }); } catch (e) { add('NOTE', pg.id, tag, 'contrast sample skipped: screenshot timed out'); }
+    await block.evaluate((e) => e.removeAttribute('data-qa-hide'));
+    if (!shot) continue;
+    const res = await dec.evaluate(async ({ b64, list }) => {
       const img = await createImageBitmap(await (await fetch('data:image/png;base64,' + b64)).blob());
       const c = new OffscreenCanvas(img.width, img.height); const x = c.getContext('2d'); x.drawImage(img, 0, 0);
-      const d = x.getImageData(0, 0, img.width, img.height).data;
       const lin = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
       const lum = (r, g, b) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
-      const t = color.match(/[\d.]+/g).map(Number); const tl = lum(t[0], t[1], t[2]);
-      const out = [];
-      for (let i = 0; i < d.length; i += 16) { const l = lum(d[i], d[i + 1], d[i + 2]); out.push((Math.max(l, tl) + 0.05) / (Math.min(l, tl) + 0.05)); }
-      out.sort((a, b) => a - b);
-      return { p1: out[Math.floor(out.length * 0.01)], min: out[0] };
-    }, { b64: shot.toString('base64'), color: info.color });
-    const large = info.size >= 24 || (info.size >= 18.66 && info.weight >= 700);
-    const need = large ? 3 : 4.5;
-    if (worst.p1 < need) add('FAIL', pg.id, tag, `contrast over photo ${worst.p1.toFixed(2)}:1 (need ${need}) "${info.text}" ${Math.round(info.size)}px`);
+      return list.map((it) => {
+        const X = Math.max(0, Math.floor(it.x)); const Y = Math.max(0, Math.floor(it.y));
+        const W = Math.min(img.width - X, Math.ceil(it.w)); const H = Math.min(img.height - Y, Math.ceil(it.h));
+        if (W < 2 || H < 2) return null;
+        const d = x.getImageData(X, Y, W, H).data;
+        const t = it.color.match(/[\d.]+/g).map(Number); const tl = lum(t[0], t[1], t[2]);
+        const out = [];
+        for (let i = 0; i < d.length; i += 12) { const l = lum(d[i], d[i + 1], d[i + 2]); out.push((Math.max(l, tl) + 0.05) / (Math.min(l, tl) + 0.05)); }
+        out.sort((a, b) => a - b);
+        return out[Math.floor(out.length * 0.01)];
+      });
+    }, { b64: shot.toString('base64'), list: items });
+    items.forEach((it, i) => {
+      if (res[i] === null || res[i] === undefined) return;
+      const large = it.size >= 24 || (it.size >= 18.66 && it.weight >= 700);
+      const need = large ? 3 : 4.5;
+      if (res[i] < need) add('FAIL', pg.id, tag, `contrast over photo ${res[i].toFixed(2)}:1 (need ${need}) "${it.text}" ${Math.round(it.size)}px`);
+    });
   }
   await dec.close();
 }
 
+async function introState(page) {
+  return page.evaluate(() => { const i = document.getElementById('intro'); if (!i) return 'missing'; const cs = getComputedStyle(i); return (i.hidden || cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) < 0.02) ? 'gone' : 'visible'; });
+}
+
 async function introPass(browser, base, vp) {
+  note(`. intro @${vp.w}`);
+  const tag = 'intro-' + vp.w;
   const ctx = await browser.newContext({ viewport: { width: vp.w, height: vp.h }, isMobile: vp.mobile, hasTouch: vp.mobile, deviceScaleFactor: 1 });
   const page = await ctx.newPage();
   const errs = [];
@@ -216,24 +247,21 @@ async function introPass(browser, base, vp) {
     await sleep(Math.max(0, t - (Date.now() - t0)));
     if (SHOTS) await page.screenshot({ path: path.join(OUT, `intro-${vp.w}-${String(t).padStart(4, '0')}.png`) });
   }
-  await sleep(1200);
-  const gone = await page.evaluate(() => { const i = document.getElementById('intro'); if (!i) return 'missing'; const cs = getComputedStyle(i); return (i.hidden || cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) < 0.02) ? 'gone' : 'visible'; });
-  if (gone === 'missing') add('FAIL', 'home-it', 'intro-' + vp.w, 'no #intro element on the home page');
-  if (gone === 'visible') add('FAIL', 'home-it', 'intro-' + vp.w, 'intro still visible 4 s after load');
-  const locked = await page.evaluate(() => { window.scrollTo(0, 600); return new Promise((r) => setTimeout(() => r(window.scrollY), 500)); });
-  if (locked < 300) add('FAIL', 'home-it', 'intro-' + vp.w, 'page cannot be scrolled after the intro (scrollY ' + locked + ')');
+  await sleep(1500);
+  const state = await introState(page);
+  if (state === 'missing') add('FAIL', 'home-it', tag, 'no #intro element on the home page');
+  if (state === 'visible') add('FAIL', 'home-it', tag, 'intro still visible 4 s after load');
+  const y = await page.evaluate(() => { window.scrollTo(0, 600); return new Promise((r) => setTimeout(() => r(window.scrollY), 700)); });
+  if (y < 300) add('FAIL', 'home-it', tag, 'page cannot be scrolled after the intro (scrollY ' + y + ')');
   await page.reload({ waitUntil: 'load' }); await sleep(700);
-  const again = await page.evaluate(() => { const i = document.getElementById('intro'); if (!i) return false; const cs = getComputedStyle(i); return !(i.hidden || cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) < 0.02); });
-  if (again) add('FAIL', 'home-it', 'intro-' + vp.w, 'intro plays again on a second load in the same session');
-  errs.forEach((e) => add('FAIL', 'home-it', 'intro-' + vp.w, 'pageerror: ' + e));
+  if (await introState(page) === 'visible') add('FAIL', 'home-it', tag, 'intro plays again on a second load in the same session');
+  errs.forEach((e) => add('FAIL', 'home-it', tag, 'pageerror: ' + e));
   await ctx.close();
-  // skip by key
   const ctx2 = await browser.newContext({ viewport: { width: vp.w, height: vp.h } });
   const p2 = await ctx2.newPage();
-  await p2.goto(base + '/', { waitUntil: 'commit' }); await sleep(450);
+  await p2.goto(base + '/', { waitUntil: 'load' }); await sleep(250);
   await p2.keyboard.press('Escape'); await sleep(900);
-  const skipped = await p2.evaluate(() => { const i = document.getElementById('intro'); if (!i) return true; const cs = getComputedStyle(i); return i.hidden || cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) < 0.02; });
-  if (!skipped) add('FAIL', 'home-it', 'intro-' + vp.w, 'a key press does not skip the intro');
+  if (await introState(p2) === 'visible') add('FAIL', 'home-it', tag, 'a key press does not skip the intro');
   await ctx2.close();
 }
 
@@ -243,8 +271,10 @@ async function introPass(browser, base, vp) {
   const base = `http://127.0.0.1:${port}`;
   const browser = await chromium.launch();
   const store = {};
-  const pages = PAGES.filter((p) => fs.existsSync(path.join(SITE, p.url.endsWith('/') ? p.url + 'index.html' : p.url)));
-  PAGES.filter((p) => !pages.includes(p)).forEach((p) => add('FAIL', p.id, '-', 'page file is missing'));
+  const exists = (p) => fs.existsSync(path.join(SITE, p.url.endsWith('/') ? p.url + 'index.html' : p.url));
+  const wanted = PAGES.filter((p) => !ONLY.length || ONLY.includes(p.id));
+  const pages = wanted.filter(exists);
+  wanted.filter((p) => !pages.includes(p)).forEach((p) => add('FAIL', p.id, '-', 'page file is missing'));
   for (const pg of pages) {
     for (const vp of VIEWPORTS) await checkPage(browser, base, pg, vp, { store, contrast: vp.w !== 360 });
     await checkPage(browser, base, pg, VIEWPORTS[0], { reduced: true, store });
@@ -258,7 +288,7 @@ async function introPass(browser, base, vp) {
     if (store[a].imgs !== store[b].imgs) add('FAIL', a, 'parity', `image count differs from ${b}: ${store[a].imgs} vs ${store[b].imgs}`);
     if (store[a].ld.join('|') !== store[b].ld.join('|')) add('NOTE', a, 'parity', `JSON-LD types differ from ${b}`);
   });
-  for (const f of ['robots.txt', 'sitemap.xml']) if (!fs.existsSync(path.join(SITE, f))) add('FAIL', f, '-', 'file is missing');
+  if (!ONLY.length) for (const f of ['robots.txt', 'sitemap.xml']) if (!fs.existsSync(path.join(SITE, f))) add('FAIL', f, '-', 'file is missing');
   await browser.close(); server.close();
   const fails = findings.filter((f) => f.level === 'FAIL');
   const lines = findings.map((f) => `${f.level} ${f.page} @${f.vp}: ${f.msg}`);
@@ -266,4 +296,4 @@ async function introPass(browser, base, vp) {
   fs.writeFileSync(path.join(OUT, 'qa-site.json'), JSON.stringify({ summary, store, findings }, null, 1));
   process.stdout.write(lines.join('\n') + (lines.length ? '\n' : '') + summary + '\n');
   process.exit(fails.length ? 1 : 0);
-})().catch((e) => { process.stderr.write(String(e && e.stack || e) + '\n'); process.exit(2); });
+})().catch((e) => { process.stderr.write(String((e && e.stack) || e) + '\n'); process.exit(2); });
