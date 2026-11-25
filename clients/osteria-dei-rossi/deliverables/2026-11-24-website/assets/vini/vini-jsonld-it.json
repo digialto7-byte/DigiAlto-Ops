@@ -1,0 +1,223 @@
+{
+ "@context": "https://schema.org",
+ "@type": "Menu",
+ "@id": "https://www.osteriadeirossi.it/vini/#carta-dei-vini",
+ "name": "Carta dei vini dell’Osteria dei Rossi",
+ "url": "https://www.osteriadeirossi.it/vini/",
+ "inLanguage": "it",
+ "hasMenuSection": [
+  {
+   "@type": "MenuSection",
+   "name": "Vini rossi",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Chianti Classico Selvolini Gallo Nero",
+     "description": "Azienda agricola Selvolini"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Chianti Domasco DOC",
+     "description": "Tenuta Ripalta"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Chianti Colli Senesi La Foresta"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Chianti Classico Due Lame",
+     "description": "Lamole di Lamole"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Chianti Classico Maggiolo",
+     "description": "Lamole di Lamole"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rosso di Montepulciano",
+     "description": "Azienda agricola Guidotti"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Nobile di Montepulciano",
+     "description": "Azienda agricola Guidotti"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rosso di Montepulciano",
+     "description": "Poggio alla Sala"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Nobile di Montepulciano",
+     "description": "Poggio alla Sala"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rosso di Montalcino La Caduta",
+     "description": "Caparzo"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Brunello di Montalcino La Casa",
+     "description": "Caparzo"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rosso di Montalcino",
+     "description": "Camigliano"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Brunello di Montalcino",
+     "description": "Camigliano"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Assiolo",
+     "description": "Campo al Noce"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Emilio Primo",
+     "description": "Terre del Marchesato"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Marchesale Bolgheri Superiore",
+     "description": "Terre del Marchesato"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "IGT L’Osteria",
+     "description": "Tenute Selvolini"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Inedito",
+     "description": "Terre del Marchesato"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "IGT Barricato",
+     "description": "Poggio Canzano"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Morellino di Scansano",
+     "description": "Santa Lucia"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Merlot",
+     "description": "Poggio Canzano"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Nebbiolo Langhe",
+     "description": "Cascina Chicco"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Barbera d’Alba",
+     "description": "Cascina Chicco"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pinot Nero",
+     "description": "Kettmeir"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Primitivo",
+     "description": "Vetrère"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Negroamaro Salento IGP",
+     "description": "Le Vigne di Sammarco"
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Vini bianchi",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Chardonnay",
+     "description": "La Ripalta"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vermentino",
+     "description": "La Francesca"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pinot Grigio",
+     "description": "Sdricca"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bolgheri Bianco Papero",
+     "description": "Terre del Marchesato"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pinot Bianco",
+     "description": "Kettmeir"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vernaccia di San Gimignano",
+     "description": "Guicciardini Strozzi"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vernaccia Riserva",
+     "description": "Guicciardini Strozzi"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ribolla Gialla",
+     "description": "Sdricca"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ansonica",
+     "description": "Costa dell’Argentario"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "IGT Bianco Emilio Primo",
+     "description": "Terre del Marchesato"
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Rosé e bollicine",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Rosé IGT Selvolini"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Prosecco"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Franciacorta"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Champagne"
+    }
+   ]
+  }
+ ]
+}

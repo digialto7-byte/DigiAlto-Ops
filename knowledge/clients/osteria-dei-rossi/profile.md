@@ -147,7 +147,7 @@ From the founder's captions of the second photo set (src: sources/photos-2026-11
 - Phase 2+: Telegram Bot API, Brother QL label printer via a Raspberry Pi bridge, open-meteo, AdE corrispettivi import; Phase 3: WhatsApp Business [unverified] (src: sources/prd-2026-10-21.md)
 
 ## Tracking & legal
-- Tracking approved (GA4, Meta pixel, ...): none. Version 1 of the website is built without cookies, analytics, forms or third-party embeds; fonts, scripts and images are served from the site itself; the map, WhatsApp, Instagram and Facebook are plain links that open those services; the only thing the site stores is one technical session-storage entry so that the opening animation plays once per visit, deleted by the browser when the tab is closed (lead's build decision, 2026-11-24; the founder asked for no third-party scripts in the handover)
+- Tracking approved (GA4, Meta pixel, ...): none. Version 1 of the website is built without cookies, analytics, forms or third-party embeds; fonts, scripts and images are served from the site itself; the map, WhatsApp, Instagram and Facebook are plain links that open those services; the only thing the site stores is one technical session-storage entry so that the opening animations (the gate on the home page and, from version 2, the menu book and the wine-list pour) play once per visit, deleted by the browser when the tab is closed (lead's build decision, 2026-11-24, extended 2026-11-25; the founder asked for no third-party scripts in the handover)
 - Cookie / privacy texts supplied by:
 
 ## Sources
