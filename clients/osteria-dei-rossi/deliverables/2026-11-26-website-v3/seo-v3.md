@@ -254,7 +254,7 @@ The English primary is the Piazza del Campo phrase and the Italian one the San F
 | Open Graph title | `Find us | Osteria dei Rossi, Siena` |
 | Open Graph description | `Via dei Rossi 79/81, Siena. Basilica di San Francesco at the end of the street, Piazza del Campo about 5 minutes on foot.` |
 | Open Graph image | `og-dove-siamo.jpg` |
-| Open Graph image alt | `Stone corner with the marble street plate ‘Via dei Rossi’ and, below it, the ‘Osteria’ sign with an arrow` |
+| Open Graph image alt | `The marble street plate ‘Via dei Rossi’ on a stone wall in Siena` |
 | Twitter image | `og-dove-siamo.jpg` |
 | H1 | `Find us: Via dei Rossi 79/81, Siena` |
 | Canonical | `https://www.osteriadeirossi.it/en/find-us/` |
