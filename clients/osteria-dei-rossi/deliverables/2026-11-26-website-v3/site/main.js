@@ -898,12 +898,14 @@
     });
   }
 
-  /* A heading line waits below its own lower edge, cut off there as if behind a hairline, and
-     rises into place: `amount` 1 = out of sight, 0 = in place (nothing is left on the element).
-     The edge lies a little under the line box, so descenders are not cut while it rises. */
+  /* A heading line rises into place from below its own lower edge, cut off there as if behind
+     a hairline: `amount` 1 = out of sight (simply hidden while it waits), 0 = in place (nothing
+     is left on the element). The edge lies a little under the line box, so descenders are not
+     cut while it rises. */
   function setLine(line, amount) {
     const style = line.style;
-    if (amount <= 0) {
+    style.visibility = amount >= 1 ? 'hidden' : '';
+    if (amount <= 0 || amount >= 1) {
       style.display = '';
       style.transform = '';
       style.clipPath = '';
@@ -1268,6 +1270,7 @@
       title: null,
       parts: {},
       inerted: [], // what is taken out of reach while the intro plays
+      inertFrame: 0,
       ready: false,
       ruledOut: root.classList.contains('intro-done'), // the inline head script decided before the first paint
       timeline: null,
@@ -1301,6 +1304,7 @@
     }
     root.classList.remove('intro-playing');
     root.classList.add('intro-done');
+    win.cancelAnimationFrame(intro.inertFrame);
     intro.inerted.forEach((element) => {
       element.inert = false;
     });
@@ -1383,12 +1387,21 @@
     root.classList.remove('intro-done');
     root.classList.add('intro-playing');
     /* The page behind the overlay (header, main, footer, booking bar) is out of reach until the
-       intro ends; the skip button is not part of it. */
-    Array.prototype.forEach.call(doc.body.children, (child) => {
-      if (child !== intro.el && child !== intro.skip && child.tagName !== 'SCRIPT' && !child.inert) {
-        child.inert = true;
-        intro.inerted.push(child);
+       intro ends; the skip button is not part of it. Set two frames on, with the first frame of
+       the intro: the style pass it costs then delays neither the start-up nor the first paint. */
+    const makeInert = () => {
+      if (S && S.intro === intro && intro.playing) {
+        Array.prototype.forEach.call(doc.body.children, (child) => {
+          if (child !== intro.el && child !== intro.skip && child.tagName !== 'SCRIPT' && !child.inert) {
+            child.inert = true;
+            intro.inerted.push(child);
+          }
+        });
       }
+    };
+    win.cancelAnimationFrame(intro.inertFrame);
+    intro.inertFrame = win.requestAnimationFrame(() => {
+      intro.inertFrame = win.requestAnimationFrame(makeInert);
     });
 
     /* Every intro opens on the top of its page: start there, and hold the scroll until the end. */
@@ -2049,20 +2062,17 @@
     }
     g.probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;width:0;height:var(--step)';
     g.probe.setAttribute('aria-hidden', 'true');
-    wrap.appendChild(g.probe);
     S.cleanups.push(() => endGallery(g, gsap));
+    /* Nothing is read or changed at start-up: measure() notes where the wrapper lies, and what
+       a change needs is read when the stage comes near (syncGallery). Until then the page is as
+       the HTML has it, on the first photo. */
     S.gallery = g;
-    measureGallery();
-    if (!S.gallery) {
-      return;
-    }
-    showPhoto(g, g.index, true);
 
     /* A progress button shows its photo at once and takes the page to the middle of its step. */
     listen(wrap, 'click', (event) => {
       const dot = event.target && event.target.closest ? event.target.closest('[data-gallery-dot]') : null;
       const index = dot ? g.dots.indexOf(dot) : -1;
-      if (index === -1 || S.gallery !== g) {
+      if (index === -1 || S.gallery !== g || !(g.step > 0)) {
         return;
       }
       holdGallery(GALLERY.jump);
@@ -2123,7 +2133,8 @@
     }
   }
 
-  /* Layout reads, with the others in measure(). */
+  /* Layout reads, with the others in measure(): where the wrapper lies and, once the stage has
+     been near, what a change needs. */
   function measureGallery() {
     const g = S && S.gallery;
     if (!g) {
@@ -2133,12 +2144,24 @@
       const rect = g.wrap.getBoundingClientRect();
       g.top = rect.top + scrollTop();
       g.height = rect.height;
-      g.step = g.probe.getBoundingClientRect().height;
-      g.lineLength = strokeLength(g.line, true);
-      if (!(g.step > 0) || win.getComputedStyle(g.stage).position !== 'sticky') {
+      if (win.getComputedStyle(g.stage).position !== 'sticky') {
         failGallery(); // the stage is not laid out as a stage
+      } else if (g.warm) {
+        readGallery(g);
       }
     } catch (error) {
+      failGallery();
+    }
+  }
+
+  /* The height of one step and the length of the arch line on screen. The line is dashed in
+     screen pixels (non-scaling stroke) and its outline is scaled almost evenly, so the larger
+     scale gives its length within a few percent without sampling the path. */
+  function readGallery(g) {
+    const matrix = g.line.getScreenCTM();
+    g.step = g.probe.getBoundingClientRect().height;
+    g.lineLength = matrix ? Math.ceil(g.line.getTotalLength() * Math.max(Math.hypot(matrix.a, matrix.b), Math.hypot(matrix.c, matrix.d))) + 2 : 0;
+    if (!(g.step > 0)) {
       failGallery();
     }
   }
@@ -2147,23 +2170,33 @@
      does a place from which the stage cannot be seen. */
   function syncGallery(instant) {
     const g = S && S.gallery;
-    if (!g) {
-      return;
+    if (!g || !(g.height > 0)) {
+      return; // no gallery, or not measured yet
     }
     try {
       const y = S.y;
       const view = S.ui ? S.ui.viewport : 0;
-      if (!g.warm && y + view * 2.5 > g.top) {
-        /* The stage is near: the four photos load and decode now, before any of them is shown. */
-        g.warm = true;
-        qsa('img', g.wrap).forEach((image) => {
-          image.loading = 'eager';
-          if (typeof image.decode === 'function') {
-            image.decode().catch(() => {});
-          }
-        });
+      const last = g.frames.length - 1;
+      let next = y >= g.top + g.height ? last : 0; // past the gallery, or still above it
+      if (y + view * 2.5 > g.top && y < g.top + g.height) {
+        if (!g.warm) {
+          /* The stage is near. Now, and not at start-up, the step is measured and the four
+             photos load and decode, before any of them is shown. */
+          g.warm = true;
+          g.wrap.appendChild(g.probe);
+          readGallery(g);
+          qsa('img', g.wrap).forEach((image) => {
+            image.loading = 'eager';
+            if (typeof image.decode === 'function') {
+              image.decode().catch(() => {});
+            }
+          });
+        }
+        if (S.gallery !== g) {
+          return;
+        }
+        next = clamp(Math.floor((y - g.top) / g.step + 0.5), 0, last);
       }
-      const next = clamp(Math.floor((y - g.top) / g.step + 0.5), 0, g.frames.length - 1);
       if (next !== g.index && !g.held) {
         showPhoto(g, next, !!instant || y + view <= g.top || y >= g.top + g.height);
       }

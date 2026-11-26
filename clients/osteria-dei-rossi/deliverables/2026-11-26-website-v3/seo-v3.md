@@ -236,7 +236,7 @@ No prices anywhere on it.
 | Open Graph title | `Dove siamo | Osteria dei Rossi, Siena` |
 | Open Graph description | `Via dei Rossi 79/81, Siena. Basilica di San Francesco in fondo alla via, Piazza del Campo a circa 5 minuti a piedi.` |
 | Open Graph image | `og-dove-siamo.jpg` |
-| Open Graph image alt | `Angolo in pietra con la targa in marmo «Via dei Rossi» e, sotto, l'insegna «Osteria» con una freccia` |
+| Open Graph image alt | `La targa in marmo «Via dei Rossi» su un muro di pietra, a Siena` |
 | Twitter image | `og-dove-siamo.jpg` |
 | H1 | `Dove siamo: Via dei Rossi 79/81, Siena` |
 | Canonical | `https://www.osteriadeirossi.it/dove-siamo/` |

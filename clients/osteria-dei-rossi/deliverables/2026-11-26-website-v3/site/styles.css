@@ -549,7 +549,8 @@ picture img{width:100%;height:100%;object-fit:cover}
   width:calc(var(--gh) * .8 + 24px);height:calc(var(--gh) + 12px);transform:translateY(-6px);
   fill:none;stroke:var(--gold);stroke-width:1.5;overflow:visible;
 }
-.gallery-on .gallery__caption{grid-area:cap;margin:0;text-align:left;font-size:1.5rem;min-height:2.6em}
+/* No min-height on the caption: the four captions share one row, which is then as tall as the longest. */
+.gallery-on .gallery__caption{grid-area:cap;margin:0;text-align:left;font-size:1.5rem}
 .gallery-on .gallery__caption:not(.is-current){visibility:hidden}
 .gallery-on .gallery__dots{grid-area:dots;display:flex;margin-left:-.9rem}
 .gallery-on .gallery__exit{grid-area:exit;display:inline-flex;justify-self:start}
@@ -558,6 +559,7 @@ picture img{width:100%;height:100%;object-fit:cover}
 .gallery__dot.is-current svg{opacity:1;fill:var(--gold);stroke:var(--green);transform:scaleY(1.5)}
 @media (max-width:44.99rem){.gallery-on .gallery__inner{padding-bottom:calc(3.75rem + env(safe-area-inset-bottom))}}
 @media (max-height:44rem) and (max-width:44.99rem){.gallery{--gh:min(44svh,125vw)}}
+@media (max-height:38rem) and (max-width:44.99rem){.gallery{--gh:min(32svh,125vw)}}
 @media (min-width:45rem){
   .gallery-on .gallery__inner{
     grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:1fr auto auto auto auto 1fr;
@@ -567,7 +569,7 @@ picture img{width:100%;height:100%;object-fit:cover}
   .gallery-on .gallery__frame,.gallery-on .gallery__arch{grid-row:1/-1}
   .gallery-on .gallery__head{margin:0 0 1.25rem}
   .gallery-on .gallery__head .icon{width:3rem;height:3rem}
-  .gallery-on .gallery__caption{font-size:clamp(1.9rem,3.2vw,3rem);min-height:2.4em}
+  .gallery-on .gallery__caption{font-size:clamp(1.9rem,3.2vw,3rem)}
 }
 
 /* ---------- 15. Dishes (menu page) ---------- */
