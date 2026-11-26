@@ -12,8 +12,9 @@ Internal hand-over note for this deliverable folder. Version 2 is kept untouched
   changes on scroll. Without JavaScript or with reduced motion the four photos show as large tiles.
 - **New blocks.** Four facts after the hero ("Perché venire da noi"); a row of line icons that jumps to
   each food; a booking strip in the middle of the page on desktop; address, directions and phone in the hero.
-- **Line drawings.** Eight new icons and the unused ones of version 2, each drawing in once with one small
-  move; icons at the menu's section headings; the Siena skyline along the footer.
+- **Line drawings.** Eight new icons and the unused ones of version 2, each drawing in once; seven of them
+  then make one small move (steam over the bowl, the steelyard tipping, the cantuccio dipping, and so on);
+  icons at the menu's section headings; the Siena skyline along the footer.
 - **Transitions.** Pages change with a short arch wipe where the browser supports it; headings rise in two lines.
 - **Booking.** "Prenota un tavolo"; WhatsApp opens with a prefilled message; the phone bar says what each
   button does.
