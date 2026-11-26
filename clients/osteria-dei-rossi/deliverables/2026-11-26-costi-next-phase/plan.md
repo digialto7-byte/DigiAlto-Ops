@@ -86,7 +86,7 @@ Proposed shape (an architect plan and ADR come first):
   Claude account is under the venue's terms with Anthropic, so the DPA and the venue's privacy notice must
   say so; guest personal data stays out of the tools.
 
-## 5. Questions for the founder (answered 2026-11-26: Q1 yes, Q2 after SP5, Q3 `app.` on DigiAlto's domain)
+## 5. Questions for the founder (answered 2026-11-26: Q1 yes, Q2 after SP5, Q3 `app.digialto.com`, console `console.digialto.com`; DNS for digialto.com is at Bluehost, registrar GoDaddy; mail is Google Workspace MX, untouched)
 - **Q1.** Build order: Costì admin (SP2–SP7) right after #214, before the screens session and P2-4? Default:
   yes.
 - **Q2.** The Claude connector: plan it now (architect, plan only, no code) or after SP5? Default: plan after

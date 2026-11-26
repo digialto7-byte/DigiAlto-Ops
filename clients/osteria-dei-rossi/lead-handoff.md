@@ -35,7 +35,8 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
 | Session | Id | State |
 |---|---|---|
 | Lead | V3 `session_018fKcCmuFkjv4yhpCbKERjo` | Talks to the founder; merges |
-| Comanda PR 4 builder | `session_018fKcCk6qy2mws1vqGWgjke` (Opus, started 2026-11-19) | Finishes comanda PR 4 from the hand-off below |
+| SP2 builder | `session_018fKcCn5E3P3X8YGJrsVi2W` (Opus, started 2026-11-26) | Writes the SP2 step plan (docs PR), waits for the lead's approval, then builds |
+| Comanda PR 4 builder | `session_018fKcCk6qy2mws1vqGWgjke` (Opus) | Retired 2026-11-26: #214 merged |
 | Retired 2026-11-19 | lead V2 `session_018fKcChwys4xfgaHhAfdmR7`, comanda builder PRs 1–3 `session_018fKcCjj4XgXUZJ1LNuyC3v` (context 528k), opening stock builder `session_018fKcCmFm2N3cjcMr9Paifu` | Work merged or in this file. The founder may archive them (the lead's archive call is blocked by permissions) |
 | Retired 2026-11-18 | lead V1 `session_018fKcCjkR8ikx6DEmuZJMBE` and others | See git history of this file |
 
@@ -98,7 +99,7 @@ P2-4; remove "segue" at least 30 days after go-live.
 - Resend: one DigiAlto account for all tenants; From the venue's name on `mail.<costi-domain>`, Reply-To the venue.
 - New asks: Costì admin (= SP2–SP7), tenant brand kit from client websites (feeds SP9), and a tenant-scoped Claude
   connector (MCP + OAuth, read-only first, behind an SP5 switch). Q1–Q3 answered: Costì admin (SP2–SP7) right after #214; the Claude connector is planned after SP5;
-  the app host is `app.<digialto-domain>` (console `console.<digialto-domain>`).
+  the app host is `app.digialto.com` (console `console.digialto.com`); digialto.com DNS is managed at Bluehost.
 
 ## Standing founder rules
 - "Vercel plan is hobby; this is not paid work. Continue and auto-merge without approval. Only ask
