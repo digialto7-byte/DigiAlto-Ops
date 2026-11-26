@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none" stroke="#C89550" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <defs>
+    <clipPath id="porta-clip"><path d="M660 860 V620 A173.2 173.2 0 0 1 800 450 A173.2 173.2 0 0 1 940 620 V860 Z"/></clipPath>
+    <clipPath id="porta-sky-clip"><rect x="0" y="0" width="1600" height="428"/></clipPath>
+  </defs>
+
+  <g id="porta-scene">
+  <g id="porta-wall">
+    <path stroke="none" fill="#1C4130" fill-rule="evenodd" d="M-4000 -4000 H5600 V5000 H-4000 Z M660 860 V620 A173.2 173.2 0 0 1 800 450 A173.2 173.2 0 0 1 940 620 V860 Z"/>
+  </g>
+
+  <g id="porta-skyline" stroke="#FFFADF" opacity="0.4" clip-path="url(#porta-sky-clip)">
+    <!-- Duomo: dome, drum, lantern, nave roofs -->
+    <path vector-effect="non-scaling-stroke" d="M304 340 A26 40 0 0 1 356 340"/>
+    <path vector-effect="non-scaling-stroke" d="M326 300 V291 L330 285 L334 291 V300"/>
+    <path vector-effect="non-scaling-stroke" d="M304 340 V388 M356 340 V388"/>
+    <path vector-effect="non-scaling-stroke" d="M318 352 V372 M330 352 V372 M342 352 V372"/>
+    <path vector-effect="non-scaling-stroke" d="M236 470 V388 H304 M356 388 H400"/>
+    <!-- Campanile -->
+    <path vector-effect="non-scaling-stroke" d="M400 470 V232 L414 215 L428 232 V470"/>
+    <path vector-effect="non-scaling-stroke" d="M400 232 H428 M400 250 H428 M400 290 H428 M400 330 H428 M400 370 H428 M400 410 H428"/>
+    <!-- Torre del Mangia -->
+    <path vector-effect="non-scaling-stroke" d="M1196 470 V215 M1224 470 V215"/>
+    <path vector-effect="non-scaling-stroke" d="M1186 215 H1234 V175 H1186 Z M1186 190 H1234"/>
+    <path vector-effect="non-scaling-stroke" d="M1186 215 A6 7 0 0 0 1198 215 A6 7 0 0 0 1210 215 A6 7 0 0 0 1222 215 A6 7 0 0 0 1234 215"/>
+    <path vector-effect="non-scaling-stroke" d="M1198 175 V140 H1222 V175 M1207 168 V158 A3 3 0 0 1 1213 158 V168 M1210 140 V128"/>
+    <!-- Roof lines -->
+    <path vector-effect="non-scaling-stroke" d="M60 424 H96 L114 410 L132 424 H176"/>
+    <path vector-effect="non-scaling-stroke" d="M184 424 H206 L218 414 L230 424"/>
+    <path vector-effect="non-scaling-stroke" d="M440 424 H466 L482 414 L498 424 H520"/>
+    <path vector-effect="non-scaling-stroke" d="M446 400 H500"/>
+    <path vector-effect="non-scaling-stroke" d="M1080 424 H1112 L1128 412 L1144 424 H1176"/>
+    <path vector-effect="non-scaling-stroke" d="M1250 424 H1280 L1296 412 L1312 424 H1352"/>
+    <path vector-effect="non-scaling-stroke" d="M1370 424 H1420"/>
+    <path vector-effect="non-scaling-stroke" d="M1390 408 H1440 L1456 398 L1472 408 H1500"/>
+    <path vector-effect="non-scaling-stroke" d="M1500 424 H1540"/>
+  </g>
+
+  <g id="porta-doors" clip-path="url(#porta-clip)">
+    <g id="porta-door-left">
+      <rect x="660" y="440" width="140" height="420" fill="#0F0F0D" stroke="none"/>
+      <path vector-effect="non-scaling-stroke" d="M688 440 V860 M716 440 V860 M744 440 V860 M772 440 V860"/>
+      <path vector-effect="non-scaling-stroke" d="M660 560 H800 M660 568 H800 M660 700 H800 M660 708 H800 M660 820 H800 M660 828 H800"/>
+      <circle vector-effect="non-scaling-stroke" cx="674" cy="564" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="702" cy="564" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="730" cy="564" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="758" cy="564" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="786" cy="564" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="674" cy="704" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="702" cy="704" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="730" cy="704" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="758" cy="704" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="786" cy="704" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="674" cy="824" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="702" cy="824" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="730" cy="824" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="758" cy="824" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="786" cy="824" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="782" cy="722" r="9"/>
+    </g>
+    <g id="porta-door-right">
+      <rect x="800" y="440" width="140" height="420" fill="#0F0F0D" stroke="none"/>
+      <path vector-effect="non-scaling-stroke" d="M828 440 V860 M856 440 V860 M884 440 V860 M912 440 V860"/>
+      <path vector-effect="non-scaling-stroke" d="M800 560 H940 M800 568 H940 M800 700 H940 M800 708 H940 M800 820 H940 M800 828 H940"/>
+      <circle vector-effect="non-scaling-stroke" cx="926" cy="564" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="898" cy="564" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="870" cy="564" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="842" cy="564" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="814" cy="564" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="926" cy="704" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="898" cy="704" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="870" cy="704" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="842" cy="704" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="814" cy="704" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="926" cy="824" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="898" cy="824" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="870" cy="824" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="842" cy="824" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="814" cy="824" r="2.2"/>
+      <circle vector-effect="non-scaling-stroke" cx="818" cy="722" r="9"/>
+      <path vector-effect="non-scaling-stroke" d="M800 450 V860"/>
+    </g>
+  </g>
+
+  <g id="porta-lines">
+    <g id="porta-gate">
+      <path vector-effect="non-scaling-stroke" d="M560 860 V300"/>
+      <path vector-effect="non-scaling-stroke" d="M1040 860 V300"/>
+      <path vector-effect="non-scaling-stroke" d="M560 300 V250 H608 V300 H646.4 V250 H694.4 V300 H732.8 V250 H780.8 V300 H819.2 V250 H867.2 V300 H905.6 V250 H953.6 V300 H992 V250 H1040 V300"/>
+      <path vector-effect="non-scaling-stroke" d="M560 318 H1040 M560 330 H1040"/>
+      <path vector-effect="non-scaling-stroke" d="M563.82 330 A18 14 0 0 0 599.82 330 M607.46 330 A18 14 0 0 0 643.46 330 M651.1 330 A18 14 0 0 0 687.1 330 M694.74 330 A18 14 0 0 0 730.74 330 M738.38 330 A18 14 0 0 0 774.38 330 M782.02 330 A18 14 0 0 0 818.02 330 M825.66 330 A18 14 0 0 0 861.66 330 M869.3 330 A18 14 0 0 0 905.3 330 M912.94 330 A18 14 0 0 0 948.94 330 M956.58 330 A18 14 0 0 0 992.58 330 M1000.22 330 A18 14 0 0 0 1036.22 330"/>
+      <path vector-effect="non-scaling-stroke" d="M786 402 V372 A20 20 0 0 1 800 356 A20 20 0 0 1 814 372 V402 Z"/>
+      <path vector-effect="non-scaling-stroke" d="M778 402 H822"/>
+    </g>
+    <g id="porta-arch">
+      <path vector-effect="non-scaling-stroke" d="M660 860 V620 A173.2 173.2 0 0 1 800 450 A173.2 173.2 0 0 1 940 620 V860"/>
+      <path vector-effect="non-scaling-stroke" d="M634 860 V620 A199.2 199.2 0 0 1 800 423.6 A199.2 199.2 0 0 1 966 620 V860"/>
+      <path vector-effect="non-scaling-stroke" d="M662.63 589.93 L637.03 585.42 M670.44 560.77 L646.01 551.87 M683.2 533.4 L660.7 520.4 M700.53 508.67 L680.61 491.96 M721.87 487.33 L705.16 467.41 M746.6 470 L733.6 447.5 M773.97 457.24 L765.07 432.81"/>
+      <path vector-effect="non-scaling-stroke" d="M937.37 589.93 L962.97 585.42 M929.56 560.77 L953.99 551.87 M916.8 533.4 L939.3 520.4 M899.47 508.67 L919.39 491.96 M878.13 487.33 L894.84 467.41 M853.4 470 L866.4 447.5 M826.03 457.24 L834.93 432.81"/>
+      <path vector-effect="non-scaling-stroke" d="M800 450 V423.6"/>
+      <path vector-effect="non-scaling-stroke" d="M634 646 H660 M634 686 H660 M634 726 H660 M634 766 H660 M634 806 H660"/>
+      <path vector-effect="non-scaling-stroke" d="M940 646 H966 M940 686 H966 M940 726 H966 M940 766 H966 M940 806 H966"/>
+      <path vector-effect="non-scaling-stroke" d="M628 614 H666 V626 H628 Z"/>
+      <path vector-effect="non-scaling-stroke" d="M934 614 H972 V626 H934 Z"/>
+    </g>
+    <g id="porta-walls">
+      <path vector-effect="non-scaling-stroke" d="M0 430 H32 V470 H62 V430 H98 V470 H128 V430 H164 V470 H194 V430 H230 V470 H260 V430 H296 V470 H326 V430 H362 V470 H392 V430 H428 V470 H458 V430 H494 V470 H524 V430 H560 V470"/>
+      <path vector-effect="non-scaling-stroke" d="M1600 430 H1568 V470 H1538 V430 H1502 V470 H1472 V430 H1436 V470 H1406 V430 H1370 V470 H1340 V430 H1304 V470 H1274 V430 H1238 V470 H1208 V430 H1172 V470 H1142 V430 H1106 V470 H1076 V430 H1040 V470"/>
+      <path vector-effect="non-scaling-stroke" d="M0 484 H560 M1040 484 H1600"/>
+    </g>
+    <g id="porta-forework">
+      <path vector-effect="non-scaling-stroke" d="M360 860 V714 H388 V740 H412 V714 H440 V740 H464 V714 H492 V740 H516 V714 H544 V740 H560"/>
+      <path vector-effect="non-scaling-stroke" d="M1240 860 V714 H1212 V740 H1188 V714 H1160 V740 H1136 V714 H1108 V740 H1084 V714 H1056 V740 H1040"/>
+    </g>
+    <g id="porta-ground">
+      <path vector-effect="non-scaling-stroke" d="M0 860 H660 M940 860 H1600"/>
+      <path vector-effect="non-scaling-stroke" d="M660 860 L-71.4 1500 M940 860 L1671.4 1500"/>
+      <path vector-effect="non-scaling-stroke" d="M760 1010 H840 M620 1050 H710 M860 1095 H960 M730 1145 H850 M520 1195 H640 M900 1250 H1040 M700 1305 H850 M400 1360 H560 M980 1400 H1150 M720 1440 H900"/>
+      <path vector-effect="non-scaling-stroke" d="M782 878 H818 M712 902 H752 M848 902 H888 M768 932 H832 M690 962 H740 M860 962 H910 M770 985 H830"/>
+    </g>
+    <g id="porta-bricks" stroke="#FFFADF" opacity="0.35">
+      <path vector-effect="non-scaling-stroke" d="M580 362 H612 M640 362 H672 M700 362 H730 M870 362 H902 M930 362 H960 M985 362 H1015"/>
+      <path vector-effect="non-scaling-stroke" d="M596 384 H624 M656 384 H694 M716 384 H744 M860 384 H890 M912 384 H950 M978 384 H1008"/>
+      <path vector-effect="non-scaling-stroke" d="M572 406 H604 M630 406 H664 M690 406 H722 M740 406 H770 M850 406 H884 M912 406 H944 M972 406 H1004"/>
+      <path vector-effect="non-scaling-stroke" d="M580 432 H614 M650 432 H688 M708 432 H740 M866 432 H900 M920 432 H956 M980 432 H1012"/>
+      <path vector-effect="non-scaling-stroke" d="M575 458 H605 M628 458 H664 M684 458 H712 M890 458 H920 M938 458 H972 M996 458 H1028"/>
+      <path vector-effect="non-scaling-stroke" d="M570 520 H600 M616 520 H648 M952 520 H984 M1000 520 H1030"/>
+      <path vector-effect="non-scaling-stroke" d="M580 560 H614 M986 560 H1020"/>
+      <path vector-effect="non-scaling-stroke" d="M568 600 H598 M1002 600 H1034"/>
+      <path vector-effect="non-scaling-stroke" d="M570 680 H610 M990 680 H1028"/>
+      <path vector-effect="non-scaling-stroke" d="M572 760 H604 M994 760 H1030"/>
+      <path vector-effect="non-scaling-stroke" d="M600 800 H626 M1004 800 H1034"/>
+      <path vector-effect="non-scaling-stroke" d="M576 840 H612 M980 840 H1018"/>
+      <path vector-effect="non-scaling-stroke" d="M36 516 H70 M104 516 H136 M180 546 H214 M262 546 H298 M60 586 H98 M340 580 H374 M450 520 H484"/>
+      <path vector-effect="non-scaling-stroke" d="M1500 520 H1534 M1430 548 H1460 M1350 516 H1384 M1252 546 H1286 M1160 580 H1196 M1080 520 H1112 M1560 590 H1590"/>
+      <path vector-effect="non-scaling-stroke" d="M376 770 H404 M432 770 H470 M404 810 H440"/>
+      <path vector-effect="non-scaling-stroke" d="M1196 770 H1224 M1130 770 H1168 M1160 810 H1196"/>
+    </g>
+  </g>
+  </g>
+</svg>

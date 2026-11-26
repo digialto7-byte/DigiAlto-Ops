@@ -1,0 +1,89 @@
+<body class="page-text-body">
+<a class="skip-link" href="#contenuto">{{c:global-nav.skip_link}}</a>
+
+<div class="intro intro--book" id="book-intro" data-intro="m" aria-hidden="true">
+  <div class="intro__art"></div>
+  <div class="book">
+    <div class="book__page"></div>
+    <div class="book__cover">
+      <div class="book__inside"></div>
+      <div class="book__front">
+        {{svg:libro-copertina|class="book__face" focusable="false"}}
+        <p class="book__text"><span class="book__name">{{c:menu-intro.cover_name}}</span><span class="book__title">{{c:menu-intro.cover_title}}</span><span class="book__sub">{{c:menu-intro.cover_sub}}</span></p>
+      </div>
+    </div>
+    <div class="book__sheet"></div>
+  </div>
+</div>
+<button class="intro__skip" id="intro-skip" type="button">{{c:menu-intro.skip}}</button>
+
+{{include:_header}}
+
+{{include:_ctabar}}
+
+<main id="contenuto">
+
+<section class="menu-hero" aria-labelledby="menu-title">
+  {{svg:skyline-siena|class="menu-hero__skyline" preserveAspectRatio="xMidYMax slice" focusable="false"}}
+  <div class="container menu-hero__inner">
+    <p class="kicker">{{c:menu-page.kicker}}</p>
+    <h1 id="menu-title">{{h:menu-page.h1_line1|h1_em}}</h1>
+    <p class="menu-hero__intro">{{c:menu-page.intro}}</p>
+  </div>
+</section>
+
+<nav class="menu-nav" data-allow-overflow aria-label="{{c:menu-page.h1_line1}}">
+  <ul>
+    <li><a href="#antipasti">{{c:menu-page.section_antipasti}}</a></li>
+    <li><a href="#primi">{{c:menu-page.section_primi}}</a></li>
+    <li><a href="#secondi">{{c:menu-page.section_secondi}}</a></li>
+    <li><a href="#griglia">{{c:menu-page.section_griglia}}</a></li>
+    <li><a href="#contorni">{{c:menu-page.section_contorni}}</a></li>
+    <li><a href="#dolci">{{c:menu-page.section_dolci}}</a></li>
+    <li><a href="#bevande">{{c:menu-page.section_bevande}}</a></li>
+  </ul>
+</nav>
+
+{{menu_sections}}
+
+<p class="menu-wine" data-reveal><a class="link" href="{{u:vini}}">{{c:menu-page.wine_link}} {{arrow}}</a></p>
+
+<div class="menu-notes" id="coperto" data-reveal>
+  <p>{{c:menu-page.note_weight}}</p>
+  <p>{{c:menu-page.note_cover}}</p>
+  <p>{{c:menu-page.note_season}}</p>
+  <p>{{c:menu-page.note_allergens}}</p>
+</div>
+
+<section class="section domande" id="domande" aria-labelledby="domande-title">
+  <div class="container domande__inner">
+    <h2 id="domande-title" data-reveal>{{h:menu-page.faq_h2_line1|faq_h2_em}}</h2>
+    <div class="faq">
+{{faq}}
+    </div>
+    <p class="menu-wine" data-reveal><a class="link" href="{{u:home}}#pici">{{c:menu-page.faq_pici_link}} {{arrow}}</a></p>
+  </div>
+</section>
+
+<section id="prenota" class="section section--green battlement prenota__book" aria-labelledby="prenota-title">
+  <div class="container grid">
+    <div class="prenota__main stack" data-reveal-group>
+      <h2 id="prenota-title" data-reveal>{{h:menu-page.closing_h2_line1|closing_h2_em}}</h2>
+      <div class="prenota__actions" data-reveal>
+        <a class="btn btn--light" href="tel:+390577287592">{{c:menu-page.closing_btn_call}} {{arrow}}</a>
+        <a class="btn btn--line" href="https://wa.me/390577287592" target="_blank" rel="noopener">{{c:menu-page.closing_btn_whatsapp}} {{arrow}}</a>
+      </div>
+      <p data-reveal><a class="link" href="{{u:dove}}">{{c:prenota.link_dove}} {{arrow}}</a></p>
+      <p data-reveal><a class="link" href="{{u:home}}">{{c:menu-page.back_home_link}} {{arrow}}</a></p>
+    </div>
+    <div class="prenota__hours" data-reveal-group>
+      <h3 class="label-title" data-reveal>{{c:prenota.hours_title}}</h3>
+      {{hours}}
+      <p class="note" data-reveal>{{c:prenota.hours_note}}</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+{{include:_footer}}

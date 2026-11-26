@@ -1,0 +1,172 @@
+{
+ "@context": "https://schema.org",
+ "@type": "Menu",
+ "@id": "https://www.osteriadeirossi.it/vini/#menu",
+ "name": "Carta dei vini dell’Osteria dei Rossi",
+ "url": "https://www.osteriadeirossi.it/vini/",
+ "inLanguage": "it",
+ "hasMenuSection": [
+  {
+   "@type": "MenuSection",
+   "name": "Vini rossi",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Chianti Classico Selvolini Gallo Nero, Azienda agricola Selvolini"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Chianti Colli Senesi La Foresta"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Chianti Classico Due Lame, Lamole di Lamole"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Chianti Classico Maggiolo, Lamole di Lamole"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rosso di Montepulciano, Azienda agricola Guidotti"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Nobile di Montepulciano, Azienda agricola Guidotti"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rosso di Montepulciano, Poggio alla Sala"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Nobile di Montepulciano, Poggio alla Sala"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rosso di Montalcino La Caduta, Caparzo"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Brunello di Montalcino La Casa, Caparzo"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rosso di Montalcino, Camigliano"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Brunello di Montalcino, Camigliano"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Assiolo, Campo al Noce"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Emilio Primo, Terre del Marchesato"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Marchesale Bolgheri Superiore, Terre del Marchesato"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "IGT L’Osteria, Tenute Selvolini"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Inedito, Terre del Marchesato"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Morellino di Scansano, Santa Lucia"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Nebbiolo Langhe, Cascina Chicco"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Barbera d’Alba, Cascina Chicco"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pinot Nero, Kettmeir"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Primitivo, Vetrère"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Negroamaro Salento IGP, Le Vigne di Sammarco"
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Vini bianchi",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Chardonnay, La Ripalta"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vermentino, La Francesca"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pinot Grigio, Sdricca"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pinot Bianco, Kettmeir"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vernaccia di San Gimignano, Guicciardini Strozzi"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vernaccia Riserva, Guicciardini Strozzi"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ribolla Gialla, Sdricca"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ansonica, Costa dell’Argentario"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "IGT Bianco Emilio Primo, Terre del Marchesato"
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Rosé e bollicine",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Rosé IGT Selvolini"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Prosecco"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Franciacorta"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Champagne"
+    }
+   ]
+  }
+ ]
+}

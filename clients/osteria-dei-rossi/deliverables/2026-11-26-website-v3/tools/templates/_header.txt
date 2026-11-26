@@ -1,0 +1,31 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__logo" href="{{u:home}}" aria-label="{{c:global-nav.home_link_label}}">
+      <img class="logo logo--light" src="{{a}}assets/img/logo-osteria-dei-rossi-chiaro-360.webp" srcset="{{a}}assets/img/logo-osteria-dei-rossi-chiaro-360.webp 360w, {{a}}assets/img/logo-osteria-dei-rossi-chiaro-720.webp 720w" sizes="150px" width="360" height="185" alt="{{alt:logo}}">
+      <img class="logo logo--color" src="{{a}}assets/img/logo-osteria-dei-rossi-360.webp" srcset="{{a}}assets/img/logo-osteria-dei-rossi-360.webp 360w, {{a}}assets/img/logo-osteria-dei-rossi-720.webp 720w" sizes="150px" width="360" height="185" alt="{{alt:logo}}">
+    </a>
+    <a class="site-header__book" href="{{u:book}}">{{c:global-nav.nav_prenota}}</a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-panel" aria-label="{{c:global-nav.menu_open_label}}" data-label-open="{{c:global-nav.menu_open_label}}" data-label-close="{{c:global-nav.menu_close_label}}">
+      <span class="menu-toggle__line"></span><span class="menu-toggle__line"></span>
+    </button>
+    <nav class="site-nav" id="menu-panel" aria-label="{{alt:logo}}">
+      <ul class="site-nav__links">
+        <li><a href="{{u:homeanchor}}#casa">{{c:global-nav.nav_storia}}</a></li>
+        <li><a href="{{u:homeanchor}}#tavola">{{c:global-nav.nav_tavola}}</a></li>
+        <li><a href="{{u:menu}}"{{cur_menu}}>{{c:global-nav.nav_menu}}</a></li>
+        <li><a href="{{u:vini}}"{{cur_vini}}>{{c:global-nav.nav_vini}}</a></li>
+        <li><a href="{{u:dove}}"{{cur_dove}}>{{c:global-nav.nav_dove}}</a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="{{c:global-nav.lang_switch_label}}">
+        <a href="{{u:lang_it}}" lang="it" hreflang="it"{{cur_it}}>{{c:global-nav.lang_it}}</a>
+        <span class="lang__sep" aria-hidden="true">·</span>
+        <a href="{{u:lang_en}}" lang="en" hreflang="en"{{cur_en}}>{{c:global-nav.lang_en}}</a>
+      </div>
+      <a class="btn btn--line site-nav__cta" href="{{u:book}}">{{c:global-nav.nav_prenota}} {{arrow}}</a>
+      <p class="site-nav__contact">
+        <a href="tel:+390577287592" aria-label="{{c:global-cta-bar.call_aria}}">{{c:global-cta-bar.call_label}}</a>
+        <a href="https://wa.me/390577287592" target="_blank" rel="noopener" aria-label="{{c:global-cta-bar.whatsapp_aria}}">{{c:global-cta-bar.whatsapp_label}}</a>
+      </p>
+    </nav>
+  </div>
+</header>

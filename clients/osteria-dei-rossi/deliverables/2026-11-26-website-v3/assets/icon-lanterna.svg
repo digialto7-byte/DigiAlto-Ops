@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+  <title>Lanterna</title>
+  <path d="M8 8 V56"/>
+  <path d="M8 14 H40 C46 14 46 20 41 20"/>
+  <path d="M8 34 C20 34 28 26 30 14"/>
+  <path d="M36 14 V22"/>
+  <path d="M28 28 L36 22 L44 28 Z"/>
+  <path d="M30 28 H42 V46 H30 Z"/>
+  <path d="M28 46 H44 M32 46 V50 H40 V46"/>
+  <path d="M36 32 Q39 37 36 42 Q33 37 36 32 Z"/>
+</svg>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://www.osteriadeirossi.it/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.osteriadeirossi.it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.osteriadeirossi.it/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.osteriadeirossi.it/"/>
+  </url>
+  <url>
+    <loc>https://www.osteriadeirossi.it/en/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.osteriadeirossi.it/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.osteriadeirossi.it/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.osteriadeirossi.it/"/>
+  </url>
+  <url>
+    <loc>https://www.osteriadeirossi.it/menu/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.osteriadeirossi.it/menu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.osteriadeirossi.it/en/menu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.osteriadeirossi.it/menu/"/>
+  </url>
+  <url>
+    <loc>https://www.osteriadeirossi.it/en/menu/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.osteriadeirossi.it/menu/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.osteriadeirossi.it/en/menu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.osteriadeirossi.it/menu/"/>
+  </url>
+  <url>
+    <loc>https://www.osteriadeirossi.it/vini/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.osteriadeirossi.it/vini/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.osteriadeirossi.it/en/wine-list/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.osteriadeirossi.it/vini/"/>
+  </url>
+  <url>
+    <loc>https://www.osteriadeirossi.it/en/wine-list/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.osteriadeirossi.it/vini/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.osteriadeirossi.it/en/wine-list/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.osteriadeirossi.it/vini/"/>
+  </url>
+  <url>
+    <loc>https://www.osteriadeirossi.it/dove-siamo/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.osteriadeirossi.it/dove-siamo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.osteriadeirossi.it/en/find-us/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.osteriadeirossi.it/dove-siamo/"/>
+  </url>
+  <url>
+    <loc>https://www.osteriadeirossi.it/en/find-us/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.osteriadeirossi.it/dove-siamo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.osteriadeirossi.it/en/find-us/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.osteriadeirossi.it/dove-siamo/"/>
+  </url>
+  <url>
+    <loc>https://www.osteriadeirossi.it/privacy/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.osteriadeirossi.it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.osteriadeirossi.it/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.osteriadeirossi.it/privacy/"/>
+  </url>
+  <url>
+    <loc>https://www.osteriadeirossi.it/en/privacy/</loc>
+    <lastmod>2026-11-25</lastmod>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.osteriadeirossi.it/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.osteriadeirossi.it/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.osteriadeirossi.it/privacy/"/>
+  </url>
+</urlset>
