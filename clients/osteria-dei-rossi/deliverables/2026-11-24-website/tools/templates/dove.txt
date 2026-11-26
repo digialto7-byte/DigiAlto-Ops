@@ -111,6 +111,17 @@
   </div>
 </section>
 
+<!-- ============ Chiusura ============ -->
+<div class="section">
+  <div class="container domande__inner">
+    <ul class="stack" data-reveal-group>
+      <li data-reveal><a class="link" href="{{u:home}}">{{c:dove-page.closing_link_story}} {{arrow}}</a></li>
+      <li data-reveal><a class="link" href="{{u:menu}}">{{c:dove-page.closing_link_menu}} {{arrow}}</a></li>
+      <li data-reveal><a class="link" href="{{u:vini}}">{{c:dove-page.closing_link_wine}} {{arrow}}</a></li>
+    </ul>
+  </div>
+</div>
+
 </main>
 
 {{include:_footer}}

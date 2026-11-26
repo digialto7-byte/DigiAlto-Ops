@@ -1,4 +1,4 @@
-# QA ledger: Osteria dei Rossi website, version 1
+# QA ledger: Osteria dei Rossi website, versions 1 and 2
 
 One entry per QA round. Each round uses a different lens, then a fix pass by the author of the
 work. Internal document.
@@ -95,3 +95,70 @@ three story points taken from the menu text; a legal check of the privacy note.
 
 Not checked, and why: real phones and Safari or Firefox (only headless Chromium is available
 here); screen readers; Google's Rich Results test (no network access to it); field data.
+
+---
+
+# Version 2 (founder's feedback of 2026-11-25)
+
+Story-first home, wine list and "Dove siamo" pages, four fine-line animations. Same method as
+version 1: automatic gates, the lead's own look at the pages, then the reviewer.
+
+## V2 round 0: static build and the lead's look (2026-11-25)
+
+The lead looked at every page of the static build at 1440 and 390 px (full-page captures) before
+any motion was added. Fixed there: the menu hero cropped the Torre del Mangia on desktop (the
+drawing is now never cropped); the boar drawing was too small; the "Dove siamo" page repeated its
+`h1` above the map; the boar drawn by the svg-designer did not read as a wild boar and was
+redrawn by the lead.
+
+## V2 round 1: the four animations (motion specialist, then the lead), 2026-11-25
+
+| Animation | What plays | Length |
+|---|---|---|
+| Menu book (`/menu/`) | Siena skyline draws with the Torre del Mangia last, the book rises with its title, the cover turns, the page fills the screen | about 2.0 s |
+| Wine pour (`/vini/`) | table and glass draw, the hand tilts the bottle, the wine rises, the "Carta dei vini" card opens | about 2.7 s |
+| Pici (`#pici`) | six strands fall and settle into a nest; follows the scroll on desktop, plays once on phones | 1.6 s on phones |
+| Boar (dolceforte photo) | walks in from the left, four steps, ground line, a nod; once | about 2.0 s |
+
+Checks: the specialist's harness (250 behaviour checks) and the lead's independent spot check
+(118 checks, 116 pass; the 2 misses were the test asking for an anchor that does not exist):
+each page intro plays once per session, the skip button ends it, key P replays it, a link with a
+hash never shows it, nor does reduced motion or a browser without JavaScript; the `h1` stays in
+the render tree under the cover; the gate intro of the home page is unchanged. The lead looked
+at frame sequences of all four at 1440 and 390 px. Changed after that look: the boar is larger
+on phones.
+
+## V2 round 2: automatic gates and performance (2026-11-25 and 26)
+
+| Gate | Result |
+|---|---|
+| `check_deliverable.py` | 0 FAIL, 1 FLAG (the known `plan.md` line) |
+| `viewport_check.py` at 360 px | all pages ok |
+| `qa/qa-site.cjs` with axe-core, 11 pages at 1440, 390 and 360 px, reduced motion, no JavaScript | 0 FAIL, 0 NOTE |
+| Lighthouse mobile, performance | home 96 to 97 in six runs of six after the fix below (LCP 1.65 s); menu 97 to 99; wine list 100; Dove siamo 100. In about one run in six on any page the first paint itself is measured twice as late on the test machine and the score drops to 87 to 92 (LCP equal to first paint; seen on version 1 too) |
+| Lighthouse mobile, accessibility, best practices, SEO | 100 / 100 / 100 on every page measured, after the fix below |
+
+Found by Lighthouse: on the wine list the first section was still fading in when the pour lifted,
+and an accessibility audit taken at that moment read the half-faded text as low contrast (96).
+Fix in `main.js`: text that is on screen under the book or the pour takes its place under the
+cover.
+
+Not checked, and why: real phones and Safari or Firefox (only headless Chromium is available
+here); screen readers; Google's Rich Results test; field data.
+
+## V2 round 3: facts and brand (reviewer), 2026-11-26
+
+First verdict: FAIL, 12 findings (1 blocker, 5 should fix, 6 nits). About 160 facts verified; the
+founder's requests all answered; prices, hours, contacts, wine names, tags and markup correct.
+
+| # | Finding | Author | Fix |
+|---|---|---|---|
+| 1 | Blocker: the menu's own "le migliori carni … distintiva e unica" (Fiorentina) and "storica ed esclusiva" (Spaghetti alla Chitarra) are unverifiable claims | lead (menu generator) | The sentence and the word are left off the website, page and markup, both languages, like the "only ones in Siena" sentence before them; the question to the founder stays open (`plan.md` section 6) |
+| 2 | "Our meat comes from a free-range farm" said of all Cinta Senese; the menu says it of the Tegamata | copywriter | Sentence now names the Tegamata |
+| 3 | The pici question on the menu page named pici with wild boar ragù, which is not on the live menu | copywriter | Answer lists the three pici dishes of the menu; a link leads to the pici chapter of the home page |
+| 4 | Pici text said "long" and "a simple dough that leaves room to the sauce" | copywriter | Reduced to the approved description |
+| 5 | Internal links of the SEO table missing on the pages | copywriter (labels), web-builder | Links added: dolceforte to the second courses, desserts, "pici explained", drinks, three closing links on Dove siamo |
+| 6 | The SEO addendum forbade "tutto l'anno" for the truffle while the pages use the founder's caption; it also described the price note differently from the page | copywriter | Addendum brought in line with the pages; one question for the founder |
+| 7 | Wine-list markup put the producer in a description; three unproofed readings were in the markup | lead (wine generator) | Name is "wine, producer"; entries marked `"proofread": false` in the source show on the page only |
+| 8 to 11 | Italian phrasing, two Italian and English mismatches, "al bancone" without a source, Cinta answer without the Tagliere del Cacciatore | copywriter | Fixed as proposed |
+| 12 | The spec called the map a link | copywriter | Spec corrected: a text link sits above the map, the map is a drawing |

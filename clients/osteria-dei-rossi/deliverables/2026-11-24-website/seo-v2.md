@@ -34,7 +34,7 @@ Section-level intents (not counted, no title or H1 use):
 |---|---|---|---|
 | cantucci e vin santo | I | `#dolce` h2 and the two short paragraphs | Home (the menu only lists the dessert and its price) |
 | cinghiale in dolceforte | I | `#tavola` band h3 (what the recipe is; the dish name as published) | Menu owns the dish-name query; Home explains it and links to `/menu/#secondi` |
-| tartufo fresco Siena | L | `#dispensa`, truffle row (h3 and paragraph; "tartufo fresco di stagione" only, never "tutto l'anno") | Menu |
+| tartufo fresco Siena | L | `#dispensa`, truffle row (h3 and paragraph; the row uses the founder's caption "tartufo fresco, tutto l’anno") | Menu |
 | funghi porcini Siena ristorante | L | `#dispensa`, porcini row | Menu (`Tagliatelle ai Funghi Porcini`, seasonal dish) |
 | cucina medievale Siena ristorante | I, L | `#tavola` intro paragraph | Home (kept from `seo.md` 1.1) |
 
@@ -400,7 +400,7 @@ Version 1 questions 4, 5, 8 and 9, then three new ones. Rests on: Offer (live me
       "name": "Che cosa sono i pici e come li servite?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "I pici sono spessi filoni di pasta arrotolati a mano, fatti con farina e acqua e tipici della zona di Siena. All'osteria si servono con ragù bianco di cinta senese, ragù d'anatra, cacio e pepe e ragù di cinghiale."
+        "text": "I pici sono spessi fili di pasta arrotolati a mano, fatti con farina e acqua e tipici della zona di Siena. In menù li trovate al ragù bianco di cinta senese, al ragù tradizionale di anatra e cacio e pepe."
       }
     },
     {
@@ -408,7 +408,7 @@ Version 1 questions 4, 5, 8 and 9, then three new ones. Rests on: Offer (live me
       "name": "Che cos'è la cinta senese?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La cinta senese è la razza di maiale originaria delle colline senesi, scura con una fascia bianca, la «cinta», attorno alle spalle. È dipinta nell'affresco di Ambrogio Lorenzetti del 1338-39 nel Palazzo Pubblico di Siena e ha la denominazione di origine protetta (DOP). In menù la trovate nei pici al ragù bianco e nella tegamata."
+        "text": "La cinta senese è la razza di maiale originaria delle colline senesi, scura con una fascia bianca, la «cinta», attorno alle spalle. È dipinta nell'affresco di Ambrogio Lorenzetti del 1338-39 nel Palazzo Pubblico di Siena e ha la denominazione di origine protetta (DOP). In menù la trovate nei pici al ragù bianco, nella tegamata e nei salumi del Tagliere del Cacciatore."
       }
     },
     {
@@ -470,7 +470,7 @@ Version 1 questions 4, 5, 8 and 9, then three new ones. Rests on: Offer (live me
       "name": "What are pici, and how do you serve them?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Pici are thick, hand-rolled strands of pasta made from flour and water, typical of the Siena area. At the osteria they are served with white Cinta Senese ragù, duck ragù, cacio e pepe and wild boar ragù."
+        "text": "Pici are thick, hand-rolled strands of pasta made from flour and water, typical of the Siena area. On the menu you will find them with white Cinta Senese ragù, with traditional duck ragù, and cacio e pepe."
       }
     },
     {
@@ -478,7 +478,7 @@ Version 1 questions 4, 5, 8 and 9, then three new ones. Rests on: Offer (live me
       "name": "What is Cinta Senese?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cinta Senese is the native pig breed of the Siena hills, dark with a white band, the ‘cinta’, around its shoulders. It is painted in Ambrogio Lorenzetti's fresco of 1338–39 in Siena's Palazzo Pubblico and has protected-origin (DOP) status. On the menu it appears in the pici with white ragù and in the tegamata."
+        "text": "Cinta Senese is the native pig breed of the Siena hills, dark with a white band, the ‘cinta’, around its shoulders. It is painted in Ambrogio Lorenzetti's fresco of 1338–39 in Siena's Palazzo Pubblico and has protected-origin (DOP) status. On the menu it appears in the pici with white ragù, in the tegamata and in the cured meats of the Tagliere del Cacciatore."
       }
     },
     {
@@ -534,7 +534,7 @@ Version 1 question 10, rewritten for the wine list, plus one new question. Rests
       "name": "Quali vini della zona di Siena ci sono in carta?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sono in carta i tre grandi rossi della zona di Siena. C'è il Chianti Classico di Selvolini (Gallo Nero) e di Lamole di Lamole, più il Chianti Colli Senesi La Foresta. Per Montepulciano ci sono Rosso e Nobile di Guidotti e di Poggio alla Sala; per Montalcino Rosso e Brunello di Caparzo e di Camigliano."
+        "text": "Sono in carta i tre grandi rossi della zona di Siena. Ci sono il Chianti Classico di Selvolini (Gallo Nero) e quelli di Lamole di Lamole, più il Chianti Colli Senesi La Foresta. Per Montepulciano ci sono Rosso e Nobile di Guidotti e di Poggio alla Sala; per Montalcino Rosso e Brunello di Caparzo e di Camigliano."
       }
     }
   ]
@@ -933,7 +933,7 @@ Rules as in `seo.md` 4.1: links stay inside the language; internal links are wri
 | Home `#contrada`, text link | `/dove-siamo/` · `/en/find-us/` | `Dove siamo` | `Find us` |
 | Home `#prenota`, text link | `/dove-siamo/#mappa` · `/en/find-us/#mappa` | `Mappa e come arrivare` | `Map and directions` |
 | Home `#pici`, text link | `/menu/#primi` | `I primi piatti del menù` | `The first courses on the menu` |
-| Home `#tavola`, dolceforte | `/menu/#secondi` | `cinghiale in dolceforte` | `cinghiale in dolceforte` |
+| Home `#tavola`, dolceforte | `/menu/#secondi` | `Il cinghiale in dolceforte, nel menù` | `Cinghiale in dolceforte, on the menu` |
 | Home `#dispensa`, fiorentina button | `/menu/#griglia` | `Bistecca alla fiorentina, a peso` | `Bistecca alla fiorentina, by weight` |
 | Home `#dolce` | `/menu/#dolci` | `I dolci del menù` | `The desserts on the menu` |
 | Home `#prenota` | `/menu/` | `Il menù con i prezzi` | `The menu with prices` |
@@ -941,7 +941,7 @@ Rules as in `seo.md` 4.1: links stay inside the language; internal links are wri
 | Menu, notes and booking block | `/dove-siamo/` · `/en/find-us/` | `Orari, indirizzo e come arrivare` | `Opening hours, address and getting here` |
 | Menu FAQ block (line under it) | `/#pici` · `/en/#pici` | `I pici spiegati` | `Pici explained` |
 | Wine list, intro or notes | `/menu/` · `/en/menu/` | `Il menù con i prezzi` | `The menu with prices` |
-| Wine list, notes | `/menu/#bevande` · `/en/menu/#bevande` | `vini al calice e altre bevande` | `wines by the glass and other drinks` |
+| Wine list, notes | `/menu/#bevande` · `/en/menu/#bevande` | `Vini al calice e altre bevande` | `Wines by the glass and other drinks` |
 | Wine list, booking block | `/dove-siamo/` · `/en/find-us/` | `Dove siamo` | `Find us` |
 | Dove siamo, closing block | `/` · `/en/` | `La storia di Osteria dei Rossi` | `The story of Osteria dei Rossi` |
 | Dove siamo, closing block | `/menu/` · `/en/menu/` | `Il menù con i prezzi` | `The menu with prices` |
@@ -959,7 +959,7 @@ Superseded anchor rows of `seo.md` 4.2: "#cantina, wines → `/menu/#bevande`", 
 1. **Superseded in `seo.md`:** 1.1 and 1.2 (home keyword maps); 2.1 and 2.2 title, description and Open Graph rows (P.1, P.2); the home heading tables and the `#domande` stop of 2.1 and 2.2; section 5 (the ten Home questions: now split over Q.1 to Q.6); 6.1 and 6.2 (J.1, J.2); 6.3 and 6.4 (the Home FAQPage, removed); 7.2 (S.1); the anchor rows listed at the end of section 7 above; and the stop ids of checklist section 8 (the Home ids are those of `design-v2.md` section 3: `porta casa contrada tavola pici dispensa dolce cantina prenota`). Everything else in `seo.md` (name rules, NAP, section 3 alt rows 1 to 20, 6.5 and 6.6, robots, fonts and third-party rules, host redirects) stands.
 2. **One `<h1>` per page**, in the HTML at first paint, never created by script or animated in, also on the two pages with an intro overlay: the overlay (`#book-intro`, `#pour-intro`) is added over a page whose content is already in the DOM, it is `aria-hidden`, and with no JavaScript or with reduced motion it never shows.
 3. **Wine list outline:** `h1` (`La carta dei vini`); `h2` for the three groups (`Vini rossi`, `Vini bianchi`, `Rosé e bollicine`); `h3` for the seven areas inside the reds; a final `h2` for the questions (`Domande sul vino`) with the questions as `<details>` and `<summary>` (the summary is not a heading); the booking block `#prenota` closes the page. No price anywhere, not in alt, title attributes, `data-` attributes or markup.
-4. **Dove siamo outline:** `h1`; `h2` for the street (`#via`), the map (`#mappa`), hours and booking (`#prenota`) and the questions (`#domande`); `h3` for the two blocks beside the map ("A piedi" / "In auto"; "On foot" / "By car"). The address, the directions and the car-park text are real HTML text, never only inside the SVG map. The map stays a link to the Google Maps URL, no embed.
+4. **Dove siamo outline:** `h1`; `h2` for the street (`#via`), the map (`#mappa`), hours and booking (`#prenota`) and the questions (`#domande`); `h3` for the two blocks beside the map ("A piedi" / "In auto"; "On foot" / "By car"). The address, the directions and the car-park text are real HTML text, never only inside the SVG map. A text link to the Google Maps URL sits right above the map; the map itself is a drawing, not a link and not an embed.
 5. **Home outline:** `h1` in the hero; one `h2` per chapter `#casa` to `#cantina`; `h3` for the dishes and the larder rows. No FAQ block and no `#domande` on the Home. The Menu page ends with `h2` `Domande sul menù` before `#prenota`.
 6. **Images of the second set** are 3:2 (JPEG fallback 720×480, AVIF 480, 720, 960, 1280, 1600). Write `width="720" height="480"` and CSS `aspect-ratio: 3 / 2`. Suggested `sizes` (the builder checks them against the real layout): full-bleed band `100vw`; large larder tile `(min-width: 900px) 40vw, 92vw`; small larder tile `(min-width: 900px) 20vw, 46vw`; `#pici` photo column (two tiles) `(min-width: 900px) 30vw, 92vw`; `#dolce` arch tile `(min-width: 900px) 44vw, 92vw`; Menu photo bands `100vw`.
 7. **Lazy loading:** every image of the second set is `loading="lazy"` and `decoding="async"`; so are all images on the wine list and Dove siamo pages. Only the Home hero keeps the preload and `fetchpriority="high"` of `seo.md` 2.7. The wine-list and Dove siamo heroes are text on green or cream, so they preload no image. Do not lazy-load anything inside the first viewport of a phone.
@@ -977,13 +977,13 @@ None of these is invented in this file.
 
 1. **Wine bar or enoteca.** Is there any service that would justify "enoteca" or "wine bar" (wines to take away, tastings, glasses without a meal)? Until the founder says so, the words are not used.
 2. **The wine list's three open readings** ("Chianti Domasco DOC", "Bolgheri Bianco Papero", the producer "Poggio Canzano") and the lead's heading "Rosé e bollicine". The FAQ answers avoid them; the generated wine-list page and any generated `Menu` block carry them as they are in the JSON until the founder proofreads.
-3. **Where the printed prices are seen.** The page says only "prices are not published online". The profile does not say where guests see the printed list, so nothing like "prices at the table" is written.
+3. **Where the printed prices are seen.** The wine-list page says: "I prezzi sono sulla carta dei vini dell’osteria: chiedetela al personale." / "Prices are on the osteria’s printed wine list: ask our staff for it." The profile does not say that guests ask staff for the printed list. The founder should confirm it. Nothing like "prices at the table" is written, and no price appears on the page.
 4. **The wine by the glass.** The live menu names five wines by the glass (Chianti Classico Gallo Nero, IGT Toscano, Maremma DOC; Vernaccia di San Gimignano, Vermentino Toscano). Whether the carta's other wines are also poured by the glass is unknown; the answers say only "reds and whites by the glass".
 5. **Walking time from the San Francesco car park to the door, ZTL hours, permits and Palio-day access.** The "By car" block can say only what the profile says (car park, escalators, ZTL, "check the rules"). No tariff.
 6. **Distances.** The only approved distance is "Piazza del Campo about 5 minutes on foot". No metres, no walking time to the Basilica (it is "at the end of the street").
 7. **Whether the pici are made in house.** The profile defines pici in general and lists how the osteria serves them; the answer therefore says nothing about who makes them.
 8. **Cinghiale in dolceforte and chocolate.** Whether the osteria's own recipe contains chocolate (the answer says only what the profile says about the recipe's history).
-9. **Truffle.** "Fresh truffle all year round" is a founder photo caption; this file keeps "tartufo fresco di stagione" (open question 11 of `seo.md`). The founder should say which wording he wants on `#dispensa`.
+9. **Truffle.** The home page says "tartufo fresco, tutto l’anno" (the founder's own caption) right above the menu dish "Tagliatelle al Tartufo di Stagione". The founder should confirm that both wordings can stand together, or choose one (open question 11 of `seo.md`).
 10. **Porcini and other seasonal products.** No months are stated; the live menu flags `Tagliatelle ai Funghi Porcini` as a seasonal dish and nothing more.
 11. **Outdoor tables.** Months, number, and whether one can be requested (still open from `seo.md`).
 12. **Search demand.** No volumes or Google.it positions exist for any phrase here. They come from Search Console after launch (`seo-offsite.md`).

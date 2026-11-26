@@ -144,7 +144,7 @@
       "price": "14",
       "priceCurrency": "EUR"
      },
-     "description": "A historic, exclusive recipe from Osteria dei Rossi, on the menu since 1992: a tomato-based sauce with Gorgonzola and chilli, bringing together bold, unmistakable flavours."
+     "description": "A historic recipe from Osteria dei Rossi, on the menu since 1992: a tomato-based sauce with Gorgonzola and chilli, bringing together bold, unmistakable flavours."
     },
     {
      "@type": "MenuItem",
@@ -254,7 +254,7 @@
        }
       }
      },
-     "description": "The house speciality: a weekly selection hand-picked by Alessio, our trusted butcher. We choose the finest beef from breeds and farms around the world to offer a truly distinctive and unique grilling experience every time."
+     "description": "The house speciality: a weekly selection hand-picked by Alessio, our trusted butcher."
     },
     {
      "@type": "MenuItem",

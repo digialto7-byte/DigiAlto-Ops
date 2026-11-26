@@ -230,8 +230,9 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - body: È cucina tipica senese, con radici nel Medioevo. Da noi arriva a tavola nel coccio di terracotta: stufati a cottura lenta, una salsa agrodolce, la polenta accanto. Cominciamo dal cinghiale, in due modi, e da un crostino nero.
 - dolceforte_h3_line1: Il cinghiale
 - dolceforte_h3_em: *in dolceforte*
-- dolceforte_body: Il dolceforte è una salsa agrodolce che risale alla cucina medievale. Il cioccolato della ricetta di oggi è arrivato nei secoli successivi. Il cinghiale ve lo portiamo nel coccio a due manici, scuro e lucido, con una foglia d'alloro sul fondo.
+- dolceforte_body: Il dolceforte è una salsa agrodolce che risale alla cucina medievale. Il cioccolato della ricetta di oggi è arrivato nei secoli successivi. Il cinghiale ve lo portiamo nel coccio a due manici, scuro e lucido, con una foglia d'alloro.
 - dolceforte_row: Cinghiale in Dolce Forte | Cinghiale in agrodolce, con una salsa che risale alla cucina medievale | 20 € |
+- link_secondi: Il cinghiale in dolceforte, nel menù
 - coccio_h3_line1: Il cinghiale
 - coccio_h3_em: *al coccio*
 - coccio_body: Spezzatino di cinghiale a cottura lenta e aromatica, con la polenta accanto: un classico della cucina toscana. Arriva nel coccio di terracotta, e intorno trovate i contorni della carta.
@@ -247,8 +248,9 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - body: This is typical Sienese cooking, with roots in the Middle Ages. Here it comes to the table in a terracotta bowl: slow-cooked stews, a sweet-and-sour sauce, polenta alongside. We start with the wild boar, in two ways, and with a black crostino.
 - dolceforte_h3_line1: Wild boar
 - dolceforte_h3_em: *in dolceforte*
-- dolceforte_body: Dolceforte is a sweet-and-sour sauce that goes back to medieval cooking. The chocolate in today's recipe came in later centuries. We bring the wild boar in a two-handled terracotta bowl, dark and glossy, with a bay leaf in it.
+- dolceforte_body: Dolceforte is a sweet-and-sour sauce that goes back to medieval cooking. The chocolate in today's recipe came in later centuries. We bring the wild boar in a two-handled terracotta bowl, dark and glossy, with a bay leaf.
 - dolceforte_row: Cinghiale in Dolce Forte | Wild boar in a sweet-and-sour sauce that goes back to medieval cooking | 20 € |
+- link_secondi: Cinghiale in dolceforte, on the menu
 - coccio_h3_line1: Wild boar
 - coccio_h3_em: *in the coccio*
 - coccio_body: A slow-cooked, aromatic wild boar stew with polenta alongside: a classic of Tuscan cooking. It comes in a terracotta bowl, with the side dishes from the menu around it.
@@ -264,8 +266,8 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - kicker: IV · I pici
 - h2_line1: I pici
 - h2_em: *una pasta del Senese*
-- body_1: I pici sono lunghi fili spessi di pasta, fatti di sola farina e acqua e arrotolati a mano. Sono tipici della zona di Siena. Un impasto semplice, che lascia tutto lo spazio al condimento.
-- body_2: Da noi arrivano in quattro modi: con il ragù bianco di Cinta Senese, che è senza pomodoro; con il ragù d'anatra; cacio e pepe; con il ragù di cinghiale. Scegliete quello che vi chiama, o assaggiateli tutti in più volte.
+- body_1: I pici sono fili spessi di pasta, fatti di sola farina e acqua e arrotolati a mano. Sono tipici della zona di Siena.
+- body_2: Da noi arrivano in quattro modi: con il ragù bianco di Cinta Senese, che è senza pomodoro; con il ragù d'anatra; cacio e pepe; con il ragù di cinghiale. Scegliete quello che vi chiama, o assaggiateli tutti, una visita alla volta.
 - way_1: Pici al Ragù Bianco di Cinta Senese | Ragù bianco di Cinta Senese, senza pomodoro, con erbe e spezie della casa | 16 € | Consigliato dall'Oste
 - way_2: Pici al Ragù Tradizionale di Anatra | Pici della tradizione, con un ragù d'anatra ricco e saporito | 16 € | Consigliato dall'Oste
 - way_3: Pici Cacio e Pepe | Pecorino toscano e pepe nero, alla toscana | 15 € |
@@ -278,8 +280,8 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - kicker: IV · The pici
 - h2_line1: Pici
 - h2_em: *a pasta of the Siena area*
-- body_1: Pici are long, thick strands of pasta, made of just flour and water and rolled by hand. They are typical of the Siena area. A simple dough that leaves all the room to the sauce.
-- body_2: Here they come in four ways: with the white Cinta Senese ragù, which has no tomato; with duck ragù; cacio e pepe; and with wild boar ragù. Choose the one that calls to you, or taste them all over several visits.
+- body_1: Pici are thick strands of pasta, made of just flour and water and rolled by hand. They are typical of the Siena area.
+- body_2: Here they come in four ways: with the white Cinta Senese ragù, which has no tomato; with duck ragù; cacio e pepe; and with wild boar ragù. Choose the one that calls to you, or taste them all, one visit at a time.
 - way_1: Pici al Ragù Bianco di Cinta Senese | White Cinta Senese ragù, no tomato, with the house's herbs and spices | 16 € | Consigliato dall'Oste
 - way_2: Pici al Ragù Tradizionale di Anatra | Traditional pici with a rich, flavourful duck ragù | 16 € | Consigliato dall'Oste
 - way_3: Pici Cacio e Pepe | Tuscan pecorino and black pepper, in Tuscan style | 15 € |
@@ -298,7 +300,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - intro: Cosa sono, che storia hanno e come li portiamo in tavola: i prodotti che si incontrano da noi, uno alla volta.
 - cinta_h3_line1: La Cinta Senese
 - cinta_h3_em: *dalla fascia bianca*
-- cinta_body: La Cinta Senese è il maiale nativo delle colline senesi: scuro, con una fascia bianca, la «cinta», intorno alle spalle. La vedete dipinta nell'affresco di Ambrogio Lorenzetti del 1338–39, nel Palazzo Pubblico di Siena, e ha lo status DOP, origine protetta. La nostra carne, dice il menù, viene da un allevamento allo stato brado nel cuore delle Crete Senesi. La trovate in stufato, nel ragù e sul tagliere.
+- cinta_body: La Cinta Senese è il maiale nativo delle colline senesi: scuro, con una fascia bianca, la «cinta», intorno alle spalle. La vedete dipinta nell'affresco di Ambrogio Lorenzetti del 1338–39, nel Palazzo Pubblico di Siena, ed è tutelata come DOP, Denominazione di Origine Protetta. La carne della Tegamata, dice il menù, viene da un allevamento allo stato brado nel cuore delle Crete Senesi. La Cinta la trovate in stufato, nel ragù e sul tagliere.
 - cinta_row_1: Tegamata di Cinta Senese | Stufato a cottura lenta, senza pomodoro, dalle Crete Senesi | 19 € | Consigliato dall'Oste
 - cinta_row_2: Tagliatelle al ragù di Cinta | Tagliatelle con il ragù di Cinta Senese | |
 - cinta_row_3: Tagliere del Cacciatore | Salumi di Cinta Senese e di selvaggina, serviti sul tagliere | 22 € |
@@ -345,7 +347,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - intro: What they are, what story they carry and how we bring them to the table: the ingredients you meet here, one at a time.
 - cinta_h3_line1: The Cinta Senese
 - cinta_h3_em: *with the white band*
-- cinta_body: The Cinta Senese is the native pig breed of the Siena hills: dark, with a white band, the "cinta", around its shoulders. You can see it painted in Ambrogio Lorenzetti's fresco of 1338–39 in Siena's Palazzo Pubblico, and it has DOP, protected-origin, status. Our meat, says the menu, comes from a free-range farm in the heart of the Crete Senesi. You will find it in a stew, in a ragù and on the board.
+- cinta_body: The Cinta Senese is the native pig breed of the Siena hills: dark, with a white band, the "cinta", around its shoulders. You can see it painted in Ambrogio Lorenzetti's fresco of 1338–39 in Siena's Palazzo Pubblico, and it has DOP, protected-origin, status. The meat for the Tegamata, says the menu, comes from a free-range farm in the heart of the Crete Senesi. You will find Cinta in the stew, in the ragù and on the board.
 - cinta_row_1: Tegamata di Cinta Senese | Slow-cooked stew, no tomato, from the Crete Senesi | 19 € | Consigliato dall'Oste
 - cinta_row_2: Tagliatelle al ragù di Cinta | Tagliatelle with Cinta Senese ragù | |
 - cinta_row_3: Tagliere del Cacciatore | Cured Cinta Senese pork and game, served on a board | 22 € |
@@ -411,10 +413,11 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - kicker: VI · Il dolce
 - h2_line1: Cantucci
 - h2_em: *e Vin Santo*
-- body_1: La tradizione toscana è questa: per finire il pasto si inzuppano i cantucci, biscotti toscani alle mandorle, nel Vin Santo, il vino dolce da dessert. Un gesto semplice, che chiude la tavola senza fretta.
+- body_1: La tradizione toscana è questa: per finire il pasto si inzuppano i cantucci, biscotti toscani alle mandorle, nel Vin Santo, il vino dolce da dessert toscano. Un gesto semplice, che chiude la tavola senza fretta.
 - body_2: Da noi arrivano su un piatto, con un bicchierino di Vin Santo accanto. Un cantuccio, un tuffo nel bicchiere, un morso. Sul menù si chiamano «Cantuccini e Vin Santo»: così finisce il pranzo o la cena.
 - row: Cantuccini e Vin Santo | Biscotti toscani alle mandorle, da inzuppare nel Vin Santo | 7 € |
 - caption: Cantucci e Vin Santo
+- link_dolci: I dolci del menù
 
 **EN**
 - kicker: VI · The sweet
@@ -424,6 +427,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - body_2: Here they come on a plate, with a small glass of Vin Santo beside them. A cantuccio, a dip in the glass, a bite. On the menu they are called "Cantuccini e Vin Santo": that is how lunch or dinner ends.
 - row: Cantuccini e Vin Santo | Tuscan almond biscuits, to dip in Vin Santo | 7 € |
 - caption: Cantucci and Vin Santo
+- link_dolci: The desserts on the menu
 
 **Facts used:** cantucci are Tuscan almond biscuits; the tradition is to dip them in Vin Santo, the sweet Tuscan dessert wine, to end the meal; the osteria serves cantucci e Vin Santo (profile.md, Welcome, food and wine, v2); "Cantuccini e Vin Santo" 7 € (sources/menu-live-2026-11-24.md, Dolci); a hand dipping a cantuccio into a small glass of Vin Santo, more cantucci on the plate (sources/photos-2026-11-25.md, photo 23). Allergens not used.
 
@@ -436,7 +440,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - wines_label: I grandi rossi del Senese
 - wines_list: Chianti Classico · Vino Nobile di Montepulciano · Brunello di Montalcino
 - glass_line: Al calice: rosso Chianti Classico Gallo Nero, IGT Toscano, Maremma DOC; bianco Vernaccia di San Gimignano, Vermentino Toscano
-- amari_line: Per chiudere il pasto, al bancone, amari e grappe: Amaro di Siena, Montenegro, Grappa Poli Barricata.
+- amari_line: Per chiudere il pasto, amari e grappe: Amaro di Siena, Montenegro, Grappa Poli Barricata.
 - caption_door: La porta della cantina
 - caption_pour: Un rosso versato a tavola
 - caption_amaro: Amari e liquori al bancone
@@ -450,7 +454,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - wines_label: The great reds of the Siena area
 - wines_list: Chianti Classico · Vino Nobile di Montepulciano · Brunello di Montalcino
 - glass_line: By the glass: red Chianti Classico Gallo Nero, IGT Toscano, Maremma DOC; white Vernaccia di San Gimignano, Vermentino Toscano
-- amari_line: To close the meal, at the counter, amari and grappas: Amaro di Siena, Montenegro, Grappa Poli Barricata.
+- amari_line: To close the meal, amari and grappas: Amaro di Siena, Montenegro, Grappa Poli Barricata.
 - caption_door: The cellar door
 - caption_pour: Red wine poured at the table
 - caption_amaro: Amari and liqueurs at the counter
@@ -528,6 +532,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - wine_link: Guardate la carta dei vini
 - faq_h2_line1: Domande sul menù
 - faq_h2_em: *e sui piatti*
+- faq_pici_link: I pici spiegati
 - closing_h2_line1: Un tavolo
 - closing_h2_em: *per voi*
 - closing_btn_call: Chiama +39 0577 287592
@@ -555,6 +560,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - wine_link: See the wine list
 - faq_h2_line1: Questions about the menu
 - faq_h2_em: *and the dishes*
+- faq_pici_link: Pici explained
 - closing_h2_line1: A table
 - closing_h2_em: *for you*
 - closing_btn_call: Call +39 0577 287592
@@ -594,6 +600,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - note_names: Vini e produttori sono riportati come nella carta stampata dell'osteria.
 - faq_h2_line1: Domande sui vini
 - faq_h2_em: *e sulla cantina*
+- drinks_link: Vini al calice e altre bevande
 - closing_h2_line1: Un tavolo
 - closing_h2_em: *e il vino giusto*
 - closing_btn_call: Chiama +39 0577 287592
@@ -613,6 +620,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - note_names: Wines and producers are given as on the osteria's printed list.
 - faq_h2_line1: Questions about the wines
 - faq_h2_em: *and the cellar*
+- drinks_link: Wines by the glass and other drinks
 - closing_h2_line1: A table
 - closing_h2_em: *and the right wine*
 - closing_btn_call: Call +39 0577 287592
@@ -635,6 +643,9 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - car_title: In auto
 - hours_h2_line1: Orari
 - hours_h2_em: *e come prenotare*
+- closing_link_story: La storia di Osteria dei Rossi
+- closing_link_menu: Il menù con i prezzi
+- closing_link_wine: La carta dei vini
 
 **EN**
 - kicker: Osteria dei Rossi · Siena
@@ -647,6 +658,9 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - car_title: By car
 - hours_h2_line1: Opening hours
 - hours_h2_em: *and booking*
+- closing_link_story: The story of Osteria dei Rossi
+- closing_link_menu: The menu with prices
+- closing_link_wine: The wine list
 
 **Facts used:** address Via dei Rossi, 79/81 · 53100 Siena; Google Maps link; phone (profile.md, Identity); inside the city walls (Place and story, founder's brief); Piazza del Campo about 5 minutes on foot (Place and story, researched lines approved 2026-11-24); booking channel and hours (Offer).
 
@@ -805,6 +819,11 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - Intros: `menu-intro` and `vini-intro` slots are overlay text only; `skip` is the visible button, `label` the aria-label of the animation. `global-intro` is still the gate. All three share the session-storage entry described in `privacy`.
 - Privacy: slots `h1`, then `p1_title`/`p1_text` to `p6_title`/`p6_text`. `p2_text` now names the three opening animations; `p6_text` is dated 25 November 2026. Flag the page for the founder's legal check before launch.
 - Link destinations: Prenota opens the panel with `tel:+390577287592` and `https://wa.me/390577287592`; `link_maps` and `btn_maps` go to `https://maps.google.com/?cid=5066073290586870112`; menu links go to `/menu/` (EN `/en/menu/`); `pici` `cta` goes to `/menu/#primi`; the `fiorentina` `cta` goes to `/menu/#griglia` (EN `/en/menu/#griglia`); footer social links are `https://www.instagram.com/osteriadeirossi/` and `https://www.facebook.com/osteriadeirossi`; `intro_skip` skips the gate animation; the 404 `link_home` goes to `/`.
+- `tavola` `link_secondi`: a text link under the `dolceforte_row` dish row; it goes to `/menu/#secondi` (EN `/en/menu/#secondi`).
+- `dolce` `link_dolci`: a text link under the dessert row; it goes to `/menu/#dolci` (EN `/en/menu/#dolci`).
+- `menu-page` `faq_pici_link`: a line under the FAQ block (below the last question); it goes to the home page's pici chapter, `/#pici` (EN `/en/#pici`).
+- `vini-page` `drinks_link`: a text link in the notes block at the end of the list, after `note_glass`; it goes to `/menu/#bevande` (EN `/en/menu/#bevande`).
+- `dove-page` `closing_link_story`, `closing_link_menu`, `closing_link_wine`: three text links in the closing block of the Dove siamo page, below the hours and booking band; they go to `/` (EN `/en/`), `/menu/` (EN `/en/menu/`) and `/vini/` (EN `/en/wine-list/`).
 - The meat-guide line appears once per language, in `fiorentina` only. Do not repeat it in titles, meta, schema or alt text.
 - Approved facts deliberately not used on the home page: the UNESCO listing since 1995, the Bruco's side of the street, the 13th-century description of Porta Ovile. They may serve the SEO file or the journal.
 - The hero `opening_short` and `hours_compact` are short forms; the full hours are in `prenota`.

@@ -172,6 +172,7 @@
         <h3 class="h3" data-reveal>{{h:tavola.dolceforte_h3_line1|dolceforte_h3_em}}</h3>
         <p class="body" data-reveal>{{c:tavola.dolceforte_body}}</p>
         {{rows:tavola.dolceforte_row}}
+        <p data-reveal><a class="link link--light" href="{{u:menu}}#secondi">{{c:tavola.link_secondi}} {{arrow}}</a></p>
       </div>
     </div>
   </div>
@@ -319,6 +320,7 @@
       <p class="body" data-reveal>{{c:dolce.body_1}}</p>
       <p class="body" data-reveal>{{c:dolce.body_2}}</p>
       {{rows:dolce.row}}
+      <p data-reveal><a class="link link--light" href="{{u:menu}}#dolci">{{c:dolce.link_dolci}} {{arrow}}</a></p>
     </div>
     <figure class="arch dolce__arch">
       <div class="arch__box">

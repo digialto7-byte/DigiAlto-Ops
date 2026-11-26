@@ -66,6 +66,7 @@
   <p>{{c:vini-page.note_prices}}</p>
   <p>{{c:vini-page.note_glass}}</p>
   <p>{{c:vini-page.note_names}}</p>
+  <p><a class="link" href="{{u:menu}}#bevande">{{c:vini-page.drinks_link}} {{arrow}}</a></p>
   <p><a class="link" href="{{u:menu}}">{{c:vini-page.back_menu_link}} {{arrow}}</a></p>
 </div>
 

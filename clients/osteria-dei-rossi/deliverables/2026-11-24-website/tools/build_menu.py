@@ -11,7 +11,7 @@ Writes  assets/menu/menu-it.html, menu-en.html        (the <section> blocks of t
 Names, descriptions and prices are copied as published. Allergen numbers are never written
 (not approved). Items the osteria hides on its own menu are left out. One description is
 skipped on purpose (see SKIP_DESCRIPTION): the published text belongs to a different dish.
-One sentence is omitted (see OMIT_SENTENCES): a claim that cannot be verified.
+Unverifiable claims are left out (see OMIT_SENTENCES and REPLACE_WORDS).
 """
 from __future__ import annotations
 
@@ -42,21 +42,30 @@ BADGE = {
 }
 UNIT = {"etto": ("all’etto", "per 100 g")}
 SKIP_DESCRIPTION = {"Ravioli con Zucca Gialla, Pancetta e stracciatella"}
-# A claim of being the only ones in the province cannot be verified, so that one sentence is
-# left off the website until the owner confirms it (it stays on the osteria's own QR menu).
+# Claims that cannot be verified (being the only ones in the province, "the finest beef",
+# "exclusive") are left off the website until the owner confirms them; they stay on the
+# osteria's own QR menu. Whole sentences are omitted, single words are replaced.
 OMIT_SENTENCES = (
     "Una specialità unica: siamo gli unici a Siena e provincia a proporvela così. ",
     "A one-of-a-kind speciality: we’re the only ones in Siena and the surrounding province serving it this way. ",
+    " Selezioniamo le migliori carni provenienti da razze e allevamenti di tutto il mondo, per offrire un’esperienza alla griglia sempre distintiva e unica.",
+    " We choose the finest beef from breeds and farms around the world to offer a truly distinctive and unique grilling experience every time.",
+)
+REPLACE_WORDS = (
+    ("Una ricetta storica ed esclusiva dell’Osteria dei Rossi", "Una ricetta storica dell’Osteria dei Rossi"),
+    ("A historic, exclusive recipe from Osteria dei Rossi", "A historic recipe from Osteria dei Rossi"),
 )
 
 
 def text_of(item: dict, key: str) -> str:
-    """The published description, minus the skipped description and the omitted sentence."""
+    """The published description, minus the skipped description and the unverifiable claims."""
     if item.get("n") in SKIP_DESCRIPTION:
         return ""
     text = (item.get(key) or "").strip()
     for sentence in OMIT_SENTENCES:
         text = text.replace(sentence, "")
+    for published, website in REPLACE_WORDS:
+        text = text.replace(published, website)
     return text.strip()
 
 

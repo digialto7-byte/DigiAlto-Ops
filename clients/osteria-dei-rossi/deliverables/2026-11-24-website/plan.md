@@ -420,7 +420,7 @@ All outputs go in `clients/osteria-dei-rossi/deliverables/2026-11-24-website/`. 
 2. **People:** the surnames of Luca and Max, who "l'Oste" is, and whether we may quote them by name.
 3. **Email:** none is approved. Do we keep the site phone and WhatsApp only, or is there one address to publish? Two old addresses circulate on listings.
 4. **WhatsApp:** who answers it, and how quickly, so the copy can set honest expectations (for example "rispondiamo nell'orario di apertura").
-5. **Menu text:** please fix the ravioli description. Do you approve trimming "siamo gli unici a Siena e provincia" (Bistecca Fritta) and "le migliori carni" (Fiorentina), and changing the dolceforte line on the menu to match the approved history note?
+5. **Menu text:** please fix the ravioli description. Do you approve trimming "siamo gli unici a Siena e provincia" (Bistecca Fritta), "le migliori carni" (Fiorentina) and "esclusiva" (Spaghetti alla Chitarra), and changing the dolceforte line on the menu to match the approved history note? Since 2026-11-26 the website leaves all three out; they come back only if you confirm them as facts.
 6. **Brand story points still marked unverified in the profile** (P-L56: spaghetti "in menù dal 1992", Alessio the butcher, Cinta from the Crete Senesi): may they be used beyond the menu page, on Home and in the journal?
 7. **Palio days and holidays:** is the osteria open, with the usual hours, on Palio days and public holidays? This is needed for the FAQ, GBP special hours and the groups and Palio page.
 8. **Getting there:** the approved walking route and time from the San Francesco escalators to the door, for the find-us page. Version 1 gives no walking time from the car park.

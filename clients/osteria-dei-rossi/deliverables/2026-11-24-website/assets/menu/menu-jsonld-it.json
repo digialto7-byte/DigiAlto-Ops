@@ -144,7 +144,7 @@
       "price": "14",
       "priceCurrency": "EUR"
      },
-     "description": "Una ricetta storica ed esclusiva dell’Osteria dei Rossi, in menù dal 1992: sugo a base di pomodoro, gorgonzola e peperoncino, per un incontro deciso e inconfondibile di sapori."
+     "description": "Una ricetta storica dell’Osteria dei Rossi, in menù dal 1992: sugo a base di pomodoro, gorgonzola e peperoncino, per un incontro deciso e inconfondibile di sapori."
     },
     {
      "@type": "MenuItem",
@@ -254,7 +254,7 @@
        }
       }
      },
-     "description": "La specialità della casa: una selezione settimanale curata da Alessio, il nostro macellaio di fiducia. Selezioniamo le migliori carni provenienti da razze e allevamenti di tutto il mondo, per offrire un’esperienza alla griglia sempre distintiva e unica."
+     "description": "La specialità della casa: una selezione settimanale curata da Alessio, il nostro macellaio di fiducia."
     },
     {
      "@type": "MenuItem",

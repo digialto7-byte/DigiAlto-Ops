@@ -61,6 +61,7 @@
     <div class="faq">
 {{faq}}
     </div>
+    <p class="menu-wine" data-reveal><a class="link" href="{{u:home}}#pici">{{c:menu-page.faq_pici_link}} {{arrow}}</a></p>
   </div>
 </section>
 

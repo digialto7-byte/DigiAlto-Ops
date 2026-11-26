@@ -6,7 +6,8 @@
 Reads knowledge/clients/osteria-dei-rossi/sources/wine-list-2026-11-25.json (wines and
 producers as on the printed carta dei vini, approved by the founder for the website WITHOUT
 prices) and writes assets/vini/vini-it.html, assets/vini/vini-en.html and
-assets/vini/vini-jsonld-{it,en}.json. No name is typed here; no price is ever written.
+assets/vini/vini-jsonld-{it,en}.json. No name is typed here; no price is ever written. Entries the
+source marks `"proofread": false` are listed on the page but left out of the JSON-LD.
 
 Each area of the red wines carries a comment marker (`<!-- note:<area> -->`) right after its
 heading, where the page generator may put a line of copy.
@@ -63,10 +64,10 @@ def build(lang):
                 if producer:
                     row += f' <span class="wine__producer">{esc(producer)}</span>'
                 parts.append(f'      <li class="wine">{row}</li>')
-                entry = {'@type': 'MenuItem', 'name': name}
-                if producer:
-                    entry['description'] = producer
-                ld_items.append(entry)
+                # Structured data: "wine, producer" as the name, nothing else. A reading that
+                # still waits for the founder's proofreading shows on the page only.
+                if w.get('proofread', True):
+                    ld_items.append({'@type': 'MenuItem', 'name': f'{name}, {producer}' if producer else name})
                 count += 1
             parts.append('    </ul>')
             parts.append('  </div>')
