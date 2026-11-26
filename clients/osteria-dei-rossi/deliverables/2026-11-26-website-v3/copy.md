@@ -56,14 +56,14 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 **IT**
 - call_label: Prenota: chiama
 - whatsapp_label: Prenota su WhatsApp
-- call_aria: Chiama l'osteria al numero +39 0577 287592
-- whatsapp_aria: Scrivi all'osteria su WhatsApp al numero +39 0577 287592
+- call_aria: Prenota: chiama l'osteria al numero +39 0577 287592
+- whatsapp_aria: Prenota su WhatsApp al numero +39 0577 287592
 
 **EN**
 - call_label: Book: call
 - whatsapp_label: Book on WhatsApp
-- call_aria: Call the osteria on +39 0577 287592
-- whatsapp_aria: Message the osteria on WhatsApp, number +39 0577 287592
+- call_aria: Book: call the osteria on +39 0577 287592
+- whatsapp_aria: Book on WhatsApp, number +39 0577 287592
 
 **Facts used:** phone +39 0577 287592 and WhatsApp on the same number (profile.md, Identity; Offer, booking channel).
 
@@ -127,10 +127,10 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 
 ### global-alt-logo
 **IT**
-- logo_alt: Logo Osteria dei Rossi
+- logo_alt: Osteria dei Rossi
 
 **EN**
-- logo_alt: Osteria dei Rossi logo
+- logo_alt: Osteria dei Rossi
 
 **Facts used:** public name (profile.md, Identity); logo description (sources/photos-2026-11-24.md, logo files).
 
@@ -168,19 +168,19 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 ### perche
 **IT**
 - kicker: Perché venire da noi
-- fact_1: Dal 1992 nella Contrada del Bruco, in Via dei Rossi.
+- fact_1: Aperta nel 1992. Siamo nella Contrada del Bruco, a Siena.
 - fact_2: Dentro le mura, circa 5 minuti a piedi da Piazza del Campo.
 - fact_3: Una sala di travi, volte di mattoni e pavimenti in cotto.
-- fact_4: Segnalata da Gambero Rosso tra i ristoranti di Siena per la carne.
+- fact_4: Inserita da Gambero Rosso tra i ristoranti di Siena per la carne.
 
 **EN**
 - kicker: Why come here
-- fact_1: Since 1992 in the Contrada del Bruco, a district of Siena.
+- fact_1: Opened in 1992. We are in the Contrada del Bruco, in Siena.
 - fact_2: Inside the walls, about 5 minutes' walk from Piazza del Campo.
 - fact_3: A room of beams, brick vaults and terracotta floors.
 - fact_4: Listed by Gambero Rosso among Siena's restaurants for meat.
 
-**Facts used:** opened in 1992 (profile.md, Place and story, researched lines approved 2026-11-24); Contrada del Bruco (Place and story, photo captions); Via dei Rossi (Identity); inside the city walls (Place and story, founder's brief); Piazza del Campo about 5 minutes on foot (Place and story, researched lines); beamed ceilings, brick arches and vaults, terracotta floors (Place and story, what the photos show; photo captions); "Listed by Gambero Rosso among Siena's restaurants for meat" in the profile's own verb (Place and story, researched lines approved 2026-11-24). This is the only place on the home page where the Gambero Rosso line appears. "A district of Siena" is a one-word gloss of "contrada", not a profile fact.
+**Facts used:** opened in 1992 (profile.md, Place and story, researched lines approved 2026-11-24); the osteria is in the Contrada del Bruco, in Siena (Place and story, photo captions; Identity, address). The profile does not say the osteria has been on Via dei Rossi since 1992, so the year belongs to the opening only and the street is not named in `fact_1`; inside the city walls (Place and story, founder's brief); Piazza del Campo about 5 minutes on foot (Place and story, researched lines); beamed ceilings, brick arches and vaults, terracotta floors (Place and story, what the photos show; photo captions); "Listed by Gambero Rosso among Siena's restaurants for meat" (IT "Inserita da Gambero Rosso…"), neutral verb, the profile's meaning (Place and story, researched lines approved 2026-11-24). This is the only place on the home page where the Gambero Rosso line appears. The English no longer glosses "contrada", so IT and EN say the same.
 
 ### casa
 **IT**
@@ -190,7 +190,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - quote_source: Così apre il menù
 - h2_line1: Qui vi sentite
 - h2_em: *a casa*
-- body_1: Osteria dei Rossi è un posto caldo e il servizio è molto cordiale: vi accogliamo come si accoglie chi entra da noi.
+- body_1: Osteria dei Rossi è un posto caldo e il servizio è molto cordiale: appena entrate, c'è qualcuno che vi dà il benvenuto.
 - body_2: Sopra di voi le travi, alle pareti il legno, sotto i piedi il cotto. Archi di mattoni, lanterne di ferro battuto, tovaglioli a quadretti verdi e bianchi. Dal bancone si guarda la cucina; in cucina c'è Luca.
 - gallery_kicker: Guardatevi intorno
 - gallery_caption_1: Il bancone, con vista sulla cucina
@@ -207,7 +207,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - quote_source: How our menu opens
 - h2_line1: Here you feel
 - h2_em: *at home*
-- body_1: Osteria dei Rossi is a warm place and the service is very friendly: we welcome you the way you welcome someone who walks in.
+- body_1: Osteria dei Rossi is a warm place and the service is very friendly: when you walk in, someone is there to welcome you.
 - body_2: Beams overhead, wood on the walls, terracotta underfoot. Brick arches, wrought-iron lanterns, green-and-white check napkins. From the counter you look into the kitchen; in the kitchen is Luca.
 - gallery_kicker: Look around
 - gallery_caption_1: The counter, with a view of the kitchen
@@ -217,7 +217,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - gallery_progress: Photo {n} of {total}
 - gallery_exit: Next: the contrada
 
-**Facts used:** a warm place where you feel at home; the service is very friendly; the welcome line of the menu, verbatim, approved as the opening of the story (profile.md, Welcome, food and wine, v2; sources/menu-live-2026-11-24.md, opening line); beamed ceilings, wood-panelled walls, terracotta floors, brick arches, green-and-white check napkins, wrought-iron lanterns, black-and-white photographs of Siena (Place and story, what the photos show); the counter gives a view into the kitchen, the dining room is in traditional Tuscan style with traditional lights, photographs of Siena on the walls, a choice of liqueurs and amari (Place and story, photo captions); Luca is in the kitchen (Place and story, researched lines approved 2026-11-24). The four gallery photos, in order: sala-bancone-vista-cucina, lanterna-ferro-battuto, fotografie-storiche-siena-contrada, amaro-al-bancone (design-v3.md section 4).
+**Facts used:** a warm place where you feel at home; the service is very friendly (`body_1` adds only that a table and a welcome await on entering, which is what a friendly service in a dining room means; no further fact); the welcome line of the menu, verbatim, approved as the opening of the story (profile.md, Welcome, food and wine, v2; sources/menu-live-2026-11-24.md, opening line); beamed ceilings, wood-panelled walls, terracotta floors, brick arches, green-and-white check napkins, wrought-iron lanterns, black-and-white photographs of Siena (Place and story, what the photos show); the counter gives a view into the kitchen, the dining room is in traditional Tuscan style with traditional lights, photographs of Siena on the walls, a choice of liqueurs and amari (Place and story, photo captions); Luca is in the kitchen (Place and story, researched lines approved 2026-11-24). The four gallery photos, in order: sala-bancone-vista-cucina, lanterna-ferro-battuto, fotografie-storiche-siena-contrada, amaro-al-bancone (design-v3.md section 4).
 
 ### contrada
 **IT**
@@ -227,7 +227,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - body_1: L'osteria è nella Contrada del Bruco, in Via dei Rossi, a Siena. La contrada ha una sola porta nelle mura: Porta Ovile. L'osteria l'ha aperta Giuseppe «Beppe» Carrieri, brucaiolo. Alle pareti, le fotografie della contrada e di Siena, come ispirazione.
 - body_2: Dall'inizio del 2024 la guidano Luca e Max, con Luca in cucina.
 - step_1_year: 1992
-- step_1_text: Un brucaiolo apre l'osteria in Via dei Rossi
+- step_1_text: Un brucaiolo apre l'osteria
 - step_2_year: 2024
 - step_2_text: La guida passa a nuove mani
 - step_3_year: Oggi
@@ -244,7 +244,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - body_1: The osteria is in the Contrada del Bruco, on Via dei Rossi in Siena. The contrada's only city gate is Porta Ovile. Giuseppe "Beppe" Carrieri, a brucaiolo (a man of the Bruco contrada), opened the osteria. On the walls hang photographs of the contrada and of Siena, as inspiration.
 - body_2: Since early 2024 it has been run by Luca and Max, with Luca in the kitchen.
 - step_1_year: 1992
-- step_1_text: A brucaiolo opens the osteria on Via dei Rossi
+- step_1_text: A brucaiolo opens the osteria
 - step_2_year: 2024
 - step_2_text: The osteria changes hands
 - step_3_year: Today
@@ -254,14 +254,14 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - caption_sign: The iron sign and its arrow
 - link_dove: Where we are and how to get here
 
-**Facts used:** Contrada del Bruco, the iron sign with its arrow and the ball on corks (profile.md, Place and story, photo captions; sources/photos-2026-11-24.md, photos 3, 14, 19); Porta Ovile is the only city gate in the Bruco's territory (Place and story, researched lines); opened in 1992 by Giuseppe "Beppe" Carrieri, a brucaiolo; run since early 2024 by Luca and Max, Luca in the kitchen (same lines, approved 2026-11-24); photographs of Siena and the contrada on the walls as inspiration (Place and story, photo captions: "as inspiration", no more); Via dei Rossi, Siena (Identity); Palio on 2 July and 16 August (Place and story, researched lines). "A man of the Bruco contrada" glosses the word "brucaiolo" and is not a profile line. The street-name story and the position of the door are left to the Dove siamo page. "1992" and "Luca e Max" appear once each in this block, and nowhere else on the home page outside `perche`.
+**Facts used:** Contrada del Bruco, the iron sign with its arrow and the ball on corks (profile.md, Place and story, photo captions; sources/photos-2026-11-24.md, photos 3, 14, 19); Porta Ovile is the only city gate in the Bruco's territory (Place and story, researched lines); opened in 1992 by Giuseppe "Beppe" Carrieri, a brucaiolo; run since early 2024 by Luca and Max, Luca in the kitchen (same lines, approved 2026-11-24); photographs of Siena and the contrada on the walls as inspiration (Place and story, photo captions: "as inspiration", no more); Via dei Rossi, Siena (Identity); Palio on 2 July and 16 August (Place and story, researched lines). "A man of the Bruco contrada" glosses the word "brucaiolo" and is not a profile line. The street-name story and the position of the door are left to the Dove siamo page. By the lead's decision "1992" appears in the h2, in the timeline (`step_1_year`) and in `perche`; "Luca e Max" appears in `body_2`. `step_1_text` no longer names Via dei Rossi: the profile does not say the osteria opened there.
 
 ### tavola
 **IT**
 - kicker: III · La tavola
 - h2_line1: Cucina tipica senese
 - h2_em: *con radici medievali*
-- body: Stufati a cottura lenta, una salsa agrodolce, la polenta accanto: cucina di una volta. Gli stufati arrivano a tavola nel coccio di terracotta. Per cominciare, i crostini neri senesi, un simbolo della cucina di Siena.
+- body: Stufati a cottura lenta, una salsa agrodolce, la polenta accanto: cucina di una volta. Gli stufati arrivano a tavola nel coccio. Per cominciare, i crostini neri senesi, un antipasto che porta il nome della città.
 - index_label: Le specialità
 - index_cinghiale: Cinghiale
 - index_pici: Pici
@@ -276,7 +276,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - link_secondi: Il cinghiale in dolceforte, nel menù
 - coccio_h3_line1: Il cinghiale
 - coccio_h3_em: *al coccio*
-- coccio_body: Il cinghiale al coccio con polenta è uno spezzatino cotto lentamente, con gli aromi. Un classico della cucina toscana: il piatto è ricco, e intorno trovate i contorni da scegliere a parte.
+- coccio_body: Il cinghiale al coccio è il cinghiale in umido servito nel suo coccio, con la polenta accanto. Un piatto ricco: se volete i contorni, si ordinano a parte.
 - caption_umido: Cinghiale in umido nel coccio
 - caption_contorni: Piatti ricchi, con i contorni
 
@@ -284,7 +284,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - kicker: III · The table
 - h2_line1: Typical Sienese cooking
 - h2_em: *with medieval roots*
-- body: Slow-cooked stews, a sweet-and-sour sauce, polenta alongside: cooking from another age. The stews come to the table in a terracotta bowl, the coccio. To begin, crostini neri senesi, a symbol of Sienese cooking.
+- body: Slow-cooked stews, a sweet-and-sour sauce, polenta alongside: cooking from another age. The stews come to the table in a terracotta bowl, the coccio. To begin, crostini neri senesi, a starter that carries the name of the city.
 - index_label: The specialities
 - index_cinghiale: Wild boar
 - index_pici: Pici
@@ -299,11 +299,11 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - link_secondi: Wild boar in dolceforte, on the menu
 - coccio_h3_line1: Wild boar
 - coccio_h3_em: *in the coccio*
-- coccio_body: Cinghiale al coccio con polenta is a wild boar stew, cooked slowly with aromatic herbs. A classic of Tuscan cooking: the plate is rich, and around it sit the side dishes, ordered separately.
+- coccio_body: Cinghiale al coccio is wild boar in umido, served in its own coccio, with polenta alongside. A rich plate: if you want side dishes, you order them separately.
 - caption_umido: Cinghiale in umido, in a terracotta bowl
 - caption_contorni: Rich dishes with side dishes
 
-**Facts used:** its dishes come from the Middle Ages (profile.md, Place and story, founder's brief); stews are served in terracotta bowls; dolceforte is sweet-and-sour, goes back to medieval cooking, chocolate added in later centuries (Place and story, what the photos show; researched lines approved 2026-11-24); the two-handled terracotta bowl, the dark glossy stew and the bay leaf (sources/photos-2026-11-24.md, photos 16 and 17); cinghiale in dolceforte and cinghiale in umido; rich dishes with side dishes (Place and story, photo captions; photo 15); Cinghiale al Coccio con Polenta as a slow-cooked, aromatic boar stew served with polenta, "un grande classico della cucina toscana", side dishes on the menu (sources/menu-live-2026-11-24.md, Secondi, Contorni; said in my own words); Crostini neri senesi as "un simbolo della cucina senese" (same file, Antipasti); polenta and the dishes the index icons name: cinghiale, pici, Cinta Senese, fresh truffle, porcini, fiorentina, cantucci (profile.md, Welcome, food and wine, v2; Place and story). "The coccio" is glossed once in English as the terracotta bowl. No price, no allergens.
+**Facts used:** its dishes come from the Middle Ages (profile.md, Place and story, founder's brief); stews are served in terracotta bowls; dolceforte is sweet-and-sour, goes back to medieval cooking, chocolate added in later centuries (Place and story, what the photos show; researched lines approved 2026-11-24); the two-handled terracotta bowl, the dark glossy stew and the bay leaf (sources/photos-2026-11-24.md, photos 16 and 17); cinghiale in dolceforte and cinghiale in umido; rich dishes with side dishes (Place and story, photo captions; photo 15); Cinghiale al Coccio con Polenta as the cinghiale in umido served in a terracotta bowl with polenta, side dishes ordered apart (profile.md, Place and story, photo captions "cinghiale in umido", "rich dishes with side dishes", and what the photos show, stews in terracotta bowls; menu: dish name and the Contorni section only; no menu wording is reused); crostini neri senesi named as a starter, "senesi" read from the dish name (menu: Antipasti, dish name only); polenta and the dishes the index icons name: cinghiale, pici, Cinta Senese, fresh truffle, porcini, fiorentina, cantucci (profile.md, Welcome, food and wine, v2; Place and story). "The coccio" is glossed once in English as the terracotta bowl. No price, no allergens.
 
 ### pici
 **IT**
@@ -347,7 +347,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - caption_tartufo: Tartufo fresco, tutto l'anno
 - porcini_h3_line1: I funghi porcini
 - porcini_h3_em: *freschi, in tre modi*
-- porcini_body: Tre modi, un solo fungo. Dei porcini freschi ci piace il profumo di bosco toscano. Arrivano sulle tagliatelle, nel piatto dell'autunno, alla griglia con il gambo, o fritti a fette come contorno.
+- porcini_body: Tre modi, un solo fungo. I porcini freschi arrivano sulle tagliatelle, alla griglia, oppure fritti, come contorno.
 - porcini_link: Le tagliatelle ai porcini, nel menù
 - caption_porcini: Porcini freschi
 - caption_grigliati: Porcini freschi grigliati
@@ -355,7 +355,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - caption_tagliatelle_porcini: Tagliatelle ai porcini freschi
 - spaghetti_h3_line1: Gli spaghetti
 - spaghetti_h3_em: *alla chitarra*
-- spaghetti_body: Gli spaghetti alla chitarra con il sugo dell'osteria portano pomodoro, gorgonzola e peperoncino: un sapore deciso, rosso e piccante. Se è la vostra prima volta da noi, potete cominciare da qui.
+- spaghetti_body: Gli spaghetti alla chitarra con il sugo dell'osteria sono conditi con pomodoro, gorgonzola e peperoncino: un sapore deciso, rosso e piccante. Se è la vostra prima volta da noi, potete cominciare da qui.
 - spaghetti_link: Gli spaghetti alla chitarra, nel menù
 - caption_spaghetti: Gli spaghetti dell'osteria, con sugo e gorgonzola
 - taglieri_h3_line1: I taglieri
@@ -385,7 +385,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - caption_tartufo: Fresh truffle, all year round
 - porcini_h3_line1: Porcini mushrooms
 - porcini_h3_em: *fresh, in three ways*
-- porcini_body: Three ways, one mushroom. What we like in fresh porcini is the scent of the Tuscan woods. They come on tagliatelle, in an autumn dish, grilled with the stem, or fried in slices as a side dish.
+- porcini_body: Three ways, one mushroom. Fresh porcini come on tagliatelle, grilled, or fried, as a side dish.
 - porcini_link: Tagliatelle with porcini, on the menu
 - caption_porcini: Fresh porcini
 - caption_grigliati: Grilled fresh porcini
@@ -393,7 +393,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - caption_tagliatelle_porcini: Tagliatelle with fresh porcini
 - spaghetti_h3_line1: The spaghetti
 - spaghetti_h3_em: *alla chitarra*
-- spaghetti_body: Spaghetti alla chitarra with the osteria's sauce bring tomato, gorgonzola and chilli: a bold flavour, red and spicy. If it is your first visit, you can begin here.
+- spaghetti_body: Spaghetti alla chitarra with the osteria's sauce are dressed with tomato, gorgonzola and chilli: a bold flavour, red and spicy. If it is your first visit, you can begin here.
 - spaghetti_link: Spaghetti alla chitarra, on the menu
 - caption_spaghetti: The osteria's spaghetti, with tomato sauce and gorgonzola
 - taglieri_h3_line1: The boards
@@ -405,29 +405,29 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - caption_lardo: Crostone with Tuscan lardo
 - caption_crostoni: Crostoni with truffle and with cheese, pears and honey
 
-**Facts used:** Cinta Senese: native pig breed of the Siena hills, dark with a white band (the "cinta") around its shoulders, painted in Ambrogio Lorenzetti's fresco of 1338–39 in the Palazzo Pubblico, DOP status (profile.md, Welcome, food and wine, v2); Tegamata di Cinta Senese as a slow stew without tomato with the "Consigliato dall'Oste" flag, said in words; Tagliere del Cacciatore with Cinta Senese cured meats and game (sources/menu-live-2026-11-24.md, Antipasti, Secondi); tagliatelle al ragù di Cinta named and photographed by the founder, not on the live menu, used only as a caption (profile.md, v2, second photo set; sources/photos-2026-11-25.md, photo 32); fresh truffle all year round (Place and story, photo captions); truffle on tagliatelle, on the grilled fillet and on crostoni with gorgonzola (menu-live-2026-11-24.md, Primi, Filetto di manzo, Antipasti; profile.md, v2, second photo set; photos-2026-11-25.md, photos 21, 22, 34); porcini: the scent of the Tuscan woods and the autumn dish of the tagliatelle (menu-live-2026-11-24.md, Primi); fresh porcini grilled and fried as a side dish, named and photographed, not on the live menu: named without a promise of availability (profile.md, v2; photos-2026-11-25.md, photos 26 to 31); spaghetti alla chitarra with the osteria's sauce, tomato, gorgonzola and chilli (menu-live-2026-11-24.md, Primi); boards are slices of wood; the gran tagliere di salumi, tagliere of salumi and cheeses with local wines, lardo toscano (profile.md, Place and story, what the photos show, photo captions; sources/photos-2026-11-24.md, photos 8 and 18); Tagliere del Contadino with Tuscan cheeses, honey and preserves, and the Bis di crostoni (menu-live-2026-11-24.md, Antipasti). "1992" is not repeated here (it stands once in `contrada`). The menu's "esclusiva" is not used. The gran tagliere photo is now in the boards block, not the Cinta block. No price, no allergens.
+**Facts used:** Cinta Senese: native pig breed of the Siena hills, dark with a white band (the "cinta") around its shoulders, painted in Ambrogio Lorenzetti's fresco of 1338–39 in the Palazzo Pubblico, DOP status (profile.md, Welcome, food and wine, v2); Tegamata di Cinta Senese as a slow stew without tomato with the "Consigliato dall'Oste" flag, said in words; Tagliere del Cacciatore with Cinta Senese cured meats and game (sources/menu-live-2026-11-24.md, Antipasti, Secondi); tagliatelle al ragù di Cinta named and photographed by the founder, not on the live menu, used only as a caption (profile.md, v2, second photo set; sources/photos-2026-11-25.md, photo 32); fresh truffle all year round (Place and story, photo captions); truffle on tagliatelle, on the grilled fillet and on crostoni with gorgonzola (menu-live-2026-11-24.md, Primi, Filetto di manzo, Antipasti; profile.md, v2, second photo set; photos-2026-11-25.md, photos 21, 22, 34); porcini in three ways: on tagliatelle (profile.md, v2, second photo set "tagliatelle ai porcini freschi"; menu: Tagliatelle ai Funghi Porcini, dish name only), grilled, and fried as a side dish (profile.md, v2; photos-2026-11-25.md, photos 26 to 31), the grilled and fried ones not on the live menu: named without a promise of availability; no menu phrase, no "stem", no season is used; spaghetti alla chitarra with the osteria's sauce, tomato, gorgonzola and chilli (menu-live-2026-11-24.md, Primi); boards are slices of wood; the gran tagliere di salumi, tagliere of salumi and cheeses with local wines, lardo toscano (profile.md, Place and story, what the photos show, photo captions; sources/photos-2026-11-24.md, photos 8 and 18); Tagliere del Contadino with Tuscan cheeses, honey and preserves, and the Bis di crostoni (menu-live-2026-11-24.md, Antipasti). "1992" is not repeated here (it stands once in `contrada`). The menu's "esclusiva" is not used. The gran tagliere photo is now in the boards block, not the Cinta block. No price, no allergens.
 
 ### fiorentina
 **IT**
 - h3_line1: La fiorentina
 - h3_em: *al peso*
-- body: Ogni settimana Alessio, il nostro macellaio di fiducia, sceglie la selezione: tagli diversi, di razze diverse. La bistecca alla fiorentina va alla griglia e si paga al peso: scegliete voi il taglio e la misura. È uno dei piatti consigliati dall'Oste. Il prezzo per 100 g è nel menù.
+- body: Ogni settimana Alessio, il nostro macellaio di fiducia, sceglie la selezione: tagli diversi, di razze diverse. La bistecca alla fiorentina va alla griglia e si paga al peso: il peso lo scegliete voi. È uno dei piatti consigliati dall'Oste. Il prezzo per 100 g è nel menù.
 - link: La fiorentina, nel menù
 
 **EN**
 - h3_line1: The fiorentina
 - h3_em: *by weight*
-- body: Every week Alessio, our trusted butcher, chooses the selection: different cuts, from different breeds. The bistecca alla fiorentina is cooked on the grill and priced by weight: you choose the cut and the size. It is one of the dishes the Oste recommends. The price per 100 g is on the menu.
+- body: Every week Alessio, our trusted butcher, chooses the selection: different cuts, from different breeds. The bistecca alla fiorentina is cooked on the grill and priced by weight: you choose the weight. It is one of the dishes the Oste recommends. The price per 100 g is on the menu.
 - link: The fiorentina, on the menu
 
-**Facts used:** weekly selection by Alessio, the trusted butcher; Griglia section; "Consigliato dall'Oste" on Bistecca alla Fiorentina (sources/menu-live-2026-11-24.md, Griglia; profile.md, Offer, key products); different cuts and different breeds (Place and story, photo captions); weight items priced per 100 g, the guest chooses the weight (Offer, dishes priced by weight). The price itself is on the menu page only. The Gambero Rosso line is now in `perche` only.
+**Facts used:** weekly selection by Alessio, the trusted butcher; Griglia section; "Consigliato dall'Oste" on Bistecca alla Fiorentina (sources/menu-live-2026-11-24.md, Griglia; profile.md, Offer, key products); different cuts and different breeds (Place and story, photo captions); weight items priced per 100 g, the waiter enters the weight the guest asks for, so the guest chooses the weight, not the cut (Offer, dishes priced by weight). The price itself is on the menu page only. The Gambero Rosso line is now in `perche` only.
 
 ### dolce
 **IT**
 - kicker: VI · Il dolce
 - h2_line1: Cantucci
 - h2_em: *e Vin Santo*
-- body_1: Per finire il pasto, la tradizione toscana vuole i cantucci, biscotti alle mandorle, inzuppati nel Vin Santo, il vino dolce da dessert.
+- body_1: Per finire il pasto, la tradizione toscana vuole i cantucci, biscotti alle mandorle, inzuppati nel Vin Santo, il vino dolce toscano.
 - body_2: Un cantuccio, un tuffo nel bicchiere, un morso: senza fretta. Da noi arrivano su un piatto, con un bicchierino di Vin Santo.
 - caption: Cantucci e Vin Santo
 - link_dolci: Tutti i dolci nel menù
@@ -436,7 +436,7 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 - kicker: VI · The sweet
 - h2_line1: Cantucci
 - h2_em: *and Vin Santo*
-- body_1: To end the meal, Tuscan tradition calls for cantucci, almond biscuits, dipped in Vin Santo, the sweet dessert wine.
+- body_1: To end the meal, Tuscan tradition calls for cantucci, almond biscuits, dipped in Vin Santo, the sweet Tuscan wine.
 - body_2: A cantuccio, a dip in the glass, a bite: no hurry. Here they come on a plate, with a small glass of Vin Santo.
 - caption: Cantucci and Vin Santo
 - link_dolci: All the desserts on the menu
@@ -818,7 +818,8 @@ Slots of version 2 that no longer exist. The builder must not render them on the
 - `fiorentina`: `price_line`, `gambero_line` (the sentence now lives in `perche.fact_4`), `cta` (renamed `link`).
 - `dolce`: `row`.
 - `casa`: `caption_counter`, `caption_lantern`, `caption_photos` (replaced by `gallery_caption_1` to `gallery_caption_4`; the three-tile strip goes).
-- `cantina`: `caption_amaro` (the amaro photo is now the fourth photo of the `casa` gallery).
+- `cantina`: `caption_amaro` (the amaro photo is now the fourth photo of the `casa` gallery); `caption_pour` (not used: the built pages do not use it).
+- `dispensa`: `caption_formaggi`, `caption_lardo`, `caption_crostoni` (kept above as lines, but the built pages do not use them).
 - Sentences gone with them: "dice il menù" (Cinta, porcini), "Sul menù si chiamano «Cantuccini e Vin Santo»" (dolce), the Tegamata line about the Crete Senesi farm, the "1992" of `spaghetti` and of the contrada timeline, the street-name and "la nostra porta è lungo la discesa" sentence of `contrada` (it stays on the Dove siamo page, block `via`), the "Il resto viene da sé" line of `casa`.
 - No price, no "€" and no amount stands in any home-page slot. The menu page slots (`note_cover`) keep theirs.
 
@@ -852,17 +853,17 @@ Slots of version 2 that no longer exist. The builder must not render them on the
 - The home page has no dish row, no price and no menu quote. The dish row format (`name | line | price | badge`) is gone from the home page; the menu page is generated from the menu source, not from this deck.
 - English prices are written "2.50 €" (menu page only). Italian dish names stay in Italian in both languages.
 - `global-nav` `whatsapp_text`: the message that opens prefilled in WhatsApp (`https://wa.me/390577287592?text=` plus the URL-encoded text of the page's language). Every WhatsApp link on the site uses it. The `___` blanks are for the guest to fill in.
-- `global-cta-bar` `call_label` and `whatsapp_label` are the new phone-bar labels ("Prenota: chiama" 15 characters, "Prenota su WhatsApp" 19; EN "Book: call" and "Book on WhatsApp" 16). The two `*_aria` slots are unchanged.
+- `global-cta-bar` `call_label` and `whatsapp_label` are the new phone-bar labels ("Prenota: chiama" 15 characters, "Prenota su WhatsApp" 19; EN "Book: call" and "Book on WhatsApp" 16). The two `*_aria` slots now start with the visible label (WCAG 2.5.3, label in name) and then add the number: IT "Prenota: chiama l'osteria al numero +39 0577 287592" and "Prenota su WhatsApp al numero +39 0577 287592"; EN "Book: call the osteria on +39 0577 287592" and "Book on WhatsApp, number +39 0577 287592".
 - `porta` new slots: `address_line` (text under the lead, with the "Piazza del Campo" walk), `directions_link` (text link beside it to the Maps URL), `phone_line` (the number as a `tel:+390577287592` link with its lead-in). The h1 is unchanged. `cta_primary` is now "Prenota un tavolo" in Italian; `opening_short` now names lunch and dinner.
-- `perche` (new section): `kicker` over four lines, `fact_1` to `fact_4`, one icon each: `fact_1` icon-porta, `fact_2` icon-torre, `fact_3` icon-volta, `fact_4` icon-tagliere (design-v3.md section 5). This is the only place with the Gambero Rosso line. On phones two by two.
+- `perche` (new section): `kicker` over four lines, `fact_1` to `fact_4`, one icon each: `fact_1` icon-porta, `fact_2` icon-torre, `fact_3` icon-volta, `fact_4` the fiorentina icon (as built; design-v3.md section 5 named icon-tagliere). This is the only place with the Gambero Rosso line. On phones two by two.
 - `casa`: `quote`, `quote_it`, `quote_source`, `h2_*`, `body_*` as before (the large Bodoni quote; on the English pages `quote_it` shows the verbatim Italian line). Pinned gallery: `gallery_kicker` (small line above the caption, with the lantern icon), `gallery_caption_1` to `gallery_caption_4` for the photos `sala-bancone-vista-cucina`, `lanterna-ferro-battuto`, `fotografie-storiche-siena-contrada`, `amaro-al-bancone` in that order (also the `figure` captions of the no-JavaScript state), `gallery_progress` (pattern for the four arch buttons, `{n}` and `{total}` are replaced; use it as the button's accessible name), `gallery_exit` (link to `#contrada`). The three old strip captions are gone.
-- `contrada`: no `caption_photos`; `caption_sign` and `link_dove` as before. `link_dove` goes to `/dove-siamo/` (EN `/en/find-us/`); `prenota` has the same slot. The three timeline steps keep their three slots, now without the year 1992 and without names; the only "1992" is in the h2 and the only "Luca e Max" is in `body_2`.
+- `contrada`: no `caption_photos`; `caption_sign` and `link_dove` as before. `link_dove` goes to `/dove-siamo/` (EN `/en/find-us/`); `prenota` has the same slot. The three timeline steps keep their three slots, without names. By the lead's decision the year 1992 appears in the h2, in the timeline (`step_1_year: 1992`) and in `perche`; "Luca e Max" appears only in `body_2`.
 - `tavola`: `index_label` is the accessible name (aria-label) of the row of seven line icons; `index_cinghiale` to `index_cantucci` are the visible one-word labels and link to `#dolceforte`, `#pici`, `#cinta`, `#tartufo`, `#porcini`, `#fiorentina`, `#dolce` in this order, with icons icon-cinghiale, icon-pici, icon-cinta, icon-tartufo, icon-porcino, icon-fiorentina, icon-tuffo. `caption_umido` and `caption_contorni` belong to the two tiles of the cinghiale al coccio block (`cinghiale-in-umido-coccio`, `piatti-con-contorni-tavola`).
-- Menu links on the home page use two wordings only: "{dish}, nel menù" / "{dish}, on the menu" for one dish, and "Tutti i {section} nel menù" / "All the {section} on the menu" for a section. At most one per block. Destinations: `tavola.link_secondi` to `/menu/#secondi` (EN `/en/menu/#secondi`), under the dolceforte paragraph; `pici.link_primi` to `/menu/#primi`; `dispensa.cinta_link` to the Tegamata di Cinta Senese entry of the menu page (dish id, section `#secondi`); `dispensa.tartufo_link` to the Medaglione di Filetto alla Griglia con Tartufo entry (dish id, section `#secondi`); `dispensa.porcini_link` to the Tagliatelle ai Funghi Porcini entry (dish id, `#primi`); `dispensa.spaghetti_link` to the Spaghetti alla Chitarra entry (dish id, `#primi`); `dispensa.taglieri_link` to `/menu/#antipasti`; `fiorentina.link` to the Bistecca alla Fiorentina entry (dish id, `#griglia`); `dolce.link_dolci` to `/menu/#dolci`. Same paths under `/en/menu/`. The hero `cta_secondary` ("Guarda il menù") goes to `/menu/`.
-- `dispensa`: five larders, each with its own id; the `intro` is gone. `caption_tagliere` is now the photo of the taglieri block (`gran tagliere di salumi`). `caption_cinta_tagliatelle` stays in the Cinta block. `caption_tartufo` is the whole-truffle photo; `caption_crostoni` is the two-crostoni photo.
+- Menu links on the home page use two wordings only: "{dish}, nel menù" / "{dish}, on the menu" for one dish, and "Tutti i {section} nel menù" / "All the {section} on the menu" for a section. At most one per block. Destinations: `tavola.link_secondi` to the dish `#cinghiale-in-dolce-forte` of the menu page (`/menu/#cinghiale-in-dolce-forte`, EN `/en/menu/#cinghiale-in-dolce-forte`), under the dolceforte paragraph; `pici.link_primi` to `/menu/#primi`; `dispensa.cinta_link` to the Tegamata di Cinta Senese entry of the menu page (dish id, section `#secondi`); `dispensa.tartufo_link` to the Medaglione di Filetto alla Griglia con Tartufo entry (dish id, section `#griglia`: on the built menu the medaglione is in the Griglia section); `dispensa.porcini_link` to the Tagliatelle ai Funghi Porcini entry (dish id, `#primi`); `dispensa.spaghetti_link` to the Spaghetti alla Chitarra entry (dish id, `#primi`); `dispensa.taglieri_link` to `/menu/#antipasti`; `fiorentina.link` to the Bistecca alla Fiorentina entry (dish id, `#griglia`); `dolce.link_dolci` to `/menu/#dolci`. Same paths under `/en/menu/`. The hero `cta_secondary` ("Guarda il menù") goes to `/menu/`.
+- `dispensa`: five larders, each with its own id; the `intro` is gone. `caption_tagliere` is now the photo of the taglieri block (`gran tagliere di salumi`). `caption_cinta_tagliatelle` stays in the Cinta block. `caption_tartufo` is the whole-truffle photo. `caption_formaggi`, `caption_lardo` and `caption_crostoni` are removed in version 3 (the pages do not use them).
 - `fiorentina`: `h3_line1`, `h3_em`, `body`, `link` (renamed from `cta`; goes to the fiorentina entry of `/menu/#griglia`). In the place of the price line goes the steelyard drawing. There is no price and no meat-guide line here.
 - `dolce`: no row; `link_dolci` sits beside the dipping-cantuccio drawing.
-- `cantina`: `caption_door` and `caption_grotto` are the two large tiles of design-v3.md section 3; `caption_pour` is used only if the builder keeps the pour photo. `wines_list` uses " · " between the three names. `cta` goes to `/vini/` (EN `/en/wine-list/`). The `menu-page` `wine_link` goes to the same page.
+- `cantina`: `caption_door` and `caption_grotto` are the two large tiles of design-v3.md section 3; `caption_pour` is removed in version 3 (the pages do not use it). `wines_list` uses " · " between the three names. `cta` goes to `/vini/` (EN `/en/wine-list/`). The `menu-page` `wine_link` goes to the same page.
 - `strip` (new, desktop only, after the fiorentina band): `title` ("Prenota un tavolo" / "Book a table"), `call_label` (link `tel:+390577287592`), `whatsapp_label` (link to WhatsApp with the prefilled `whatsapp_text`). Phones keep the fixed bar.
 - `prenota`: heading "Prenota un tavolo / *per telefono o WhatsApp*"; the hours stand once in this block (`hours_title`, three rows, `hours_note`); `hours_note` is kept.
 - `dove-page`: `hero_hours` is one line with the days and the two services, `hero_hours_note` the call-to-confirm line beside it; the first screen shows address (`lead`), `btn_maps`, `btn_call`, a WhatsApp link and these two. `address_block`, `walk_line`, `parking_line`, `ztl_line` as before; `foot_title` and `car_title` are the two small titles of the "A piedi" and "In auto" blocks. The green hours band uses `hours_h2_line1` and `hours_h2_em` and the `prenota` slots (`link_dove` can be hidden there). `dove-page` h1: "Dove siamo / *a Siena, in Via dei Rossi*" and "Find us / *in Siena, on Via dei Rossi*". `address_block` uses " // " as the line break. `hours_compact` uses " / ". `map_labels` uses " | " between the seven labels.

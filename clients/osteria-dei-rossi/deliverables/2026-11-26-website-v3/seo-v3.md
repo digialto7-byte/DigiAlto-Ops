@@ -117,7 +117,7 @@ Section-level intents (not counted): cantucci and Vin Santo (`#dolce`); wild boa
 
 Rows are exactly as the generator expects. Counts are shown in the label for the meta title and meta description (hand-counted). H1 is for information: the copywriter writes it (`copy.md` wins).
 
-Share previews (new rows in every page spec): `Open Graph image` is a file name under `/assets/img/` (the builder writes the absolute URL, and adds `og:image:width` 1200, `og:image:height` 630 and `og:image:type` `image/jpeg`); `Open Graph image alt` is the `og:image:alt` text in the page's language; `Twitter image` is the same file as the Open Graph image (`twitter:image`). One image per page type, shared by the Italian and English twins, made by the builder from existing photos: 1200×630 JPEG, under about 300 KB, **no text and no price on the image**, nothing added to the picture. Home `og-home.jpg`: the osteria from outside (`osteria-dei-rossi-siena-esterno`). Menu `og-menu.jpg`: cinghiale in umido nel coccio (`cinghiale-in-umido-coccio`). Wine list `og-vini.jpg`: the brick grotto towards the cellar (`grotta-volte-in-mattoni-cantina`). Dove siamo `og-dove-siamo.jpg`: the Via dei Rossi plate and the osteria's sign (`via-dei-rossi-targa-e-insegna-osteria`). The privacy pages keep the home image (`og-home.jpg`). These files replace the single `og-osteria-dei-rossi-siena.jpg` of version 1 and 2. Alt wording follows the alt rules of `seo.md` section 3 (what the picture shows, 125 characters or fewer).
+Share previews (new rows in every page spec): `Open Graph image` is a file name under `/assets/img/` (the builder writes the absolute URL, and adds `og:image:width` 1200, `og:image:height` 630 and `og:image:type` `image/jpeg`); `Open Graph image alt` is the `og:image:alt` text in the page's language; `Twitter image` is the same file as the Open Graph image (`twitter:image`). One image per page type, shared by the Italian and English twins, made by the builder from existing photos: 1200×630 JPEG, under about 300 KB, **no text and no price on the image**, nothing added to the picture. Home `og-home.jpg`: the osteria from outside (`osteria-dei-rossi-siena-esterno`). Menu `og-menu.jpg`: cinghiale in umido nel coccio (`cinghiale-in-umido-coccio`). Wine list `og-vini.jpg`: the brick grotto towards the cellar (`grotta-volte-in-mattoni-cantina`). Dove siamo `og-dove-siamo.jpg`: the marble Via dei Rossi plate, cropped from `via-dei-rossi-targa-e-insegna-osteria` (the 1200×630 crop holds the plate only, not the iron sign below it, and the alt text says so). The privacy pages keep the home image (`og-home.jpg`). These files replace the single `og-osteria-dei-rossi-siena.jpg` of version 1 and 2. Alt wording follows the alt rules of `seo.md` section 3 (what the picture shows, 125 characters or fewer).
 
 ### P.1 Home, Italian
 
@@ -1095,34 +1095,34 @@ Menu dish ids: every dish on `/menu/` and `/en/menu/` has one id, the slug of th
 | Home `#porta`, hero address line | `/dove-siamo/` · `/en/find-us/` | Where it is, the 5 minutes from Piazza del Campo |
 | Home `#porta`, "Come arrivare" | The Maps URL of the profile (external link) | Directions in the visitor's map app |
 | Home `#porta`, phone number | `tel:+390577287592` | Call |
-| Home `#perche` | none, or `#contrada` | The facts are text; at most one link to the story |
+| Home `#porta`, buttons | `#prenota` of the page · `/menu/` · `#casa` | Book a table · the menu with prices · start of the story |
+| Home `#perche` | none | The facts are text |
 | Home `#casa`, gallery exit link | `#contrada` | Skip past the gallery to the story |
 | Home `#casa`, gallery progress buttons | the four slides of the gallery | Move between photos (buttons, no URL change) |
 | Home `#contrada` | `/dove-siamo/` · `/en/find-us/` | Where the contrada and the street are |
 | Home `#tavola`, food index row | `#dolceforte`, `#pici`, `#cinta`, `#tartufo`, `#porcini`, `#fiorentina`, `#dolce` of the same page | Jump to the explanation of each food |
 | Home `#dolceforte` | `/menu/#cinghiale-in-dolce-forte` (fallback `#secondi`) | The dish and its price on the menu |
-| Home `#tavola`, "al coccio" block | the cinghiale in umido dish on `/menu/` (fallback `#secondi`) | The dish and its price |
+| Home `#tavola`, "al coccio" block | none | One menu link for the boar chapter: the dolceforte link above |
 | Home `#pici` | `/menu/#primi` | The first courses with the pici |
 | Home `#cinta` | `/menu/#tegamata-di-cinta-senese` (fallback `#secondi`) | The Cinta Senese dish |
-| Home `#tartufo` | the fresh-truffle dish on `/menu/` (fallback `#primi`) | The dish and its price |
+| Home `#tartufo` | `/menu/#medaglione-di-filetto-alla-griglia` (fallback `#griglia`) | The fillet with truffle and its price |
 | Home `#porcini` | `/menu/#tagliatelle-ai-funghi-porcini` (fallback `#primi`) | The porcini dish |
 | Home `#spaghetti` | `/menu/#spaghetti-alla-chitarra-con-sugo-dell-osteria` (fallback `#primi`) | The dish "in menù dal 1992" |
-| Home `#taglieri` | the tagliere dish on `/menu/` (fallback `#antipasti`) | The boards and their prices |
+| Home `#taglieri` | `/menu/#antipasti` | The boards and their prices, among the starters |
 | Home `#fiorentina` | `/menu/#bistecca-alla-fiorentina` (fallback `#griglia`) | Price per 100 g and the by-weight rule |
-| Home `#dolce` | `/menu/#cantuccini-e-vin-santo` (fallback `#dolci`) | The dessert on the menu |
+| Home, booking strip after `#fiorentina` (desktop) | `tel:+390577287592` · WhatsApp with the prefilled message | Book without scrolling to the end |
+| Home `#dolce` | `/menu/#dolci` | All the desserts on the menu |
 | Home `#cantina`, button | `/vini/` · `/en/wine-list/` | The wine list |
 | Home `#prenota` | `/dove-siamo/` · `/en/find-us/` | Where we are and how to get here |
-| Menu, intro | `/#pici` · `/en/#pici` and `/#dispensa` · `/en/#dispensa` | The pici and the Cinta Senese explained |
 | Menu, "Bevande" | `/vini/` · `/en/wine-list/` | The wine list |
-| Menu, notes and booking block | `/dove-siamo/` · `/en/find-us/` | Hours, address and getting here |
+| Menu, booking block | `/dove-siamo/` · `/en/find-us/` | Hours, address and getting here |
+| Menu, booking block | `/` · `/en/` | Back to the home page |
 | Menu FAQ block (line under it) | `/#pici` · `/en/#pici` | The pici explained at length |
-| Wine list, intro or notes | `/menu/` · `/en/menu/` | The menu with prices |
+| Wine list, notes | `/menu/` · `/en/menu/` | The menu with prices |
 | Wine list, notes | `/menu/#bevande` · `/en/menu/#bevande` | Wines by the glass and other drinks |
-| Wine list, intro | `/#cantina` · `/en/#cantina` | The cellar and the grotto behind the list |
 | Wine list, booking block | `/dove-siamo/` · `/en/find-us/` | Where we are |
 | Dove siamo, hero | Maps URL (external), `tel:`, WhatsApp | Directions, call, message |
 | Dove siamo, closing block | `/` · `/en/` | The story of the osteria |
-| Dove siamo, closing block | `/#contrada` · `/en/#contrada` | The contrada and the street |
 | Dove siamo, closing block | `/menu/` · `/en/menu/` | The menu with prices |
 | Dove siamo, closing block | `/vini/` · `/en/wine-list/` | The wine list |
 | Language switch, every page | the twin page, keeping the current `#anchor` | Change language without losing the place (`/menu/#primi` ⇄ `/en/menu/#primi`) |
@@ -1138,7 +1138,7 @@ Superseded rows of `seo.md` 4.2: "#cantina, wines → `/menu/#bevande`", "Menu, 
 1. **Superseded in `seo.md`:** 1.1 and 1.2 (home keyword maps); 2.1 and 2.2 title, description and Open Graph rows (P.1, P.2); the home heading tables and the `#domande` stop of 2.1 and 2.2; section 5 (the ten Home questions: now split over Q.1 to Q.6); 6.1 and 6.2 (J.1, J.2); 6.3 and 6.4 (the Home FAQPage, removed); 7.2 (S.1); the anchor rows at the end of section 7 above; the single default share image (`og-osteria-dei-rossi-siena.jpg`, replaced by one image per page type); and the stop ids of checklist section 8 (the Home ids are those of `design-v3.md` section 2). Everything else in `seo.md` (name rules, NAP, section 3 alt rows 1 to 20 including the four gallery photos, 6.5 and 6.6, robots, fonts and third-party rules, host redirects) stands.
 2. **One `<h1>` per page**, in the HTML at first paint, never created by script or animated in, also on the pages with an opening overlay: the overlay is added over a page whose content is already in the DOM, it is `aria-hidden` and `inert` behind it, and with no JavaScript or with reduced motion it never shows. The hero text and the first photo are never faded in from `opacity:0`.
 3. **No price on the home page.** No `€`, no price, no "all'etto", no dotted leader and no dish row in the visible text, in alt text, in `title` attributes, in `data-` attributes, in the JSON-LD or in the meta tags of the Home pages. The build fails if it finds one (the QA script already checks it). Dish names inside explanations are allowed; descriptions are paraphrased, not copied from the menu.
-4. **Anchors that must not change.** The Home ids `porta`, `perche`, `casa`, `contrada`, `tavola`, `dolceforte`, `pici`, `dispensa`, `cinta`, `tartufo`, `porcini`, `spaghetti`, `taglieri`, `fiorentina`, `dolce`, `cantina`, `prenota` exist on both language pages (the Google Business Profile booking link uses `/#prenota`; the profile and shared links use the others). Menu: the section ids plus one id per dish (section 7). Wine list: `rossi`, `rossi-chianti`, `rossi-montepulciano`, `rossi-montalcino`, `bianchi`, `bollicine`. Dove siamo: `via`, `mappa`, `prenota`. Every heading with an id has `scroll-margin-top` for the sticky header. No SVG id may equal one of these ids (SVG ids get the prefix `svg-`; the boar drawing no longer owns `#cinghiale`). The build fails if a listed id is missing on either language.
+4. **Anchors that must not change.** The Home ids `porta`, `perche`, `casa`, `contrada`, `tavola`, `dolceforte`, `pici`, `dispensa`, `cinta`, `tartufo`, `porcini`, `spaghetti`, `taglieri`, `fiorentina`, `dolce`, `cantina`, `prenota` exist on both language pages (the Google Business Profile booking link uses `/#prenota`; the profile and shared links use the others). Menu: the section ids plus one id per dish (section 7). Wine list: `rossi`, `rossi-chianti`, `rossi-montepulciano`, `rossi-montalcino`, `bianchi`, `bollicine`. Dove siamo: `via`, `mappa`, `prenota`. Every heading with an id has `scroll-margin-top` for the sticky header. No SVG id may equal one of these ids: the line icons and the walking boar carry ids with the prefix `svg-` (the boar drawing no longer owns `#cinghiale`); the drawings kept from version 2 (gate `porta-*`, pici `pici-*`, menu book `libro-*`, map `mappa-*`) keep their ids, each with a suffix, none equal to an anchor. The build fails if a listed id is missing on either language.
 5. **Hreflang, canonicals and URLs are unchanged from version 2:** the ten URLs, self-referencing canonicals, `it`, `en` and `x-default`, trailing slashes. No new indexable URL: the gallery, the food index and the dish ids create none (no hash or `pushState` per slide).
 6. **Language switch keeps the anchor.** `/#pici` goes to `/en/#pici`, `/menu/#primi` to `/en/menu/#primi`; the same on the inner pages. A page opened with a hash skips the gate, the book and the pour.
 7. **The gallery must be indexable.** The four figures (section A, G1 to G4) are real `<img>` or `<picture>` elements in the HTML, in this order, with `alt`, `width` and `height`; slides stack in one sticky frame and switch by `opacity` and `transform`, never `display:none`; the h2, paragraphs and captions are HTML text; photos 2 to 4 are `loading="lazy"` with `decoding="async"` but are in the DOM at first paint; `sizes` is the real width of the frame (not 2048 px to phones). Without JavaScript, with reduced motion and in print the four figures stack as large arch tiles. No hash or URL per slide, no scroll hijacking: the page scrolls natively (`position: sticky` and `IntersectionObserver`, passive listeners only); the position marks are real buttons with natural Tab order. Hash links to sections below the gallery land on the right heading (the spacer must not offset them).

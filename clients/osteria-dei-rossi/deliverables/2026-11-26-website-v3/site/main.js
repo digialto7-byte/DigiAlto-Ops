@@ -28,7 +28,7 @@
  *   svg.menu-hero__skyline (draws itself once when the book intro is ruled out before the
  *     first paint: a repeat visit or a hash)
  *   [data-pici] > svg with the pici-* ids (strands fall, the nest draws: scrubbed from 900 px,
- *     played once below), [data-boar] > svg with the cinghiale-* ids, inside a .band (walks in)
+ *     played once below), [data-boar] > svg with the svg-cinghiale-* ids, inside a .band (walks in)
  *   .site-header (is-solid, is-hidden), #menu-toggle, #menu-panel
  *   .rail, .rail__line, .rail__dot, .rail__stops [data-stop] (is-active, is-on-dark)
  *   .cta-bar (is-visible); sections #porta ... #prenota
@@ -1956,7 +1956,7 @@
     const box = qs('[data-boar]');
     const svg = box ? qs('svg', box) : null;
     const band = box ? box.closest('.band') || box.parentElement : null;
-    const boar = svg ? qs('#cinghiale', svg) : null;
+    const boar = svg ? qs('#svg-cinghiale', svg) : null;
     if (!boar || !band || played.has(box)) {
       return;
     }
@@ -1975,9 +1975,9 @@
       const matrix = typeof svg.getScreenCTM === 'function' ? svg.getScreenCTM() : null;
       const unit = matrix && matrix.a > 0 ? matrix.a : 1; // screen px per drawing unit
       const away = -Math.ceil((svg.getBoundingClientRect().left - band.getBoundingClientRect().left) / unit + BOAR.snout + 24);
-      const legs = [1, 2, 3, 4].map((number) => qs('#cinghiale-zampa-' + number, svg));
+      const legs = [1, 2, 3, 4].map((number) => qs('#svg-cinghiale-zampa-' + number, svg));
       const pivots = legs.map((leg) => (leg && typeof leg.getPointAtLength === 'function' ? leg.getPointAtLength(0) : null));
-      const ground = qsa(GEOMETRY, qs('#cinghiale-terra', svg) || svg).filter((node) => !boar.contains(node));
+      const ground = qsa(GEOMETRY, qs('#svg-cinghiale-terra', svg) || svg).filter((node) => !boar.contains(node));
       const timeline = gsap.timeline();
       timeline.fromTo(box, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: 'none', clearProps: 'opacity,visibility' }, 0);
       timeline.fromTo(boar, { x: away, svgOrigin: BOAR.hooves }, { x: 0, duration: BOAR.walk, ease: 'power2.out' }, 0);

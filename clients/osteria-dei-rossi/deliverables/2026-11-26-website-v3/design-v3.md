@@ -31,8 +31,9 @@ Home anchors, the same ids on the Italian and the English page: `#porta`, `#perc
 `#fiorentina`, `#dolce`, `#cantina`, `#prenota`. Each lands with its heading below the sticky header
 (`scroll-margin-top`). Menu: the section ids of version 2 plus one id per dish (slug of the Italian dish
 name, the same on both languages). Wine list and Dove siamo: ids as in version 2.
-No id inside an inline SVG may equal one of these (today the boar drawing owns `#cinghiale`): SVG ids get the
-prefix `svg-`. The language switch keeps the current anchor. The build fails if a listed anchor is missing
+No id inside an inline SVG may equal one of these: the line icons and the walking boar carry ids with the
+prefix `svg-` (in version 2 the boar drawing owned `#cinghiale`); the other drawings kept from version 2 (gate
+`porta-*`, pici `pici-*`, menu book `libro-*`, map `mappa-*`) keep their ids, each with a suffix. The language switch keeps the current anchor. The build fails if a listed anchor is missing
 on either language. `links.md` in this folder lists every URL and anchor for the owner (lead writes it).
 
 ## 3. Home page, section by section
