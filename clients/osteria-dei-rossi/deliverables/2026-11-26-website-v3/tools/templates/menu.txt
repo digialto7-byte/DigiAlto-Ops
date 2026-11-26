@@ -68,10 +68,11 @@
 <section id="prenota" class="section section--green battlement prenota__book" aria-labelledby="prenota-title">
   <div class="container grid">
     <div class="prenota__main stack" data-reveal-group>
+      {{svg:icon-tavola|class="icon icon--tavola" aria-hidden="true" focusable="false" data-draw}}
       <h2 id="prenota-title" data-reveal>{{h:menu-page.closing_h2_line1|closing_h2_em}}</h2>
       <div class="prenota__actions" data-reveal>
         <a class="btn btn--light" href="tel:+390577287592">{{c:menu-page.closing_btn_call}} {{arrow}}</a>
-        <a class="btn btn--line" href="https://wa.me/390577287592" target="_blank" rel="noopener">{{c:menu-page.closing_btn_whatsapp}} {{arrow}}</a>
+        <a class="btn btn--line" href="{{u:wa}}" target="_blank" rel="noopener">{{c:menu-page.closing_btn_whatsapp}} {{arrow}}</a>
       </div>
       <p data-reveal><a class="link" href="{{u:dove}}">{{c:prenota.link_dove}} {{arrow}}</a></p>
       <p data-reveal><a class="link" href="{{u:home}}">{{c:menu-page.back_home_link}} {{arrow}}</a></p>

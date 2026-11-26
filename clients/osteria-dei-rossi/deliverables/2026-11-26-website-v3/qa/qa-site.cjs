@@ -6,7 +6,7 @@
  * For every page at 1440, 390 and 360 px: console and page errors, failed requests, requests to
  * another origin, horizontal scroll, one h1, heading order, images (loaded, alt, width/height),
  * internal links and anchors, title and description length, canonical, hreflang set, JSON-LD
- * that parses, blocks left hidden after a full scroll. Then: reduced-motion pass, no-JavaScript
+ * that parses, blocks left hidden after a full scroll (the gallery frames and captions that are not current are exempt while gallery-on is set). Version 3 additions: no euro sign and no dish row on the home pages, the frozen home anchors on both languages, the La casa gallery (four figures; static state visible in the reduced-motion and no-JavaScript passes; sticky stage when gallery-on). Then: reduced-motion pass, no-JavaScript
  * pass, the gate intro (frames, skip, once per session), real-pixel contrast of text over photos
  * (blocks marked data-on-photo), IT/EN parity, and axe-core if a path is given.
  * Exit code 1 if any check fails.
@@ -37,6 +37,7 @@ const PAGES = [
   { id: 'privacy-en', url: '/en/privacy/', lang: 'en', pair: '/privacy/' },
   { id: '404', url: '/404.html', lang: 'it', pair: null },
 ];
+const ANCHORS = ['porta', 'perche', 'casa', 'contrada', 'tavola', 'dolceforte', 'pici', 'dispensa', 'cinta', 'tartufo', 'porcini', 'spaghetti', 'taglieri', 'fiorentina', 'dolce', 'cantina', 'prenota'];
 const VIEWPORTS = [
   { w: 1440, h: 900, mobile: false },
   { w: 390, h: 844, mobile: true },
@@ -81,14 +82,32 @@ const PROBE = () => {
   const vis = (e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
   const docW = document.documentElement.clientWidth;
   const heads = [...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].filter(vis).map((h) => ({ level: Number(h.tagName[1]), text: h.textContent.trim().replace(/\s+/g, ' ').slice(0, 60) }));
-  const hidden = [...document.querySelectorAll('[data-reveal],[data-mask],[data-draw],[data-arch-line],.map__label')].filter((e) => {
+  const galleryOn = document.documentElement.classList.contains('gallery-on');
+  const hidden = [...document.querySelectorAll('[data-reveal],[data-mask],[data-draw],[data-arch-line],.map__label,[data-gallery-frame],[data-gallery-caption]')].filter((e) => {
     if (e.closest('details:not([open])') || e.closest('[hidden]')) return false;
+    /* with gallery-on only the current frame and caption show: the others are meant to be hidden */
+    if (galleryOn && e.matches('[data-gallery-frame],[data-gallery-caption]') && !e.classList.contains('is-current')) return false;
     const cs = getComputedStyle(e);
     if (cs.display === 'none') return false;
     return Number(cs.opacity) < 0.95 || /inset\(100%/.test(cs.clipPath) || cs.visibility === 'hidden';
   }).map((e) => e.tagName.toLowerCase() + (e.className && typeof e.className === 'string' ? '.' + e.className.trim().split(/\s+/).join('.') : '')).slice(0, 8);
   const ld = [...document.querySelectorAll('script[type="application/ld+json"]')].map((s) => { try { const j = JSON.parse(s.textContent); return { ok: true, types: JSON.stringify(j).match(/"@type":"[^"]+"/g) || [] }; } catch (e) { return { ok: false, err: String(e) }; } });
+  const gal = document.querySelector('[data-gallery]');
+  const galleryInfo = gal ? (() => {
+    const frames = [...gal.querySelectorAll('[data-gallery-frame]')];
+    const caps = [...gal.querySelectorAll('[data-gallery-caption]')];
+    const shown = (e) => { const cs = getComputedStyle(e); const r = e.getBoundingClientRect(); return r.width > 50 && r.height > 8 && cs.visibility !== 'hidden' && cs.display !== 'none' && !/inset\(100%/.test(cs.clipPath) && Number(cs.opacity) > 0.95; };
+    const stage = gal.querySelector('[data-gallery-stage]');
+    const cs = stage ? getComputedStyle(stage) : null;
+    return { on: galleryOn, figs: gal.querySelectorAll('figure').length, frames: frames.length, caps: caps.length, imgs: gal.querySelectorAll('img').length,
+      framesShown: frames.filter(shown).length, capsShown: caps.filter(shown).length, current: frames.filter((f) => f.classList.contains('is-current')).length,
+      dots: gal.querySelectorAll('button[data-gallery-dot]').length, exit: !!gal.querySelector('[data-gallery-exit]'), arch: !!gal.querySelector('[data-gallery-arch]'),
+      dotsShown: [...gal.querySelectorAll('[data-gallery-dot],[data-gallery-exit]')].filter((e) => e.getBoundingClientRect().height > 0).length,
+      position: cs && cs.position, top: cs && cs.top, stageH: stage ? stage.getBoundingClientRect().height : 0, wrapH: gal.getBoundingClientRect().height, vh: innerHeight };
+  })() : null;
   return {
+    gallery: galleryInfo,
+    euro: /€/.test(document.documentElement.outerHTML), dishRows: document.querySelectorAll('.dish,.dish-rows,.price-line,.dish__price').length,
     scrollW: document.documentElement.scrollWidth, docW,
     wide: [...document.querySelectorAll('body *')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.right > docW + 1 && getComputedStyle(e).position !== 'fixed' && !e.closest('[data-allow-overflow]'); }).slice(0, 5).map((e) => e.tagName.toLowerCase() + '.' + String(e.className).split(' ')[0]),
     h1: document.querySelectorAll('h1').length, heads,
@@ -130,6 +149,29 @@ async function checkPage(browser, base, pg, vp, opts = {}) {
   if (r.introVisible) add('FAIL', pg.id, tag, 'intro overlay visible when it must not be');
   r.imgs.filter((i) => !i.ok).forEach((i) => add('FAIL', pg.id, tag, 'image did not load: ' + i.src.split('/').pop()));
   const main = !opts.reduced && !opts.nojs;
+  if (/^home-/.test(pg.id)) {
+    /* version 3: no price and no dish row on the home page */
+    if (r.euro) add('FAIL', pg.id, tag, 'the home page contains a euro sign');
+    if (r.dishRows) add('FAIL', pg.id, tag, `the home page contains ${r.dishRows} dish row element(s) or prices`);
+    /* the frozen anchors of design-v3.md section 2 exist on both languages */
+    ANCHORS.filter((a) => !r.ids.includes(a)).forEach((a) => add('FAIL', pg.id, tag, 'frozen anchor missing: #' + a));
+    const g = r.gallery;
+    if (!g) add('FAIL', pg.id, tag, 'no [data-gallery] on the home page');
+    else {
+      if (g.figs !== 4 || g.frames !== 4 || g.caps !== 4 || g.imgs !== 4) add('FAIL', pg.id, tag, `gallery: expected 4 figures, frames, captions and images, got ${g.figs}/${g.frames}/${g.caps}/${g.imgs}`);
+      if (g.dots !== 4 || !g.exit || !g.arch) add('FAIL', pg.id, tag, 'gallery: progress buttons, exit link or arch outline missing');
+      if (g.current !== 1) add('FAIL', pg.id, tag, 'gallery: exactly one frame must be is-current, found ' + g.current);
+      if (opts.reduced || opts.nojs) {
+        if (g.on) add('FAIL', pg.id, tag, 'gallery-on is set although motion is reduced or JavaScript is off');
+        if (g.framesShown !== 4 || g.capsShown !== 4) add('FAIL', pg.id, tag, `gallery static state: ${g.framesShown} of 4 figures and ${g.capsShown} of 4 captions visible`);
+        if (g.dotsShown) add('FAIL', pg.id, tag, 'gallery static state: progress buttons or exit link are visible');
+      } else if (g.on) {
+        if (g.position !== 'sticky' || g.top !== '0px') add('FAIL', pg.id, tag, `gallery stage is ${g.position} top ${g.top}, expected sticky 0`);
+        if (g.wrapH < g.vh * 2) add('FAIL', pg.id, tag, `gallery wrapper too short (${Math.round(g.wrapH)} px for a ${g.vh} px screen)`);
+        if (g.capsShown !== 1 || g.framesShown !== 1) add('NOTE', pg.id, tag, `gallery-on: ${g.framesShown} frames and ${g.capsShown} captions show (expected 1 and 1)`);
+      } else if (g.framesShown !== 4) add('FAIL', pg.id, tag, 'gallery fell back to the static state but not all figures show');
+    }
+  }
   if (main && vp.w === 1440) {
     if (r.h1 !== 1) add('FAIL', pg.id, tag, 'h1 count ' + r.h1);
     let prev = 0;

@@ -65,8 +65,8 @@ Internal (English). Client `osteria-dei-rossi`. 2026-11-26. Author: strategist. 
 
 - No pop-ups, overlays, newsletter or booking forms, chat widgets, cookie banners or embedded Instagram/Google/TripAdvisor feeds (third-party scripts are excluded anyway).
 - No fake urgency or scarcity ("ultimi tavoli", countdowns), no "aperto ora" status computed from the clock (hours may change: P-L41), and no offers or discounts (none approved).
-- No reviews, ratings, star badges, `aggregateRating` or quotes from guests; no "best", "the only" or "number one". The menu's "unici a Siena", "le migliori carni" and "esclusiva" stay off (`context.md`).
-- No invented events, Palio dinners, group menus, opening on holidays, allergen or gluten-free claims, or facts the profile marks `[unverified]`.
+- No reviews, ratings, star badges, `aggregateRating` or quotes from guests; no superlative or ranking claim of any kind (see `knowledge/agency/banned-claims.md`). The menu's "unici a Siena", "le migliori carni" and "esclusiva" stay off (`context.md`).
+- No invented events, Palio dinners, group menus, opening on holidays, allergen or gluten-free claims, or facts the profile marks as unverified.
 - No prices or dish rows on the home page; no second phone number or email.
 - Nothing that slows the first screen: the hero image stays the only preloaded image, the gallery uses images that are already optimised, campaign landings never wait on an opening animation, and the LCP and CLS targets from v1 `plan.md` §4h still apply.
 

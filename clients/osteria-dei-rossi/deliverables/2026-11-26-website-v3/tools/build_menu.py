@@ -17,6 +17,8 @@ from __future__ import annotations
 
 import html
 import json
+import re
+import unicodedata
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent.parent
@@ -35,6 +37,26 @@ SECTIONS = {
     "bevande": ("Bevande", "Drinks"),
 }
 ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII"]
+# the line drawing beside the numeral of each section heading (assets/icon-*.svg)
+ICONS = {"antipasti": "icon-tagliere", "primi": "icon-pici", "secondi": "icon-coccio", "griglia": "icon-fiorentina",
+         "contorni": "icon-porcino", "dolci": "icon-tuffo", "bevande": "icon-vino"}
+SEEN_IDS: set[str] = set()
+
+
+def slug(name: str) -> str:
+    """Id of a dish: the Italian name, lowercase, accents removed, every other run of characters one hyphen."""
+    n = "".join(c for c in unicodedata.normalize("NFKD", name) if not unicodedata.combining(c)).lower()
+    return re.sub(r"[^a-z0-9]+", "-", n).strip("-")
+
+
+def icon(section: str) -> str:
+    """The inline drawing, decorative: no title, aria-hidden, drawn in by the existing data-draw routine."""
+    t = (HERE / "assets" / f"{ICONS[section]}.svg").read_text(encoding="utf-8").strip()
+    t = re.sub(r"^<\?xml[^>]*>\s*", "", t)
+    t = re.sub(r"\s*<title>.*?</title>", "", t, flags=re.S)
+    t = re.sub(r"<svg\b", '<svg class="icon menu-section__icon" focusable="false" data-draw', t, count=1)
+    t = re.sub(r'(<svg\b[^>]*?)\saria-hidden="true"', r'\1', t, count=1)
+    return t.replace("<svg ", '<svg aria-hidden="true" ', 1)
 BADGE = {
     "oste": ("Consigliato dall’Oste", "Consigliato dall’Oste"),
     "stagione": ("Piatto di stagione", "Seasonal dish"),
@@ -93,7 +115,11 @@ def dish_html(item: dict, lang: int) -> str:
     desc = text_of(item, key)
     badges = [BADGE[k][lang] for k in ("oste", "stagione", "esaurito") if item.get(k)]
     cls = {"oste": "badge badge--oste", "stagione": "badge badge--stagione", "esaurito": "badge badge--esaurito"}
-    out = ['      <li class="dish">',
+    sid = slug(item["n"])
+    if sid in SEEN_IDS and lang == 0:
+        raise SystemExit(f"build_menu: two dishes with the id {sid}")
+    SEEN_IDS.add(sid)
+    out = [f'      <li class="dish" id="{sid}">',
            '        <div class="dish__head">',
            f'          <h3 class="dish__name">{esc(item["n"])}</h3>',
            '          <span class="dish__dots" aria-hidden="true"></span>',
@@ -137,7 +163,7 @@ def build(lang: int) -> tuple[str, dict]:
         sid = section["id"]
         title = SECTIONS[sid][lang]
         parts.append(f'<section class="menu-section" id="{sid}" aria-labelledby="h-{sid}" data-reveal>')
-        parts.append(f'  <h2 class="menu-section__title" id="h-{sid}"><span class="menu-section__num" aria-hidden="true">{ROMAN[n]}</span> {esc(title)}</h2>')
+        parts.append(f'  <h2 class="menu-section__title" id="h-{sid}">{icon(sid)}<span class="menu-section__num" aria-hidden="true">{ROMAN[n]}</span> {esc(title)}</h2>')
         ld_items: list[dict] = []
         for group in section["groups"]:
             items = [i for i in group["items"] if i.get("visibile", True)]
@@ -174,7 +200,7 @@ def build(lang: int) -> tuple[str, dict]:
     sid = "bevande"
     title = SECTIONS[sid][lang]
     parts.append(f'<section class="menu-section menu-section--drinks" id="{sid}" aria-labelledby="h-{sid}" data-reveal>')
-    parts.append(f'  <h2 class="menu-section__title" id="h-{sid}"><span class="menu-section__num" aria-hidden="true">{ROMAN[6]}</span> {esc(title)}</h2>')
+    parts.append(f'  <h2 class="menu-section__title" id="h-{sid}">{icon(sid)}<span class="menu-section__num" aria-hidden="true">{ROMAN[6]}</span> {esc(title)}</h2>')
     ld_items = []
     for block in drinks["blocks"]:
         parts.append(f'  <p class="menu-group__title">{esc(block[key])}</p>')

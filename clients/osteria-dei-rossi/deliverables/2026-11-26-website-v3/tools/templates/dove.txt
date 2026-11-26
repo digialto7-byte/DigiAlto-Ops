@@ -16,7 +16,9 @@
     <div class="dove-hero__actions">
       <a class="btn" href="https://maps.google.com/?cid=5066073290586870112" target="_blank" rel="noopener">{{c:dove-page.btn_maps}} {{arrow}}</a>
       <a class="btn btn--line" href="tel:+390577287592">{{c:dove-page.btn_call}} {{arrow}}</a>
+      <a class="btn btn--line" href="{{u:wa}}" target="_blank" rel="noopener">{{c:prenota.btn_whatsapp}} {{arrow}}</a>
     </div>
+    <p class="dove-hero__hours"><strong>{{c:dove-page.hero_hours}}</strong><span>{{c:dove-page.hero_hours_note}}</span></p>
   </div>
 </section>
 
@@ -86,11 +88,12 @@
 <section id="prenota" class="section section--green battlement prenota__book" aria-labelledby="prenota-title">
   <div class="container grid">
     <div class="prenota__main stack" data-reveal-group>
+      {{svg:icon-tavola|class="icon icon--tavola" aria-hidden="true" focusable="false" data-draw}}
       <h2 id="prenota-title" data-reveal>{{h:dove-page.hours_h2_line1|hours_h2_em}}</h2>
       <p class="body" data-reveal>{{c:prenota.lead}}</p>
       <div class="prenota__actions" data-reveal>
         <a class="btn btn--light" href="tel:+390577287592">{{c:prenota.btn_call}} {{arrow}}</a>
-        <a class="btn btn--line" href="https://wa.me/390577287592" target="_blank" rel="noopener">{{c:prenota.btn_whatsapp}} {{arrow}}</a>
+        <a class="btn btn--line" href="{{u:wa}}" target="_blank" rel="noopener">{{c:prenota.btn_whatsapp}} {{arrow}}</a>
       </div>
     </div>
     <div class="prenota__hours" data-reveal-group>

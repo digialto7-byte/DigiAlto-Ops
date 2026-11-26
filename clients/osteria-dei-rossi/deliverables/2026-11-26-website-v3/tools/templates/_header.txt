@@ -24,7 +24,7 @@
       <a class="btn btn--line site-nav__cta" href="{{u:book}}">{{c:global-nav.nav_prenota}} {{arrow}}</a>
       <p class="site-nav__contact">
         <a href="tel:+390577287592" aria-label="{{c:global-cta-bar.call_aria}}">{{c:global-cta-bar.call_label}}</a>
-        <a href="https://wa.me/390577287592" target="_blank" rel="noopener" aria-label="{{c:global-cta-bar.whatsapp_aria}}">{{c:global-cta-bar.whatsapp_label}}</a>
+        <a href="{{u:wa}}" target="_blank" rel="noopener" aria-label="{{c:global-cta-bar.whatsapp_aria}}">{{c:global-cta-bar.whatsapp_label}}</a>
       </p>
     </nav>
   </div>

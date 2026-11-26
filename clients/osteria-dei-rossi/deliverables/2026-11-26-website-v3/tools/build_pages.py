@@ -19,7 +19,9 @@ import json
 import posixpath
 import re
 import sys
+import unicodedata
 from pathlib import Path
+from urllib.parse import quote
 
 R = Path(__file__).resolve().parent.parent          # the deliverable root
 TPL = Path(__file__).resolve().parent / 'templates'
@@ -115,6 +117,13 @@ def table_value(section_text, label):
     return m.group(1)
 
 
+def table_exact(section_text, label):
+    m = re.search(r'^\| ' + re.escape(label) + r' \| `(.*?)` \|\s*$', section_text, re.M)
+    if not m:
+        fail('seo field missing: ' + label)
+    return m.group(1)
+
+
 # page spec of seo-v3.md by kind and language
 SPEC = {('home', 'it'): 'P.1 ', ('home', 'en'): 'P.2 ', ('menu', 'it'): 'P.3 ', ('menu', 'en'): 'P.4 ',
         ('vini', 'it'): 'P.5 ', ('vini', 'en'): 'P.6 ', ('dove', 'it'): 'P.7 ', ('dove', 'en'): 'P.8 '}
@@ -129,6 +138,9 @@ def page_seo(kind, lang):
             'og_title': table_value(sec, 'Open Graph title'),
             'og_description': table_value(sec, 'Open Graph description'),
             'robots': 'index, follow, max-image-preview:large',
+            'og_image': table_exact(sec, 'Open Graph image'),
+            'og_image_alt': table_exact(sec, 'Open Graph image alt'),
+            'twitter_image': table_exact(sec, 'Twitter image'),
         }
     if kind == 'privacy':
         sec = seo_section('2.5 ')
@@ -141,7 +153,9 @@ def page_seo(kind, lang):
             return re.findall(r'`(.*?)`', m.group(1))[col - 1]
         title, desc = row('Meta title'), row('Meta description')
         robots = row('Robots')
-        return {'title': title, 'description': desc, 'og_title': title, 'og_description': desc, 'robots': robots}
+        home = page_seo('home', lang)      # the privacy pages share the home image
+        return {'title': title, 'description': desc, 'og_title': title, 'og_description': desc, 'robots': robots,
+                'og_image': home['og_image'], 'og_image_alt': home['og_image_alt'], 'twitter_image': home['twitter_image']}
     sec = seo_section('2.6 ')
     return {'title': re.search(r'Title `(.*?)`', sec).group(1), 'robots': 'noindex'}
 
@@ -190,7 +204,8 @@ for lang, num, jnum in (('it', '6.5 ', 'J.3 '), ('en', '6.6 ', 'J.4 ')):
     crumb = next(g for g in graph if g.get('@type') == 'BreadcrumbList')
     crumb = {'@context': 'https://schema.org', **crumb}
     menu_ld = (R / 'assets' / 'menu' / f'menu-jsonld-{lang}.json').read_text(encoding='utf-8').rstrip('\n')
-    LD[('menu', lang)] = [menu_ld, json.dumps(crumb, ensure_ascii=False, indent=2), FAQ_LD[('menu', lang)]]
+    LD[('menu', lang)] = [menu_ld, json.dumps(crumb, ensure_ascii=False, indent=2), FAQ_LD[('menu', lang)],
+                          code_block('J.7 ' if lang == 'it' else 'J.8 ', 'json', SEO2)]
     wine_ld = (R / 'assets' / 'vini' / f'vini-jsonld-{lang}.json').read_text(encoding='utf-8').rstrip('\n')
     LD[('vini', lang)] = [code_block(jnum, 'json', SEO2), wine_ld, FAQ_LD[('vini', lang)]]
 for lang, jnum in (('it', 'J.5 '), ('en', 'J.6 ')):
@@ -217,12 +232,55 @@ for line in (R / 'assets' / 'images.md').read_text(encoding='utf-8').splitlines(
 
 # ---------------------------------------------------------------- SVG
 def svg(name, attrs=''):
+    """Inline an SVG from assets/. Extra attributes replace the same ones in the file's own tag.
+    `data-noid` strips every id (a second use of the same drawing on a page). A decorative drawing
+    (aria-hidden) loses its <title>."""
     t = (R / 'assets' / f'{name}.svg').read_text(encoding='utf-8').strip()
     t = re.sub(r'^<\?xml[^>]*>\s*', '', t)
     if name == 'mappa-dentro-le-mura':       # crop to the walls: the map draws larger (paths untouched)
         t = t.replace('viewBox="0 0 800 800"', 'viewBox="150 30 600 750"', 1)
-    return t.replace('<svg ', '<svg ' + attrs + ' ', 1) if attrs else t
+    noid = 'data-noid' in attrs
+    attrs = attrs.replace('data-noid', '').strip()
+    if attrs:
+        m = re.match(r'<svg\b([^>]*)>', t)
+        base = m.group(1)
+        for a in re.findall(r'([\w:-]+)=', attrs):
+            base = re.sub(r'\s' + re.escape(a) + r'="[^"]*"', '', base)
+        t = '<svg ' + attrs + base + '>' + t[m.end():]
+    if noid:
+        t = re.sub(r'\sid="[^"]*"', '', t)
+    if 'aria-hidden="true"' in t.split('>', 1)[0]:
+        t = re.sub(r'\s*<title>.*?</title>', '', t, flags=re.S)
+    return t
 
+
+def slugify(name):
+    n = ''.join(c for c in unicodedata.normalize('NFKD', name) if not unicodedata.combining(c)).lower()
+    return re.sub(r'[^a-z0-9]+', '-', n).strip('-')
+
+
+def menu_dish_ids(lang):
+    raw = (R / 'assets' / 'menu' / f'menu-{lang}.html').read_text(encoding='utf-8')
+    return set(re.findall(r'<li class="dish" id="([^"]+)"', raw))
+
+
+DISH_IDS = {lang: menu_dish_ids(lang) for lang in ('it', 'en')}
+
+
+def dish_slug(slug):
+    for lang, ids in DISH_IDS.items():
+        if slug not in ids:
+            fail(f'the dish id "{slug}" does not exist on the {lang} menu page (a link of the home page points to it)')
+    return slug
+
+
+# every anchor of the home page (design-v3.md section 2): the build fails if one is missing
+HOME_ANCHORS = ['porta', 'perche', 'casa', 'contrada', 'tavola', 'dolceforte', 'pici', 'dispensa', 'cinta', 'tartufo',
+                'porcini', 'spaghetti', 'taglieri', 'fiorentina', 'dolce', 'cantina', 'prenota']
+# the four photos of the La casa gallery, in order, with the copy slot of their caption
+GALLERY = [('sala-bancone-vista-cucina', 'gallery_caption_1'), ('lanterna-ferro-battuto', 'gallery_caption_2'),
+           ('fotografie-storiche-siena-contrada', 'gallery_caption_3'), ('amaro-al-bancone', 'gallery_caption_4')]
+SKYLINE_PAGES = ('home', 'vini', 'dove')      # the Siena skyline runs along the top of the footer here
 
 ARROW = svg('freccia-osteria', 'class="arrow" focusable="false"')
 ARCH = ('<svg class="arch__line" data-arch-line viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true" focusable="false">'
@@ -268,6 +326,7 @@ class Page:
             'lang_it': self.u(URLS[(kind, 'it')]),
             'lang_en': self.u(URLS[(kind, 'en')]),
             'twin': self.u(URLS[(kind, twin_lang)]),
+            'wa': 'https://wa.me/390577287592?text=' + quote(self.c('global-nav', 'whatsapp_text'), safe=''),
         }
 
     def srcset(self, slug):
@@ -324,40 +383,55 @@ class Page:
                 f'<meta property="og:url" content="{me}">',
                 f'<meta property="og:title" content="{attr(s["og_title"])}">',
                 f'<meta property="og:description" content="{attr(s["og_description"])}">',
-                f'<meta property="og:image" content="{DOMAIN}/assets/img/og-osteria-dei-rossi-siena.jpg">',
+                f'<meta property="og:image" content="{DOMAIN}/assets/img/{s["og_image"]}">',
                 '<meta property="og:image:width" content="1200">',
                 '<meta property="og:image:height" content="630">',
-                '<meta name="twitter:card" content="summary_large_image">']
+                '<meta property="og:image:type" content="image/jpeg">',
+                f'<meta property="og:image:alt" content="{attr(s["og_image_alt"])}">',
+                '<meta name="twitter:card" content="summary_large_image">',
+                f'<meta name="twitter:image" content="{DOMAIN}/assets/img/{s["twitter_image"]}">']
         return '\n'.join(out)
 
     def jsonld(self):
         return ''.join(f'<script type="application/ld+json">\n{b}\n</script>\n' for b in LD.get((self.kind, self.lang), []))
 
     # ---- composed blocks
-    def dish_row(self, value):
-        """One dish row from a `name | line | price | badge` slot. No price: no leader and no price."""
-        parts = [p.strip() for p in value.split('|')]
-        parts += [''] * (4 - len(parts))
-        name, line, price, badge = parts[:4]
-        head = f'<span class="dish__name">{esc(name)}</span>'
-        if price:
-            head += f'<span class="dish__dots" aria-hidden="true"></span><span class="dish__price">{esc(price)}</span>'
-        b = ''
-        if badge:
-            kind = 'stagione' if badge == self.c('menu-page', 'badge_stagione') else 'oste'
-            b = f'<p class="dish__badges"><span class="badge badge--{kind}">{esc(badge)}</span></p>\n      '
-        return (f'<li class="dish" data-reveal>\n'
-                f'      <div class="dish__head">{head}</div>\n'
-                f'      {b}<p class="dish__desc">{esc(line)}</p>\n'
-                f'    </li>')
-
-    def rows(self, arg):
-        """{{rows:sec.key}} one row; {{rows:sec.prefix|N}} the rows prefix1 to prefixN."""
-        spec, _, n = arg.partition('|')
-        sec, key = spec.split('.', 1)
-        keys = [f'{key}{i}' for i in range(1, int(n) + 1)] if n else [key]
-        items = '\n    '.join(self.dish_row(self.c(sec, k)) for k in keys)
-        return f'<ul class="dish-rows" data-reveal-group>\n    {items}\n  </ul>'
+    def gallery(self):
+        """The La casa gallery: four figures in the HTML (the static state shows them all), the progress
+        buttons, the exit link and the arch outline the motion code redraws. Hooks: data-gallery,
+        data-gallery-stage, data-gallery-frame, data-gallery-caption, data-gallery-dot, data-gallery-exit,
+        data-gallery-arch. The first frame, caption and button are marked is-current."""
+        total = len(GALLERY)
+        progress = self.c('casa', 'gallery_progress')
+        items, dots = [], []
+        for i, (slug, key) in enumerate(GALLERY):
+            cap = self.c('casa', key)
+            cur = ' is-current' if i == 0 else ''
+            items.append(
+                f'      <li class="gallery__item">\n'
+                f'        <figure class="gallery__fig">\n'
+                f'          <div class="gallery__frame ph-{slug}{cur}" data-gallery-frame="{i}">'
+                f'{self.pic(slug, "(min-width: 45rem) 600px, 350px")}</div>\n'
+                f'          <figcaption class="gallery__caption{cur}" data-gallery-caption="{i}">{esc(cap)}</figcaption>\n'
+                f'        </figure>\n      </li>')
+            label = progress.replace('{n}', str(i + 1)).replace('{total}', str(total)) + ': ' + cap
+            dots.append(
+                f'<button class="gallery__dot{cur}" type="button" data-gallery-dot="{i}" aria-label="{attr(label)}"'
+                f'{" aria-current=" + chr(34) + "true" + chr(34) if i == 0 else ""}>'
+                '<svg viewBox="0 0 14 18" aria-hidden="true" focusable="false"><path d="M1 17.5 V8.5 C1 5 5 3 7 .8 C9 3 13 5 13 8.5 V17.5 Z"/></svg></button>')
+        lantern = svg('icon-lanterna', 'class="icon" aria-hidden="true" focusable="false" data-draw')
+        arch = ('<svg class="gallery__arch" data-gallery-arch viewBox="0 0 100 125" preserveAspectRatio="none" '
+                'aria-hidden="true" focusable="false"><path vector-effect="non-scaling-stroke" '
+                'd="M0 125 V48 A62 62 0 0 1 50 0 A62 62 0 0 1 100 48 V125"/></svg>')
+        return (f'<div class="gallery" data-gallery data-count="{total}" role="group" aria-label="{attr(self.c("casa", "gallery_kicker"))}">\n'
+                f'  <div class="gallery__stage" data-gallery-stage>\n'
+                f'    <div class="gallery__inner">\n'
+                f'      <div class="gallery__head">{lantern}<p class="kicker">{esc(self.c("casa", "gallery_kicker"))}</p></div>\n'
+                f'      <ol class="gallery__list" role="list">\n' + '\n'.join(items) + '\n      </ol>\n'
+                f'      {arch}\n'
+                f'      <div class="gallery__dots">' + ''.join(dots) + '</div>\n'
+                f'      <a class="link gallery__exit" data-gallery-exit href="#contrada">{esc(self.c("casa", "gallery_exit"))} {ARROW}</a>\n'
+                f'    </div>\n  </div>\n</div>')
 
     def hours_block(self):
         rows = []
@@ -371,7 +445,14 @@ class Page:
         lines = self.c('dove-siamo', 'address_block').split(' // ')
         b['address'] = '<br>'.join(esc(p) if i else re.sub(r'(\d+(?:/\d+)?)$', r'<span class="dove__num">\1</span>', esc(p)) for i, p in enumerate(lines))
         b['hours_compact'] = '<br>'.join(esc(p) for p in self.c('global-footer', 'hours_compact').split(' / '))
+        b['skyline'] = ''
+        b['footer_class'] = ''
+        if self.kind in SKYLINE_PAGES:
+            b['skyline'] = ('<div class="container site-footer__sky">' + svg('skyline-siena', 'class="site-footer__skyline" '
+                            'preserveAspectRatio="xMaxYMax meet" focusable="false" data-draw') + '</div>\n  ')
+            b['footer_class'] = ' site-footer--sky'
         if self.kind == 'home':
+            b['gallery'] = self.gallery()
             b['wines'] = '<ul class="wines__list">' + ''.join(f'<li>{esc(w)}</li>' for w in self.c('cantina', 'wines_list').split(' · ')) + '</ul>'
             # the English page shows the Italian welcome line under the translation
             quote_it = ''
@@ -467,6 +548,7 @@ class Page:
                     f'imagesrcset="{self.srcset("osteria-dei-rossi-siena-esterno")}">\n')
         tpl = tpl.replace('{{preload_hero}}', hero).replace('{{lang}}', self.lang).replace('{{a}}', self.a)
         tpl = tpl.replace('{{intro_key}}', INTRO_KEY.get(self.kind, ''))
+        tpl = tpl.replace('{{gallery_flag}}', '1' if self.kind == 'home' else '')
         tpl = tpl.replace('{{cur_it}}', ' aria-current="page"' if self.lang == 'it' and self.kind != '404' else '')
         for k in ('menu', 'vini', 'dove'):
             tpl = tpl.replace('{{cur_' + k + '}}', ' aria-current="page"' if self.kind == k else '')
@@ -502,8 +584,8 @@ class Page:
             if kind == 'tile':
                 slug, sizes, caption, *cls = arg.split('|')
                 return self.tile(slug, sizes, caption, cls[0] if cls else '')
-            if kind == 'rows':
-                return self.rows(arg)
+            if kind == 'dish':
+                return links['menu'] + '#' + dish_slug(arg)
             fail('unknown marker ' + kind)
         html = re.sub(r'\{\{(\w+):(.*?)\}\}', repl, tpl)
         left = re.findall(r'\{\{[^}]*\}\}', html)
@@ -511,6 +593,16 @@ class Page:
             fail(f'{self.out}: unfilled markers ' + ', '.join(sorted(set(left))))
         if self.kind == 'vini' and '€' in html:
             fail(f'{self.out}: a price on the wine-list page')
+        if self.kind == 'home':
+            if '€' in html or 'class="dish' in html or 'price-line' in html:
+                fail(f'{self.out}: a price or a dish row on the home page')
+            for a in HOME_ANCHORS:
+                if len(re.findall(r'\bid="' + a + '"', html)) != 1:
+                    fail(f'{self.out}: the anchor #{a} is missing or used twice (design-v3.md section 2)')
+        ids = re.findall(r'\sid="([^"]+)"', html)
+        dup = sorted({i for i in ids if ids.count(i) > 1})
+        if dup:
+            fail(f'{self.out}: duplicate ids: ' + ', '.join(dup))
         return html
 
 

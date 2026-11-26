@@ -173,6 +173,10 @@ html.menu-open .site-header .logo--color{display:none}
   font:600 .75rem/1 var(--font-text);letter-spacing:.14em;text-transform:uppercase;
   text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px;
 }
+/* Once the header is solid the booking button is filled: green on cream */
+html:not(.menu-open) .site-header.is-solid .site-header__book,.page-text-body:not(.menu-open) .site-header__book{
+  padding:0 1rem;background:var(--green);color:var(--cream);text-decoration:none;
+}
 .menu-toggle{
   position:relative;z-index:2;width:2.75rem;height:2.75rem;margin-right:-.5rem;padding:0;
   display:grid;place-content:center;gap:7px;background:none;border:0;cursor:pointer;
@@ -229,8 +233,11 @@ html.menu-open .site-nav{visibility:visible;opacity:1;transition:opacity var(--d
   .site-nav__links{gap:1.1rem}
   .site-nav__links a{letter-spacing:.08em}
 }
+@media (min-width:64rem){
+  .site-header.is-solid .site-nav__cta,.page-text-body .site-header .site-nav__cta{background:var(--green);color:var(--cream);border-color:var(--green)}
+}
 @media (min-width:64rem) and (hover:hover) and (pointer:fine){
-  .site-header.is-solid .site-nav .btn--line:hover,.page-text-body .site-header .site-nav .btn--line:hover{background:var(--green);color:var(--cream);border-color:var(--green)}
+  .site-header.is-solid .site-nav .site-nav__cta:hover,.page-text-body .site-header .site-nav .site-nav__cta:hover{background:transparent;color:var(--green)}
 }
 
 /* ---------- 7. Rail, intro, booking bar (motion.css takes over) ---------- */
@@ -243,13 +250,13 @@ html.menu-open .site-nav{visibility:visible;opacity:1;transition:opacity var(--d
 .intro,.intro__skip{display:none}
 
 .cta-bar{
-  position:fixed;inset:auto 0 0;z-index:40;display:grid;grid-template-columns:1fr 1fr;
+  position:fixed;inset:auto 0 0;z-index:40;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
   background:var(--green);color:var(--cream);border-top:1px solid var(--line);
   padding-bottom:env(safe-area-inset-bottom);
 }
 .cta-bar__link{
-  display:flex;align-items:center;justify-content:center;min-height:3.25rem;
-  font:600 .8125rem/1 var(--font-text);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;min-height:3.25rem;padding-inline:.5rem;text-align:center;
+  font:600 .75rem/1.1 var(--font-text);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;
 }
 .cta-bar__link+.cta-bar__link{border-left:1px solid var(--line)}
 @media (max-width:44.99rem){
@@ -332,6 +339,11 @@ picture img{width:100%;height:100%;object-fit:cover}
 .icon{width:44px;height:44px;flex:none;color:var(--green)}
 .icon--large{width:4.5rem;height:4.5rem;color:var(--gold)}
 .icon--deco{color:var(--gold)}
+.icon--mark{width:3.5rem;height:3.5rem}
+.icon--index{width:3rem;height:3rem}
+.icon--cream{width:4rem;height:4rem;color:var(--cream)}
+.icon--stadera{width:6rem;height:6rem;color:var(--gold)}
+.icon--tavola{width:6rem;height:6rem;color:var(--gold)}
 
 /* ---------- 11. Hero (#porta) ---------- */
 .hero{
@@ -356,6 +368,11 @@ picture img{width:100%;height:100%;object-fit:cover}
 .hero .kicker{color:var(--cream)}
 .hero__lead{margin-top:1.5rem;max-width:30em;font-size:1.0625rem}
 .hero__actions{margin-top:2rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem 2rem}
+.hero__where,.hero__phone{margin-top:1rem;font-size:.9375rem;line-height:1.5}
+.hero__where+.hero__phone{margin-top:.25rem}
+.hero__where a,.hero__phone a{text-underline-offset:4px;text-decoration-thickness:1px}
+.hero__where-link,.hero__phone a{display:inline-flex;align-items:center;min-height:2.75rem;font-weight:600}
+.hero__where-link{margin-left:.5rem}
 .hero__aside{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;
   padding-top:1.25rem;border-top:1px solid rgb(255 250 223 / .35);font-size:var(--fs-caption);letter-spacing:.04em}
 .hero__opening{max-width:16em}
@@ -371,7 +388,7 @@ picture img{width:100%;height:100%;object-fit:cover}
   }
   .hero__opening{display:none}
   .hero__aside{justify-content:center}
-  .ph-osteria-dei-rossi-siena-esterno img{object-position:50% 100%}
+  .ph-osteria-dei-rossi-siena-esterno img{object-position:57% 100%}
 }
 @media (min-width:45rem){
   .hero__body{grid-template-columns:minmax(0,1fr) auto;align-items:end}
@@ -386,9 +403,9 @@ picture img{width:100%;height:100%;object-fit:cover}
   }
   /* The left gradient sits behind the lower 60% of the text block only */
   .hero__body::before{
-    content:"";position:absolute;z-index:-1;left:calc(50% - 50vw);bottom:0;width:calc(50vw + 38rem);height:78%;
+    content:"";position:absolute;z-index:-1;left:calc(50% - 50vw);bottom:0;width:calc(50vw + 38rem);height:100%;
     background:linear-gradient(to right, rgb(28 65 48 / .78) 0%, rgb(28 65 48 / .62) 55%, rgb(28 65 48 / 0) 100%);
-    -webkit-mask:linear-gradient(to top, #000 0%, #000 60%, transparent 100%);mask:linear-gradient(to top, #000 0%, #000 60%, transparent 100%);
+    -webkit-mask:linear-gradient(to top, #000 0%, #000 82%, transparent 100%);mask:linear-gradient(to top, #000 0%, #000 82%, transparent 100%);
   }
 }
 
@@ -422,7 +439,6 @@ picture img{width:100%;height:100%;object-fit:cover}
 .band__content .kicker+h2{margin-top:1.25rem}
 .band .kicker{color:var(--cream)}
 .band .icon--large{color:var(--gold)}
-.price-line{font:600 1.125rem/1.4 var(--font-text)}
 .band__actions{padding-top:.5rem}
 
 @media (min-width:45rem){
@@ -475,7 +491,7 @@ picture img{width:100%;height:100%;object-fit:cover}
   .facts li+li{border-left:1px solid var(--line);padding-left:1rem}
 }
 
-/* ---------- 14. La Casa ---------- */
+/* ---------- 14. La Casa and its gallery ---------- */
 .welcome{padding-block:clamp(4.5rem, 10vw, 8.5rem);text-align:center}
 .welcome__fig{display:flex;flex-direction:column;align-items:center}
 .welcome__quote{max-width:22ch;margin-inline:auto;font:italic 400 clamp(2rem, 4.6vw, 3.9rem)/1.12 var(--font-display);letter-spacing:-.01em;text-wrap:balance}
@@ -483,23 +499,78 @@ picture img{width:100%;height:100%;object-fit:cover}
 .welcome__arrow{width:3.5rem;height:auto;color:var(--gold);transform:rotate(90deg);margin-block:2.25rem 1.5rem}
 .welcome__arrow path{vector-effect:non-scaling-stroke}
 .welcome__source{margin-top:.75rem;text-align:center}
-.casa__strip .grid{row-gap:3.5rem;align-items:start}
-.casa__counter,.casa__photos{grid-column:1/-1}
-.casa__lantern{grid-column:1/-1;width:78%;margin-inline:auto;display:flex;flex-direction:column;align-items:center}
-.casa__lantern figcaption{text-align:center}
-.casa__lantern .arch__box{width:100%}
-.casa__icon{width:3.5rem;height:3.5rem;margin-bottom:2rem}
-@media (min-width:45rem){
-  .casa__strip .grid{row-gap:0}
-  .casa__counter{grid-column:1/6;margin-top:2rem}
-  .casa__lantern{grid-column:6/9;width:auto;margin-inline:12px;margin-top:-1rem}
-  .casa__photos{grid-column:9/13;margin-top:9rem}
+/* "Perché": four short facts */
+.perche{background:var(--cream-deep);padding-block:clamp(2.25rem,5vw,3.5rem);border-bottom:1px solid var(--line-soft);scroll-margin-top:1rem}
+.perche__list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.75rem 1.25rem;margin-top:1.5rem}
+.perche__list li{display:flex;flex-direction:column;gap:.75rem}
+.perche__list .icon{width:3rem;height:3rem}
+.perche__list p{font-size:.9375rem;line-height:1.45}
+@media (min-width:56.25rem){
+  .perche__list{grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem}
+  .perche__list li{flex-direction:row;align-items:flex-start;gap:1rem}
 }
 
-/* ---------- 15. Dish rows (home sections, menu page) ---------- */
-.dish-rows{display:flow-root;border-top:1px solid var(--line)}
-.dish-rows .dish{padding:1rem 0;border-bottom:1px solid var(--line-soft)}
-.dish-rows .dish__name{font-size:1.25rem}
+/* Gallery. Static state (no gallery-on): four arch tiles with captions, two per row from 45rem.
+   gallery-on (set in the head script, removed by main.js if the engine cannot start): the stage is
+   sticky inside a wrapper whose height is set here, frames and captions stacked, one is-current. */
+.gallery{--gh:min(100svh - 9.5rem,52rem);--step:33svh;--hold:16svh}
+.gallery__inner{width:var(--container);margin-inline:auto;padding-block:clamp(3rem,7vw,6rem)}
+.gallery__head{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem}
+.gallery__head .icon{width:3rem;height:3rem;color:var(--gold)}
+.gallery__list{display:grid;gap:3.5rem var(--gap)}
+.gallery__fig{max-width:34rem;margin-inline:auto;width:100%}
+.gallery__frame{aspect-ratio:4/5;overflow:hidden;-webkit-mask:var(--arch-mask) center/100% 100% no-repeat;mask:var(--arch-mask) center/100% 100% no-repeat}
+.gallery__caption{margin-top:1.25rem;text-align:center;font:italic 400 1.25rem/1.3 var(--font-display);color:var(--green)}
+.gallery__dots,.gallery__exit,.gallery__arch{display:none}
+.ph-sala-bancone-vista-cucina img{object-position:30% 50%}
+.ph-fotografie-storiche-siena-contrada img{object-position:52% 50%}
+.ph-amaro-al-bancone img{object-position:55% 50%}
+@media (min-width:45rem){.gallery__list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:44.99rem){.gallery{--gh:min(52svh,125vw);--step:40svh;--hold:12svh}}
+
+.gallery-on .gallery{height:calc(100svh + 3 * var(--step) + var(--hold))}
+.gallery-on .gallery__stage{position:sticky;top:0;height:100svh;overflow:clip}
+.gallery-on .gallery__inner{
+  height:100%;padding-block:calc(var(--header-h-solid) + 1rem) 1.5rem;
+  display:grid;column-gap:var(--gap);align-content:center;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-areas:"media" "head" "cap" "dots" "exit";
+}
+.gallery-on .gallery__list,.gallery-on .gallery__item,.gallery-on .gallery__fig{display:contents}
+.gallery-on .gallery__head{grid-area:head;margin:1rem 0 .5rem}
+.gallery-on .gallery__head .icon{width:2rem;height:2rem}
+.gallery-on .gallery__frame{
+  grid-area:media;z-index:1;width:auto;height:var(--gh);justify-self:center;align-self:center;
+}
+.gallery-on .gallery__frame.is-current{z-index:2}
+.gallery-on .gallery__frame:not(.is-current){clip-path:inset(100% 0 0 0)}
+.gallery-on .gallery__arch{
+  display:block;grid-area:media;z-index:3;pointer-events:none;justify-self:center;align-self:center;
+  width:calc(var(--gh) * .8 + 24px);height:calc(var(--gh) + 12px);transform:translateY(-6px);
+  fill:none;stroke:var(--gold);stroke-width:1.5;overflow:visible;
+}
+.gallery-on .gallery__caption{grid-area:cap;margin:0;text-align:left;font-size:1.5rem;min-height:2.6em}
+.gallery-on .gallery__caption:not(.is-current){visibility:hidden}
+.gallery-on .gallery__dots{grid-area:dots;display:flex;margin-left:-.9rem}
+.gallery-on .gallery__exit{grid-area:exit;display:inline-flex;justify-self:start}
+.gallery__dot{width:2.75rem;height:2.75rem;display:grid;place-items:center;padding:0;background:none;border:0;cursor:pointer;color:var(--soft)}
+.gallery__dot svg{width:14px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;opacity:.6;transition:transform var(--d1) var(--ease)}
+.gallery__dot.is-current svg{opacity:1;fill:var(--gold);stroke:var(--green);transform:scaleY(1.5)}
+@media (max-width:44.99rem){.gallery-on .gallery__inner{padding-bottom:calc(3.75rem + env(safe-area-inset-bottom))}}
+@media (max-height:44rem) and (max-width:44.99rem){.gallery{--gh:min(44svh,125vw)}}
+@media (min-width:45rem){
+  .gallery-on .gallery__inner{
+    grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:1fr auto auto auto auto 1fr;
+    grid-template-areas:". . . . . . . . . . . ." "head head head head head . media media media media media media" "cap cap cap cap cap . media media media media media media" "dots dots dots dots dots . media media media media media media" "exit exit exit exit exit . media media media media media media" ". . . . . . . . . . . .";
+    padding-block:calc(var(--header-h-solid) + 1rem) 2rem;
+  }
+  .gallery-on .gallery__frame,.gallery-on .gallery__arch{grid-row:1/-1}
+  .gallery-on .gallery__head{margin:0 0 1.25rem}
+  .gallery-on .gallery__head .icon{width:3rem;height:3rem}
+  .gallery-on .gallery__caption{font-size:clamp(1.9rem,3.2vw,3rem);min-height:2.4em}
+}
+
+/* ---------- 15. Dishes (menu page) ---------- */
 .dish__head{display:flex;align-items:baseline;gap:.75rem}
 .dish__name,.variant__name{font:400 1.3rem/1.2 var(--font-display);font-variation-settings:"opsz" 12;min-width:0}
 .dish__dots{flex:1 1 1.5rem;min-width:1.5rem;height:3px;align-self:baseline;background:radial-gradient(circle, currentColor 0 .8px, transparent 1.1px) left center/6px 3px repeat-x;opacity:.55}
@@ -518,9 +589,7 @@ picture img{width:100%;height:100%;object-fit:cover}
 .variant+.variant{margin-top:.75rem}
 .variant__name{font-size:1.0625rem;font-style:italic}
 /* On photos and on green the description and the hairlines turn light */
-.band .dish__desc,.section--green .dish__desc{color:rgb(255 250 223 / .9)}
-.band .dish-rows .dish,.section--green .dish-rows .dish{border-bottom-color:rgb(255 250 223 / .28)}
-.band .dish-rows{border-top-color:rgb(255 250 223 / .4)}
+.section--green .dish__desc{color:rgb(255 250 223 / .9)}
 
 @media (max-width:63.99rem){
   .dish__dots{display:none}
@@ -529,8 +598,17 @@ picture img{width:100%;height:100%;object-fit:cover}
 
 /* ---------- 16. La Tavola ---------- */
 .tavola__intro{padding-bottom:calc(var(--section) * .7)}
-.tavola__head{max-width:46rem}
-.tavola__head .dish-rows{margin-top:2.25rem}
+.tavola__head{display:grid;gap:1.5rem 4rem;align-items:start}
+.tavola__body{max-width:36em}
+@media (min-width:45rem){.tavola__head{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}}
+.food-index{margin-top:clamp(2.5rem,5vw,4rem);border-top:1px solid var(--line)}
+.food-index ul{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.25rem}
+.food-index a{display:flex;flex-direction:column;align-items:center;gap:.5rem;min-height:2.75rem;padding:1rem .125rem;text-decoration:none;text-align:center;font:600 .8125rem/1.2 var(--font-text)}
+.food-index span{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.food-index .icon{transition:transform var(--d1) var(--ease)}
+@media (hover:hover) and (pointer:fine){.food-index a:hover .icon{transform:translateY(-4px)}}
+@media (min-width:45rem){.food-index ul{grid-template-columns:repeat(7,minmax(0,1fr))}}
+.band[id]{scroll-margin-top:0}
 .boar{position:absolute;z-index:1;left:1.25rem;top:calc(44svh - 8rem);width:12.5rem;color:var(--cream);pointer-events:none}
 .boar::before{content:"";position:absolute;z-index:-1;inset:-1rem -1.25rem -.25rem;background:radial-gradient(ellipse at 50% 62%, rgb(15 15 13 / .7) 0%, rgb(15 15 13 / .45) 45%, rgb(15 15 13 / 0) 75%)}
 .boar__svg{width:100%;height:auto;overflow:visible}
@@ -539,70 +617,76 @@ picture img{width:100%;height:100%;object-fit:cover}
   .boar{left:max(1.25rem, calc(50% - 39rem));top:auto;bottom:0;width:clamp(13rem, 30vw, 27rem)}
   .boar::before{inset:-45% -12% 0 -12%;background:radial-gradient(ellipse at 50% 80%, rgb(15 15 13 / .72) 0%, rgb(15 15 13 / .45) 45%, rgb(15 15 13 / 0) 75%)}
 }
-.tavola__coccio .grid{row-gap:3rem;align-items:start}
+.tavola__coccio .grid{row-gap:3rem;align-items:center}
 .coccio__text{grid-column:1/-1;grid-row:1}
-.coccio__umido,.coccio__contorni{grid-column:1/-1}
+.coccio__media{grid-column:1/-1;grid-row:2}
+.coccio__contorni{width:50%;margin:-8% 0 0 auto;position:relative;z-index:1}
 @media (min-width:45rem){
-  .coccio__umido{grid-column:1/7;grid-row:2}
-  .coccio__contorni{grid-column:7/13;grid-row:2;margin-top:3.5rem}
-  .coccio__text{max-width:36rem}
+  .coccio__media{grid-column:1/8;grid-row:1}
+  .coccio__text{grid-column:8/13;grid-row:1}
 }
 @media (min-width:64rem){
-  .coccio__umido{grid-column:1/5;grid-row:1}
-  .coccio__contorni{grid-column:5/9;grid-row:1;margin-top:5rem}
-  .coccio__text{grid-column:9/13;grid-row:1;align-self:center;max-width:none}
+  .coccio__media{grid-column:1/9}
+  .coccio__text{grid-column:9/13}
 }
 
 /* ---------- 17. I Pici ---------- */
-.pici__draw{float:right;width:5.5rem;margin:0 0 1rem 1rem;color:var(--green)}
+.pici__draw{width:5.5rem;margin:0 0 1.5rem;color:var(--green)}
 .pici__svg{width:100%;height:auto;overflow:visible}
 .pici__text{display:flow-root}
 .pici__text>.kicker+h2{margin-top:1rem}
 .pici__text h2 .hl,.pici__text h2 .hl+em{white-space:normal}
-.pici__text .dish-rows{margin-top:2rem}
-.pici__photos{clear:both;margin-top:3.5rem;display:grid;gap:3rem}
+.pici__photos{margin-top:3.5rem}
 .pici__tile--a{width:92%}
-.pici__tile--b{width:92%;margin-left:auto}
+.pici__tile--b{width:60%;margin:-14% 0 0 0;position:relative;z-index:1}
 @media (min-width:56.25rem){
   .pici__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);align-items:start}
-  .pici__draw{float:none;grid-column:1/3;grid-row:1;position:sticky;top:18vh;width:100%;max-width:11rem;margin:0}
-  .pici__text{grid-column:3/7;grid-row:1}
+  .pici__draw{grid-column:1/3;grid-row:1;position:sticky;top:18vh;width:100%;max-width:11rem;margin:0}
+  .pici__text{grid-column:3/8;grid-row:1}
   .pici__text h2{font-size:clamp(2rem, 3.2vw, 3rem)}
-  .pici__photos{grid-column:7/13;grid-row:1;clear:none;margin-top:0;gap:4.5rem}
-  .pici__tile--a{width:86%}
-  .pici__tile--b{width:86%;margin-left:auto;margin-right:0}
+  .pici__photos{grid-column:8/13;grid-row:1;margin-top:0}
+  .pici__tile--a{width:100%}
+  .pici__tile--b{width:62%;margin:-16% 0 0 -4%}
 }
 
 /* ---------- 18. La Dispensa ---------- */
 .dispensa__body{background:var(--cream-deep)}
 .dispensa__head{max-width:46rem}
-.larder{display:grid;gap:2.5rem var(--gap);align-items:center;margin-top:clamp(4rem, 9vw, 7rem)}
+.larder{display:grid;gap:2.5rem var(--gap);align-items:center;margin-top:clamp(4rem, 9vw, 7rem);scroll-margin-top:1rem}
 .dispensa__head+.larder{margin-top:clamp(3.5rem, 7vw, 5.5rem)}
-.larder__text .dish-rows{margin-top:2rem}
-.larder__media{display:grid;gap:3rem}
+.larder__text .icon--mark{color:var(--green)}
+.larder__media,.tartufo__media,.tartufo__tiles,.larder__trio{display:grid;gap:2.5rem var(--gap)}
 .larder__big{width:100%}
-.larder__small{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.5rem var(--gap)}
-.larder__small--1>.tile{grid-column:2}
-.larder__small--3>.tile:last-child{grid-column:1/-1}
-.larder__small--3>.tile:last-child>.tile__box>picture{aspect-ratio:21/9}
+.larder-duo{display:grid;gap:clamp(4rem, 9vw, 7rem) var(--gap);margin-top:clamp(4rem, 9vw, 7rem)}
+.larder-duo .larder{margin-top:0;grid-template-columns:minmax(0,1fr);align-items:start}
+.larder-duo .tile__box>picture{aspect-ratio:3/2}
 @media (min-width:56.25rem){
   .larder{grid-template-columns:repeat(12,minmax(0,1fr))}
   .larder__text{grid-column:1/6}
   .larder__media{grid-column:7/13}
   .larder--flip .larder__text{grid-column:8/13;grid-row:1}
-  .larder--flip .larder__media{grid-column:1/7;grid-row:1}
-  .larder__small--2>.tile:nth-child(2){margin-top:2.5rem}
-  .larder__small--3{grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
-  .larder__small--3>.tile:last-child{grid-column:auto}
-  .larder__small--3>.tile:last-child>.tile__box>picture{aspect-ratio:auto}
-  .larder__small--3>.tile:nth-child(2){margin-top:1.5rem}
+  .larder--flip .larder__media{grid-column:1/8;grid-row:1}
+  .tartufo__media{grid-template-columns:minmax(0,4fr) minmax(0,3fr);align-items:center}
+  .larder--porcini .larder__trio{grid-column:1/-1;grid-row:2;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .larder-duo{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+  .larder-duo .larder__text,.larder-duo .larder__media{grid-column:auto}
 }
+
+/* Booking strip: desktop only, the phones have the fixed bar */
+.strip{display:none;background:var(--cream-deep);border-block:1px solid var(--line)}
+@media (min-width:45rem){.strip{display:block}}
+.strip__inner{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 2rem;padding-block:1.5rem}
+.strip .icon--tavola{width:3.75rem;height:3.75rem;color:var(--green)}
+.strip__title{margin-right:auto;font:400 clamp(1.5rem,2.6vw,2.125rem)/1.1 var(--font-display)}
+.strip__actions{display:flex;flex-wrap:wrap;gap:1rem}
 
 /* ---------- 19. Il Dolce ---------- */
 .dolce{padding-top:calc(var(--section) + 1.5rem)}
 .dolce .grid{row-gap:3.5rem;align-items:center}
 .dolce__text,.dolce__arch{grid-column:1/-1}
 .dolce__arch{margin-inline:12px}
+.dolce__more{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.5rem}
+.dolce__more .icon--large{width:4rem;height:4rem}
 .dolce__arch .arch__box{aspect-ratio:5/4}
 @media (min-width:56.25rem){
   .dolce__text{grid-column:1/6}
@@ -614,18 +698,20 @@ picture img{width:100%;height:100%;object-fit:cover}
 .wines__label{font:600 var(--fs-kicker)/1.4 var(--font-text);letter-spacing:.18em;text-transform:uppercase}
 .wines__list{margin-top:.75rem;border-top:1px solid rgb(255 250 223 / .4)}
 .wines__list li{padding:.6rem 0;border-bottom:1px solid rgb(255 250 223 / .4);font:400 1.25rem/1.3 var(--font-display);font-style:italic}
-.cantina__strip .grid{row-gap:3.5rem;align-items:start}
-.cantina__text{grid-column:1/-1}
+.cantina__strip .grid{row-gap:3rem;align-items:start}
+.cantina__text,.cantina__grotto{grid-column:1/-1}
 .cantina__icon{color:var(--green)}
-.cantina__door{grid-column:1/-1;width:78%;margin-inline:auto}
-.cantina__pour,.cantina__amaro{grid-column:span 2}
-.cantina__amaro{margin-top:2.5rem}
+.cantina__door{grid-column:1/-1;width:82%;margin-inline:auto}
+.band .icon--cream{margin-bottom:1.25rem}
 @media (min-width:45rem){
-  .cantina__strip .grid{row-gap:0}
-  .cantina__text{grid-column:1/5;grid-row:1;padding-top:1rem}
-  .cantina__amaro{grid-column:1/5;grid-row:2;margin-top:4rem}
-  .cantina__door{grid-column:5/9;grid-row:1/3;align-self:center;width:auto;margin-inline:24px 12px}
-  .cantina__pour{grid-column:9/13;grid-row:1/3;align-self:end;margin-bottom:2rem}
+  .cantina__text{grid-column:1/-1;grid-row:1;max-width:36rem}
+  .cantina__door{grid-column:1/6;grid-row:2;width:auto;margin-inline:0 12px}
+  .cantina__grotto{grid-column:6/13;grid-row:2;align-self:center}
+}
+@media (min-width:64rem){
+  .cantina__text{grid-column:1/4;max-width:none;padding-top:1rem}
+  .cantina__door{grid-column:4/8;grid-row:1;margin-inline:12px}
+  .cantina__grotto{grid-column:8/13;grid-row:1}
 }
 
 /* ---------- 21. La Contrada ---------- */
@@ -707,13 +793,18 @@ picture img{width:100%;height:100%;object-fit:cover}
   .map{grid-column:7/13}
 }
 
-/* Find us: hero on cream */
-.dove-hero{padding:calc(var(--header-h) + clamp(3rem, 8vw, 6rem)) 0 clamp(3.5rem, 8vw, 6rem);background:var(--cream)}
-.dove-hero__lead{margin-top:1.5rem;max-width:34em}
-.dove-hero__address{margin-top:2rem;padding-block:1.25rem;border-block:1px solid var(--line);max-width:38rem;font:400 clamp(1.9rem, 4.6vw, 3.5rem)/1.1 var(--font-display);letter-spacing:-.01em}
-.dove-hero__actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
-.dove-hero__actions .btn{flex:1 1 14rem}
-.dove-hero .kicker+h1{margin-top:1.25rem}
+/* Find us: hero on cream. The first screen holds address, directions, call, WhatsApp and the hours line */
+.dove-hero{padding:calc(var(--header-h) + clamp(1.25rem, 5vw, 4.5rem)) 0 clamp(1.5rem, 3vw, 2.5rem);background:var(--cream)}
+.dove-hero__lead{margin-top:1rem;max-width:34em}
+.dove-hero__address{margin-top:1.25rem;padding-block:.875rem;border-block:1px solid var(--line);max-width:38rem;font:400 clamp(1.5rem, 4.6vw, 3.5rem)/1.1 var(--font-display);letter-spacing:-.01em}
+.dove-hero__actions{display:flex;flex-wrap:wrap;gap:.5rem 1rem;margin-top:1.25rem}
+.dove-hero__actions .btn{flex:1 1 14rem;min-height:2.75rem}
+.dove-hero__hours{margin-top:1rem;display:grid;gap:.125rem;font-size:.9375rem;line-height:1.5}
+.dove-hero__hours strong{font-weight:600}
+.dove-hero .kicker+h1{margin-top:1rem}
+.dove-hero+.via{padding-top:clamp(2.5rem, 5vw, 4rem)}
+.via{padding-bottom:clamp(2.5rem, 6vw, 5rem)}
+.section.dove{padding-top:clamp(2.5rem, 6vw, 5rem)}
 @media (min-width:45rem){.dove-hero__actions .btn{flex:0 0 auto}}
 
 /* ---------- 23. Domande ---------- */
@@ -757,6 +848,12 @@ picture img{width:100%;height:100%;object-fit:cover}
   .site-footer__grid{grid-template-columns:1.4fr 1fr 1.2fr .8fr;gap:var(--gap)}
   .site-footer__legal{width:auto;margin-left:auto}
 }
+
+/* The Siena skyline along the top edge of the footer (home, wine list, Dove siamo) replaces the battlement line */
+.site-footer--sky::before{display:none}
+.site-footer--sky{padding-top:0}
+.site-footer__sky{padding-top:0;margin-bottom:clamp(2rem, 4vw, 3rem);border-bottom:1px solid var(--line)}
+.site-footer__skyline{display:block;width:100%;height:clamp(5.5rem, 12vw, 9rem);color:var(--gold)}
 
 /* ---------- 25. Menu page ---------- */
 /* The skyline is never cropped: the Torre del Mangia must show whole. Under 64rem it is a full-width
@@ -805,7 +902,9 @@ picture img{width:100%;height:100%;object-fit:cover}
 .menu-nav a:hover,.menu-nav a[aria-current]{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px}
 
 .menu-section{width:var(--container);max-width:52rem;margin-inline:auto;padding-block:clamp(3.5rem, 8vw, 6rem) 0;scroll-margin-top:calc(var(--header-h-solid) + 3rem)}
-.menu-section__title{display:flex;align-items:baseline;gap:1rem;font-size:var(--fs-h2);line-height:1;padding-bottom:1.25rem;border-bottom:1px solid var(--line)}
+.menu-section__title{display:flex;align-items:center;gap:1rem;font-size:var(--fs-h2);line-height:1;padding-bottom:1.25rem;border-bottom:1px solid var(--line)}
+.menu-section__icon{width:2.75rem;height:2.75rem;color:var(--green)}
+.menu-list .dish[id]{scroll-margin-top:calc(var(--header-h-solid) + 3.5rem)}
 .menu-section__num{font-style:italic;color:var(--soft);font-size:.55em}
 .menu-group__title{margin-top:2.5rem;font:600 var(--fs-kicker)/1.4 var(--font-text);letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
 .menu-list{margin-top:.5rem}
@@ -883,7 +982,21 @@ picture img{width:100%;height:100%;object-fit:cover}
 .page-text-body .site-header .logo--light{display:none}
 .page-text-body .site-header .logo--color{display:block}
 
-/* ---------- 28. Reduced motion ---------- */
+/* ---------- 28. Page transitions (cross-document View Transitions, progressive enhancement) ---------- */
+/* The old page fades out in .15 s, the new one opens with a pointed-arch wipe in .35 s, on the root only.
+   No view-transition-name on the header, the hero or the h1. main.js skips it when a page opening plays. */
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  ::view-transition-old(root){animation:odr-vt-out .15s linear both}
+  ::view-transition-new(root){animation:odr-vt-in .35s var(--ease) both}
+  @keyframes odr-vt-out{to{opacity:0}}
+  @keyframes odr-vt-in{
+    from{clip-path:polygon(38% 100%,38% 100%,50% 100%,62% 100%,62% 100%)}
+    to{clip-path:polygon(-10% 100%,-10% -50%,50% -120%,110% -50%,110% 100%)}
+  }
+}
+
+/* ---------- 29. Reduced motion ---------- */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:0s !important;scroll-behavior:auto !important}
 }

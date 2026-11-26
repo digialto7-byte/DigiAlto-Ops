@@ -1,5 +1,5 @@
-<footer class="site-footer battlement">
-  <div class="container site-footer__grid">
+<footer class="site-footer battlement{{footer_class}}">
+  {{skyline}}  <div class="container site-footer__grid">
     <div class="site-footer__brand">
       <img class="site-footer__logo" src="{{a}}assets/img/logo-osteria-dei-rossi-chiaro-360.webp" srcset="{{a}}assets/img/logo-osteria-dei-rossi-chiaro-360.webp 360w, {{a}}assets/img/logo-osteria-dei-rossi-chiaro-720.webp 720w" sizes="150px" width="360" height="185" alt="{{alt:logo}}" loading="lazy" decoding="async">
       <p>{{c:global-footer.positioning_line}}</p>
