@@ -1,10 +1,10 @@
 {
- "source": "Printed carta dei vini, pages 3 to 7, photographed by the founder and transcribed on 2026-11-25. Approved for the website without prices; the founder proofreads the names.",
+ "source": "Printed carta dei vini, pages 3 to 7, photographed by the founder and transcribed on 2026-11-25. Approved for the website without prices; the founder proofreads the names. Entries marked \"proofread\": false are readings still waiting for that check: they show on the page but stay out of the structured data.",
  "groups": [
   {"id": "rossi", "it": "Vini rossi", "en": "Red wines", "sections": [
    {"it": "Chianti", "en": "Chianti", "wines": [
     {"name": "Chianti Classico Selvolini Gallo Nero", "producer": "Azienda agricola Selvolini"},
-    {"name": "Chianti Domasco DOC", "producer": "Tenuta Ripalta"},
+    {"name": "Chianti Domasco DOC", "producer": "Tenuta Ripalta", "proofread": false},
     {"name": "Chianti Colli Senesi La Foresta", "producer": ""},
     {"name": "Chianti Classico Due Lame", "producer": "Lamole di Lamole"},
     {"name": "Chianti Classico Maggiolo", "producer": "Lamole di Lamole"}]},
@@ -25,9 +25,9 @@
    {"it": "IGT toscani", "en": "Tuscan IGT", "wines": [
     {"name": "IGT L'Osteria", "producer": "Tenute Selvolini"},
     {"name": "Inedito", "producer": "Terre del Marchesato"},
-    {"name": "IGT Barricato", "producer": "Poggio Canzano"},
+    {"name": "IGT Barricato", "producer": "Poggio Canzano", "proofread": false},
     {"name": "Morellino di Scansano", "producer": "Santa Lucia"},
-    {"name": "Merlot", "producer": "Poggio Canzano"}]},
+    {"name": "Merlot", "producer": "Poggio Canzano", "proofread": false}]},
    {"it": "Dal Nord Italia", "en": "From northern Italy", "wines": [
     {"name": "Nebbiolo Langhe", "producer": "Cascina Chicco"},
     {"name": "Barbera d'Alba", "producer": "Cascina Chicco"},
@@ -40,7 +40,7 @@
     {"name": "Chardonnay", "producer": "La Ripalta"},
     {"name": "Vermentino", "producer": "La Francesca"},
     {"name": "Pinot Grigio", "producer": "Sdricca"},
-    {"name": "Bolgheri Bianco Papero", "producer": "Terre del Marchesato"},
+    {"name": "Bolgheri Bianco Papero", "producer": "Terre del Marchesato", "proofread": false},
     {"name": "Pinot Bianco", "producer": "Kettmeir"},
     {"name": "Vernaccia di San Gimignano", "producer": "Guicciardini Strozzi"},
     {"name": "Vernaccia Riserva", "producer": "Guicciardini Strozzi"},
