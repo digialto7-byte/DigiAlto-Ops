@@ -411,13 +411,13 @@ Sources: profile.md (including "Welcome, food and wine (website version 2, 2026-
 **IT**
 - h3_line1: La fiorentina
 - h3_em: *al peso*
-- body: Ogni settimana Alessio, il nostro macellaio di fiducia, sceglie la selezione: tagli diversi, di razze diverse. La bistecca alla fiorentina va alla griglia e si paga al peso: il peso lo scegliete voi. È uno dei piatti consigliati dall'Oste. Il prezzo per 100 g è nel menù.
+- body: Ogni settimana Alessio, il nostro macellaio di fiducia, sceglie la selezione: tagli diversi, di razze diverse. La bistecca alla fiorentina va alla griglia e si paga al peso, che scegliete voi. È uno dei piatti consigliati dall'Oste. Il prezzo per 100 g è nel menù.
 - link: La fiorentina, nel menù
 
 **EN**
 - h3_line1: The fiorentina
 - h3_em: *by weight*
-- body: Every week Alessio, our trusted butcher, chooses the selection: different cuts, from different breeds. The bistecca alla fiorentina is cooked on the grill and priced by weight: you choose the weight. It is one of the dishes the Oste recommends. The price per 100 g is on the menu.
+- body: Every week Alessio, our trusted butcher, chooses the selection: different cuts, from different breeds. The bistecca alla fiorentina is cooked on the grill and priced by the weight you choose. It is one of the dishes the Oste recommends. The price per 100 g is on the menu.
 - link: The fiorentina, on the menu
 
 **Facts used:** weekly selection by Alessio, the trusted butcher; Griglia section; "Consigliato dall'Oste" on Bistecca alla Fiorentina (sources/menu-live-2026-11-24.md, Griglia; profile.md, Offer, key products); different cuts and different breeds (Place and story, photo captions); weight items priced per 100 g, the waiter enters the weight the guest asks for, so the guest chooses the weight, not the cut (Offer, dishes priced by weight). The price itself is on the menu page only. The Gambero Rosso line is now in `perche` only.
