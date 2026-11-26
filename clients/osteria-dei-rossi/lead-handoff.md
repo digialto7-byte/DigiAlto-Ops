@@ -66,7 +66,7 @@ Merged by lead V2 (lead read of every migration, CI green on each head):
   #213 (M6: kitchen board by uscita; legacy kitchen bodies get 22023; runbook: deploy outside service, reload kitchen devices).
 - Records for #208–#213 are in `context.md` and `runs.jsonl`.
 
-**Build order:** comanda PR 4 (steps 17–19 + docs) → the screens in ONE Sonnet session (opening stock PR 5 = steps 20–25 incl. the
+**Build order (superseded 2026-11-26: SP2–SP7 come right after #214):** comanda PR 4 (steps 17–19 + docs) → the screens in ONE Sonnet session (opening stock PR 5 = steps 20–25 incl. the
 §3.12 draft-race note; comanda PR 5 = steps 15–16 kitchen card + Playwright, plus the PR 4 UI; known UI notes: a queued drink without a
 course shows as 1; a legacy segue edit moves 3→2) → P2-4 alert rules (2026120623*, pgTAP 397–406) → SP2.
 
@@ -97,7 +97,8 @@ P2-4; remove "segue" at least 30 days after go-live.
 - V5 (own booking host) is a paid feature, built after SP5. Vercel stays Hobby until tested; upgrade plan before any sale.
 - Resend: one DigiAlto account for all tenants; From the venue's name on `mail.<costi-domain>`, Reply-To the venue.
 - New asks: Costì admin (= SP2–SP7), tenant brand kit from client websites (feeds SP9), and a tenant-scoped Claude
-  connector (MCP + OAuth, read-only first, behind an SP5 switch). Q1–Q3 in the plan are open.
+  connector (MCP + OAuth, read-only first, behind an SP5 switch). Q1–Q3 answered: Costì admin (SP2–SP7) right after #214; the Claude connector is planned after SP5;
+  the app host is `app.<digialto-domain>` (console `console.<digialto-domain>`).
 
 ## Standing founder rules
 - "Vercel plan is hobby; this is not paid work. Continue and auto-merge without approval. Only ask
