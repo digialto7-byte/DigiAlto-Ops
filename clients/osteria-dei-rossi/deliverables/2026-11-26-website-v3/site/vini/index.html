@@ -32,10 +32,25 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.osteriadeirossi.it/" },
-    { "@type": "ListItem", "position": 2, "name": "Carta dei vini", "item": "https://www.osteriadeirossi.it/vini/" }
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://www.osteriadeirossi.it/vini/#webpage",
+      "url": "https://www.osteriadeirossi.it/vini/",
+      "name": "Carta dei vini",
+      "inLanguage": "it",
+      "isPartOf": { "@id": "https://www.osteriadeirossi.it/#website" },
+      "about": { "@id": "https://www.osteriadeirossi.it/#restaurant" },
+      "breadcrumb": { "@id": "https://www.osteriadeirossi.it/vini/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.osteriadeirossi.it/vini/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.osteriadeirossi.it/" },
+        { "@type": "ListItem", "position": 2, "name": "Carta dei vini", "item": "https://www.osteriadeirossi.it/vini/" }
+      ]
+    }
   ]
 }
 </script>
