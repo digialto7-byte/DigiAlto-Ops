@@ -108,7 +108,7 @@ Rule applied: no price, no dish row on the home page; dish named inside the expl
 ## 7. Risks
 
 **Sentences that lean on something the profile does not support**
-1. `cinta` caption "Il gran tagliere di salumi" sits in the Cinta block. Photo 8 shows prosciutto, salame, lardo, crostini: nothing says it is Cinta. Move it or add "Cinta" nowhere.
+1. `cinta` caption "Il gran tagliere di salumi" sits in the Cinta block. Photo 8 shows prosciutto, salame, lardo, crostini: nothing says it is Cinta. Move the photo to the taglieri block.
 2. Truffle "fresco, tutto l'anno" (founder caption) next to menu "Tagliatelle al Tartufo di Stagione" and the porcini "di stagione" in the adjacent block. The deck admits it does not reconcile them. Ask the founder; until then avoid "di stagione" and "tutto l'anno" in the same block.
 3. `casa` "Dal bancone si vede la cucina: lì c'è Luca". Source says Luca is in the kitchen, not that he is visible at the counter at every service. Direction: "in cucina c'è Luca".
 4. `contrada` "ispirazione, per chi cucina e per chi siede a tavola". Source says only "as inspiration". "Per chi cucina" is added.
