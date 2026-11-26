@@ -112,7 +112,7 @@
 </section>
 
 <!-- ============ Chiusura ============ -->
-<div class="section">
+<div class="section section--follow">
   <div class="container domande__inner">
     <ul class="stack" data-reveal-group>
       <li data-reveal><a class="link" href="{{u:home}}">{{c:dove-page.closing_link_story}} {{arrow}}</a></li>

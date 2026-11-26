@@ -931,7 +931,7 @@ Rules as in `seo.md` 4.1: links stay inside the language; internal links are wri
 | Footer, every page | `/dove-siamo/` · `/en/find-us/` | `Dove siamo e come arrivare` | `Find us and how to get here` |
 | Home `#cantina`, button | `/vini/` · `/en/wine-list/` | `Apri la carta dei vini` | `Open the wine list` |
 | Home `#contrada`, text link | `/dove-siamo/` · `/en/find-us/` | `Dove siamo` | `Find us` |
-| Home `#prenota`, text link | `/dove-siamo/#mappa` · `/en/find-us/#mappa` | `Mappa e come arrivare` | `Map and directions` |
+| Home `#prenota`, text link | `/dove-siamo/` · `/en/find-us/` | `Dove siamo e come arrivare` | `Where we are and how to get here` |
 | Home `#pici`, text link | `/menu/#primi` | `I primi piatti del menù` | `The first courses on the menu` |
 | Home `#tavola`, dolceforte | `/menu/#secondi` | `Il cinghiale in dolceforte, nel menù` | `Cinghiale in dolceforte, on the menu` |
 | Home `#dispensa`, fiorentina button | `/menu/#griglia` | `Bistecca alla fiorentina, a peso` | `Bistecca alla fiorentina, by weight` |
