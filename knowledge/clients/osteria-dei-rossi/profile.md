@@ -113,6 +113,13 @@ From the founder's captions of the second photo set (src: sources/photos-2026-11
 - Tagliatelle al ragù di Cinta; tagliatelle al ragù; tagliatelle al tartufo fresco
 - A dish in these photos that is not on the live menu of 2026-11-24 may be shown and named on the home page, but takes no price and no menu-page entry until the founder adds it to the menu.
 
+## Website rules (version 3, 2026-11-26)
+
+Decided by the founder on 2026-11-26 (src: sources/founder-website-feedback-2026-11-26.md):
+- Food prices appear only on the menu page. The home page shows no price and no dish row (name, price, menu description); a dish is named inside the explanation of the food where it is worth it.
+- Version 2 of the website is kept as it is (`clients/osteria-dei-rossi/deliverables/2026-11-24-website/`); version 3 is a separate folder.
+- The animations of version 2 (gate, menu book, wine pour, pici, boar) are approved and stay.
+
 ## Operations (build-relevant)
 - Fiscal register: RCH LDP03 (ASSO 3, Xstore back office); it only fiscalizes sales and exports supplier invoices as PDF; it stays in use, keyed in separately by the cashier [unverified] (src: sources/prd-2026-10-21.md)
 - No POS integration and no RCH integration in either direction [unverified] (src: sources/prd-2026-10-21.md)
@@ -161,6 +168,7 @@ From the founder's captions of the second photo set (src: sources/photos-2026-11
 - `sources/photos-2026-11-25.md` — catalogue of the second photo set (14 dishes), with the founder's captions.
 - `sources/wine-list-2026-11-25.md` and `.json` — the printed carta dei vini, transcribed from the founder's photos (the `.md` keeps the printed prices for reference; the `.json` has no prices and feeds the website).
 - `clients/osteria-dei-rossi/deliverables/2026-11-24-website/research_notes/` and `reports/` — web research of 2026-11-24 (the osteria's own listings, Siena search results, competitor sites, place and food history). Research, not approved facts.
+- `sources/founder-website-feedback-2026-11-26.md` — the founder's feedback on website version 2 and the brief for version 3 (no prices and no dish rows on the home page).
 
 ## Open questions
 - Website (2026-11-24): real opening hours and Sunday; the public name (with or without "L'"); the site's domain; which email and Facebook page are live; whether the history and the people (1992, Beppe Carrieri, Luca and Max) may be named; the booking channel besides the phone
