@@ -7,7 +7,7 @@ Writes site/index.html, site/en/index.html, the menu, wine-list (vini), find-us 
 pages in both languages, site/404.html, site/robots.txt and site/sitemap.xml.
 
 Every visible text comes verbatim from copy.md (IT or EN slots); title, meta, Open Graph, FAQ,
-JSON-LD and the sitemap come verbatim from seo-v2.md (pages P.1 to P.8, alt texts A, questions
+JSON-LD and the sitemap come verbatim from seo-v3.md (pages P.1 to P.8, alt texts A, questions
 Q.1 to Q.6, JSON-LD J.1 to J.6, S.1); privacy, 404, alt texts 1 to 20, the menu breadcrumb and
 robots.txt from seo.md; the dish sections and the Menu JSON-LD are the generated files in
 assets/menu/, the wine list and its JSON-LD the generated files in assets/vini/, copied byte
@@ -95,9 +95,9 @@ def italic(v):
     return v.strip('*')
 
 
-# ---------------------------------------------------------------- seo.md and seo-v2.md
+# ---------------------------------------------------------------- seo.md and seo-v3.md
 SEO = (R / 'seo.md').read_text(encoding='utf-8')
-SEO2 = (R / 'seo-v2.md').read_text(encoding='utf-8')
+SEO2 = (R / 'seo-v3.md').read_text(encoding='utf-8')
 
 
 def seo_section(title_start, text=None):
@@ -115,7 +115,7 @@ def table_value(section_text, label):
     return m.group(1)
 
 
-# page spec of seo-v2.md by kind and language
+# page spec of seo-v3.md by kind and language
 SPEC = {('home', 'it'): 'P.1 ', ('home', 'en'): 'P.2 ', ('menu', 'it'): 'P.3 ', ('menu', 'en'): 'P.4 ',
         ('vini', 'it'): 'P.5 ', ('vini', 'en'): 'P.6 ', ('dove', 'it'): 'P.7 ', ('dove', 'en'): 'P.8 '}
 
@@ -154,7 +154,7 @@ def code_block(section_title, lang_tag, text=None):
     return m.group(1)
 
 
-# alt texts: seo.md section 3 (rows 1 to 20 and the logo) and seo-v2.md section A (rows 21 to 34)
+# alt texts: seo.md section 3 (rows 1 to 20 and the logo) and seo-v3.md section A (rows 21 to 34)
 ALTS = {'it': {}, 'en': {}}
 ALT_ROW = r'^\| (\d+) \| `([^`]+)` \| (.+?) \(\d+\) \| (.+?) \(\d+\) \|\s*$'
 for line in SEO.split('\n## 3. Alt text', 1)[1].split('\n## ', 1)[0].splitlines():
