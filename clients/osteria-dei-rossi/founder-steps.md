@@ -111,9 +111,9 @@ In order. Each step says where you do it.
    for the console.
 3. **Find where that domain's DNS lives**: if its nameservers point to Bluehost, the records go in Bluehost's DNS zone; otherwise in
    GoDaddy's. Check the domain's nameservers in GoDaddy first.
-4. **Vercel → project `osteria-dei-rossi-app` → Settings → Domains**: add the app and console hosts; add the CNAME records Vercel
-   shows at the DNS host from step 3; wait for "Valid configuration".
-5. **Vercel env (Production)**: `CONSOLE_HOST`, `APP_ORIGIN`, `APP_PUBLIC_ORIGIN` with the new hosts (FS-2). Tell the lead; it
+4. **DONE 2026-11-27**: `app.digialto.com` and `console.digialto.com` added in Vercel, CNAMEs at Bluehost, both verified by the lead. (Was: **Vercel → project `osteria-dei-rossi-app` → Settings → Domains**: add the app and console hosts; add the CNAME records Vercel
+   shows at the DNS host from step 3; wait for "Valid configuration".)
+5. **Vercel env (Production)**: `APP_ORIGIN` and `APP_PUBLIC_ORIGIN` = `https://app.digialto.com` now; `CONSOLE_HOST` = `console.digialto.com` only when SP3 (the console's backend) is merged, the lead says when (FS-2). Tell the lead; it
    updates Vault `app_base_url` and removes `vercel_protection_bypass` (FREE-3).
 6. **Resend (DigiAlto's account)**: sign up (EU region if offered); add the sending domain `mail.<digialto-domain>`; add its SPF,
    DKIM and DMARC records at the DNS host from step 3; wait for "Verified".
