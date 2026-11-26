@@ -35,8 +35,15 @@
  *   [data-reveal], [data-reveal-group], [data-mask], [data-arch-line], [data-draw],
  *   [data-draw="map"] with the mappa-* ids and .map__label, [data-parallax], a[href^="#"]
  *   optional: [data-tone="dark|light"], data-label-open / data-label-close on #menu-toggle
+ *   gallery (home): [data-gallery] > [data-gallery-stage], [data-gallery-frame],
+ *     [data-gallery-caption], button[data-gallery-dot], [data-gallery-arch] path (is-current,
+ *     aria-current); the exit link is an ordinary a[href^="#"]
+ *   h2[data-reveal] > .hl + em (the two lines rise one after the other)
+ *   line icons with [data-draw] that make one small move after drawing: see ICON_MOVES
+ *   svg.site-footer__skyline[data-draw] with #skyline-torre, .battlement, .lang a[hreflang]
  * Classes set on <html>
  *   motion-ready, motion-off, intro-playing, intro-done, menu-open, menu-closing, header-hidden
+ *   gallery-on is set by the inline head script and removed here when the gallery cannot run
  * Custom property set on <html>: --odr-header-h (height of the fixed header in px)
  * Session storage: "odr-intro", the keys of the intros shown in this session, one letter each
  *   (g gate, m menu book, v wine-list pour; the old value "1" reads as "g"). Keys are added,
@@ -105,6 +112,11 @@
 
   /* The boar: the legs that move together, their swing, the four steps, the nod. */
   const BOAR = { pairs: [1, -1, -1, 1], swing: 7, steps: [0.24, 0.28, 0.34, 0.4], walk: 1.5, snout: 452, hooves: '160 262', nod: 1.8 };
+
+  /* The "La casa" gallery: a change of photo runs on its own clock (seconds), not on the scroll. */
+  const GALLERY = { change: 0.35, out: 0.12, into: 0.25, rise: 8, jump: 0.6 };
+  const LINE_HEADINGS = 'h2'; // headings whose two lines rise one after the other
+  const LINE = { duration: 0.5, gap: 0.08, drop: 0.25 }; // drop: em kept under the line for descenders
 
   /* ---------- Small helpers ---------- */
 
@@ -348,6 +360,7 @@
       }
     }
     const headerHeight = ui.header ? ui.header.offsetHeight : 0;
+    measureGallery();
 
     /* Writes */
     if (ui.header && headerHeight !== ui.headerHeight) {
@@ -378,6 +391,7 @@
     if (!S.phone) {
       setHeaderHidden(false);
     }
+    syncGallery(true); // after a load or a resize the photo of the place is simply there
     flush();
   }
 
@@ -471,6 +485,8 @@
         }
       }
     }
+
+    syncGallery();
 
     /* At the very end of the page some start lines can no longer be reached: play what is left. */
     if (S.pending && S.pending.size && y >= ui.max - 2 && !(S.intro && S.intro.playing)) {
@@ -660,8 +676,10 @@
     const rectTop = target ? target.getBoundingClientRect().top : 0;
     const top = target ? Math.max(0, Math.round(rectTop + scrollTop() - anchorOffset(target, rectTop))) : 0;
     if (S.lenis) {
-      /* A number, not the element: Lenis would subtract scroll-padding and scroll-margin again. */
-      S.lenis.scrollTo(top, { duration: 1, force: true });
+      /* A number, not the element: Lenis would subtract scroll-padding and scroll-margin again.
+         The gallery does not run through its photos while the page travels past it. */
+      holdGallery(1);
+      S.lenis.scrollTo(top, { duration: 1, force: true, onComplete: releaseGallery });
     } else {
       try {
         win.scrollTo({ top, behavior: S.motionPref ? 'smooth' : 'instant' });
@@ -705,7 +723,26 @@
         } catch (error) {
           /* file:// in some browsers: the scroll has happened, the address stays as it is */
         }
+        keepAnchor();
       }
+    });
+    listen(win, 'hashchange', keepAnchor);
+    listen(win, 'popstate', keepAnchor);
+    keepAnchor();
+  }
+
+  /* The language switch keeps the anchor of the address: /#pici leads to /en/#pici (the ids are
+     the same on both languages). The links themselves are rewritten, so every way of following
+     them works. */
+  function keepAnchor() {
+    let hash = win.location.hash;
+    try {
+      hash = hash.length > 1 && byId(decodeURIComponent(hash.slice(1))) ? hash : '';
+    } catch (error) {
+      hash = '';
+    }
+    qsa('.lang a[hreflang]').forEach((link) => {
+      link.setAttribute('href', (link.getAttribute('href') || '').split('#')[0] + hash);
     });
   }
 
@@ -832,17 +869,50 @@
       return;
     }
     fresh.forEach((element) => played.add(element));
+    const plain = fresh.filter((element) => !S.lines.has(element));
     S.ctx.add(() => {
-      S.gsap.to(fresh, {
-        opacity: 1,
-        y: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        stagger: 0.08,
-        overwrite: 'auto',
-        clearProps: 'opacity,transform,transition'
+      if (plain.length) {
+        S.gsap.to(plain, {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power3.out',
+          delay: (index, element) => fresh.indexOf(element) * 0.08, // one rhythm for texts and headings
+          overwrite: 'auto',
+          clearProps: 'opacity,transform,transition'
+        });
+      }
+      /* A two-line heading takes its turn in the same rhythm, its italic line 80 ms later. */
+      fresh.forEach((element, index) => {
+        (S.lines.get(element) || []).forEach((line, number) => {
+          const state = { amount: 1 };
+          S.gsap.to(state, {
+            amount: 0,
+            duration: LINE.duration,
+            delay: index * 0.08 + number * LINE.gap,
+            ease: 'power3.out',
+            onUpdate: () => setLine(line, state.amount)
+          });
+        });
       });
     });
+  }
+
+  /* A heading line waits below its own lower edge, cut off there as if behind a hairline, and
+     rises into place: `amount` 1 = out of sight, 0 = in place (nothing is left on the element).
+     The edge lies a little under the line box, so descenders are not cut while it rises. */
+  function setLine(line, amount) {
+    const style = line.style;
+    if (amount <= 0) {
+      style.display = '';
+      style.transform = '';
+      style.clipPath = '';
+      return;
+    }
+    const share = (amount * 100).toFixed(2) + '% + ' + (amount * LINE.drop).toFixed(3) + 'em';
+    style.display = 'block'; // the upright line is an inline span: only a block can be moved
+    style.transform = 'translate3d(0,calc(' + share + '),0)';
+    style.clipPath = 'inset(-0.5em -0.5em calc(' + share + ' - ' + LINE.drop + 'em) -0.5em)';
   }
 
   function setMask(element, amount) {
@@ -908,11 +978,96 @@
           { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.9, ease: 'power2.inOut', clearProps: 'clipPath' }, 0);
       } else if (element.getAttribute('data-draw') === 'map') {
         drawMap(timeline, element, nodes);
+      } else if (element.matches('.site-footer__skyline')) {
+        /* The skyline along the footer: the sweep of the menu's book at a slower pace (0.9 s). */
+        clearDashes(timeline, addSkyline(timeline, element, qs('#skyline-torre', element), null, 1.28), 0.95);
       } else {
-        clearDashes(timeline, addDrawing(timeline, nodes, 0, 0.9), 0.92);
+        const move = ICON_MOVES.find((entry) => entry.count === nodes.length && element.matches(entry.on));
+        const late = move ? move.late.map((number) => nodes[number]) : [];
+        const length = move ? move.draw : 0.9;
+        clearDashes(timeline, addDrawing(timeline, nodes.filter((node) => late.indexOf(node) === -1), 0, length), length + 0.02);
+        if (move) {
+          move.play(timeline, nodes, move.at);
+          timeline.set(nodes, { clearProps: 'transform,opacity' });
+        }
       }
       gsap.set(element, { clearProps: 'visibility' });
     });
+  }
+
+  /* ---------- Line icons: one small move after the drawing ---------- */
+
+  /* Each plays once, as its icon finishes drawing itself, and ends on the drawing as it is in
+     the file. `on` finds the icon, `count` is the number of shapes the move was written for (an
+     icon that is drawn again keeps its plain drawing), `late` are the shapes the move brings in
+     itself, `draw` is the length of the drawing and `at` the start of the move, in seconds.
+     Shapes are taken by their order, so a second copy without ids works too; distances are
+     units of the 64 grid. The pig (#cinta) only draws: a flick of its ear did not read at
+     56 px. The marks beside the menu's headings only draw, as planned. */
+  const ICON_MOVES = [
+    { on: '.tavola__titles > svg', count: 4, late: [3], draw: 0.6, at: 0.5, play: moveSteam },
+    { on: '.icon--stadera', count: 3, late: [], draw: 0.7, at: 0.75, play: moveSteelyard },
+    { on: '.dolce__more > svg', count: 3, late: [], draw: 0.7, at: 0.75, play: moveDip },
+    { on: '.icon--tavola', count: 3, late: [1, 2], draw: 0.5, at: 0.4, play: moveTable },
+    { on: '#tartufo .larder__text > svg', count: 7, late: [6], draw: 0.8, at: 0.7, play: moveShaving },
+    { on: '#spaghetti .larder__text > svg', count: 2, late: [], draw: 0.7, at: 0.75, play: moveFork },
+    { on: '#porcini .larder__text > svg', count: 3, late: [0], draw: 0.6, at: 0.5, play: moveMushroom }
+  ];
+
+  /* The steam of the bowl rises and thins out, then rises again and stays. */
+  function moveSteam(timeline, shapes, at) {
+    const steam = shapes[3];
+    timeline.fromTo(steam, { y: 5, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: 'power1.out' }, at);
+    timeline.to(steam, { y: -5, opacity: 0, duration: 0.35, ease: 'power1.in' }, at + 0.3);
+    timeline.fromTo(steam, { y: 5, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.45, ease: 'power2.out', immediateRender: false }, at + 0.7);
+  }
+
+  /* The weight slides out along the beam to its notch; the steelyard, hanging from its ring,
+     tips to that side and settles level. */
+  function moveSteelyard(timeline, shapes, at) {
+    const ring = '20 10';
+    timeline.fromTo(shapes[2], { x: -11, svgOrigin: ring }, { x: 0, duration: 0.6, ease: 'power2.inOut' }, at);
+    timeline.to(shapes, { rotation: 6, svgOrigin: ring, duration: 0.16, ease: 'power2.out' }, at + 0.6);
+    timeline.to(shapes, { rotation: 0, duration: 0.34, ease: 'back.out(3)' }, at + 0.76);
+  }
+
+  /* The cantuccio dips into the glass along its own axis and comes back; the wine redraws. */
+  function moveDip(timeline, shapes, at) {
+    const wine = shapes[1];
+    const length = strokeLength(wine, true) + 'px';
+    timeline.to(shapes[2], { x: -4.5, y: 7.8, duration: 0.3, ease: 'power2.in' }, at);
+    timeline.to(shapes[2], { x: 0, y: 0, duration: 0.45, ease: 'back.out(1.6)' }, at + 0.42);
+    timeline.fromTo(wine, { strokeDasharray: length, strokeDashoffset: length },
+      { strokeDashoffset: '0px', duration: 0.4, ease: 'power2.out', immediateRender: false }, at + 0.28);
+    clearDashes(timeline, [wine], at + 0.7);
+  }
+
+  /* The napkin is drawn; the fork is laid down at its left, then the knife at its right. */
+  function moveTable(timeline, shapes, at) {
+    [[shapes[1], -1, '13.5 52'], [shapes[2], 1, '50.5 52']].forEach((item, index) => {
+      timeline.fromTo(item[0], { y: -9, rotation: 14 * item[1], opacity: 0, svgOrigin: item[2] },
+        { y: 0, rotation: 0, opacity: 1, duration: 0.25, ease: 'power2.out' }, at + index * 0.25);
+    });
+  }
+
+  /* A shaving falls from the truffle and comes to rest beside it. */
+  function moveShaving(timeline, shapes, at) {
+    timeline.fromTo(shapes[6], { x: -4, y: -10, rotation: -35, opacity: 0, svgOrigin: '53 51' },
+      { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.45, ease: 'power1.in' }, at);
+  }
+
+  /* The fork turns a little with its pasta and comes back. */
+  function moveFork(timeline, shapes, at) {
+    timeline.to(shapes, { rotation: 15, svgOrigin: '32 32', duration: 0.2, ease: 'power2.out' }, at);
+    timeline.to(shapes, { rotation: 0, duration: 0.35, ease: 'back.out(2.5)' }, at + 0.2);
+  }
+
+  /* The cap of the porcino comes down on its stem; the grass beside it sways once. */
+  function moveMushroom(timeline, shapes, at) {
+    timeline.fromTo(shapes[0], { y: -8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'bounce.out' }, at);
+    timeline.to(shapes[2], { rotation: 14, svgOrigin: '50 56', duration: 0.15, ease: 'power1.out' }, at + 0.2);
+    timeline.to(shapes[2], { rotation: 0, duration: 0.4, ease: 'back.out(3)' }, at + 0.35);
   }
 
   function setupParallax(image) {
@@ -995,9 +1150,18 @@
       .filter((element) => !played.has(element))
       .map((element) => ({ element, mode: modeOf(element) }));
 
-    /* Then write. Reveals: fade and rise 24 px, groups stagger. */
-    if (reveals.length) {
-      gsap.set(reveals, { opacity: 0, y: 24, transition: 'none' });
+    /* Then write. Reveals: fade and rise 24 px, groups stagger. A heading made of an upright
+       line and an italic line stays where it is: its two lines rise instead (never the h1). */
+    reveals.forEach((element) => {
+      const lines = element.matches(LINE_HEADINGS) ? qsa('.hl,em', element) : [];
+      if (lines.length === 2 && lines.every((line) => line.parentElement === element)) {
+        S.lines.set(element, lines);
+        lines.forEach((line) => setLine(line, 1));
+      }
+    });
+    const faded = reveals.filter((element) => !S.lines.has(element));
+    if (faded.length) {
+      gsap.set(faded, { opacity: 0, y: 24, transition: 'none' });
     }
     groups.forEach((entry) => {
       schedule(entry.mode, entry.group, revealStart(entry.items.indexOf(entry.group) !== -1), () => playReveal(entry.items));
@@ -1036,6 +1200,17 @@
 
     /* Line drawing: arch outlines, arrows, battlement, timeline, map */
     drawings.forEach((entry) => setupDrawing(entry.element, entry.mode));
+
+    /* The battlement line of a section further down uncovers from the left (motion.css). */
+    qsa('.battlement').forEach((section) => {
+      if (!played.has(section) && modeOf(section) === 'scroll') {
+        section.classList.add('is-waiting');
+        arm(section, 'top 85%', () => {
+          played.add(section);
+          section.classList.remove('is-waiting');
+        });
+      }
+    });
 
     /* Parallax on the photo of a full-bleed band */
     qsa('[data-parallax]').forEach((image) => {
@@ -1092,6 +1267,7 @@
       heroItems: [], // gate only: the hero text it holds back; the other kinds hide nothing
       title: null,
       parts: {},
+      inerted: [], // what is taken out of reach while the intro plays
       ready: false,
       ruledOut: root.classList.contains('intro-done'), // the inline head script decided before the first paint
       timeline: null,
@@ -1125,6 +1301,10 @@
     }
     root.classList.remove('intro-playing');
     root.classList.add('intro-done');
+    intro.inerted.forEach((element) => {
+      element.inert = false;
+    });
+    intro.inerted = [];
   }
 
   /* The size of the overlay is kept (a later change of size ends the intro) and the drawing is
@@ -1202,6 +1382,14 @@
     }
     root.classList.remove('intro-done');
     root.classList.add('intro-playing');
+    /* The page behind the overlay (header, main, footer, booking bar) is out of reach until the
+       intro ends; the skip button is not part of it. */
+    Array.prototype.forEach.call(doc.body.children, (child) => {
+      if (child !== intro.el && child !== intro.skip && child.tagName !== 'SCRIPT' && !child.inert) {
+        child.inert = true;
+        intro.inerted.push(child);
+      }
+    });
 
     /* Every intro opens on the top of its page: start there, and hold the scroll until the end. */
     if (S.lenis) {
@@ -1495,24 +1683,26 @@
     intro.svg.setAttribute('viewBox', BOOK.view[isPortrait(width, height) ? 'portrait' : 'landscape']);
   }
 
-  /* 0 to 0.7 s. Each stroke of the skyline starts when a sweep from the left edge of the screen
-     reaches it; the Torre del Mangia waits and then rises from the ground up. Reads first. */
-  function addSkyline(timeline, intro) {
-    const tower = copyPart(intro, 'skyline-torre');
-    const plan = qsa(GEOMETRY, intro.svg).map((node) => {
+  /* 0 to 0.7 s at pace 1. Each stroke of the skyline starts when a sweep from the left reaches
+     it; the Torre del Mangia waits and then rises from the ground up. The sweep crosses `width`
+     px of the screen (the book) or, without it, the drawing itself (the footer). Reads first. */
+  function addSkyline(timeline, svg, tower, width, pace) {
+    const plan = qsa(GEOMETRY, svg).map((node) => {
       const rect = node.getBoundingClientRect();
-      return { node, length: strokeLength(node), left: rect.left, bottom: rect.bottom, tower: !!(tower && tower.contains(node)) };
+      return { node, length: strokeLength(node), left: rect.left, right: rect.right, bottom: rect.bottom, tower: !!(tower && tower.contains(node)) };
     }).filter((item) => item.length > 0);
+    const from = width ? 0 : Math.min.apply(null, plan.map((item) => item.left));
+    const span = width || Math.max.apply(null, plan.map((item) => item.right)) - from || 1;
     const rising = plan.filter((item) => item.tower).sort((a, b) => b.bottom - a.bottom);
     plan.forEach((item) => {
       if (!item.tower) {
-        drawStroke(timeline, item.node, item.length, round2(clamp(item.left / intro.width, 0, 1) * 0.4), 0.25);
+        drawStroke(timeline, item.node, item.length, round2(clamp((item.left - from) / span, 0, 1) * 0.4 * pace), 0.25 * pace);
       }
     });
     rising.forEach((item, index) => {
       /* the two long lines of the shaft first, then the crown, part after part */
       drawStroke(timeline, item.node, item.length,
-        round2(0.36 + (index / Math.max(1, rising.length - 1)) * 0.16), index < 2 ? 0.26 : 0.18);
+        round2((0.36 + (index / Math.max(1, rising.length - 1)) * 0.16) * pace), (index < 2 ? 0.26 : 0.18) * pace);
     });
     return plan.map((item) => item.node);
   }
@@ -1526,7 +1716,7 @@
 
     /* 0 to 0.8 s: the skyline draws behind; the book rises 12 px and fades in, the frame of
        its cover draws, the title follows */
-    let drawn = addSkyline(timeline, intro);
+    let drawn = addSkyline(timeline, intro.svg, copyPart(intro, 'skyline-torre'), intro.width, 1);
     timeline.fromTo(parts.book, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.1);
     drawn = drawn.concat(addDrawing(timeline, frame, 0.2, 0.55));
     if (parts.text) {
@@ -1798,6 +1988,300 @@
     });
   }
 
+  /* ---------- The "La casa" gallery ---------- */
+
+  /* html.gallery-on (set by the inline head script before the first paint) stacks the photos in
+     a sticky stage inside a tall wrapper; the layout stylesheet owns that layout, and without the
+     class the photos are a plain grid. Here: the scroll position inside the wrapper gives the
+     photo (one step each, the first change after half a step), and crossing a threshold starts a
+     change that runs on its own clock. Each frame has an openness from 0 (cut away down to its
+     lower edge) to 1, and a later photo lies over an earlier one: going forwards the new photo
+     opens over what is there, going back the photos above it close. Nothing queues: at every
+     change each frame heads for its new state from where it is, and once the current photo is
+     fully open the others are put away. If a part is missing or anything fails, gallery-on is
+     removed and the page shows the grid. */
+  let galleryWanted = null; // the head script's choice, read once
+
+  function setupGallery() {
+    if (galleryWanted === null) {
+      galleryWanted = root.classList.contains('gallery-on');
+    }
+    if (!galleryWanted) {
+      return;
+    }
+    const wrap = qs('[data-gallery]');
+    try {
+      if (wrap && S.motion) {
+        root.classList.add('gallery-on'); // back again after reduced motion was switched off
+        startGallery(wrap);
+      }
+    } catch (error) {
+      S.gallery = null;
+    }
+    root.classList.toggle('gallery-on', !!S.gallery);
+  }
+
+  function startGallery(wrap) {
+    const gsap = S.gsap;
+    const frames = qsa('[data-gallery-frame]', wrap);
+    const g = {
+      wrap,
+      stage: qs('[data-gallery-stage]', wrap),
+      frames,
+      captions: qsa('[data-gallery-caption]', wrap),
+      dots: qsa('[data-gallery-dot]', wrap),
+      line: qs('[data-gallery-arch] path', wrap),
+      layers: frames.map((frame) => ({ v: frame.classList.contains('is-current') ? 1 : 0, tween: null })),
+      probe: doc.createElement('i'), // as high as one step (var(--step)), whatever its unit
+      index: 0,
+      caption: null, // the caption on screen
+      top: 0,
+      height: 0,
+      step: 0,
+      lineLength: 0,
+      held: 0,
+      warm: false
+    };
+    g.index = Math.max(0, g.layers.findIndex((layer) => layer.v === 1));
+    g.caption = g.captions[g.index];
+    if (!g.stage || frames.length < 2 || !g.line || g.captions.length !== frames.length || g.dots.length !== frames.length) {
+      return;
+    }
+    g.probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;width:0;height:var(--step)';
+    g.probe.setAttribute('aria-hidden', 'true');
+    wrap.appendChild(g.probe);
+    S.cleanups.push(() => endGallery(g, gsap));
+    S.gallery = g;
+    measureGallery();
+    if (!S.gallery) {
+      return;
+    }
+    showPhoto(g, g.index, true);
+
+    /* A progress button shows its photo at once and takes the page to the middle of its step. */
+    listen(wrap, 'click', (event) => {
+      const dot = event.target && event.target.closest ? event.target.closest('[data-gallery-dot]') : null;
+      const index = dot ? g.dots.indexOf(dot) : -1;
+      if (index === -1 || S.gallery !== g) {
+        return;
+      }
+      holdGallery(GALLERY.jump);
+      if (index !== g.index) {
+        showPhoto(g, index, false);
+      }
+      const top = Math.round(g.top + index * g.step);
+      if (S.lenis) {
+        S.lenis.scrollTo(top, { duration: GALLERY.jump, force: true, onComplete: releaseGallery });
+      } else {
+        win.scrollTo(0, top);
+      }
+    });
+    /* The visitor's own scrolling always takes over again. */
+    listen(win, 'wheel', releaseGallery, { passive: true });
+    listen(win, 'touchstart', releaseGallery, { passive: true });
+  }
+
+  function endGallery(g, gsap) {
+    win.clearTimeout(g.held);
+    g.held = 0;
+    restGallery(g, gsap);
+    g.probe.remove();
+  }
+
+  /* The photos at rest: the stylesheet shows the current one and cuts the others away, and
+     nothing is left on the frames. */
+  function restFrames(g, gsap) {
+    gsap.killTweensOf(g.layers);
+    g.layers.forEach((layer, index) => {
+      layer.tween = null;
+      layer.v = index === g.index ? 1 : 0;
+      g.frames[index].style.clipPath = '';
+      g.frames[index].style.zIndex = '';
+    });
+  }
+
+  /* Ends every change at once: photos, captions and the arch line. */
+  function restGallery(g, gsap) {
+    restFrames(g, gsap);
+    gsap.killTweensOf(g.captions.concat([g.line]));
+    gsap.set(g.captions, { clearProps: 'opacity,visibility,transform' });
+    gsap.set(g.line, { clearProps: 'strokeDasharray,strokeDashoffset' });
+    g.caption = g.captions[g.index];
+  }
+
+  function failGallery() {
+    const g = S && S.gallery;
+    if (!g) {
+      return;
+    }
+    S.gallery = null;
+    root.classList.remove('gallery-on');
+    try {
+      endGallery(g, S.gsap);
+    } catch (error) {
+      /* the grid is on screen in any case */
+    }
+  }
+
+  /* Layout reads, with the others in measure(). */
+  function measureGallery() {
+    const g = S && S.gallery;
+    if (!g) {
+      return;
+    }
+    try {
+      const rect = g.wrap.getBoundingClientRect();
+      g.top = rect.top + scrollTop();
+      g.height = rect.height;
+      g.step = g.probe.getBoundingClientRect().height;
+      g.lineLength = strokeLength(g.line, true);
+      if (!(g.step > 0) || win.getComputedStyle(g.stage).position !== 'sticky') {
+        failGallery(); // the stage is not laid out as a stage
+      }
+    } catch (error) {
+      failGallery();
+    }
+  }
+
+  /* The photo of the current scroll position. `instant` puts it there without a change; so
+     does a place from which the stage cannot be seen. */
+  function syncGallery(instant) {
+    const g = S && S.gallery;
+    if (!g) {
+      return;
+    }
+    try {
+      const y = S.y;
+      const view = S.ui ? S.ui.viewport : 0;
+      if (!g.warm && y + view * 2.5 > g.top) {
+        /* The stage is near: the four photos load and decode now, before any of them is shown. */
+        g.warm = true;
+        qsa('img', g.wrap).forEach((image) => {
+          image.loading = 'eager';
+          if (typeof image.decode === 'function') {
+            image.decode().catch(() => {});
+          }
+        });
+      }
+      const next = clamp(Math.floor((y - g.top) / g.step + 0.5), 0, g.frames.length - 1);
+      if (next !== g.index && !g.held) {
+        showPhoto(g, next, !!instant || y + view <= g.top || y >= g.top + g.height);
+      }
+    } catch (error) {
+      failGallery();
+    }
+  }
+
+  /* While a link or a progress button moves the page, the photo does not follow the places in
+     between; afterwards it is the one of the place reached. */
+  function holdGallery(seconds) {
+    const g = S && S.gallery;
+    if (g) {
+      win.clearTimeout(g.held);
+      g.held = win.setTimeout(releaseGallery, seconds * 1000 + 300);
+    }
+  }
+
+  function releaseGallery() {
+    const g = S && S.gallery;
+    if (g && g.held) {
+      win.clearTimeout(g.held);
+      g.held = 0;
+      S.y = scrollTop();
+      syncGallery();
+    }
+  }
+
+  function showPhoto(g, next, instant) {
+    const gsap = S.gsap;
+    const mark = (element, index) => element.classList.toggle('is-current', index === next);
+    g.index = next;
+    g.frames.forEach(mark);
+    g.captions.forEach(mark);
+    g.dots.forEach((dot, index) => {
+      mark(dot, index);
+      if (index === next) {
+        dot.setAttribute('aria-current', 'true');
+      } else {
+        dot.removeAttribute('aria-current');
+      }
+    });
+    if (instant) {
+      restGallery(g, gsap);
+      return;
+    }
+
+    /* Photos. A frame is cut by its inline clip-path while it is open or moving; at rest the
+       stylesheet shows the current one and cuts the others. */
+    const paint = (index) => {
+      const v = g.layers[index].v;
+      g.frames[index].style.clipPath = v <= 0 && index !== g.index ? '' : 'inset(' + ((1 - v) * 100).toFixed(2) + '% 0 0 0)';
+    };
+    const rest = () => {
+      if (g.layers[g.index].v === 1 && !g.layers.some((layer, index) => index > g.index && layer.v > 0)) {
+        restFrames(g, gsap); // the current photo is whole and nothing lies over it
+      }
+    };
+    const hidden = g.layers.some((layer, index) => index > next && layer.v === 1); // under a whole photo
+    g.layers.forEach((layer, index) => {
+      g.frames[index].style.zIndex = index > next && layer.v > 0 ? '3' : ''; // closing photos lie on top
+      if (index >= next) { // a photo below the new one goes on as it was: it is being covered
+        const to = index > next ? 0 : 1;
+        const way = Math.abs(to - layer.v);
+        if (layer.tween) {
+          layer.tween.kill();
+          layer.tween = null;
+        }
+        if (index === next && hidden) {
+          layer.v = 1;
+        } else if (way > 0) {
+          layer.tween = gsap.to(layer, {
+            v: to,
+            duration: GALLERY.change * Math.max(0.5, way), // a change turned round half way is shorter
+            ease: 'power3.out',
+            onUpdate: () => paint(index),
+            onComplete: () => {
+              layer.tween = null;
+              rest();
+            }
+          });
+        }
+      }
+      paint(index);
+    });
+    rest();
+
+    /* The gold arch line draws again from the left foot over the point to the right foot. */
+    if (g.lineLength) {
+      gsap.killTweensOf(g.line);
+      gsap.fromTo(g.line,
+        { strokeDasharray: g.lineLength + 'px', strokeDashoffset: g.lineLength + 'px' },
+        { strokeDashoffset: '0px', duration: GALLERY.change, ease: 'power2.inOut', clearProps: 'strokeDasharray,strokeDashoffset' });
+    }
+
+    /* Caption: the one on screen leaves, the new one comes in with a small rise. */
+    const from = g.caption;
+    const to = g.captions[next];
+    gsap.killTweensOf(g.captions);
+    gsap.set(g.captions.filter((caption) => caption !== from && caption !== to), { clearProps: 'opacity,visibility,transform' });
+    g.caption = to;
+    if (from !== to) {
+      if (to.style.opacity === '') {
+        gsap.set(to, { opacity: 0, y: GALLERY.rise }); // not one that was still on its way out
+      }
+      gsap.set(from, { visibility: 'visible' });
+      gsap.to(from, { opacity: 0, duration: GALLERY.out, ease: 'none', clearProps: 'opacity,visibility,transform' });
+    }
+    gsap.to(to, {
+      opacity: 1,
+      y: 0,
+      duration: GALLERY.into,
+      delay: from !== to ? GALLERY.out : 0,
+      ease: 'power2.out',
+      clearProps: 'opacity,visibility,transform'
+    });
+  }
+
   /* Menu page: the link of the section in view gets aria-current and is kept in view in its row. */
   function setupMenuNav() {
     const nav = qs('.menu-nav');
@@ -1989,6 +2473,8 @@
     run.masks.forEach((element) => {
       element.style.clipPath = '';
     });
+    run.lines.forEach((lines) => lines.forEach((line) => setLine(line, 0)));
+    qsa('.battlement.is-waiting').forEach((section) => section.classList.remove('is-waiting'));
     if (run.menu) {
       win.clearTimeout(run.menu.closeTimer);
     }
@@ -1999,6 +2485,9 @@
         run.intro.skip.hidden = true;
       }
       root.classList.add('intro-done');
+      run.intro.inerted.forEach((element) => {
+        element.inert = false;
+      });
     }
   }
 
@@ -2022,6 +2511,8 @@
       pending: new Set(),
       afterIntro: [],
       masks: [],
+      lines: new Map(), // heading -> its two lines, while they wait to rise
+      gallery: null,
       parallaxed: new Set(),
       ctx: null,
       lenis: null,
@@ -2051,6 +2542,7 @@
       setupMenuNav();
       setupSmoothScroll();
       setupAnchors();
+      setupGallery();
       planIntro();
       if (S.motion) {
         S.ctx.add(setupScrollMotion);
@@ -2065,6 +2557,7 @@
       /* Fail open: undo what was started and let motion.css show the whole page. */
       teardown();
       root.classList.add('motion-ready', 'motion-off');
+      root.classList.remove('gallery-on'); // the gallery shows as its plain grid
     }
   }
 

@@ -32,7 +32,7 @@
 <noscript><link rel="stylesheet" href="../assets/fonts/fonts.css"></noscript>
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="../motion.css">
-<script>(function(d){var c=d.documentElement.classList;c.remove('no-js');c.add('js');if('1'&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))c.add('gallery-on');try{var k='g',v=sessionStorage.getItem('odr-intro')||'';if(!k||v.indexOf(k)>-1||(v==='1'&&k==='g')||location.hash)c.add('intro-done')}catch(e){c.add('intro-done')}var h=d.head,a='../assets/fonts/',s=d.getElementById('fonts-css'),f=function(r,u,x){var l=d.createElement('link');l.rel=r;l.href=u;if(x){l.as='font';l.type='font/woff2';l.crossOrigin='anonymous'}h.appendChild(l)};if(location.protocol==='file:'){if(s)s.remove();f('stylesheet',a+'fonts-embedded.css')}else{if(s)s.media='all';f('preload',a+'bodoni-moda-latin-opsz-normal.woff2',1);f('preload',a+'figtree-latin-wght-normal.woff2',1)}})(document)</script>
+<script>(function(d){var c=d.documentElement.classList;c.remove('no-js');c.add('js');if('1'&&!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){c.add('gallery-on');setTimeout(function(){c.contains('motion-ready')||c.remove('gallery-on')},5e3)}try{var k='g',v=sessionStorage.getItem('odr-intro')||'';if(!k||v.indexOf(k)>-1||(v==='1'&&k==='g')||location.hash)c.add('intro-done')}catch(e){c.add('intro-done')}addEventListener('pagereveal',function(e){var t=e.viewTransition,n=window.navigation,f=n&&n.activation&&n.activation.from,r=/\/en\//;if(t){t.ready.catch(function(){});try{if(!c.contains('intro-done')||location.hash||r.test(new URL(f?f.url:d.referrer).pathname)!==r.test(location.pathname))t.skipTransition()}catch(x){t.skipTransition()}}});var h=d.head,a='../assets/fonts/',s=d.getElementById('fonts-css'),f=function(r,u,x){var l=d.createElement('link');l.rel=r;l.href=u;if(x){l.as='font';l.type='font/woff2';l.crossOrigin='anonymous'}h.appendChild(l)};if(location.protocol==='file:'){if(s)s.remove();f('stylesheet',a+'fonts-embedded.css')}else{if(s)s.media='all';f('preload',a+'bodoni-moda-latin-opsz-normal.woff2',1);f('preload',a+'figtree-latin-wght-normal.woff2',1)}})(document)</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -946,7 +946,7 @@
 <!-- ============ Prenota: striscia (solo desktop) ============ -->
 <div class="strip">
   <div class="container strip__inner">
-    <svg class="icon icon--tavola" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+    <svg class="icon icon--tavola" aria-hidden="true" focusable="false"  data-draw xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
   <path d="M21 21 H43 V43 H21 Z M26.5 21 V43 M32 21 V43 M37.5 21 V43 M21 26.5 H43 M21 32 H43 M21 37.5 H43"/>
   <path d="M10 12 V21 C10 25 12.3 26 12.3 29 V52 C12.3 54.3 14.7 54.3 14.7 52 V29 C14.7 26 17 25 17 21 V12 M13.5 12 V25.5"/>
   <path d="M48.5 12 C52 14 53 24 52.5 36 V53 C52.5 54.5 48.5 54.5 48.5 53 Z M48.5 36 H52.5"/>

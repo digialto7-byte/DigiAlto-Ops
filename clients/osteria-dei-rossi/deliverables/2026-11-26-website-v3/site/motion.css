@@ -12,6 +12,9 @@
  *   menu-open      the phone menu panel is open
  *   menu-closing   the panel is fading out (about 0.45 s after it closes)
  *   header-hidden  mirrors .site-header.is-hidden (phones, scrolling down)
+ * gallery-on (the sticky "La casa" stage) is set by the inline head script and belongs to the
+ * layout stylesheet; main.js moves the photos with inline styles and removes the class when the
+ * gallery cannot run. Nothing in this file depends on it.
  *
  * Every hidden start state sits under html.js and inside
  * (prefers-reduced-motion: no-preference). Without JavaScript, with reduced motion, or when
@@ -746,5 +749,26 @@ html.menu-open #menu-panel {
       opacity var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
       transform var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
       visibility 0s linear var(--d1, 0.35s);
+  }
+}
+
+/* ---------- 8. Battlement line ---------- */
+
+/*
+ * The line of merlons at the top of a green section. main.js marks a section that is still
+ * below the screen with is-waiting and takes the class away when the section comes into view:
+ * the line then uncovers from the left. Without main.js the class is never set.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not(.motion-off) .battlement::before {
+    clip-path: inset(0);
+  }
+
+  html.js:not(.motion-off) .battlement:not(.is-waiting)::before {
+    transition: clip-path 0.9s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+  }
+
+  html.js:not(.motion-off) .battlement.is-waiting::before {
+    clip-path: inset(0 100% 0 0);
   }
 }

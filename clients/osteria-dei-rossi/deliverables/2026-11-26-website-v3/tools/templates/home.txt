@@ -320,7 +320,7 @@
 <!-- ============ Prenota: striscia (solo desktop) ============ -->
 <div class="strip">
   <div class="container strip__inner">
-    {{svg:icon-tavola|class="icon icon--tavola" aria-hidden="true" focusable="false" data-noid}}
+    {{svg:icon-tavola|class="icon icon--tavola" aria-hidden="true" focusable="false" data-noid data-draw}}
     <p class="strip__title">{{c:strip.title}}</p>
     <div class="strip__actions">
       <a class="btn" href="tel:+390577287592">{{c:strip.call_label}} {{arrow}}</a>
