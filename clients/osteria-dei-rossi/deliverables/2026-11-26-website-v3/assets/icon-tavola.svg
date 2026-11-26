@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path id="svg-tavola-tovagliolo" d="M21 21 H43 V43 H21 Z M26.5 21 V43 M32 21 V43 M37.5 21 V43 M21 26.5 H43 M21 32 H43 M21 37.5 H43"/>
+  <path id="svg-tavola-forchetta" d="M10 12 V21 C10 25 12.3 26 12.3 29 V52 C12.3 54.3 14.7 54.3 14.7 52 V29 C14.7 26 17 25 17 21 V12 M13.5 12 V25.5"/>
+  <path id="svg-tavola-coltello" d="M48.5 12 C52 14 53 24 52.5 36 V53 C52.5 54.5 48.5 54.5 48.5 53 Z M48.5 36 H52.5"/>
+</svg>

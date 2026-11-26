@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path id="svg-torre-fusto" d="M28 56 V25 M36 56 V25 M32 49 V46 M32 39 V36"/>
+  <path id="svg-torre-corona" d="M25 25 V18 H39 V25 M25 25 Q26.75 28 28.5 25 Q30.25 28 32 25 Q33.75 28 35.5 25 Q37.25 28 39 25 M25 18 V16 H27.5 V18 M30.75 18 V16 H33.25 V18 M36.5 18 V16 H39 V18"/>
+  <path id="svg-torre-cella" d="M28.5 16 V11 H35.5 V16 M27.5 11 H36.5 M30 11 V8.5 Q32 6 34 8.5 V11"/>
+  <path id="svg-torre-palazzo" d="M36 44 H53 V56 M40 44 V42 H43 V44 M46.5 44 V42 H49.5 V44 M41 56 V51 Q42.75 48.5 44.5 51 V56 M10 56 H55 M12 56 V50 L17.5 46.5 L23 50 V56"/>
+</svg>
