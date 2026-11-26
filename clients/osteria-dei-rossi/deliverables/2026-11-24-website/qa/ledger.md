@@ -162,3 +162,24 @@ founder's requests all answered; prices, hours, contacts, wine names, tags and m
 | 7 | Wine-list markup put the producer in a description; three unproofed readings were in the markup | lead (wine generator) | Name is "wine, producer"; entries marked `"proofread": false` in the source show on the page only |
 | 8 to 11 | Italian phrasing, two Italian and English mismatches, "al bancone" without a source, Cinta answer without the Tagliere del Cacciatore | copywriter | Fixed as proposed |
 | 12 | The spec called the map a link | copywriter | Spec corrected: a text link sits above the map, the map is a drawing |
+
+Second verdict (2026-11-26): FAIL on one open item. Eleven findings confirmed fixed; one row of the
+internal-links table still had no link on the pages (a second link in the booking block), and the
+pici answer on the menu page used a different word order from the home page. The lead removed
+the row (the booking block keeps one link, to Dove siamo), aligned the sentence, and brought two
+lines of the SEO addendum in line with the wine generator. Third and final verdict: **PASS**
+(about 75 facts re-verified in the last rounds, none unsupported; no new finding).
+
+Left for the founder, noted by the reviewer and not failures: the three wine names read from the
+photo of the printed list and the lead's heading "Rosé e bollicine"; "tartufo fresco, tutto
+l'anno" next to the menu's "Tartufo di Stagione"; whether the menu's own claims may come back.
+
+## V2 final gates on the delivered build (2026-11-26)
+
+| Gate | Result |
+|---|---|
+| `check_deliverable.py` | 0 FAIL, 1 FLAG (judged not a failure) |
+| `viewport_check.py` at 360 px, pages opened from disk | all pages ok |
+| `qa/qa-site.cjs` with axe-core | 0 FAIL, 0 NOTE, 11 pages |
+| Lighthouse mobile | at target (see V2 round 2; measured before the text fixes of round 3, which changed no script, style or image except one spacing rule) |
+| Reviewer | PASS on the third verdict, after two fix rounds |
