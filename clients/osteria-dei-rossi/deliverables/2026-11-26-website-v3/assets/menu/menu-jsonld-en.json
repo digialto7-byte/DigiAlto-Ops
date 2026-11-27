@@ -1,0 +1,667 @@
+{
+ "@context": "https://schema.org",
+ "@type": "Menu",
+ "@id": "https://www.osteriadeirossi.it/en/menu/#menu",
+ "name": "Osteria dei Rossi menu",
+ "url": "https://www.osteriadeirossi.it/en/menu/",
+ "inLanguage": "en-GB",
+ "hasMenuSection": [
+  {
+   "@type": "MenuSection",
+   "name": "Starters",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Tagliere del Cacciatore",
+     "offers": {
+      "@type": "Offer",
+      "price": "22",
+      "priceCurrency": "EUR"
+     },
+     "description": "A selection of cured Cinta Senese pork and game meats, bringing the most authentic flavours of the local area to your table."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tartare dell’Oste",
+     "offers": {
+      "@type": "Offer",
+      "price": "15",
+      "priceCurrency": "EUR"
+     },
+     "description": "Beef tartare, hand-cut with a knife and prepared to order to bring out the quality of the meat and its authentic flavour. Served on a crispy Parmesan wafer and accompanied by antique wholegrain mustard."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tagliere del Contadino",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     },
+     "description": "Tuscan pecorino cheeses paired with honey and preserves that bring all the goodness of the region straight to your table."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bis di crostoni",
+     "offers": {
+      "@type": "Offer",
+      "price": "12",
+      "priceCurrency": "EUR"
+     },
+     "description": "Two toasted bread slices with very different flavours: one topped with Gorgonzola and slices of truffle, the other with Tuscan cheese, pears and honey. Two combinations that bring together bold flavours, creaminess and delicate sweet notes."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Acciughe sotto pesto",
+     "offers": {
+      "@type": "Offer",
+      "price": "10",
+      "priceCurrency": "EUR"
+     },
+     "description": "Anchovies with Senese tarragon pesto: fragrant, full of flavour and with that unexpected little something extra."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Crostini neri senesi",
+     "offers": {
+      "@type": "Offer",
+      "price": "9",
+      "priceCurrency": "EUR"
+     },
+     "description": "A true symbol of Senese cuisine, with an unmistakable classic flavour that brings the tastes of Siena straight to your table."
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "First courses",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Tagliatelle ai Funghi Porcini",
+     "offers": {
+      "@type": "Offer",
+      "price": "20",
+      "priceCurrency": "EUR"
+     },
+     "description": "Tagliatelle with porcini mushrooms: the scent of the Tuscan woods in an autumn dish."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tagliatelle al Tartufo di Stagione",
+     "offers": {
+      "@type": "Offer",
+      "price": "18",
+      "priceCurrency": "EUR"
+     },
+     "description": "Tagliatelle served with the intense aroma of sliced, seasonal fresh truffle."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pici al Ragù Tradizionale di Anatra",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     },
+     "description": "Traditional pici tossed in a rich, flavourful duck ragù. A rustic dish, the kind that tastes of home and proper Tuscan cooking."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pici al Ragù Bianco di Cinta Senese",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     },
+     "description": "White Cinta Senese pork ragù, made without tomato and seasoned with our house’s secret blend of herbs and spices."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tagliatelle al Ragù di Cinghiale",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     },
+     "description": "Tagliatelle served with wild boar ragù, full of the authentic, rustic flavours of Tuscan tradition."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pici Cacio e Pepe",
+     "offers": {
+      "@type": "Offer",
+      "price": "15",
+      "priceCurrency": "EUR"
+     },
+     "description": "Pici with Tuscan pecorino cheese and black pepper, our Tuscan take on a great Italian classic."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Spaghetti alla Chitarra con Sugo dell’Osteria",
+     "offers": {
+      "@type": "Offer",
+      "price": "14",
+      "priceCurrency": "EUR"
+     },
+     "description": "A historic recipe from Osteria dei Rossi, on the menu since 1992: a tomato-based sauce with Gorgonzola and chilli, bringing together bold, unmistakable flavours."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ravioli con Zucca Gialla, Pancetta e stracciatella",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ribollita",
+     "offers": {
+      "@type": "Offer",
+      "price": "13",
+      "priceCurrency": "EUR"
+     },
+     "description": "The famous Tuscan peasant soup, steeped in history. Sometimes the simplest things are the best."
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Main courses",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Cinghiale in Dolce Forte",
+     "offers": {
+      "@type": "Offer",
+      "price": "20",
+      "priceCurrency": "EUR"
+     },
+     "description": "An ancient Tuscan medieval recipe, where the intense flavour of wild boar meets the distinctive sweet-and-sour balance of dolce forte."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tegamata di Cinta Senese",
+     "offers": {
+      "@type": "Offer",
+      "price": "19",
+      "priceCurrency": "EUR"
+     },
+     "description": "A slow-cooked Cinta Senese pork stew, made without a tomato base, using meat from free-range pigs raised in the heart of the Crete Senesi."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Agnello allo Scottadito",
+     "offers": {
+      "@type": "Offer",
+      "price": "18",
+      "priceCurrency": "EUR"
+     },
+     "description": "Grilled lamb chops, best enjoyed piping hot, just as tradition dictates."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cinghiale al Coccio con Polenta",
+     "offers": {
+      "@type": "Offer",
+      "price": "18",
+      "priceCurrency": "EUR"
+     },
+     "description": "Slow-cooked, aromatic wild boar stew served with polenta: a true classic of Tuscan cooking."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Sovracosce di Pollo alla Diavola",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     },
+     "description": "Crispy grilled chicken thighs served with our homemade spicy sauce."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trippa alla Senese",
+     "offers": {
+      "@type": "Offer",
+      "price": "14",
+      "priceCurrency": "EUR"
+     },
+     "description": "A dish rooted in traditional Senese home cooking, especially associated with Palio season. Served in a tomato sauce with sausage and chilli."
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "From the grill",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Bistecca alla Fiorentina",
+     "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+       "@type": "UnitPriceSpecification",
+       "price": "9",
+       "priceCurrency": "EUR",
+       "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "100",
+        "unitCode": "GRM"
+       }
+      }
+     },
+     "description": "The house speciality: a weekly selection hand-picked by Alessio, our trusted butcher."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bistecca Fritta",
+     "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+       "@type": "UnitPriceSpecification",
+       "price": "12",
+       "priceCurrency": "EUR",
+       "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "100",
+        "unitCode": "GRM"
+       }
+      }
+     },
+     "description": "Our unconventional take on the queen of the Tuscan table: a proper Florentine steak, breaded and fried until crispy on the outside and juicy on the inside. You have to try it at least once!"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Costata del macellaio",
+     "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+       "@type": "UnitPriceSpecification",
+       "price": "7",
+       "priceCurrency": "EUR",
+       "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "100",
+        "unitCode": "GRM"
+       }
+      }
+     },
+     "description": "A cut of beef similar to a Florentine steak, but without the tenderloin, perfect for those who love the authentic taste of grilled meat."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Medaglione di Filetto alla Griglia",
+     "offers": {
+      "@type": "Offer",
+      "price": "25",
+      "priceCurrency": "EUR"
+     },
+     "description": "A beef fillet medallion cooked on the grill, to enjoy just as it is or with one of our toppings."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Medaglione di Filetto alla Griglia, con Tartufo",
+     "offers": {
+      "@type": "Offer",
+      "price": "30",
+      "priceCurrency": "EUR"
+     },
+     "description": "For those who simply can’t say no to truffle."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Medaglione di Filetto alla Griglia, con Lardo di Colonnata",
+     "offers": {
+      "@type": "Offer",
+      "price": "28",
+      "priceCurrency": "EUR"
+     },
+     "description": "Delicate, flavourful cured pork fat from Colonnata, bringing a rich and satisfying pairing to the fillet."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Medaglione di Filetto alla Griglia, con salsa al Pepe Verde",
+     "offers": {
+      "@type": "Offer",
+      "price": "28",
+      "priceCurrency": "EUR"
+     },
+     "description": "Delicate green peppercorn sauce, finished with brandy"
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Side dishes",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Fagioli all’Uccelletto",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     },
+     "description": "A Tuscan favourite: flavourful beans, perfect alongside our house dishes."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Chips di Patate Croccanti",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     },
+     "description": "Golden, crispy and impossible to stop eating. Do we really need to say more?"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Patate Prezzemolate",
+     "offers": {
+      "@type": "Offer",
+      "price": "6",
+      "priceCurrency": "EUR"
+     },
+     "description": "Boiled potatoes dressed with chopped parsley, oil, salt and pepper. Simple, honest and always right at home on the plate."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Erbe Saltate",
+     "offers": {
+      "@type": "Offer",
+      "price": "8",
+      "priceCurrency": "EUR"
+     },
+     "description": "Swiss chard, chicory and spinach sautéed with garlic, olive oil and chilli. Greens with a bit of attitude."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Insalata Mista",
+     "offers": {
+      "@type": "Offer",
+      "price": "5",
+      "priceCurrency": "EUR"
+     },
+     "description": "Fresh mixed salad with seasonal vegetables, for something light and wholesome."
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Desserts",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Il Tiramisù di Manu",
+     "offers": {
+      "@type": "Offer",
+      "price": "8",
+      "priceCurrency": "EUR"
+     },
+     "description": "Manu’s tiramisù."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cantuccini e Vin Santo",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     },
+     "description": "Tuscan almond biscuits with Vin Santo dessert wine."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Panna Cotta",
+     "offers": {
+      "@type": "Offer",
+      "price": "6",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tortino al Cioccolato con Cuore Caldo",
+     "offers": {
+      "@type": "Offer",
+      "price": "8",
+      "priceCurrency": "EUR"
+     },
+     "description": "Chocolate fondant with a warm, melting centre."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cheesecake",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tris di Dolci Senesi",
+     "offers": {
+      "@type": "Offer",
+      "price": "8",
+      "priceCurrency": "EUR"
+     },
+     "description": "A trio of traditional Sienese sweets."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Carpaccio di Pere e Scaglie di Cioccolato Fondente",
+     "offers": {
+      "@type": "Offer",
+      "price": "6",
+      "priceCurrency": "EUR"
+     },
+     "description": "Thinly sliced pears with dark chocolate shavings."
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Drinks",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "L’Osteria red wine · 0.75 l bottle",
+     "offers": {
+      "@type": "Offer",
+      "price": "18",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "L’Osteria white wine · 0.75 l bottle",
+     "offers": {
+      "@type": "Offer",
+      "price": "15",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Red wine by the glass",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     },
+     "description": "Chianti Classico Gallo Nero · IGT Toscano · Maremma DOC"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "White wine by the glass",
+     "offers": {
+      "@type": "Offer",
+      "price": "6",
+      "priceCurrency": "EUR"
+     },
+     "description": "Vernaccia di San Gimignano · Vermentino Toscano"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Draught lager · medium",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Draught lager · small",
+     "offers": {
+      "@type": "Offer",
+      "price": "4.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Coca-Cola / Coca-Cola Zero",
+     "offers": {
+      "@type": "Offer",
+      "price": "3.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Water",
+     "offers": {
+      "@type": "Offer",
+      "price": "2.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Espresso",
+     "offers": {
+      "@type": "Offer",
+      "price": "2",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Espresso with a dash of liqueur",
+     "offers": {
+      "@type": "Offer",
+      "price": "2.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Barley coffee",
+     "offers": {
+      "@type": "Offer",
+      "price": "2",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Decaf espresso",
+     "offers": {
+      "@type": "Offer",
+      "price": "2",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vecchio Toscano",
+     "offers": {
+      "@type": "Offer",
+      "price": "4",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Amaro di Siena",
+     "offers": {
+      "@type": "Offer",
+      "price": "4",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Jefferson",
+     "offers": {
+      "@type": "Offer",
+      "price": "4",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bomba Carta",
+     "offers": {
+      "@type": "Offer",
+      "price": "4",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Grappa Poli Aromatizzata",
+     "offers": {
+      "@type": "Offer",
+      "price": "4",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Montenegro",
+     "offers": {
+      "@type": "Offer",
+      "price": "3.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Capo",
+     "offers": {
+      "@type": "Offer",
+      "price": "3.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Grappa Poli Bianca",
+     "offers": {
+      "@type": "Offer",
+      "price": "3",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Grappa Poli Barricata",
+     "offers": {
+      "@type": "Offer",
+      "price": "3",
+      "priceCurrency": "EUR"
+     }
+    }
+   ]
+  }
+ ]
+}

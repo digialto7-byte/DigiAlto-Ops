@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path id="svg-porta-mura" d="M8 56 V18 H14 V24 H18.5 V18 H24.5 V24 H29 V18 H35 V24 H39.5 V18 H45.5 V24 H50 V18 H56 V56 M8 56 H24 M40 56 H56"/>
+  <path id="svg-porta-arco" d="M24 56 V42 C24 36 29 32 32 29 C35 32 40 36 40 42 V56"/>
+  <path d="M16 34 V40 M48 34 V40"/>
+</svg>

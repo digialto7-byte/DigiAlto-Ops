@@ -1,0 +1,774 @@
+/*
+ * Osteria dei Rossi: motion stylesheet.
+ * Holds only what motion needs. Layout, type and colour live in the layout stylesheet,
+ * which also defines the tokens on :root; the values after the commas are fallbacks.
+ *
+ * State classes on <html>, all set by main.js:
+ *   js             set by the inline script in <head>
+ *   motion-ready   main.js has started and now sets start states itself
+ *   motion-off     gsap, ScrollTrigger or Lenis is missing, or main.js failed: show everything
+ *   intro-playing  the page intro is on screen (gate on home, book on the menu, pour on the wine list)
+ *   intro-done     the page intro is over or will not be shown (also set by the inline head script)
+ *   menu-open      the phone menu panel is open
+ *   menu-closing   the panel is fading out (about 0.45 s after it closes)
+ *   header-hidden  mirrors .site-header.is-hidden (phones, scrolling down)
+ * gallery-on (the sticky "La casa" stage) is set by the inline head script and belongs to the
+ * layout stylesheet; main.js moves the photos with inline styles and removes the class when the
+ * gallery cannot run. Nothing in this file depends on it.
+ *
+ * Every hidden start state sits under html.js and inside
+ * (prefers-reduced-motion: no-preference). Without JavaScript, with reduced motion, or when
+ * main.js never runs (5 s failsafe), everything is visible.
+ */
+
+/* ---------- 1. Smooth scroll (Lenis) ---------- */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis {
+  scroll-behavior: auto;
+}
+
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Sections that receive focus after an anchor jump are not controls: no ring around them. */
+[data-anchor-target]:focus {
+  outline: none;
+}
+
+/* ---------- 2. The page intros: gate (home), book (menu), pour (wine list) ---------- */
+
+/*
+ * One overlay per page: .intro, plus .intro--book or .intro--pour. The shared rules (display,
+ * skip button, failsafe) come first, then the layout of each overlay. main.js copies the page's
+ * own skyline and pour drawing into .intro__art, so no id appears twice in the document.
+ */
+
+.intro,
+.intro__skip {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not(.motion-off):not(.intro-done) .intro:not([hidden]) {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    overflow: hidden;
+    touch-action: none;
+    overscroll-behavior: contain;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* No background on the box: the green wall is drawn by the SVG, the arch is a real hole. */
+  .intro__svg {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .intro__label {
+    position: absolute;
+    top: clamp(4rem, 14vh, 8.5rem);
+    right: 1.25rem;
+    left: 1.25rem;
+    max-width: none;
+    margin: 0;
+    color: var(--cream, #FFFADF);
+    font-family: var(--font-text, "Figtree", system-ui, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    line-height: 1.4;
+    text-align: center;
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+
+  html.js:not(.motion-off):not(.intro-done) .intro__skip:not([hidden]) {
+    display: inline-flex;
+    position: fixed;
+    right: max(1.25rem, env(safe-area-inset-right));
+    bottom: max(1.25rem, env(safe-area-inset-bottom));
+    z-index: 2001;
+    align-items: center;
+    justify-content: center;
+    min-width: 5.5rem;
+    min-height: 2.75rem;
+    margin: 0;
+    padding: 0 1.125rem;
+    border: 1px solid rgb(255 250 223 / 0.5);
+    border-radius: 0;
+    background: var(--green, #1C4130);
+    color: var(--cream, #FFFADF);
+    font-family: var(--font-text, "Figtree", system-ui, sans-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+  }
+
+  .intro__skip:hover {
+    border-color: var(--cream, #FFFADF);
+  }
+
+  .intro__skip:focus-visible {
+    outline: 2px solid var(--gold, #C89550);
+    outline-offset: 3px;
+  }
+
+  /* The book and the pour stand on a green ground of their own. */
+  .intro--book,
+  .intro--pour {
+    background: var(--green, #1C4130);
+    color: var(--cream, #FFFADF);
+  }
+
+  .intro__art {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* The book: the skyline runs behind it with its ground line at 62% of the height. */
+  .intro--book .intro__art {
+    color: var(--gold, #C89550);
+  }
+
+  .intro__skyline {
+    position: absolute;
+    top: 62%;
+    left: 50%;
+    width: min(100%, 172vh);
+    max-width: none;
+    height: auto;
+    overflow: visible;
+    transform: translate(-50%, -93.333%);
+  }
+
+  .book {
+    --book-w: min(62vw, 20rem, 54vh);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--book-w);
+    aspect-ratio: 3 / 4;
+    margin: calc(var(--book-w) * -2 / 3) 0 0 calc(var(--book-w) / -2);
+    perspective: 1400px;
+  }
+
+  .book__page,
+  .book__cover,
+  .book__front,
+  .book__inside,
+  .book__sheet {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* The first page lies under the cover. Its twin, the sheet, lies over everything and shows
+     only once the cover is open: it is the one that grows. */
+  .book__page,
+  .book__sheet {
+    border-radius: 2px;
+    background: var(--cream, #FFFADF);
+  }
+
+  /* The cover turns on its spine: a front face and the inside of the board. */
+  .book__cover {
+    transform-origin: 0 50%;
+    transform-style: preserve-3d;
+  }
+
+  .book__front,
+  .book__inside {
+    border-radius: 2px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .book__front {
+    background: #24523D;
+  }
+
+  .book__inside {
+    background: #2B5C45;
+    transform: rotateY(180deg);
+  }
+
+  .book__face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  /* The title field of the cover drawing, between its two small rules. */
+  .book__text {
+    position: absolute;
+    inset: 32% 9.6% 30.5% 19.6%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: none;
+    margin: 0;
+    text-align: center;
+  }
+
+  .book__name {
+    font-family: var(--font-display, "Bodoni Moda", Georgia, serif);
+    font-size: calc(var(--book-w) * 0.064);
+    font-variant-caps: small-caps;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+  }
+
+  .book__title {
+    margin-block: 0.14em 0.22em;
+    font-family: var(--font-display, "Bodoni Moda", Georgia, serif);
+    font-size: calc(var(--book-w) * 0.17);
+    font-style: italic;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .book__sub {
+    font-family: var(--font-text, "Figtree", system-ui, sans-serif);
+    font-size: max(0.5625rem, calc(var(--book-w) * 0.034));
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  /* The pour: one drawing, pinned to the top edge (the sleeve leaves the screen there), then
+     the card in front of it. */
+  .intro__pour {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .pour-card {
+    --card-w: min(76vw, 24rem, 96vh);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--card-w);
+    aspect-ratio: 3 / 2;
+    margin: calc(var(--card-w) / -3) 0 0 calc(var(--card-w) / -2);
+    color: var(--green, #1C4130);
+    perspective: 1200px;
+  }
+
+  .pour-card__sheet,
+  .pour-card__leaf {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: var(--cream, #FFFADF);
+  }
+
+  .pour-card__sheet {
+    right: 0;
+    left: 0;
+  }
+
+  /* Two leaves hinged on the centre fold; a gold hairline runs round the open card. */
+  .pour-card__leaf {
+    width: 50%;
+  }
+
+  .pour-card__leaf::after {
+    content: "";
+    position: absolute;
+    inset: 0.625rem;
+    border: 1px solid var(--line, rgb(200 149 80 / 0.55));
+  }
+
+  .pour-card__leaf--left {
+    left: 0;
+    transform-origin: 100% 50%;
+  }
+
+  .pour-card__leaf--left::after {
+    right: 0;
+    border-right: 0;
+  }
+
+  .pour-card__leaf--right {
+    left: 50%;
+    transform-origin: 0 50%;
+  }
+
+  .pour-card__leaf--right::after {
+    left: 0;
+    border-left: 0;
+  }
+
+  .pour-card__text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: none;
+    margin: 0;
+    text-align: center;
+  }
+
+  .pour-card__title {
+    font-family: var(--font-display, "Bodoni Moda", Georgia, serif);
+    font-size: calc(var(--card-w) * 0.13);
+    font-style: italic;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+
+  .pour-card__sub {
+    margin-top: 0.9em;
+    font-family: var(--font-text, "Figtree", system-ui, sans-serif);
+    font-size: max(0.5625rem, calc(var(--card-w) * 0.03));
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  /* Before main.js takes over: lines wait hidden (they draw themselves), the label, the book
+     and the card wait. */
+  html.js:not(.motion-ready) .intro__svg #porta-lines,
+  html.js:not(.motion-ready) .intro__svg #porta-skyline,
+  html.js:not(.motion-ready) .intro__label,
+  html.js:not(.motion-ready) .book,
+  html.js:not(.motion-ready) .pour-card {
+    visibility: hidden;
+  }
+
+  /* Failsafe: if main.js never runs, the intro leaves by itself after 5 s. */
+  html.js:not(.motion-ready) .intro,
+  html.js:not(.motion-ready) .intro__skip {
+    animation: odr-intro-failsafe 0.35s linear 5s forwards;
+  }
+
+  /* Short or very wide screens crop the sky: there is no room above the gate. */
+  @media (max-height: 30rem) and (orientation: landscape), (min-aspect-ratio: 2/1) {
+    .intro__label {
+      display: none;
+    }
+  }
+}
+
+/* The hidden state is held from 90% on: a "to" keyframe alone can stop a hair short of 100%
+   in Chromium, which would leave an invisible overlay that still catches clicks. */
+@keyframes odr-intro-failsafe {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  90%,
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* ---------- 3. Hidden start states ---------- */
+
+/*
+ * These rules only bridge the moment between first paint and main.js. Once main.js runs it adds
+ * motion-ready and sets the same states inline (and removes them again). The 5 s animations are
+ * the failsafe for a script that never arrives.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not(.motion-ready):not(.motion-off) [data-reveal]:not(h1) {
+    opacity: 0;
+    animation: odr-failsafe-fade 0.01s linear 5s forwards;
+  }
+
+  /* No reveal ever hides the h1, not even through a wrapper. */
+  html.js:not(.motion-ready):not(.motion-off) [data-reveal]:has(h1) {
+    opacity: 1;
+    animation: none;
+  }
+
+  html.js:not(.motion-ready):not(.motion-off) [data-mask] {
+    clip-path: inset(100% 0 0 0);
+    animation: odr-failsafe-clip 0.01s linear 5s forwards;
+  }
+
+  /* The hero image is never animated in. */
+  html.js:not(.motion-ready):not(.motion-off) #porta [data-mask] {
+    clip-path: none;
+    animation: none;
+  }
+
+  html.js:not(.motion-ready):not(.motion-off) [data-draw],
+  html.js:not(.motion-ready):not(.motion-off) [data-arch-line] {
+    visibility: hidden;
+    animation: odr-failsafe-show 0.01s linear 5s forwards;
+  }
+
+  html.js:not(.motion-off) [data-parallax] {
+    will-change: transform;
+  }
+
+  /* Menu page without its book intro (intro-done is set before the first paint on a repeat
+     visit or with a hash): the skyline of the hero waits, then draws itself. */
+  html.js.intro-done:not(.motion-ready):not(.motion-off) .menu-hero__skyline {
+    visibility: hidden;
+    animation: odr-failsafe-show 0.01s linear 5s forwards;
+  }
+
+  /* The pici strands and the boar wait out of sight until main.js sets their start states. */
+  html.js:not(.motion-ready):not(.motion-off) [data-pici] #pici-fili,
+  html.js:not(.motion-ready):not(.motion-off) [data-pici] #pici-nido,
+  html.js:not(.motion-ready):not(.motion-off) [data-boar] {
+    visibility: hidden;
+    animation: odr-failsafe-show 0.01s linear 5s forwards;
+  }
+
+  /* The strands come in through the top edge of the drawing, the boar through the left edge of
+     its photo band (which clips already). Nothing of the finished drawing reaches the edges. */
+  html.js:not(.motion-off) [data-pici] svg {
+    overflow: hidden;
+  }
+}
+
+@keyframes odr-failsafe-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes odr-failsafe-clip {
+  to {
+    clip-path: none;
+  }
+}
+
+@keyframes odr-failsafe-show {
+  to {
+    visibility: visible;
+  }
+}
+
+/* ---------- 4. Header states ---------- */
+
+/*
+ * is-solid: after 80 px of scroll, cream surface and green ink. The hairline, the smaller
+ * height and the logo swap are drawn by the layout stylesheet on the same class.
+ * is-hidden: phones only, while scrolling down; main.js never sets it with reduced motion.
+ */
+.site-header.is-solid {
+  background-color: var(--cream, #FFFADF);
+  color: var(--green, #1C4130);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-header {
+    transition:
+      background-color var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+      border-color var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+      color var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+      transform var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+  }
+
+  .site-header.is-hidden {
+    transform: translate3d(0, -101%, 0);
+  }
+}
+
+/* ---------- 5. The "via" rail ---------- */
+
+.rail {
+  display: none;
+}
+
+/* Small screens: a 2 px gold progress line under the header. */
+html.js .rail {
+  display: block;
+  position: fixed;
+  z-index: 40;
+  top: var(--odr-header-h, 0px);
+  right: 0;
+  left: 0;
+  height: 2px;
+  pointer-events: none;
+}
+
+html.js .rail__line {
+  position: absolute;
+  inset: 0;
+  background: var(--gold, #C89550);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  will-change: transform;
+}
+
+html.js .rail__dot,
+html.js .rail__stops {
+  display: none;
+}
+
+html.header-hidden .rail {
+  transform: translate3d(0, calc(-1 * var(--odr-header-h, 0px)), 0);
+}
+
+html.header-hidden .menu-nav {
+  top: 0;
+}
+
+html.menu-open .rail,
+html.intro-playing .rail {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .rail {
+    transition:
+      transform var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+      opacity var(--d1, 0.35s) linear;
+  }
+}
+
+/* From 1400 px: the fixed line with seven ticks, numerals, names and the travelling dot. */
+@media (min-width: 1400px) {
+  html.js .rail {
+    --rail-h: min(56vh, 30rem);
+    top: 50%;
+    right: auto;
+    left: clamp(0.625rem, 1.2vw, 1.5rem);
+    width: 1px;
+    height: var(--rail-h);
+    margin-top: calc(var(--rail-h) / -2);
+    transform: none;
+  }
+
+  html.js .rail__line {
+    background: var(--line, rgb(200 149 80 / 0.55));
+    transform: none;
+    will-change: auto;
+  }
+
+  html.js .rail__dot {
+    display: block;
+    position: absolute;
+    top: -4px;
+    left: -3.5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green, #1C4130);
+    box-shadow: 0 0 0 2px var(--cream, #FFFADF);
+    will-change: transform;
+  }
+
+  html.js .rail__dot.is-on-dark {
+    background: var(--cream, #FFFADF);
+    box-shadow: 0 0 0 2px var(--green, #1C4130);
+  }
+
+  html.js .rail__stops {
+    display: block;
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* main.js sets top (in percent) on each stop from the real section offsets. */
+  .rail__stops li {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    color: var(--green, #1C4130);
+    font-family: var(--font-text, "Figtree", system-ui, sans-serif);
+    font-size: 0.625rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .rail__stops li::before {
+    content: "";
+    flex: none;
+    width: 7px;
+    height: 1px;
+    background: var(--gold, #C89550);
+  }
+
+  .rail__stops li.is-on-dark {
+    color: var(--cream, #FFFADF);
+  }
+
+}
+
+@media (min-width: 1400px) {
+  .rail__stops li span {
+    display: block;
+    margin-left: 0.4375rem;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+  }
+
+  .rail__stops li.is-active span {
+    opacity: 1;
+  }
+
+  /* The current stop's name runs down beside the line. */
+  .rail__stops li b {
+    display: block;
+    position: absolute;
+    top: 0.75rem;
+    left: 2.125rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    opacity: 0;
+    transform: translate3d(0, -6px, 0);
+  }
+
+  .rail__stops li.is-active b {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Ink is chosen at each label's own position (numeral and name are sampled separately). */
+  .rail__stops li b {
+    color: var(--green, #1C4130);
+  }
+
+  .rail__stops li.is-name-on-dark b {
+    color: var(--cream, #FFFADF);
+  }
+}
+
+@media (min-width: 1400px) and (prefers-reduced-motion: no-preference) {
+  .rail__stops li,
+  .rail__stops li span,
+  .rail__stops li b,
+  .rail__dot {
+    transition:
+      opacity var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+      transform var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+      color var(--d1, 0.35s) linear,
+      background-color var(--d1, 0.35s) linear,
+      box-shadow var(--d1, 0.35s) linear;
+  }
+
+  /* The dot follows the scroll directly: no easing on its position. */
+  .rail__dot {
+    transition-property: background-color, box-shadow;
+  }
+}
+
+/* ---------- 6. Sticky booking bar states ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not(.motion-off) .cta-bar {
+    visibility: hidden;
+    transform: translate3d(0, 110%, 0);
+    transition:
+      transform var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+      visibility 0s linear var(--d1, 0.35s);
+  }
+
+  html.js:not(.motion-off) .cta-bar.is-visible {
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  /* Failsafe: without main.js the bar comes up after 5 s and stays. */
+  html.js:not(.motion-ready):not(.motion-off) .cta-bar {
+    animation: odr-failsafe-bar 0.3s linear 5s forwards;
+  }
+}
+
+@keyframes odr-failsafe-bar {
+  to {
+    visibility: visible;
+    transform: none;
+  }
+}
+
+/* ---------- 7. Phone menu panel: open state ---------- */
+
+/*
+ * The closed state (a full-screen green panel, hidden with visibility and opacity, never with
+ * display) belongs to the layout stylesheet at its own breakpoint. main.js adds menu-open.
+ */
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
+
+html.menu-open #menu-panel {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* The transitions exist only while the panel opens or closes (main.js sets menu-closing for
+   the length of the fade), so the same element as the desktop navigation is left alone. */
+@media (prefers-reduced-motion: no-preference) {
+  html.menu-open #menu-panel {
+    transition:
+      opacity var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+      transform var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+  }
+
+  html.menu-closing #menu-panel {
+    transition:
+      opacity var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+      transform var(--d1, 0.35s) var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1)),
+      visibility 0s linear var(--d1, 0.35s);
+  }
+}
+
+/* ---------- 8. Battlement line ---------- */
+
+/*
+ * The line of merlons at the top of a green section. main.js marks a section that is still
+ * below the screen with is-waiting and takes the class away when the section comes into view:
+ * the line then uncovers from the left. Without main.js the class is never set.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not(.motion-off) .battlement::before {
+    clip-path: inset(0);
+  }
+
+  html.js:not(.motion-off) .battlement:not(.is-waiting)::before {
+    transition: clip-path 0.9s var(--ease, cubic-bezier(0.2, 0.7, 0.2, 1));
+  }
+
+  html.js:not(.motion-off) .battlement.is-waiting::before {
+    clip-path: inset(0 100% 0 0);
+  }
+}

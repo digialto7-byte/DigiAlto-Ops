@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <defs>
+    <clipPath id="mescita-coppa-clip"><path d="M625 470 C609 505 605 540 606 570 C608 620 662 650 696 662 H704 C738 650 792 620 794 570 C795 540 791 505 775 470 Z"/></clipPath>
+  </defs>
+
+  <g id="mescita-tavola">
+    <path vector-effect="non-scaling-stroke" d="M380 800 H1220"/>
+  </g>
+
+  <rect id="mescita-vino" x="600" y="572" width="200" height="94" fill="#C89550" fill-opacity="0.35" stroke="none" clip-path="url(#mescita-coppa-clip)"/>
+
+  <g id="mescita-calice">
+    <path id="mescita-coppa" vector-effect="non-scaling-stroke" d="M625 470 C609 505 605 540 606 570 C608 620 662 650 696 662 H704 C738 650 792 620 794 570 C795 540 791 505 775 470"/>
+    <path id="mescita-orlo" vector-effect="non-scaling-stroke" d="M625 470 A75 10 0 0 1 775 470 A75 10 0 0 1 625 470"/>
+    <path id="mescita-stelo" vector-effect="non-scaling-stroke" d="M696 662 V781 M704 662 V781"/>
+    <path id="mescita-piede" vector-effect="non-scaling-stroke" d="M630 790 A70 9 0 0 1 770 790 A70 9 0 0 1 630 790"/>
+  </g>
+  <path id="mescita-livello" vector-effect="non-scaling-stroke" d="M607 580 A93 8 0 0 1 793 580 A93 8 0 0 1 607 580"/>
+
+  <g id="mescita-braccio">
+    <g id="mescita-bottiglia">
+      <g transform="translate(760 430) rotate(-35)">
+        <path vector-effect="non-scaling-stroke" d="M218 -55 H122 L95 -13 H9 V-16 H0 V16 H9 V13 H95 L122 55 H410 Q420 55 420 45 V-45 Q420 -55 410 -55 H362"/>
+        <path vector-effect="non-scaling-stroke" d="M9 -13 V13"/>
+        <path vector-effect="non-scaling-stroke" d="M52 -13 V13"/>
+        <path vector-effect="non-scaling-stroke" d="M134 -34 H210 V34 H134 Z"/>
+      </g>
+    </g>
+    <g id="mescita-mano">
+      <g transform="translate(760 430) rotate(-35)">
+        <path vector-effect="non-scaling-stroke" d="M218 -60 V-1 A15 15 0 0 0 248 -1 V-60"/>
+        <path vector-effect="non-scaling-stroke" d="M250 -60 V12 A18 18 0 0 0 286 12 V-60"/>
+        <path vector-effect="non-scaling-stroke" d="M288 -60 V23.5 A18.5 18.5 0 0 0 325 23.5 V-60"/>
+        <path vector-effect="non-scaling-stroke" d="M327 -60 V14.5 A17.5 17.5 0 0 0 362 14.5 V-60"/>
+        <path vector-effect="non-scaling-stroke" d="M223 -34 Q233 -31 243 -34 M223 -12 Q233 -9 243 -12 M255 -34 Q268 -31 281 -34 M255 -10 Q268 -7 281 -10 M293 -34 Q306.5 -31 320 -34 M293 -8 Q306.5 -5 320 -8 M332 -34 Q344.5 -31 357 -34 M332 -10 Q344.5 -7 357 -10"/>
+        <path vector-effect="non-scaling-stroke" d="M226 -70 Q233 -76 240 -70 M257 -70 Q268 -77 279 -70 M295 -70 Q306.5 -77 318 -70 M334 -70 Q344.5 -77 355 -70"/>
+        <path vector-effect="non-scaling-stroke" d="M218 -60 C213 -86 232 -122 262 -142 C276 -152 288 -158 298.3 -163.4 L323.5 -189.1"/>
+        <path vector-effect="non-scaling-stroke" d="M354.9 -158.3 L329.7 -132.6 C336 -124 345 -114 358.2 -107.4 L404.8 -78.8 A10 10 0 0 1 395.2 -61.2 L345.8 -84.6 Q349 -72 362 -62"/>
+        <path vector-effect="non-scaling-stroke" d="M377 -91 Q371 -84 372 -77"/>
+        <path vector-effect="non-scaling-stroke" d="M306 -70 Q309 -105 314 -140"/>
+        <path vector-effect="non-scaling-stroke" d="M319.2 -193.3 L359.2 -154.1 L387.2 -182.7 L347.2 -221.9 Z"/>
+        <circle vector-effect="non-scaling-stroke" cx="363.2" cy="-178.2" r="5"/>
+        <circle vector-effect="non-scaling-stroke" cx="363.2" cy="-178.2" r="1.6"/>
+        <path vector-effect="non-scaling-stroke" d="M347.2 -221.9 L392.6 -275.4"/>
+        <path vector-effect="non-scaling-stroke" d="M387.2 -182.7 L439.8 -229.2"/>
+      </g>
+    </g>
+  </g>
+
+  <path id="mescita-filo" vector-effect="non-scaling-stroke" d="M760 430 C740 444 715 520 715 590"/>
+</svg>

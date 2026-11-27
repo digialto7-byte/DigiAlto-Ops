@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path id="svg-cinghiale-corpo" d="M10 30 C14 24 26 20 34 18 C38 17 41 17 43 19 L47 27 L57 38 L57 41 L51 42 L45 43 L43 45 L42.5 56 H40 L39.5 47 C32 49 24 48 19 47 L18.5 56 H16 L15.5 46 C11 43 9 36 10 30 Z"/>
+  <path id="svg-cinghiale-setole" d="M16 25 L14.5 21.5 M22 22.5 L21 18.5 M28 20 L27.5 16 M34 18 L34 13.5 M39 17.3 L40 13"/>
+  <path d="M42 18 L44.5 14 L45.5 24"/>
+  <path d="M52 42 Q52 38.5 54.5 37"/>
+  <path d="M11 27.5 C7 25 6 30 8.5 31.5"/>
+  <path d="M34 48 L34.5 56 H36.5 L37 48.5 M21 47.5 L21.5 56 H23.5 L24 47.5"/>
+  <circle cx="48" cy="32" r="0.9" fill="currentColor" stroke="none"/>
+</svg>

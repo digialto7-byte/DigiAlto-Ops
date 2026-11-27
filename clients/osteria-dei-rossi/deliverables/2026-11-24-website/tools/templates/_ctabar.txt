@@ -1,0 +1,4 @@
+<div class="cta-bar">
+  <a class="cta-bar__link" href="tel:+390577287592" aria-label="{{c:global-cta-bar.call_aria}}">{{c:global-cta-bar.call_label}}</a>
+  <a class="cta-bar__link" href="https://wa.me/390577287592" target="_blank" rel="noopener" aria-label="{{c:global-cta-bar.whatsapp_aria}}">{{c:global-cta-bar.whatsapp_label}}</a>
+</div>

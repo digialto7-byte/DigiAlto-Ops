@@ -1,0 +1,662 @@
+{
+ "@context": "https://schema.org",
+ "@type": "Menu",
+ "@id": "https://www.osteriadeirossi.it/menu/#menu",
+ "name": "Menù dell’Osteria dei Rossi",
+ "url": "https://www.osteriadeirossi.it/menu/",
+ "inLanguage": "it",
+ "hasMenuSection": [
+  {
+   "@type": "MenuSection",
+   "name": "Antipasti",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Tagliere del Cacciatore",
+     "offers": {
+      "@type": "Offer",
+      "price": "22",
+      "priceCurrency": "EUR"
+     },
+     "description": "Una selezione di salumi di cinta senese e selvaggina, espressione dei sapori più autentici del territorio."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tartare dell’Oste",
+     "offers": {
+      "@type": "Offer",
+      "price": "15",
+      "priceCurrency": "EUR"
+     },
+     "description": "Battuta di manzo al coltello, preparata al momento per esaltarne la qualità della carne e il sapore autentico. Servita su una croccante cialda di parmigiano e accompagnata da senape antica in grani."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tagliere del Contadino",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     },
+     "description": "Formaggi toscani abbinati a miele e confetture genuini e ricchi di sapore che portano in tavola tutta la bontà della nostra terra."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bis di crostoni",
+     "offers": {
+      "@type": "Offer",
+      "price": "12",
+      "priceCurrency": "EUR"
+     },
+     "description": "Due crostoni dai sapori distinti: uno con gorgonzola e tartufo, l’altro con cacio, pere e miele. Due abbinamenti che uniscono carattere, cremosità e delicate note dolci."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Acciughe sotto pesto",
+     "offers": {
+      "@type": "Offer",
+      "price": "10",
+      "priceCurrency": "EUR"
+     },
+     "description": "Acciughe con pesto senese al dragoncello: profumate, saporite e con quel tocco in più che non ti aspetti."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Crostini neri senesi",
+     "offers": {
+      "@type": "Offer",
+      "price": "9",
+      "priceCurrency": "EUR"
+     },
+     "description": "Un simbolo della cucina senese, dal gusto intenso e inconfondibile, che porta in tavola i sapori di Siena."
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Primi",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Tagliatelle ai Funghi Porcini",
+     "offers": {
+      "@type": "Offer",
+      "price": "20",
+      "priceCurrency": "EUR"
+     },
+     "description": "Tagliatelle con funghi porcini: il profumo del bosco toscano, nel piatto dell’autunno."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tagliatelle al Tartufo di Stagione",
+     "offers": {
+      "@type": "Offer",
+      "price": "18",
+      "priceCurrency": "EUR"
+     },
+     "description": "Tagliatella accompagnata dal profumo intenso di tartufo di stagione."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pici al Ragù Tradizionale di Anatra",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     },
+     "description": "Pici della tradizione conditi con un ragù d’anatra ricco e saporito. Un piatto rustico, di quelli che sanno di casa e di cucina toscana."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pici al Ragù Bianco di Cinta Senese",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     },
+     "description": "Ragù bianco di cinta senese, senza pomodoro, con la miscela segreta di erbe e spezie della casa."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tagliatelle al Ragù di Cinghiale",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     },
+     "description": "Tagliatelle accompagnate da un ragù di cinghiale dai sapori autentici e rustici della tradizione toscana."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Pici Cacio e Pepe",
+     "offers": {
+      "@type": "Offer",
+      "price": "15",
+      "priceCurrency": "EUR"
+     },
+     "description": "Pici con pecorino toscano e pepe nero, una versione in stile toscano di un grande classico della cucina italiana."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Spaghetti alla Chitarra con Sugo dell’Osteria",
+     "offers": {
+      "@type": "Offer",
+      "price": "14",
+      "priceCurrency": "EUR"
+     },
+     "description": "Una ricetta storica dell’Osteria dei Rossi, in menù dal 1992: sugo a base di pomodoro, gorgonzola e peperoncino, per un incontro deciso e inconfondibile di sapori."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ravioli con Zucca Gialla, Pancetta e stracciatella",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ribollita",
+     "offers": {
+      "@type": "Offer",
+      "price": "13",
+      "priceCurrency": "EUR"
+     },
+     "description": "La celebre zuppa toscana della tradizione contadina, ricca di storia. A volte le cose semplici sono le migliori."
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Secondi",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Cinghiale in Dolce Forte",
+     "offers": {
+      "@type": "Offer",
+      "price": "20",
+      "priceCurrency": "EUR"
+     },
+     "description": "Un’antica ricetta medievale toscana, in cui il sapore intenso del cinghiale incontra il caratteristico equilibrio agrodolce del dolce forte."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tegamata di Cinta Senese",
+     "offers": {
+      "@type": "Offer",
+      "price": "19",
+      "priceCurrency": "EUR"
+     },
+     "description": "Uno stufato di cinta senese a cottura lenta, preparato senza base di pomodoro con carne proveniente da un allevamento allo stato brado nel cuore delle Crete Senesi."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Agnello allo Scottadito",
+     "offers": {
+      "@type": "Offer",
+      "price": "18",
+      "priceCurrency": "EUR"
+     },
+     "description": "Costolette d’agnello cotte alla griglia, da gustare calde secondo la tradizione."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cinghiale al Coccio con Polenta",
+     "offers": {
+      "@type": "Offer",
+      "price": "18",
+      "priceCurrency": "EUR"
+     },
+     "description": "Spezzatino di cinghiale dalla cottura lenta e aromatica, accompagnato da polenta: un grande classico della cucina toscana."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Sovracosce di Pollo alla Diavola",
+     "offers": {
+      "@type": "Offer",
+      "price": "16",
+      "priceCurrency": "EUR"
+     },
+     "description": "Sovracosce di pollo croccanti, cotte alla griglia e accompagnate da una salsa piccante fatta in casa."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trippa alla Senese",
+     "offers": {
+      "@type": "Offer",
+      "price": "14",
+      "priceCurrency": "EUR"
+     },
+     "description": "Una ricetta della tradizione popolare senese, particolarmente legata al periodo del Palio. Sugo a base di pomodoro, salsiccia e peperoncino."
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Griglia",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Bistecca alla Fiorentina",
+     "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+       "@type": "UnitPriceSpecification",
+       "price": "9",
+       "priceCurrency": "EUR",
+       "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "100",
+        "unitCode": "GRM"
+       }
+      }
+     },
+     "description": "La specialità della casa: una selezione settimanale curata da Alessio, il nostro macellaio di fiducia."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bistecca Fritta",
+     "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+       "@type": "UnitPriceSpecification",
+       "price": "12",
+       "priceCurrency": "EUR",
+       "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "100",
+        "unitCode": "GRM"
+       }
+      }
+     },
+     "description": "La nostra versione fuori dagli schemi della regina della tavola toscana: una bella bistecca alla fiorentina, impanata e fritta, croccante fuori e succosa dentro. Da provare almeno una volta!"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Costata del macellaio",
+     "offers": {
+      "@type": "Offer",
+      "priceCurrency": "EUR",
+      "priceSpecification": {
+       "@type": "UnitPriceSpecification",
+       "price": "7",
+       "priceCurrency": "EUR",
+       "referenceQuantity": {
+        "@type": "QuantitativeValue",
+        "value": "100",
+        "unitCode": "GRM"
+       }
+      }
+     },
+     "description": "Un taglio di manzo simile alla Fiorentina, ma senza filetto, ideale per chi ama il gusto autentico della carne alla griglia."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Medaglione di Filetto alla Griglia",
+     "offers": {
+      "@type": "Offer",
+      "price": "25",
+      "priceCurrency": "EUR"
+     },
+     "description": "Medaglione di filetto di manzo cotto alla griglia, da gustare al naturale oppure nelle sue varianti."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Medaglione di Filetto alla Griglia, con Tartufo",
+     "offers": {
+      "@type": "Offer",
+      "price": "30",
+      "priceCurrency": "EUR"
+     },
+     "description": "Per chi al profumo del tartufo non sa proprio dire di no."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Medaglione di Filetto alla Griglia, con Lardo di Colonnata",
+     "offers": {
+      "@type": "Offer",
+      "price": "28",
+      "priceCurrency": "EUR"
+     },
+     "description": "Lardo di Colonnata, morbido e saporito, per un abbinamento ricco e tutto da gustare."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Medaglione di Filetto alla Griglia, con salsa al Pepe Verde",
+     "offers": {
+      "@type": "Offer",
+      "price": "28",
+      "priceCurrency": "EUR"
+     },
+     "description": "Delicata salsa al pepe verde sfumata al brandy"
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Contorni",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Fagioli all’Uccelletto",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     },
+     "description": "Un grande classico toscano: fagioli saporiti, perfetti per accompagnare i piatti della casa."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Chips di Patate Croccanti",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     },
+     "description": "Dorate, croccanti e una tira l’altra. C’è davvero bisogno di aggiungere altro?"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Patate Prezzemolate",
+     "offers": {
+      "@type": "Offer",
+      "price": "6",
+      "priceCurrency": "EUR"
+     },
+     "description": "Patate lesse condite con prezzemolo tritato, olio, sale e pepe. Semplici, genuine e sempre al posto giusto."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Erbe Saltate",
+     "offers": {
+      "@type": "Offer",
+      "price": "8",
+      "priceCurrency": "EUR"
+     },
+     "description": "Bietole, cicoria e spinaci saltati in padella con aglio, olio e peperoncino. Verdure sì, ma con carattere."
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Insalata Mista",
+     "offers": {
+      "@type": "Offer",
+      "price": "5",
+      "priceCurrency": "EUR"
+     },
+     "description": "Insalata fresca, ideale per chi vuole qualcosa di leggero e genuino."
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Dolci",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Il Tiramisù di Manu",
+     "offers": {
+      "@type": "Offer",
+      "price": "8",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cantuccini e Vin Santo",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Panna Cotta",
+     "offers": {
+      "@type": "Offer",
+      "price": "6",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tortino al Cioccolato con Cuore Caldo",
+     "offers": {
+      "@type": "Offer",
+      "price": "8",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cheesecake",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tris di Dolci Senesi",
+     "offers": {
+      "@type": "Offer",
+      "price": "8",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Carpaccio di Pere e Scaglie di Cioccolato Fondente",
+     "offers": {
+      "@type": "Offer",
+      "price": "6",
+      "priceCurrency": "EUR"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Bevande",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Vino l’Osteria Rosso · bottiglia 0,75 l",
+     "offers": {
+      "@type": "Offer",
+      "price": "18",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vino l’Osteria Bianco · bottiglia 0,75 l",
+     "offers": {
+      "@type": "Offer",
+      "price": "15",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vino al calice · Rosso",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     },
+     "description": "Chianti Classico Gallo Nero · IGT Toscano · Maremma DOC"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vino al calice · Bianco",
+     "offers": {
+      "@type": "Offer",
+      "price": "6",
+      "priceCurrency": "EUR"
+     },
+     "description": "Vernaccia di San Gimignano · Vermentino Toscano"
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bionda alla spina · Lager media",
+     "offers": {
+      "@type": "Offer",
+      "price": "7",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bionda alla spina · Lager piccola",
+     "offers": {
+      "@type": "Offer",
+      "price": "4.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Coca-Cola / Coca-Cola Zero",
+     "offers": {
+      "@type": "Offer",
+      "price": "3.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Acqua",
+     "offers": {
+      "@type": "Offer",
+      "price": "2.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Caffè",
+     "offers": {
+      "@type": "Offer",
+      "price": "2",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Caffè corretto",
+     "offers": {
+      "@type": "Offer",
+      "price": "2.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Caffè d’orzo",
+     "offers": {
+      "@type": "Offer",
+      "price": "2",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Caffè decaffeinato",
+     "offers": {
+      "@type": "Offer",
+      "price": "2",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Vecchio Toscano",
+     "offers": {
+      "@type": "Offer",
+      "price": "4",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Amaro di Siena",
+     "offers": {
+      "@type": "Offer",
+      "price": "4",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Jefferson",
+     "offers": {
+      "@type": "Offer",
+      "price": "4",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bomba Carta",
+     "offers": {
+      "@type": "Offer",
+      "price": "4",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Grappa Poli Aromatizzata",
+     "offers": {
+      "@type": "Offer",
+      "price": "4",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Montenegro",
+     "offers": {
+      "@type": "Offer",
+      "price": "3.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Capo",
+     "offers": {
+      "@type": "Offer",
+      "price": "3.50",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Grappa Poli Bianca",
+     "offers": {
+      "@type": "Offer",
+      "price": "3",
+      "priceCurrency": "EUR"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Grappa Poli Barricata",
+     "offers": {
+      "@type": "Offer",
+      "price": "3",
+      "priceCurrency": "EUR"
+     }
+    }
+   ]
+  }
+ ]
+}

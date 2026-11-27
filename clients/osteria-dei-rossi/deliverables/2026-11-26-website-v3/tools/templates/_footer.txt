@@ -1,0 +1,48 @@
+<footer class="site-footer battlement{{footer_class}}">
+  {{skyline}}  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <img class="site-footer__logo" src="{{a}}assets/img/logo-osteria-dei-rossi-chiaro-360.webp" srcset="{{a}}assets/img/logo-osteria-dei-rossi-chiaro-360.webp 360w, {{a}}assets/img/logo-osteria-dei-rossi-chiaro-720.webp 720w" sizes="150px" width="360" height="185" alt="{{alt:logo}}" loading="lazy" decoding="async">
+      <p>{{c:global-footer.positioning_line}}</p>
+    </div>
+    <div class="site-footer__col">
+      <p class="site-footer__label">{{c:global-footer.address_label}}</p>
+      <address>{{address}}</address>
+      <p class="site-footer__label">{{c:global-footer.phone_label}}</p>
+      <p><a href="tel:+390577287592">+39 0577 287592</a></p>
+    </div>
+    <div class="site-footer__col">
+      <p class="site-footer__label">{{c:global-footer.hours_label}}</p>
+      <p>{{hours_compact}}</p>
+      <p class="site-footer__small">{{c:global-footer.hours_note}}</p>
+    </div>
+    <div class="site-footer__col">
+      <p class="site-footer__label">{{c:global-footer.follow_label}}</p>
+      <ul class="site-footer__list">
+        <li><a href="https://www.instagram.com/osteriadeirossi/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/osteriadeirossi" target="_blank" rel="noopener">Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <div class="lang" role="group" aria-label="{{c:global-nav.lang_switch_label}}">
+      <a href="{{u:lang_it}}" lang="it" hreflang="it"{{cur_it}}>{{c:global-nav.lang_it}}</a>
+      <span class="lang__sep" aria-hidden="true">·</span>
+      <a href="{{u:lang_en}}" lang="en" hreflang="en"{{cur_en}}>{{c:global-nav.lang_en}}</a>
+    </div>
+    <ul class="site-footer__links">
+      <li><a href="{{u:menu}}">{{c:global-footer.menu_link}}</a></li>
+      <li><a href="{{u:vini}}">{{c:global-footer.vini_link}}</a></li>
+      <li><a href="{{u:dove}}">{{c:global-footer.dove_link}}</a></li>
+      <li><a href="{{u:privacy}}">{{c:global-footer.privacy_link}}</a></li>
+      <li><a href="{{u:top}}">{{c:global-footer.back_to_top}}</a></li>
+    </ul>
+    <p class="site-footer__legal">{{c:global-footer.legal_line}}</p>
+  </div>
+</footer>
+
+<script src="{{a}}assets/vendor/gsap.min.js" defer></script>
+<script src="{{a}}assets/vendor/ScrollTrigger.min.js" defer></script>
+<script src="{{a}}assets/vendor/lenis.min.js" defer></script>
+<script src="{{a}}main.js" defer></script>
+</body>
+</html>

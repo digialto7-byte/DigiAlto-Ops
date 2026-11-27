@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+  <title>Vino</title>
+  <path d="M15 8 V22 C15 28 8 30 8 38 V48 M21 8 V22 C21 28 28 30 28 38 V48 M14 8 H22"/>
+  <path d="M31 12 C31 30 36 38 42 38 C48 38 53 30 53 12 Z"/>
+  <path d="M32.5 22 H51.5"/>
+  <path d="M42 38 V54 M34 56 H50"/>
+</svg>

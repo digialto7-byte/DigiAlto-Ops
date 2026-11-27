@@ -4,7 +4,7 @@ slug: osteria-dei-rossi
 language: it
 status: prospect
 owner: Mohammad
-updated: 2026-11-11
+updated: 2026-11-25
 ---
 
 # Osteria Dei Rossi — approved facts
@@ -14,15 +14,20 @@ updated: 2026-11-11
 
 ## Identity
 - Trading name: Osteria Dei Rossi (src: founder, chat 2026-10-21; approved by the founder 2026-10-22)
+- Public name for the website and for every listing: Osteria dei Rossi, with a lower-case "dei" and without "L'" (src: founder's answer in chat 2026-11-24)
 - Legal name: ML SNC DI LANARO E FRESI (src: sources/founder-legal-2026-11-11.md; given by the founder 2026-11-11)
 - VAT number (P. IVA): IT00354250524 (src: sources/founder-legal-2026-11-11.md; given by the founder 2026-11-11)
 - Registered address: Via dei Rossi 79/81, 53100 Siena (SI), Italy (src: sources/founder-legal-2026-11-11.md; given by the founder 2026-11-11)
 - Other number given with the legal name: 01358391, meaning to confirm (REA or other) [unverified] (src: sources/founder-legal-2026-11-11.md)
 - Sector: osteria (restaurant), one venue, one kitchen, one storage area at start, one service shift per day [unverified] (src: sources/prd-2026-10-21.md)
 - Address: Via dei Rossi, 79/81 · 53100 Siena (src: sources/menu-site-2026-10-22.md; confirmed by the founder 2026-11-11, sources/founder-legal-2026-11-11.md)
-- Phone / email (public): +39 0577 287592 [unverified] (src: sources/menu-site-2026-10-22.md)
+- Phone (public): +39 0577 287592 (src: sources/menu-live-2026-11-24.md; approved by the founder in chat 2026-11-24). No public email is approved.
 - Website / domains: live online menu https://menu.osteriadeirossi.it/ (src: founder 2026-11-11, sources/menu-live-2026-11-11.md); the earlier preview https://azure-locust-452058.hostingersite.com/ is superseded
-- Social profiles: https://www.instagram.com/osteriadeirossi/ · https://www.facebook.com/osteriadeirossi [unverified] (src: sources/menu-site-2026-10-22.md)
+- Website domain: https://www.osteriadeirossi.it/ (src: founder's answer in chat 2026-11-24)
+- Instagram: https://www.instagram.com/osteriadeirossi/ (src: sources/founder-website-brief-2026-11-24.md; given by the founder 2026-11-24)
+- Facebook: https://www.facebook.com/osteriadeirossi (src: sources/menu-live-2026-11-24.md; approved by the founder in chat 2026-11-24)
+- Name on third-party listings today: Google, TripAdvisor and most directories list it as "L'Osteria dei Rossi"; other Facebook URLs also circulate [unverified] (src: website research 2026-11-24, `01_osteria_own_presence.md`)
+- Google Maps link: https://maps.google.com/?cid=5066073290586870112 (src: sources/menu-live-2026-11-24.md; approved by the founder in chat 2026-11-24)
 
 ## Offer
 - What they sell: food and drink service in the osteria; menu courses antipasti, primi, secondi, dolci, bevande [unverified] (src: sources/prd-2026-10-21.md)
@@ -30,9 +35,13 @@ updated: 2026-11-11
 - Key products / services / menu highlights: draft menu of 39 items in six sections (antipasti, primi, secondi, griglia, contorni, dolci) plus drinks. "Consigliato dall'Oste" picks include Tartare dell'Oste, Pici al Ragù Tradizionale di Anatra, Tegamata di Cinta Senese and Bistecca alla Fiorentina. Full list, prices and allergen codes in the source [unverified] (src: sources/menu-site-2026-10-22.md)
 - Prices (public): per dish in the source (e.g. Bistecca alla Fiorentina 9 € / etto); coperto 2,50 € [unverified] (src: sources/menu-site-2026-10-22.md)
 - Dishes priced by weight on the live menu, per 100 g: Bistecca alla Fiorentina 9 €/100 g, Bistecca Fritta 12 €/100 g, Costata del Vamosh 7 €/100 g; coperto 2,50 € a persona (src: sources/menu-live-2026-11-11.md; founder 2026-11-11: weight items are priced per 100 g and the waiter enters the weight the customer asks for, e.g. fiorentina 1,2 kg, porcini fritti 250 g)
-- Full live menu (items, prices, allergen numbers 1–14): see the source; per-item prices and allergens are for the app's menu import only after the founder and chef confirm them [unverified] (src: sources/menu-live-2026-11-11.md)
-- Opening hours / availability: critical service window 11:00–24:00 [unverified] (src: sources/prd-2026-10-21.md)
-- Booking / purchase channel (URL):
+- Live menu approved for the website: dishes, descriptions and prices exactly as published on https://menu.osteriadeirossi.it/ on 2026-11-24, and the cover charge of 2,50 € a persona (src: sources/menu-live-2026-11-24.md; approved by the founder in chat 2026-11-24). Allergens are not approved and stay off the website until the chef confirms them.
+- Wines on the live menu: Vino l'Osteria red and white by the bottle; by the glass, red (Chianti Classico Gallo Nero, IGT Toscano, Maremma DOC) and white (Vernaccia di San Gimignano, Vermentino Toscano) (src: sources/menu-live-2026-11-24.md; approved by the founder in chat 2026-11-24)
+- Full live menu (items, prices, allergen numbers 1–14) for the app: see the source; per-item prices and allergens are for the app's menu import only after the founder and chef confirm them [unverified] (src: sources/menu-live-2026-11-11.md)
+- Opening hours for the public: Tuesday to Saturday lunch 12:30–15:00 and dinner 19:00–22:30; Sunday lunch only, 12:30–15:00; closed on Sunday evening and on Monday. Hours are subject to change: the website says so and asks guests to call to confirm (src: founder's answers in chat 2026-11-24)
+- Internal service window for the app: 11:00–24:00 [unverified] (src: sources/prd-2026-10-21.md)
+- Booking channel: by phone on +39 0577 287592 (tel:+390577287592) and by WhatsApp on the same number (https://wa.me/390577287592); the "Prenota" button offers both. It can switch to the online booking page when that goes live (src: founder's answer in chat 2026-11-24)
+- Online booking page (Costì): https://app.digialto.com/prenota/osteria-dei-rossi, live and tested end to end by the founder on 2026-11-27; added as a third option next to phone and WhatsApp, which stay (src: founder in the lead chat, 2026-11-27)
 
 ## Audience
 - Who buys:
@@ -46,8 +55,71 @@ updated: 2026-11-11
 - Logo files (location): an emblem is embedded in the menu site (used with the "Consigliato dall'Oste" badge); source files to request [unverified] (src: sources/menu-site-2026-10-22.md)
 - Logo (as shown by the founder): varsity-style block capitals, distressed texture, white on dark, with a mustard emblem; SVG/PNG file requested, not yet in any repo [unverified] (src: founder in the project session, 2026-10-22)
 - Brand story points: "in menù dal 1992" (Spaghetti alla Chitarra con Sugo dell'Osteria), weekly steak selection by trusted butcher Alessio, free-range Cinta Senese from the Crete Senesi [unverified] (src: sources/menu-site-2026-10-22.md)
+- The same three statements are part of the live menu descriptions the founder approved on 2026-11-24 (Spaghetti alla Chitarra "in menù dal 1992"; the weekly steak selection by Alessio, "il nostro macellaio di fiducia"; Cinta Senese from a free-range farm in the Crete Senesi). Version 1 of the website repeats them on the home page in the menu's own terms; the founder is asked to confirm that use (src: sources/menu-live-2026-11-24.md)
 - Tone of voice:
 - Words or claims to avoid:
+
+## Place and story (website brief, 2026-11-24)
+
+Stated by the founder in the website brief (src: sources/founder-website-brief-2026-11-24.md; given by the founder 2026-11-24):
+- The osteria is in the heart of Siena, inside the city walls.
+- Its dishes come from the Middle Ages; the place has a rich history.
+- Dishes the founder names: pici, cinghiale in umido, fresh Tuscan truffles, fiorentina.
+- A wide choice of wines, such as Chianti, Rosso di Montepulciano and Montalcino.
+- There is no brand identity yet; DigiAlto writes the story and shapes the identity.
+
+From the founder's own photo captions (src: sources/photos-2026-11-24.md; given by the founder 2026-11-24):
+- The osteria is in the Contrada del Bruco.
+- A historic "Osteria" sign and the Via dei Rossi street plate mark the way to the door.
+- A grotto (a brick-vaulted room) leads to the cellar; the cellar holds the wines of the wine list.
+- The counter gives a view into the kitchen.
+- The dining room is in traditional Tuscan style, with traditional lights.
+- On the table: gran tagliere di salumi; tagliere of salumi and cheeses with local wines; tagliere di formaggi; lardo toscano; fresh truffle all year round; fiorentina in different cuts and from different breeds; cinghiale in dolceforte, a medieval recipe; cinghiale in umido; rich dishes with side dishes; a choice of liqueurs and amari.
+- Photographs of Siena and the contrada hang on the walls as inspiration.
+
+What the founder's photos show (lead's description of the pictures; src: sources/photos-2026-11-24.md; approved by the founder in chat 2026-11-24):
+- Outside: an old brick wall with blind arches, green shutters, cream parasols and tables on the street, a barrel by the door
+- Inside: beamed ceilings, wood-panelled walls, terracotta floors, brick arches and vaults, wooden tables with green paper and green-and-white check napkins, wrought-iron lanterns, black-and-white photographs of Siena
+- The stews are served in terracotta bowls; the boards are slices of wood
+
+Researched on the web (src: `clients/osteria-dei-rossi/deliverables/2026-11-24-website/research_notes/`); lines without a marker were approved by the founder in chat on 2026-11-24:
+- Opened in 1992 by Giuseppe "Beppe" Carrieri, a brucaiolo; run since early 2024 by Luca and Max, with Luca in the kitchen (Gazzetta di Siena, about April 2024; approved by the founder in chat 2026-11-24)
+- Earlier trading name: "L'Osteria" [unverified]
+- No TheFork, Quandoo or OpenTable booking found for the osteria [unverified]
+- Emails that circulate on directories: osteriadeirossi@virgilio.it and losteriarossi@gmail.com; a second phone number, +39 0577 1460316, appears on one directory [unverified]
+- Listed by Gambero Rosso among Siena's restaurants for meat (approved by the founder in chat 2026-11-24)
+- Via dei Rossi runs from Banchi di Sopra down to Piazza San Francesco and takes its name from the 13th-century castellare of the Rossi family (state heritage catalogue; approved by the founder in chat 2026-11-24)
+- The Bruco's side of Via dei Rossi is the left side coming from Banchi di Sopra; Porta Ovile, a 13th-century brick gate with a pointed arch and a crenellated forework, is the only city gate in the Bruco's territory (approved by the founder in chat 2026-11-24)
+- The Basilica di San Francesco stands at the end of the street; Piazza del Campo is about 5 minutes on foot (approved by the founder in chat 2026-11-24)
+- The San Francesco car park (Via Baldassarre Peruzzi) is linked to the centre by escalators; the whole walled centre is a limited-traffic zone (ZTL). No parking tariff is to be shown (approved by the founder in chat 2026-11-24)
+- Cinghiale in dolceforte: the sweet-and-sour dolceforte goes back to medieval cooking; the chocolate in today's recipe was added in later centuries (approved by the founder in chat 2026-11-24)
+- Siena's historic centre has been a UNESCO World Heritage site since 1995; the Palio is run on 2 July and 16 August (approved by the founder in chat 2026-11-24)
+
+## Welcome, food and wine (website version 2, 2026-11-25)
+
+Stated or approved by the founder on 2026-11-25 (src: sources/founder-website-feedback-2026-11-25.md):
+- Osteria dei Rossi is a warm place where you feel at home; the service is very friendly.
+- Welcome line, taken from the menu and approved as the opening of the story: "Mettetevi comodi: qui si mangia come a casa, con la ciccia buona e il vino giusto."
+- Pici are thick, hand-rolled strands of pasta made from flour and water, typical of the Siena area. At the osteria they come with white Cinta Senese ragù, duck ragù, cacio e pepe and wild boar ragù.
+- Cinta Senese is the native pig breed of the Siena hills, dark with a white band (the "cinta") around its shoulders. It is painted in Ambrogio Lorenzetti's fresco of 1338–39 in Siena's Palazzo Pubblico and has protected-origin (DOP) status.
+- Cantucci are Tuscan almond biscuits; the tradition is to dip them in Vin Santo, the sweet Tuscan dessert wine, to end the meal. The osteria serves cantucci e Vin Santo.
+- Chianti Classico (the Gallo Nero, the black rooster), Vino Nobile di Montepulciano and Brunello di Montalcino are the great reds of the Siena area. The wine list carries all three, plus Bolgheri, other Tuscan reds, whites and sparkling wines.
+- Wine list for the website: the wines and producers in `sources/wine-list-2026-11-25.json`, published **without prices**. Three readings wait for the founder's proofreading: "Chianti Domasco DOC", "Bolgheri Bianco Papero" and the producer "Poggio Canzano". The heading "Rosé e bollicine" for the last group is the lead's (the printed heading is not visible in the photo).
+
+From the founder's captions of the second photo set (src: sources/photos-2026-11-25.md; given by the founder 2026-11-25). Dishes shown and named by the founder:
+- Filetto al tartufo fresco; crostoni with truffle, and crostoni with cheese, pears and honey; cantucci e Vin Santo
+- Pici al ragù di cinghiale; pici cacio e pepe
+- Fresh porcini: grilled, and fried as a side dish; tagliatelle ai porcini freschi
+- Spaghetti dell'osteria, with tomato sauce and gorgonzola
+- Tagliatelle al ragù di Cinta; tagliatelle al ragù; tagliatelle al tartufo fresco
+- A dish in these photos that is not on the live menu of 2026-11-24 may be shown and named on the home page, but takes no price and no menu-page entry until the founder adds it to the menu.
+
+## Website rules (version 3, 2026-11-26)
+
+Decided by the founder on 2026-11-26 (src: sources/founder-website-feedback-2026-11-26.md):
+- Food prices appear only on the menu page. The home page shows no price and no dish row (name, price, menu description); a dish is named inside the explanation of the food where it is worth it.
+- Version 2 of the website is kept as it is (`clients/osteria-dei-rossi/deliverables/2026-11-24-website/`); version 3 is a separate folder.
+- The animations of version 2 (gate, menu book, wine pour, pici, boar) are approved and stay.
 
 ## Operations (build-relevant)
 - Fiscal register: RCH LDP03 (ASSO 3, Xstore back office); it only fiscalizes sales and exports supplier invoices as PDF; it stays in use, keyed in separately by the cashier [unverified] (src: sources/prd-2026-10-21.md)
@@ -83,14 +155,24 @@ updated: 2026-11-11
 - Phase 2+: Telegram Bot API, Brother QL label printer via a Raspberry Pi bridge, open-meteo, AdE corrispettivi import; Phase 3: WhatsApp Business [unverified] (src: sources/prd-2026-10-21.md)
 
 ## Tracking & legal
-- Tracking approved (GA4, Meta pixel, ...):
+- Tracking approved (GA4, Meta pixel, ...): none. Version 1 of the website is built without cookies, analytics, forms or third-party embeds; fonts, scripts and images are served from the site itself; the map, WhatsApp, Instagram and Facebook are plain links that open those services; the only thing the site stores is one technical session-storage entry so that the opening animations (the gate on the home page and, from version 2, the menu book and the wine-list pour) play once per visit, deleted by the browser when the tab is closed (lead's build decision, 2026-11-24, extended 2026-11-25; the founder asked for no third-party scripts in the handover)
 - Cookie / privacy texts supplied by:
 
 ## Sources
 - `sources/prd-2026-10-21.md` — Osteria Digitalization PRD (dated 2026-10-21, by DigiAlto), converted from the founder's upload `Osteria_Digitalization_PRD.docx`; text unchanged, diagrams in `sources/prd-2026-10-21-media/`. The original .docx is not in git (it was a session upload).
 - `sources/menu-site-2026-10-22.md` and `.json` — capture of the restaurant's menu site (venue info, 39 menu items with prices and allergen codes, drinks, brand colours and fonts), given by the founder on 2026-10-22 as the source for brand identity and the first draft of the menu.
 
+- `sources/founder-website-brief-2026-11-24.md` — the founder's website brief of 2026-11-24, verbatim, with the facts and design instructions it contains.
+- `sources/photos-2026-11-24.md` — catalogue of the 20 photos and the logo files the founder gave on 2026-11-24 (the originals are session uploads, not in git).
+- `sources/website-handover-2026-11-24/` — the handover kit from an earlier website project (structure, skills to use, first prompt), given by the founder as a guide, not a rule.
+- `sources/founder-website-feedback-2026-11-25.md` — the founder's feedback on website version 1 (verbatim), the instructions for version 2 and the answers of the question round of 2026-11-25.
+- `sources/photos-2026-11-25.md` — catalogue of the second photo set (14 dishes), with the founder's captions.
+- `sources/wine-list-2026-11-25.md` and `.json` — the printed carta dei vini, transcribed from the founder's photos (the `.md` keeps the printed prices for reference; the `.json` has no prices and feeds the website).
+- `clients/osteria-dei-rossi/deliverables/2026-11-24-website/research_notes/` and `reports/` — web research of 2026-11-24 (the osteria's own listings, Siena search results, competitor sites, place and food history). Research, not approved facts.
+- `sources/founder-website-feedback-2026-11-26.md` — the founder's feedback on website version 2 and the brief for version 3 (no prices and no dish rows on the home page).
+
 ## Open questions
+- Website (2026-11-24): real opening hours and Sunday; the public name (with or without "L'"); the site's domain; which email and Facebook page are live; whether the history and the people (1992, Beppe Carrieri, Luca and Max) may be named; the booking channel besides the phone
 - Legal name, VAT number, owner's name, main contact, public email
 - Menu-site allergen codes look unreliable in places (e.g. peanuts on several pasta dishes): confirm every dish's allergens with the chef
 - Final website domain (the menu site is on a hosting preview domain) and logo source files

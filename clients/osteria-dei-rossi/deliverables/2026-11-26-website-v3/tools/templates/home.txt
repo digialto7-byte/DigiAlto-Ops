@@ -1,0 +1,418 @@
+<body>
+<a class="skip-link" href="#contenuto">{{c:global-nav.skip_link}}</a>
+
+<div class="intro" id="intro" aria-hidden="true">
+{{svg:porta-ovile|class="intro__svg" preserveAspectRatio="xMidYMid slice" focusable="false"}}
+<p class="intro__label">{{c:global-intro.intro_label}}</p>
+</div>
+<button class="intro__skip" id="intro-skip" type="button">{{c:global-intro.intro_skip}}</button>
+
+{{include:_header}}
+
+<aside class="rail" aria-hidden="true">
+  <span class="rail__line"></span><span class="rail__dot"></span>
+  <ol class="rail__stops">
+    <li data-stop="porta"><span>·</span><b>{{c:global-rail.stop_1}}</b></li>
+    <li data-stop="casa"><span>I</span><b>{{c:global-rail.stop_2}}</b></li>
+    <li data-stop="contrada"><span>II</span><b>{{c:global-rail.stop_3}}</b></li>
+    <li data-stop="tavola"><span>III</span><b>{{c:global-rail.stop_4}}</b></li>
+    <li data-stop="pici"><span>IV</span><b>{{c:global-rail.stop_5}}</b></li>
+    <li data-stop="dispensa"><span>V</span><b>{{c:global-rail.stop_6}}</b></li>
+    <li data-stop="dolce"><span>VI</span><b>{{c:global-rail.stop_7}}</b></li>
+    <li data-stop="cantina"><span>VII</span><b>{{c:global-rail.stop_8}}</b></li>
+    <li data-stop="prenota"><span>·</span><b>{{c:global-rail.stop_9}}</b></li>
+  </ol>
+</aside>
+
+{{include:_ctabar}}
+
+<main id="contenuto">
+
+<!-- ============ 0 · La Porta ============ -->
+<section id="porta" class="hero" aria-labelledby="porta-title">
+  <div class="hero__media ph-osteria-dei-rossi-siena-esterno">
+    {{pic:osteria-dei-rossi-siena-esterno|(max-width: 44.99rem) 200vw, 100vw|hero__img|eager}}
+  </div>
+  <div class="hero__body container">
+    <div class="hero__content" data-on-photo>
+      <p class="kicker">{{c:porta.kicker}}</p>
+      <h1 class="hero__title" id="porta-title">{{h:porta.h1_line1|h1_em}}</h1>
+      <p class="hero__lead">{{c:porta.lead}}</p>
+      <p class="hero__where"><a href="{{u:dove}}">{{c:porta.address_line}}</a> <a class="hero__where-link" href="https://maps.google.com/?cid=5066073290586870112" target="_blank" rel="noopener">{{c:porta.directions_link}}</a></p>
+      <p class="hero__phone"><a href="tel:+390577287592">{{c:porta.phone_line}}</a></p>
+      <div class="hero__actions">
+        <a class="btn btn--light" href="#prenota">{{c:porta.cta_primary}} {{arrow}}</a>
+        <a class="link link--light" href="{{u:menu}}">{{c:porta.cta_secondary}} {{arrow}}</a>
+      </div>
+    </div>
+    <div class="hero__aside" data-on-photo>
+      <p class="hero__opening">{{c:porta.opening_short}}</p>
+      <a class="hero__cue" href="#casa"><span>{{c:porta.scroll_cue}}</span>{{svg:freccia-osteria|class="arrow hero__cue-arrow" focusable="false" data-draw}}</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Perché venire da noi ============ -->
+<section id="perche" class="perche" aria-labelledby="perche-title">
+  <div class="container">
+    <p class="kicker perche__kicker" id="perche-title" data-reveal>{{c:perche.kicker}}</p>
+    <ul class="perche__list" data-reveal-group>
+      <li data-reveal>{{svg:icon-porta|class="icon icon--mark" aria-hidden="true" focusable="false" data-noid}}<p>{{c:perche.fact_1}}</p></li>
+      <li data-reveal>{{svg:icon-torre|class="icon icon--mark" aria-hidden="true" focusable="false" data-noid}}<p>{{c:perche.fact_2}}</p></li>
+      <li data-reveal>{{svg:icon-volta|class="icon icon--mark" aria-hidden="true" focusable="false" data-noid}}<p>{{c:perche.fact_3}}</p></li>
+      <li data-reveal>{{svg:icon-fiorentina|class="icon icon--mark" aria-hidden="true" focusable="false" data-noid}}<p>{{c:perche.fact_4}}</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ I · La Casa ============ -->
+<section id="casa" class="casa" aria-labelledby="casa-title">
+  <div class="section welcome">
+    <div class="container">
+      <figure class="welcome__fig" data-reveal-group>
+        <blockquote class="welcome__quote" data-reveal><p>{{c:casa.quote}}</p></blockquote>
+        {{quote_it}}
+        {{svg:freccia-osteria|class="welcome__arrow" focusable="false" data-draw}}
+        <figcaption class="kicker welcome__source" data-reveal>{{c:casa.quote_source}}</figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="band band--left band--casa">
+    <div class="band__media ph-sala-osteria-tradizionale-toscana">
+      {{pic:sala-osteria-tradizionale-toscana|(max-width: 44.99rem) 200vw, 100vw|band__img|parallax}}
+    </div>
+    <div class="band__body container">
+      <div class="band__content" data-on-photo data-reveal-group>
+        <p class="kicker" data-reveal>{{c:casa.kicker}}</p>
+        <h2 id="casa-title" data-reveal>{{h:casa.h2_line1|h2_em}}</h2>
+        <p class="body" data-reveal>{{c:casa.body_1}}</p>
+        <p class="body" data-reveal>{{c:casa.body_2}}</p>
+      </div>
+    </div>
+  </div>
+  {{gallery}}
+</section>
+
+<!-- ============ II · La Contrada ============ -->
+<section id="contrada" class="section contrada" aria-labelledby="contrada-title">
+  <div class="container grid">
+    <div class="contrada__text">
+      <div class="stack" data-reveal-group>
+        <p class="kicker" data-reveal>{{c:contrada.kicker}}</p>
+        <h2 id="contrada-title" data-reveal>{{h:contrada.h2_line1|h2_em}}</h2>
+        <p class="body" data-reveal>{{c:contrada.body_1}}</p>
+        <p class="body" data-reveal>{{c:contrada.body_2}}</p>
+      </div>
+      <div class="timeline">
+        <svg class="timeline__line" data-draw aria-hidden="true" focusable="false"><line class="timeline__h" x1="0" y1="50%" x2="100%" y2="50%"/><line class="timeline__v" x1="50%" y1="0" x2="50%" y2="100%"/></svg>
+        <ol class="timeline__steps" data-reveal-group>
+          <li data-reveal><span class="timeline__year">{{c:contrada.step_1_year}}</span><span class="timeline__text">{{c:contrada.step_1_text}}</span></li>
+          <li data-reveal><span class="timeline__year">{{c:contrada.step_2_year}}</span><span class="timeline__text">{{c:contrada.step_2_text}}</span></li>
+          <li data-reveal><span class="timeline__year">{{c:contrada.step_3_year}}</span><span class="timeline__text">{{c:contrada.step_3_text}}</span></li>
+        </ol>
+      </div>
+      <div class="contrada__palio" data-reveal>
+        {{svg:icon-barbero|class="icon icon--large" aria-hidden="true" focusable="false"}}
+        <p class="body">{{c:contrada.palio_line}}</p>
+      </div>
+      <p class="contrada__more" data-reveal><a class="link" href="{{u:dove}}">{{c:contrada.link_dove}} {{arrow}}</a></p>
+    </div>
+    <div class="contrada__media">
+      <figure class="arch contrada__arch">
+        <div class="arch__box">
+          {{archline}}
+          <div class="arch__photo ph-contrada-del-bruco-barbero-tappi" data-mask>
+            {{pic:contrada-del-bruco-barbero-tappi|(min-width: 45rem) 34vw, 74vw|}}
+          </div>
+        </div>
+        <figcaption class="caption" data-reveal>{{c:contrada.caption_ball}}</figcaption>
+      </figure>
+      <figure class="tile contrada__tile">
+        <div class="tile__box tile--54 ph-insegna-storica-osteria-ferro" data-mask>
+          {{pic:insegna-storica-osteria-ferro|(min-width: 45rem) 18vw, 50vw|}}
+        </div>
+        <figcaption class="caption" data-reveal>{{c:contrada.caption_sign}}</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ III · La Tavola ============ -->
+<section id="tavola" class="tavola" aria-labelledby="tavola-title">
+  <div class="section tavola__intro">
+    <div class="container">
+      <div class="tavola__head">
+        <div class="tavola__titles stack" data-reveal-group>
+          {{svg:icon-coccio|class="icon icon--large" aria-hidden="true" focusable="false" data-draw}}
+          <p class="kicker" data-reveal>{{c:tavola.kicker}}</p>
+          <h2 id="tavola-title" data-reveal>{{h:tavola.h2_line1|h2_em}}</h2>
+        </div>
+        <p class="body tavola__body" data-reveal>{{c:tavola.body}}</p>
+      </div>
+      <nav class="food-index" aria-label="{{c:tavola.index_label}}" data-reveal>
+        <ul>
+          <li><a href="#dolceforte">{{svg:icon-cinghiale|class="icon icon--index" aria-hidden="true" focusable="false" data-noid}}<span>{{c:tavola.index_cinghiale}}</span></a></li>
+          <li><a href="#pici">{{svg:icon-pici|class="icon icon--index" aria-hidden="true" focusable="false" data-noid}}<span>{{c:tavola.index_pici}}</span></a></li>
+          <li><a href="#cinta">{{svg:icon-cinta|class="icon icon--index" aria-hidden="true" focusable="false" data-noid}}<span>{{c:tavola.index_cinta}}</span></a></li>
+          <li><a href="#tartufo">{{svg:icon-tartufo|class="icon icon--index" aria-hidden="true" focusable="false" data-noid}}<span>{{c:tavola.index_tartufo}}</span></a></li>
+          <li><a href="#porcini">{{svg:icon-porcino|class="icon icon--index" aria-hidden="true" focusable="false" data-noid}}<span>{{c:tavola.index_porcini}}</span></a></li>
+          <li><a href="#fiorentina">{{svg:icon-fiorentina|class="icon icon--index" aria-hidden="true" focusable="false" data-noid}}<span>{{c:tavola.index_fiorentina}}</span></a></li>
+          <li><a href="#dolce">{{svg:icon-tuffo|class="icon icon--index" aria-hidden="true" focusable="false" data-noid}}<span>{{c:tavola.index_cantucci}}</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div class="band band--right band--tavola" id="dolceforte">
+    <div class="band__media ph-cinghiale-in-dolceforte-ricetta-medievale">
+      {{pic:cinghiale-in-dolceforte-ricetta-medievale|(max-width: 44.99rem) 200vw, 100vw|band__img|parallax}}
+    </div>
+    <div class="boar" data-boar aria-hidden="true">
+      {{svg:cinghiale-cammina|class="boar__svg" focusable="false"}}
+    </div>
+    <div class="band__body container">
+      <div class="band__content" data-on-photo data-reveal-group>
+        <h3 class="h3" data-reveal>{{h:tavola.dolceforte_h3_line1|dolceforte_h3_em}}</h3>
+        <p class="body" data-reveal>{{c:tavola.dolceforte_body}}</p>
+        <p data-reveal><a class="link link--light" href="{{dish:cinghiale-in-dolce-forte}}">{{c:tavola.link_secondi}} {{arrow}}</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section tavola__coccio">
+    <div class="container grid">
+      <div class="coccio__media">
+        {{tile:cinghiale-in-umido-coccio|(min-width: 45rem) 56vw, 92vw|tavola.caption_umido|coccio__umido}}
+        {{tile:piatti-con-contorni-tavola|(min-width: 45rem) 26vw, 50vw|tavola.caption_contorni|coccio__contorni}}
+      </div>
+      <div class="coccio__text stack" data-reveal-group>
+        <h3 class="h3" data-reveal>{{h:tavola.coccio_h3_line1|coccio_h3_em}}</h3>
+        <p class="body" data-reveal>{{c:tavola.coccio_body}}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IV · I Pici ============ -->
+<section id="pici" class="section pici" aria-labelledby="pici-title">
+  <div class="container pici__grid">
+    <div class="pici__draw" data-pici aria-hidden="true">
+      {{svg:pici-cadono|class="pici__svg" focusable="false"}}
+    </div>
+    <div class="pici__text stack" data-reveal-group>
+      <p class="kicker" data-reveal>{{c:pici.kicker}}</p>
+      <h2 id="pici-title" data-reveal>{{h:pici.h2_line1|h2_em}}</h2>
+      <p class="body" data-reveal>{{c:pici.body_1}}</p>
+      <p class="body" data-reveal>{{c:pici.body_2}}</p>
+      <p data-reveal><a class="link" href="{{u:menu}}#primi">{{c:pici.link_primi}} {{arrow}}</a></p>
+    </div>
+    <div class="pici__photos">
+      {{tile:pici-al-ragu-di-cinghiale|(min-width: 56.25rem) 40vw, 92vw|pici.caption_cinghiale|pici__tile pici__tile--a}}
+      {{tile:pici-cacio-e-pepe|(min-width: 56.25rem) 24vw, 56vw|pici.caption_cacio|pici__tile pici__tile--b}}
+    </div>
+  </div>
+</section>
+
+<!-- ============ V · La Dispensa ============ -->
+<section id="dispensa" class="dispensa" aria-labelledby="dispensa-title">
+  <div class="section dispensa__body">
+    <div class="container">
+      <div class="dispensa__head stack" data-reveal-group>
+        <p class="kicker" data-reveal>{{c:dispensa.kicker}}</p>
+        <h2 id="dispensa-title" data-reveal>{{h:dispensa.h2_line1|h2_em}}</h2>
+      </div>
+
+      <div class="larder" id="cinta">
+        <div class="larder__text stack" data-reveal-group>
+          {{svg:icon-cinta|class="icon icon--mark" aria-hidden="true" focusable="false" data-draw}}
+          <h3 class="h3" data-reveal>{{h:dispensa.cinta_h3_line1|cinta_h3_em}}</h3>
+          <p class="body" data-reveal>{{c:dispensa.cinta_body}}</p>
+          <p data-reveal><a class="link" href="{{dish:tegamata-di-cinta-senese}}">{{c:dispensa.cinta_link}} {{arrow}}</a></p>
+        </div>
+        <div class="larder__media">
+          {{tile:tagliatelle-al-ragu-di-cinta|(min-width: 56.25rem) 50vw, 92vw|dispensa.caption_cinta_tagliatelle|larder__big}}
+        </div>
+      </div>
+
+      <div class="larder larder--flip larder--tartufo" id="tartufo">
+        <div class="larder__text stack" data-reveal-group>
+          {{svg:icon-tartufo|class="icon icon--mark" aria-hidden="true" focusable="false" data-draw}}
+          <h3 class="h3" data-reveal>{{h:dispensa.tartufo_h3_line1|tartufo_h3_em}}</h3>
+          <p class="body" data-reveal>{{c:dispensa.tartufo_body}}</p>
+          <p data-reveal><a class="link" href="{{dish:medaglione-di-filetto-alla-griglia}}">{{c:dispensa.tartufo_link}} {{arrow}}</a></p>
+        </div>
+        <div class="larder__media tartufo__media">
+          <figure class="arch tartufo__arch">
+            <div class="arch__box">
+              {{archline}}
+              <div class="arch__photo ph-tartufo-nero-fresco" data-mask>
+                {{pic:tartufo-nero-fresco|(min-width: 56.25rem) 32vw, 92vw|}}
+              </div>
+            </div>
+            <figcaption class="caption" data-reveal>{{c:dispensa.caption_tartufo}}</figcaption>
+          </figure>
+          <div class="tartufo__tiles">
+            {{tile:tagliatelle-al-tartufo-fresco|(min-width: 56.25rem) 26vw, 92vw|dispensa.caption_tartufo_tagliatelle}}
+            {{tile:filetto-al-tartufo-fresco|(min-width: 56.25rem) 26vw, 92vw|dispensa.caption_filetto}}
+          </div>
+        </div>
+      </div>
+
+      <div class="larder larder--porcini" id="porcini">
+        <div class="larder__text stack" data-reveal-group>
+          {{svg:icon-porcino|class="icon icon--mark" aria-hidden="true" focusable="false" data-draw}}
+          <h3 class="h3" data-reveal>{{h:dispensa.porcini_h3_line1|porcini_h3_em}}</h3>
+          <p class="body" data-reveal>{{c:dispensa.porcini_body}}</p>
+          <p data-reveal><a class="link" href="{{dish:tagliatelle-ai-funghi-porcini}}">{{c:dispensa.porcini_link}} {{arrow}}</a></p>
+        </div>
+        <div class="larder__media">
+          {{tile:porcini-freschi|(min-width: 56.25rem) 50vw, 92vw|dispensa.caption_porcini|larder__big}}
+        </div>
+        <div class="larder__trio">
+          {{tile:porcini-freschi-grigliati|(min-width: 56.25rem) 30vw, 92vw|dispensa.caption_grigliati}}
+          {{tile:porcini-fritti|(min-width: 56.25rem) 30vw, 92vw|dispensa.caption_fritti}}
+          {{tile:tagliatelle-ai-porcini-freschi|(min-width: 56.25rem) 30vw, 92vw|dispensa.caption_tagliatelle_porcini}}
+        </div>
+      </div>
+
+      <div class="larder-duo">
+        <div class="larder larder--stack" id="spaghetti">
+          <div class="larder__text stack" data-reveal-group>
+            {{svg:icon-forchetta|class="icon icon--mark" aria-hidden="true" focusable="false" data-draw}}
+            <h3 class="h3" data-reveal>{{h:dispensa.spaghetti_h3_line1|spaghetti_h3_em}}</h3>
+            <p class="body" data-reveal>{{c:dispensa.spaghetti_body}}</p>
+            <p data-reveal><a class="link" href="{{dish:spaghetti-alla-chitarra-con-sugo-dell-osteria}}">{{c:dispensa.spaghetti_link}} {{arrow}}</a></p>
+          </div>
+          <div class="larder__media">
+            {{tile:spaghetti-dell-osteria-sugo-e-gorgonzola|(min-width: 56.25rem) 46vw, 92vw|dispensa.caption_spaghetti|larder__big}}
+          </div>
+        </div>
+        <div class="larder larder--stack" id="taglieri">
+          <div class="larder__text stack" data-reveal-group>
+            {{svg:icon-tagliere|class="icon icon--mark" aria-hidden="true" focusable="false" data-draw}}
+            <h3 class="h3" data-reveal>{{h:dispensa.taglieri_h3_line1|taglieri_h3_em}}</h3>
+            <p class="body" data-reveal>{{c:dispensa.taglieri_body}}</p>
+            <p data-reveal><a class="link" href="{{u:menu}}#antipasti">{{c:dispensa.taglieri_link}} {{arrow}}</a></p>
+          </div>
+          <div class="larder__media">
+            {{tile:gran-tagliere-di-salumi-toscani|(min-width: 56.25rem) 46vw, 92vw|dispensa.caption_tagliere|larder__big}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band band--left band--fiorentina" id="fiorentina">
+    <div class="band__media ph-bistecca-alla-fiorentina-siena">
+      {{pic:bistecca-alla-fiorentina-siena|(max-width: 44.99rem) 200vw, 100vw|band__img|parallax}}
+    </div>
+    <div class="band__body container">
+      <div class="band__content" data-on-photo data-reveal-group>
+        <h3 class="h3" data-reveal>{{h:fiorentina.h3_line1|h3_em}}</h3>
+        <p class="body" data-reveal>{{c:fiorentina.body}}</p>
+        {{svg:icon-stadera|class="icon icon--stadera" aria-hidden="true" focusable="false" data-draw}}
+        <p class="band__actions" data-reveal><a class="btn btn--light" href="{{dish:bistecca-alla-fiorentina}}">{{c:fiorentina.link}} {{arrow}}</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ Prenota: striscia (solo desktop) ============ -->
+<div class="strip">
+  <div class="container strip__inner">
+    {{svg:icon-tavola|class="icon icon--tavola" aria-hidden="true" focusable="false" data-noid data-draw}}
+    <p class="strip__title">{{c:strip.title}}</p>
+    <div class="strip__actions">
+      <a class="btn" href="tel:+390577287592">{{c:strip.call_label}} {{arrow}}</a>
+      <a class="btn btn--line" href="{{u:wa}}" target="_blank" rel="noopener">{{c:strip.whatsapp_label}} {{arrow}}</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VI · Il Dolce ============ -->
+<section id="dolce" class="section section--green battlement dolce" aria-labelledby="dolce-title">
+  <div class="container grid">
+    <div class="dolce__text stack" data-reveal-group>
+      <p class="kicker" data-reveal>{{c:dolce.kicker}}</p>
+      <h2 id="dolce-title" data-reveal>{{h:dolce.h2_line1|h2_em}}</h2>
+      <p class="body" data-reveal>{{c:dolce.body_1}}</p>
+      <p class="body" data-reveal>{{c:dolce.body_2}}</p>
+      <p class="dolce__more" data-reveal><a class="link link--light" href="{{u:menu}}#dolci">{{c:dolce.link_dolci}} {{arrow}}</a>{{svg:icon-tuffo|class="icon icon--large" aria-hidden="true" focusable="false" data-draw}}</p>
+    </div>
+    <figure class="arch dolce__arch">
+      <div class="arch__box">
+        {{archline}}
+        <div class="arch__photo ph-dark" data-mask>
+          {{pic:cantucci-e-vin-santo|(min-width: 56.25rem) 44vw, 92vw|}}
+        </div>
+      </div>
+      <figcaption class="caption" data-reveal>{{c:dolce.caption}}</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ VII · La Cantina ============ -->
+<section id="cantina" class="cantina" aria-labelledby="cantina-title">
+  <div class="band band--left band--cantina">
+    <div class="band__media ph-grotta-volte-in-mattoni-cantina">
+      {{pic:grotta-volte-in-mattoni-cantina|(max-width: 44.99rem) 200vw, 100vw|band__img|parallax}}
+    </div>
+    <div class="band__body container">
+      <div class="band__content" data-on-photo data-reveal-group>
+        {{svg:icon-volta|class="icon icon--cream" aria-hidden="true" focusable="false" data-draw}}
+        <p class="kicker" data-reveal>{{c:cantina.kicker}}</p>
+        <h2 id="cantina-title" data-reveal>{{h:cantina.h2_line1|h2_em}}</h2>
+        <p class="body" data-reveal>{{c:cantina.body}}</p>
+        <div class="wines" data-reveal>
+          <p class="wines__label">{{c:cantina.wines_label}}</p>
+          {{wines}}
+        </div>
+        <p class="band__actions" data-reveal><a class="btn btn--light" href="{{u:vini}}">{{c:cantina.cta}} {{arrow}}</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="section cantina__strip">
+    <div class="container grid">
+      <div class="cantina__text stack" data-reveal-group>
+        {{svg:icon-vino|class="icon icon--large cantina__icon" aria-hidden="true" focusable="false"}}
+        <p class="body" data-reveal>{{c:cantina.glass_line}}</p>
+        <p class="body" data-reveal>{{c:cantina.amari_line}}</p>
+      </div>
+      <figure class="arch cantina__door">
+        <div class="arch__box">
+          {{archline}}
+          <div class="arch__photo ph-cantina-porta-insegna-ceramica" data-mask>
+            {{pic:cantina-porta-insegna-ceramica|(min-width: 45rem) 34vw, 78vw|}}
+          </div>
+        </div>
+        <figcaption class="caption" data-reveal>{{c:cantina.caption_door}}</figcaption>
+      </figure>
+      {{tile:grotta-volte-in-mattoni-cantina|(min-width: 45rem) 40vw, 92vw|cantina.caption_grotto|cantina__grotto}}
+    </div>
+  </div>
+</section>
+
+<!-- ============ Prenota ============ -->
+<section id="prenota" class="section section--green battlement prenota__book" aria-labelledby="prenota-title">
+  <div class="container grid">
+    <div class="prenota__main stack" data-reveal-group>
+      {{svg:icon-tavola|class="icon icon--tavola" aria-hidden="true" focusable="false" data-draw}}
+      <h2 id="prenota-title" data-reveal>{{h:prenota.h2_line1|h2_em}}</h2>
+      <p class="body" data-reveal>{{c:prenota.lead}}</p>
+      <div class="prenota__actions" data-reveal>
+        <a class="btn btn--light" href="tel:+390577287592">{{c:prenota.btn_call}} {{arrow}}</a>
+        <a class="btn btn--line" href="{{u:wa}}" target="_blank" rel="noopener">{{c:prenota.btn_whatsapp}} {{arrow}}</a>
+      </div>
+      <p data-reveal><a class="link link--light" href="{{u:dove}}">{{c:prenota.link_dove}} {{arrow}}</a></p>
+    </div>
+    <div class="prenota__hours" data-reveal-group>
+      <h3 class="label-title" data-reveal>{{c:prenota.hours_title}}</h3>
+      {{hours}}
+      <p class="note" data-reveal>{{c:prenota.hours_note}}</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+{{include:_footer}}

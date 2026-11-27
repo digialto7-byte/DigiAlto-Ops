@@ -1,0 +1,2082 @@
+/*!
+ * Osteria dei Rossi: motion and interaction (main.js)
+ *
+ * One plain script for every page, loaded with defer after gsap, ScrollTrigger and Lenis.
+ * - Every block looks for its elements first and leaves the page alone when they are missing.
+ * - If one of the three libraries is missing, or anything here throws, <html> gets the class
+ *   "motion-off": motion.css then shows everything and only the plain behaviours stay
+ *   (header states, phone menu, booking bar, rail, anchor links).
+ * - With reduced motion nothing is animated: no intro, no smooth scroll, no scroll triggers.
+ * - The h1 is never hidden by a scroll reveal. Only while the gate intro plays
+ *   (html.intro-playing) does the hero text block, h1 included, wait out of sight. The book
+ *   and the pour never touch the page under them: its h1 is painted from the first frame.
+ *
+ * Page intros: one overlay per page at most, of kind gate (home), book (menu) or pour (wine
+ * list). Each plays once per session, never with reduced motion, never when the URL has a
+ * hash, never later than 4 s after navigation; any key, click, wheel or touch jumps to its
+ * end, #intro-skip is its button, key P replays it.
+ *
+ * Hooks in the HTML
+ *   gate: #intro (.intro__svg with the porta-* ids, .intro__label)
+ *   book: .intro--book[data-intro="m"] (.intro__art, .book, .book__page, .book__cover,
+ *     .book__face with the libro-* ids, .book__text, .book__sheet) and the page's own
+ *     svg.menu-hero__skyline, copied into .intro__art as svg.intro__skyline
+ *   pour: .intro--pour[data-intro="v"] (.intro__art, .pour-card, .pour-card__sheet,
+ *     .pour-card__leaf, .pour-card__text) and the page's own .vini-hero__art svg, copied into
+ *     .intro__art as svg.intro__pour. In a copy every id starts with "intro-".
+ *   #intro-skip (one per page, outside the overlay)
+ *   svg.menu-hero__skyline (draws itself once when the book intro is ruled out before the
+ *     first paint: a repeat visit or a hash)
+ *   [data-pici] > svg with the pici-* ids (strands fall, the nest draws: scrubbed from 900 px,
+ *     played once below), [data-boar] > svg with the cinghiale-* ids, inside a .band (walks in)
+ *   .site-header (is-solid, is-hidden), #menu-toggle, #menu-panel
+ *   .rail, .rail__line, .rail__dot, .rail__stops [data-stop] (is-active, is-on-dark)
+ *   .cta-bar (is-visible); sections #porta ... #prenota
+ *   [data-reveal], [data-reveal-group], [data-mask], [data-arch-line], [data-draw],
+ *   [data-draw="map"] with the mappa-* ids and .map__label, [data-parallax], a[href^="#"]
+ *   optional: [data-tone="dark|light"], data-label-open / data-label-close on #menu-toggle
+ * Classes set on <html>
+ *   motion-ready, motion-off, intro-playing, intro-done, menu-open, menu-closing, header-hidden
+ * Custom property set on <html>: --odr-header-h (height of the fixed header in px)
+ * Session storage: "odr-intro", the keys of the intros shown in this session, one letter each
+ *   (g gate, m menu book, v wine-list pour; the old value "1" reads as "g"). Keys are added,
+ *   never removed; the inline script in <head> reads the same entry before the first paint.
+ */
+(function () {
+  'use strict';
+
+  const win = window;
+  const doc = document;
+  const root = doc.documentElement;
+  if (!root || !root.classList || typeof doc.querySelectorAll !== 'function') {
+    return;
+  }
+
+  /* ---------- Settings ---------- */
+
+  const SESSION_KEY = 'odr-intro';
+  const MQ_MOTION = '(prefers-reduced-motion: no-preference)';
+  const MQ_PHONE = '(max-width: 719.98px)';
+  const MQ_RAIL = '(min-width: 1400px)';
+  const SOLID_AFTER = 80; // px of scroll before the header turns solid
+  const PROBE = 0.4; // share of the viewport height at which a stop becomes the current one
+  const MASK_BLEED = 20; // px around a masked photo that uncover with it (offset hairline frames)
+  const INTRO_LATEST_START = 4000; // ms after navigation; later than this the intro is not started
+  const GEOMETRY = 'path,line,polyline,polygon,circle,ellipse,rect';
+  const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),' +
+    'textarea:not([disabled]),summary,[tabindex]:not([tabindex="-1"])';
+
+  /* The arch opening of porta-ovile.svg in its own units (two arcs of radius R meet at the apex). */
+  const ARCH = { cx: 800, cy: 690, left: 660, right: 940, top: 450, bottom: 860, spring: 620, radius: 173.2, leftArcX: 833.2, rightArcX: 766.8 };
+  const DOOR_LEFT_ORIGIN = '660 650';
+  const DOOR_RIGHT_ORIGIN = '940 650';
+  const INTRO_GROUPS = ['porta-gate', 'porta-arch', 'porta-walls', 'porta-forework', 'porta-ground'];
+  const MAP_PHASES = [
+    { ids: ['mappa-mura', 'mappa-porte', 'mappa-osteria'], at: 0, duration: 0.5 },
+    { ids: ['mappa-vie', 'mappa-luoghi', 'mappa-via-dei-rossi', 'mappa-percorso'], at: 0.2, duration: 0.6 }
+  ];
+
+  /* The book and the pour, in the units of their drawings. `view` is the part of the drawing a
+     landscape or a portrait screen sees. */
+  const COPY_ID = 'intro-'; // prefix of every id in a drawing copied into an overlay
+  const BOOK = {
+    view: { landscape: '0 0 1600 600', portrait: '540 0 650 600' }, // portrait: the tower stands right of the book
+    open: -160 // degrees the cover turns on its spine
+  };
+  const POUR = {
+    view: { landscape: '250 0 1100 850', portrait: '575 0 570 900' }, // the sleeve runs off the top edge
+    wrist: '941 73', // centre of the cuff: the arm turns about it
+    carry: { x: 205, y: -78, rotation: 56 }, // the bottle as it is carried in, mouth up, the sleeve off the top edge
+    enter: { x: 420, y: -280 }, // where it comes from (upper right)
+    lift: { x: 10, y: -16, rotation: 9 }, // after the pour
+    mouth: '760 430', // where the stream leaves the bottle
+    reach: 1.39, // the stream is this much longer while the glass is still empty
+    bowl: { x: [606, 608, 662, 696], y: [570, 620, 650, 662], centre: 700 }, // lower half of #mescita-coppa
+    level: 580, // the wine surface when the glass is poured (centre of #mescita-livello, 8 high)
+    rise: 80, // units the surface climbs
+    wine: { y: 572, bottom: 666 } // #mescita-vino as drawn
+  };
+
+  /* The pici: the order in which the strands come down (the low ones first) and their turn. */
+  const MQ_PICI_SCRUB = '(min-width: 56.25rem)';
+  const MQ_PICI_ONCE = 'not all and (min-width: 56.25rem)';
+  const PICI_ORDER = [5, 4, 6, 2, 1, 3];
+  const PICI_TURN = [-7, 6, -5, 7, -6, 5];
+
+  /* The boar: the legs that move together, their swing, the four steps, the nod. */
+  const BOAR = { pairs: [1, -1, -1, 1], swing: 7, steps: [0.24, 0.28, 0.34, 0.4], walk: 1.5, snout: 452, hooves: '160 262', nod: 1.8 };
+
+  /* ---------- Small helpers ---------- */
+
+  const qs = (selector, scope) => (scope || doc).querySelector(selector);
+  const qsa = (selector, scope) => Array.prototype.slice.call((scope || doc).querySelectorAll(selector));
+  const byId = (id) => (id ? doc.getElementById(id) : null);
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const round2 = (value) => Math.round(value * 100) / 100;
+  const scrollTop = () => win.scrollY || win.pageYOffset || 0;
+  const media = (query) => (typeof win.matchMedia === 'function' ? win.matchMedia(query) : null);
+  const matches = (query) => {
+    const list = media(query);
+    return !!(list && list.matches);
+  };
+  const inDocumentOrder = (a, b) => (a.compareDocumentPosition(b) & 4 ? -1 : 1);
+
+  /* Elements that have already played. Kept across a teardown so a page restored from the
+     back/forward cache does not replay what the visitor has seen. */
+  const played = new WeakSet();
+
+  /* State of the current run; null between pagehide and the next start. */
+  let S = null;
+
+  function listen(target, type, handler, options) {
+    if (!S || !target || typeof target.addEventListener !== 'function') {
+      return;
+    }
+    const opts = options || false;
+    target.addEventListener(type, handler, opts);
+    S.cleanups.push(() => target.removeEventListener(type, handler, opts));
+  }
+
+  /* ---------- Scroll-linked furniture: header, booking bar, rail ---------- */
+
+  function setupScrollUi() {
+    const rail = qs('.rail');
+    const y = scrollTop();
+    const ui = {
+      header: qs('.site-header'),
+      bar: qs('.cta-bar'),
+      rail,
+      line: rail ? qs('.rail__line', rail) : null,
+      dot: rail ? qs('.rail__dot', rail) : null,
+      stops: [],
+      zones: [],
+      nameZones: [],
+      wide: null,
+      railTop: 0,
+      railHeight: 0,
+      solid: null,
+      hidden: false,
+      barOn: null,
+      active: -1,
+      dotDark: null,
+      lastY: y,
+      turnY: y,
+      dir: 0,
+      headerHeight: -1,
+      heroEnd: 0,
+      bookTop: Infinity,
+      bookEnd: Infinity,
+      viewport: 0,
+      max: 1
+    };
+    if (rail) {
+      ui.stops = qsa('[data-stop]', rail)
+        .map((li) => ({ li, section: byId(li.getAttribute('data-stop')), top: 0, at: 0, dark: null }))
+        .filter((stop) => stop.section);
+    }
+    S.ui = ui;
+    S.y = y;
+
+    if (ui.header) {
+      listen(ui.header, 'focusin', () => setHeaderHidden(false));
+      if (typeof win.ResizeObserver === 'function') {
+        const observer = new win.ResizeObserver(publishHeaderHeight);
+        observer.observe(ui.header, { box: 'border-box' }); // the solid header changes its padding
+        S.cleanups.push(() => observer.disconnect());
+      }
+    }
+  }
+
+  function publishHeaderHeight() {
+    const ui = S && S.ui;
+    if (!ui || !ui.header) {
+      return;
+    }
+    const height = ui.header.offsetHeight;
+    if (height !== ui.headerHeight) {
+      ui.headerHeight = height;
+      root.style.setProperty('--odr-header-h', height + 'px');
+    }
+  }
+
+  function setHeaderHidden(hidden) {
+    const ui = S && S.ui;
+    if (!ui || !ui.header || ui.hidden === hidden) {
+      return;
+    }
+    ui.hidden = hidden;
+    ui.header.classList.toggle('is-hidden', hidden);
+    root.classList.toggle('header-hidden', hidden);
+  }
+
+  /* true = dark surface, false = light surface, null = no surface of its own */
+  function surfaceTone(element) {
+    const tone = element.getAttribute('data-tone');
+    if (tone === 'dark') {
+      return true;
+    }
+    if (tone === 'light') {
+      return false;
+    }
+    const parts = (win.getComputedStyle(element).backgroundColor || '').match(/[\d.]+/g);
+    if (!parts || parts.length < 3 || (parts.length > 3 && parseFloat(parts[3]) < 0.5)) {
+      return null;
+    }
+    const luminance = (0.2126 * parts[0] + 0.7152 * parts[1] + 0.0722 * parts[2]) / 255;
+    return luminance < 0.45;
+  }
+
+  /* The nearest ancestor that clips its content: the box a parallax photo moves in. */
+  function clipBox(element) {
+    let node = element.parentElement;
+    for (let depth = 0; node && node !== doc.body && depth < 5; depth += 1) {
+      const overflow = win.getComputedStyle(node).overflowY;
+      if (overflow === 'hidden' || overflow === 'clip') {
+        return node;
+      }
+      node = node.parentElement;
+    }
+    return element.parentElement;
+  }
+
+  /* Vertical bands of the page under the rail, each dark or light, in document order
+     (an inner block comes after its section and so wins). Read once per refresh. */
+  function readZones(y, x) {
+    const forcedDark = new Set();
+    const candidates = new Set();
+    const addWithChildren = (element) => {
+      if (!element) {
+        return;
+      }
+      candidates.add(element);
+      Array.prototype.forEach.call(element.children, (child) => candidates.add(child));
+    };
+    const hero = byId('porta');
+    if (hero) {
+      forcedDark.add(hero);
+      candidates.add(hero);
+    }
+    qsa('[data-parallax]').forEach((image) => {
+      const box = clipBox(image);
+      if (box) {
+        forcedDark.add(box);
+        candidates.add(box);
+      }
+    });
+    qsa('main > *, body > footer, [data-tone]').forEach(addWithChildren);
+    S.ui.stops.forEach((stop) => addWithChildren(stop.section));
+
+    /* A photo with a scrim is dark whatever its own background says, and so is what lies on it. */
+    const onPhoto = (element) => {
+      let found = false;
+      forcedDark.forEach((box) => {
+        if (box !== element && box.contains(element)) {
+          found = true;
+        }
+      });
+      return found;
+    };
+    const zones = [];
+    Array.from(candidates).sort(inDocumentOrder).forEach((element) => {
+      const rect = element.getBoundingClientRect();
+      if (rect.height < 1 || rect.left > x || rect.right < x) {
+        return;
+      }
+      const marked = element.hasAttribute('data-tone');
+      if (!marked && onPhoto(element)) {
+        return;
+      }
+      const dark = !marked && forcedDark.has(element) ? true : surfaceTone(element);
+      if (dark !== null) {
+        zones.push({ top: rect.top + y, bottom: rect.bottom + y, dark });
+      }
+    });
+    return zones;
+  }
+
+  function toneAt(y, list) {
+    const zones = list || S.ui.zones;
+    let dark = false;
+    for (let i = 0; i < zones.length; i += 1) {
+      if (y >= zones[i].top && y < zones[i].bottom) {
+        dark = zones[i].dark;
+      }
+    }
+    return dark;
+  }
+
+  /* All layout reads happen here (start, load, fonts, resize, refresh), never while scrolling. */
+  function measure() {
+    if (!S || !S.ui) {
+      return;
+    }
+    const ui = S.ui;
+    const y = scrollTop();
+    const hero = byId('porta');
+    const book = byId('prenota');
+    let wide = false;
+
+    S.y = y;
+    S.phone = matches(MQ_PHONE);
+    ui.viewport = win.innerHeight || root.clientHeight || 0;
+    ui.max = Math.max(1, root.scrollHeight - ui.viewport);
+    ui.heroEnd = hero ? hero.getBoundingClientRect().bottom + y : ui.viewport * 0.6;
+    if (book) {
+      const rect = book.getBoundingClientRect();
+      ui.bookTop = rect.top + y;
+      ui.bookEnd = rect.bottom + y;
+    } else {
+      ui.bookTop = Infinity;
+      ui.bookEnd = Infinity;
+    }
+    if (ui.rail) {
+      const probe = ui.viewport * PROBE;
+      wide = matches(MQ_RAIL);
+      ui.stops.forEach((stop) => {
+        stop.top = stop.section.getBoundingClientRect().top + y;
+        stop.at = clamp((stop.top - probe) / ui.max, 0, 1);
+      });
+      if (wide) {
+        const rect = ui.rail.getBoundingClientRect();
+        ui.railTop = rect.top;
+        ui.railHeight = rect.height;
+        ui.zones = readZones(y, rect.left + 14);
+        ui.nameZones = readZones(y, rect.left + 40);
+      } else {
+        ui.zones = [];
+        ui.nameZones = [];
+      }
+    }
+    const headerHeight = ui.header ? ui.header.offsetHeight : 0;
+
+    /* Writes */
+    if (ui.header && headerHeight !== ui.headerHeight) {
+      ui.headerHeight = headerHeight;
+      root.style.setProperty('--odr-header-h', headerHeight + 'px');
+    }
+    if (ui.rail) {
+      if (wide !== ui.wide) {
+        ui.wide = wide;
+        ui.dotDark = null;
+        if (ui.line) {
+          ui.line.style.transform = '';
+        }
+        if (ui.dot) {
+          ui.dot.style.transform = '';
+          ui.dot.classList.remove('is-on-dark');
+        }
+        ui.stops.forEach((stop) => {
+          stop.dark = null;
+          stop.nameDark = null;
+          stop.li.classList.remove('is-on-dark', 'is-name-on-dark');
+        });
+      }
+      ui.stops.forEach((stop) => {
+        stop.li.style.top = (stop.at * 100).toFixed(3) + '%';
+      });
+    }
+    if (!S.phone) {
+      setHeaderHidden(false);
+    }
+    flush();
+  }
+
+  /* Writes only. Runs at most once per frame, from the gsap ticker or a single rAF. */
+  function flush() {
+    if (!S || !S.ui) {
+      return;
+    }
+    const ui = S.ui;
+    const y = S.y;
+    S.dirty = false;
+
+    if (ui.header) {
+      const solid = y > SOLID_AFTER;
+      if (solid !== ui.solid) {
+        ui.solid = solid;
+        ui.header.classList.toggle('is-solid', solid);
+      }
+      const delta = y - ui.lastY;
+      if (delta !== 0) {
+        const dir = delta > 0 ? 1 : -1;
+        if (dir !== ui.dir) {
+          ui.dir = dir;
+          ui.turnY = ui.lastY;
+        }
+        const menuOpen = !!(S.menu && S.menu.open);
+        if (!S.phone || !S.motionPref || menuOpen || y <= Math.max(ui.headerHeight, SOLID_AFTER)) {
+          setHeaderHidden(false);
+        } else if (dir > 0 && y - ui.turnY > 24) {
+          setHeaderHidden(true);
+        } else if (dir < 0 && ui.turnY - y > 8) {
+          setHeaderHidden(false);
+        }
+      }
+    }
+    ui.lastY = y;
+
+    if (ui.bar) {
+      const overBooking = y + ui.viewport > ui.bookTop && y < ui.bookEnd;
+      const on = y >= ui.heroEnd - 1 && !overBooking;
+      if (on !== ui.barOn) {
+        ui.barOn = on;
+        ui.bar.classList.toggle('is-visible', on);
+      }
+    }
+
+    if (ui.rail) {
+      const progress = clamp(y / ui.max, 0, 1);
+      if (ui.wide) {
+        if (ui.dot) {
+          ui.dot.style.transform = 'translate3d(0,' + (progress * ui.railHeight).toFixed(2) + 'px,0)';
+        }
+      } else if (ui.line) {
+        ui.line.style.transform = 'scaleX(' + progress.toFixed(4) + ')';
+      }
+      const probeLine = y + ui.viewport * PROBE;
+      let active = ui.stops.length ? 0 : -1;
+      for (let i = 0; i < ui.stops.length; i += 1) {
+        if (ui.stops[i].top <= probeLine) {
+          active = i;
+        }
+      }
+      if (active !== ui.active) {
+        if (ui.stops[ui.active]) {
+          ui.stops[ui.active].li.classList.remove('is-active');
+        }
+        if (ui.stops[active]) {
+          ui.stops[active].li.classList.add('is-active');
+        }
+        ui.active = active;
+      }
+      if (ui.wide) {
+        ui.stops.forEach((stop) => {
+          const dark = toneAt(y + ui.railTop + stop.at * ui.railHeight);
+          if (dark !== stop.dark) {
+            stop.dark = dark;
+            stop.li.classList.toggle('is-on-dark', dark);
+          }
+          const nameDark = toneAt(y + ui.railTop + stop.at * ui.railHeight + 56, ui.nameZones);
+          if (nameDark !== stop.nameDark) {
+            stop.nameDark = nameDark;
+            stop.li.classList.toggle('is-name-on-dark', nameDark);
+          }
+        });
+        if (ui.dot) {
+          const dark = toneAt(y + ui.railTop + progress * ui.railHeight);
+          if (dark !== ui.dotDark) {
+            ui.dotDark = dark;
+            ui.dot.classList.toggle('is-on-dark', dark);
+          }
+        }
+      }
+    }
+
+    /* At the very end of the page some start lines can no longer be reached: play what is left. */
+    if (S.pending && S.pending.size && y >= ui.max - 2 && !(S.intro && S.intro.playing)) {
+      Array.from(S.pending).forEach((job) => job());
+    }
+  }
+
+  function onScroll() {
+    if (!S) {
+      return;
+    }
+    S.y = scrollTop();
+    S.dirty = true;
+    if (S.intro && S.intro.playing && S.y > 8) {
+      skipIntro();
+    }
+    if (!S.ticking && !S.frame) {
+      S.frame = win.requestAnimationFrame(() => {
+        if (S) {
+          S.frame = 0;
+          if (S.dirty) {
+            flush();
+          }
+        }
+      });
+    }
+  }
+
+  /* ---------- Phone menu ---------- */
+
+  const isRendered = (element) => !!(element && element.getClientRects().length);
+
+  function setupMenu() {
+    const toggle = byId('menu-toggle');
+    const panel = byId('menu-panel');
+    if (!toggle || !panel) {
+      return;
+    }
+    S.menu = { toggle, panel, open: false, inerted: [], closeTimer: 0 };
+    panel.setAttribute('data-lenis-prevent', ''); // the open panel keeps its own native scroll
+    listen(toggle, 'click', () => setMenu(!S.menu.open));
+    listen(panel, 'click', (event) => {
+      const link = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+      if (link && S.menu.open) {
+        setMenu(false, false);
+      }
+    });
+    listen(doc, 'keydown', onMenuKey);
+  }
+
+  function setMenu(open, restoreFocus) {
+    const menu = S && S.menu;
+    if (!menu || menu.open === open) {
+      return;
+    }
+    menu.open = open;
+    win.clearTimeout(menu.closeTimer);
+    root.classList.toggle('menu-open', open);
+    root.classList.toggle('menu-closing', !open); // lets motion.css fade the panel out
+    menu.toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    const label = menu.toggle.getAttribute(open ? 'data-label-close' : 'data-label-open');
+    if (label) {
+      menu.toggle.setAttribute('aria-label', label);
+    }
+    if (open) {
+      setHeaderHidden(false);
+      /* Everything outside the header is taken out of reach while the panel is open. */
+      let node = S.ui && S.ui.header && S.ui.header.contains(menu.panel) ? S.ui.header : menu.panel;
+      while (node && node !== doc.body && node.parentElement) {
+        const keep = node;
+        Array.prototype.forEach.call(node.parentElement.children, (sibling) => {
+          if (sibling !== keep && !sibling.contains(menu.toggle) && !sibling.inert && sibling.tagName !== 'SCRIPT') {
+            sibling.inert = true;
+            menu.inerted.push(sibling);
+          }
+        });
+        node = node.parentElement;
+      }
+      if (S.lenis) {
+        S.lenis.stop();
+      }
+    } else {
+      menu.inerted.forEach((element) => {
+        element.inert = false;
+      });
+      menu.inerted = [];
+      menu.closeTimer = win.setTimeout(() => root.classList.remove('menu-closing'), 450);
+      if (S.lenis && !(S.intro && S.intro.playing)) {
+        S.lenis.start();
+      }
+      if (restoreFocus !== false && typeof menu.toggle.focus === 'function') {
+        menu.toggle.focus({ preventScroll: true });
+      }
+    }
+  }
+
+  function onMenuKey(event) {
+    const menu = S && S.menu;
+    if (!menu || !menu.open) {
+      return;
+    }
+    if (event.key === 'Escape' || event.key === 'Esc') {
+      event.preventDefault();
+      setMenu(false);
+      return;
+    }
+    if (event.key !== 'Tab') {
+      return;
+    }
+    const items = qsa(FOCUSABLE, menu.panel).filter(isRendered);
+    if (isRendered(menu.toggle)) {
+      items.push(menu.toggle);
+    }
+    items.sort(inDocumentOrder);
+    if (!items.length) {
+      event.preventDefault();
+      return;
+    }
+    const first = items[0];
+    const last = items[items.length - 1];
+    const current = doc.activeElement;
+    if (items.indexOf(current) === -1) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && current === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && current === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  /* ---------- Smooth scroll and anchor links ---------- */
+
+  function setupSmoothScroll() {
+    if (!S.motion) {
+      return;
+    }
+    const lenis = new S.Lenis({ lerp: 0.12, wheelMultiplier: 1.05, smoothWheel: true, syncTouch: false, autoRaf: false });
+    lenis.on('scroll', S.ST.update);
+    S.lenis = lenis;
+    /* The one loop of the page: Lenis, then the scroll-linked classes and transforms. */
+    S.tick = (time) => {
+      lenis.raf(time * 1000);
+      if (S && S.dirty) {
+        flush();
+      }
+    };
+    S.ticking = true;
+    S.gsap.ticker.add(S.tick);
+    S.gsap.ticker.lagSmoothing(0);
+  }
+
+  function focusTarget(target) {
+    if (!target || typeof target.focus !== 'function') {
+      return;
+    }
+    if (!target.hasAttribute('tabindex') && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA|SUMMARY)$/.test(target.tagName)) {
+      target.setAttribute('tabindex', '-1');
+      target.setAttribute('data-anchor-target', '');
+    }
+    try {
+      target.focus({ preventScroll: true });
+    } catch (error) {
+      /* an engine without focus options: leave the focus where it is rather than jump */
+    }
+  }
+
+  /* Room left above an anchor target. The layout's own scroll-padding-top (on <html>) and
+     scroll-margin-top (on the target) are used when set; otherwise the height of the fixed
+     header. On phones on the way down the header slides away, so no room is kept for it. */
+  function anchorOffset(target, rectTop) {
+    const ui = S.ui;
+    const padding = parseFloat(win.getComputedStyle(root).scrollPaddingTop) || 0;
+    const margin = parseFloat(win.getComputedStyle(target).scrollMarginTop) || 0;
+    if (margin > 0) {
+      return padding + margin;
+    }
+    if (S.phone && S.motionPref && ui && ui.header && rectTop > 24) {
+      return 0;
+    }
+    return padding > 0 ? padding : (ui ? Math.max(0, ui.headerHeight) : 0);
+  }
+
+  function scrollToTarget(target) {
+    const rectTop = target ? target.getBoundingClientRect().top : 0;
+    const top = target ? Math.max(0, Math.round(rectTop + scrollTop() - anchorOffset(target, rectTop))) : 0;
+    if (S.lenis) {
+      /* A number, not the element: Lenis would subtract scroll-padding and scroll-margin again. */
+      S.lenis.scrollTo(top, { duration: 1, force: true });
+    } else {
+      try {
+        win.scrollTo({ top, behavior: S.motionPref ? 'smooth' : 'instant' });
+      } catch (error) {
+        win.scrollTo(0, top);
+      }
+    }
+    focusTarget(target);
+  }
+
+  function setupAnchors() {
+    listen(doc, 'click', (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return;
+      }
+      const link = event.target && event.target.closest ? event.target.closest('a[href^="#"]') : null;
+      if (!link || (S.intro && S.intro.playing)) {
+        return;
+      }
+      const hash = link.getAttribute('href');
+      const toTop = hash === '#' || hash === '#top';
+      let target = null;
+      if (!toTop) {
+        try {
+          target = byId(decodeURIComponent(hash.slice(1)));
+        } catch (error) {
+          target = byId(hash.slice(1));
+        }
+        if (!target) {
+          return; // unknown target: the browser decides
+        }
+      }
+      event.preventDefault();
+      if (S.menu && S.menu.open) {
+        setMenu(false, false);
+      }
+      scrollToTarget(target);
+      if (!toTop && win.history && typeof win.history.pushState === 'function' && hash !== win.location.hash) {
+        try {
+          win.history.pushState(null, '', hash);
+        } catch (error) {
+          /* file:// in some browsers: the scroll has happened, the address stays as it is */
+        }
+      }
+    });
+  }
+
+  /* ---------- Line drawing ---------- */
+
+  /* Length of a stroke as the dash pattern sees it. With vector-effect="non-scaling-stroke" the
+     browser dashes in screen pixels, so the length is taken on screen (sampled when the scale is
+     uneven, as in the arch outlines with preserveAspectRatio="none"). 0 = cannot be drawn.
+     `redo` measures a stroke again that this script has dashed itself (after a resize). */
+  function strokeLength(node, redo) {
+    if (typeof node.getTotalLength !== 'function') {
+      return 0;
+    }
+    const style = win.getComputedStyle(node);
+    if (style.stroke === 'none' || parseFloat(style.strokeWidth) === 0 ||
+      (!redo && style.strokeDasharray && style.strokeDasharray !== 'none')) {
+      return 0;
+    }
+    let length = 0;
+    try {
+      length = node.getTotalLength();
+    } catch (error) {
+      return 0;
+    }
+    if (!(length > 0)) {
+      return 0;
+    }
+    const fixedStroke = style.vectorEffect === 'non-scaling-stroke' || node.getAttribute('vector-effect') === 'non-scaling-stroke';
+    const matrix = fixedStroke && typeof node.getScreenCTM === 'function' ? node.getScreenCTM() : null;
+    if (matrix) {
+      const sx = Math.hypot(matrix.a, matrix.b);
+      const sy = Math.hypot(matrix.c, matrix.d);
+      if (Math.abs(sx - sy) <= 0.01 * Math.max(sx, sy)) {
+        length *= sx;
+      } else {
+        const steps = clamp(Math.ceil(length / 4), 24, 240);
+        let sum = 0;
+        let px = 0;
+        let py = 0;
+        for (let i = 0; i <= steps; i += 1) {
+          const point = node.getPointAtLength((length * i) / steps);
+          const x = matrix.a * point.x + matrix.c * point.y;
+          const y = matrix.b * point.x + matrix.d * point.y;
+          if (i > 0) {
+            sum += Math.hypot(x - px, y - py);
+          }
+          px = x;
+          py = y;
+        }
+        length = sum * 1.03;
+      }
+    }
+    return Math.ceil(length) + 2;
+  }
+
+  /* Adds the drawing of a set of shapes to a timeline. Shapes that cannot be dashed (fills,
+     dotted lines) fade in at the end instead. All reads first, then the tweens. */
+  function addDrawing(timeline, nodes, at, duration) {
+    const plan = nodes.map((node) => ({ node, length: strokeLength(node) }));
+    const drawn = plan.filter((item) => item.length > 0);
+    const faded = plan.filter((item) => item.length === 0);
+    const each = drawn.length > 1 ? duration * 0.7 : duration;
+    const step = drawn.length > 1 ? (duration - each) / (drawn.length - 1) : 0;
+    drawn.forEach((item, index) => {
+      timeline.fromTo(item.node,
+        { strokeDasharray: item.length + 'px', strokeDashoffset: item.length + 'px' },
+        { strokeDashoffset: '0px', duration: each, ease: 'power2.inOut' },
+        at + index * step);
+    });
+    const fade = Math.min(0.4, duration);
+    faded.forEach((item) => {
+      timeline.from(item.node, { opacity: 0, duration: fade, ease: 'none' }, at + duration - fade);
+    });
+    return drawn.map((item) => item.node);
+  }
+
+  const clearDashes = (timeline, nodes, at) => {
+    if (nodes.length) {
+      timeline.set(nodes, { clearProps: 'strokeDasharray,strokeDashoffset' }, at);
+    }
+  };
+
+  /* One stroke drawn at its own time, its length already measured (addDrawing spreads a set
+     evenly instead). */
+  function drawStroke(timeline, node, length, at, duration, ease) {
+    timeline.fromTo(node,
+      { strokeDasharray: length + 'px', strokeDashoffset: length + 'px' },
+      { strokeDashoffset: '0px', duration, ease: ease || 'power2.inOut' }, at);
+  }
+
+  /* ---------- Scroll choreography ---------- */
+
+  function isProtected(element) {
+    if (element.tagName === 'H1' || element.querySelector('h1') || element.closest('h1')) {
+      return true; // no scroll reveal ever hides the h1 (only the gate intro holds it back)
+    }
+    const hero = byId('porta');
+    return !!(hero && hero.contains(element) && (element.matches('img,picture') || element.querySelector('img,picture')));
+  }
+
+  /* Runs `run` once when `trigger` reaches `start`; also queued for the end-of-page sweep. */
+  function arm(trigger, start, run) {
+    let instance = null;
+    const job = () => {
+      if (!S || !S.pending.has(job)) {
+        return;
+      }
+      S.pending.delete(job);
+      if (instance) {
+        instance.kill();
+      }
+      S.ctx.add(run);
+    };
+    S.pending.add(job);
+    instance = S.ST.create({ trigger, start, onEnter: job });
+    if (!S.pending.has(job)) {
+      instance.kill();
+    }
+  }
+
+  function playReveal(elements) {
+    const fresh = elements.filter((element) => !played.has(element));
+    if (!fresh.length) {
+      return;
+    }
+    fresh.forEach((element) => played.add(element));
+    S.ctx.add(() => {
+      S.gsap.to(fresh, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        stagger: 0.08,
+        overwrite: 'auto',
+        clearProps: 'opacity,transform,transition'
+      });
+    });
+  }
+
+  function setMask(element, amount) {
+    element.style.clipPath = amount <= 0 ? '' :
+      'inset(calc(' + (amount * 100).toFixed(2) + '% + ' + (amount * MASK_BLEED).toFixed(1) + 'px) -' +
+      MASK_BLEED + 'px -' + MASK_BLEED + 'px -' + MASK_BLEED + 'px)';
+  }
+
+  function drawMap(timeline, wrapper, nodes) {
+    const used = new Set();
+    let drawn = [];
+    MAP_PHASES.forEach((phase) => {
+      let group = [];
+      phase.ids.forEach((id) => {
+        const part = qs('#' + id, wrapper);
+        if (part) {
+          group = group.concat(qsa(GEOMETRY, part));
+        }
+      });
+      group.forEach((node) => used.add(node));
+      if (group.length) {
+        drawn = drawn.concat(addDrawing(timeline, group, phase.at, phase.duration));
+      }
+    });
+    const rest = nodes.filter((node) => !used.has(node));
+    if (rest.length) {
+      drawn = drawn.concat(addDrawing(timeline, rest, 0, 0.6));
+    }
+    clearDashes(timeline, drawn, 0.82);
+    /* The osteria's own label comes with its pin in the first phase, the others follow. */
+    const pin = qs('.map__label--osteria', wrapper);
+    const labels = qsa('.map__label', wrapper).filter((label) => label !== pin);
+    if (pin) {
+      timeline.fromTo(pin, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none', clearProps: 'opacity' }, 0.2);
+    }
+    if (labels.length) {
+      timeline.fromTo(labels, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none', stagger: 0.04, clearProps: 'opacity' }, 0.6);
+    }
+  }
+
+  /* `mode`: 'now' plays at once, 'later' waits for the gate intro, 'scroll' waits for its line. */
+  function schedule(mode, trigger, start, run) {
+    if (mode === 'scroll') {
+      arm(trigger, start, run);
+    } else if (mode === 'later') {
+      S.afterIntro.push(run);
+    } else {
+      S.ctx.add(run);
+    }
+  }
+
+  function setupDrawing(element, mode) {
+    const gsap = S.gsap;
+    const nodes = element.matches(GEOMETRY) ? [element] : qsa(GEOMETRY, element);
+    gsap.set(element, { visibility: 'hidden' });
+    schedule(mode, element, 'top 80%', () => {
+      played.add(element);
+      const timeline = gsap.timeline();
+      if (!nodes.length) {
+        /* Not an inline SVG (a CSS line or a background): wipe it in from the left instead. */
+        timeline.fromTo(element,
+          { clipPath: 'inset(0% 100% 0% 0%)' },
+          { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.9, ease: 'power2.inOut', clearProps: 'clipPath' }, 0);
+      } else if (element.getAttribute('data-draw') === 'map') {
+        drawMap(timeline, element, nodes);
+      } else {
+        clearDashes(timeline, addDrawing(timeline, nodes, 0, 0.9), 0.92);
+      }
+      gsap.set(element, { clearProps: 'visibility' });
+    });
+  }
+
+  function setupParallax(image) {
+    const box = clipBox(image);
+    if (!box || S.parallaxed.has(image)) {
+      return;
+    }
+    S.parallaxed.add(image);
+    /* How far the photo can move before an edge would show (offsets ignore transforms). */
+    const range = () => {
+      const extra = image.offsetHeight - box.clientHeight;
+      if (!(extra > 0)) {
+        return { up: 0, down: 0 };
+      }
+      let above = extra / 2;
+      let node = image;
+      let top = 0;
+      while (node && node !== box && box.contains(node)) {
+        top += node.offsetTop;
+        node = node.offsetParent;
+      }
+      if (node === box) {
+        above = clamp(-top, 0, extra);
+      }
+      return { up: extra - above, down: above };
+    };
+    S.gsap.fromTo(image,
+      { y: () => -range().up },
+      {
+        y: () => range().down,
+        ease: 'none',
+        scrollTrigger: { trigger: box, start: 'top bottom', end: 'bottom top', scrub: true, invalidateOnRefresh: true }
+      });
+  }
+
+  function setupScrollMotion() {
+    if (!S.motion) {
+      return;
+    }
+    const gsap = S.gsap;
+    const hero = byId('porta');
+    const introPlays = !!(S.intro && S.intro.will);
+    const heroItems = introPlays ? S.intro.heroItems : [];
+    const inHero = (element) => !!(hero && hero.contains(element));
+
+    /* Read first. What is on screen right now does not wait for a scroll line: it plays at
+       once, or as soon as the gate has opened. */
+    const fold = win.innerHeight || root.clientHeight || 0;
+    const modeOf = (element) => {
+      const rect = element.getBoundingClientRect();
+      const onScreen = rect.bottom > 0 && rect.top < fold && (rect.width > 0 || rect.height > 0);
+      return onScreen ? (introPlays ? 'later' : 'now') : 'scroll';
+    };
+    /* The book and the pour cover the whole page until they lift: text that is on screen under
+       them takes its place at once, so nothing is still fading in when the page appears. */
+    const covered = introPlays && S.intro.key !== 'g';
+    const textMode = (element) => {
+      const mode = modeOf(element);
+      return covered && mode === 'later' ? 'now' : mode;
+    };
+    /* A hidden element sits 24 px lower; the start line moves with it. */
+    const revealStart = (shifted) => () => 'top ' + Math.round((win.innerHeight || fold) * 0.85 + (shifted ? 24 : 0)) + 'px';
+
+    const reveals = qsa('[data-reveal]').filter((element) =>
+      !played.has(element) && !isProtected(element) && heroItems.indexOf(element) === -1);
+    const grouped = new Set();
+    const groups = [];
+    qsa('[data-reveal-group]').forEach((group) => {
+      const items = reveals.filter((element) => element.closest('[data-reveal-group]') === group);
+      if (items.length) {
+        items.forEach((element) => grouped.add(element));
+        groups.push({ group, items, mode: textMode(group) });
+      }
+    });
+    const singles = reveals.filter((element) => !grouped.has(element)).map((element) => ({ element, mode: textMode(element) }));
+    const masks = qsa('[data-mask]')
+      .filter((element) => !played.has(element) && !inHero(element) && !isProtected(element))
+      .map((element) => ({ element, mode: modeOf(element) }));
+    const drawings = qsa('[data-draw],[data-arch-line]')
+      .filter((element) => !played.has(element))
+      .map((element) => ({ element, mode: modeOf(element) }));
+
+    /* Then write. Reveals: fade and rise 24 px, groups stagger. */
+    if (reveals.length) {
+      gsap.set(reveals, { opacity: 0, y: 24, transition: 'none' });
+    }
+    groups.forEach((entry) => {
+      schedule(entry.mode, entry.group, revealStart(entry.items.indexOf(entry.group) !== -1), () => playReveal(entry.items));
+    });
+    const waiting = singles.filter((entry) => entry.mode === 'scroll').map((entry) => entry.element);
+    const present = singles.filter((entry) => entry.mode !== 'scroll').map((entry) => entry.element);
+    if (waiting.length) {
+      S.ST.batch(waiting, { start: revealStart(true), once: true, interval: 0.1, onEnter: playReveal });
+      const sweep = () => {
+        S.pending.delete(sweep);
+        playReveal(waiting);
+      };
+      S.pending.add(sweep);
+    }
+    if (present.length) {
+      schedule(introPlays && !covered ? 'later' : 'now', null, null, () => playReveal(present));
+    }
+
+    /* Photo masks (never in the hero): uncover from the bottom, the photo itself does not move. */
+    masks.forEach((entry) => {
+      const element = entry.element;
+      S.masks.push(element);
+      setMask(element, 1);
+      schedule(entry.mode, element, 'top 85%', () => {
+        played.add(element);
+        const state = { amount: 1 };
+        gsap.to(state, {
+          amount: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          onUpdate: () => setMask(element, state.amount),
+          onComplete: () => setMask(element, 0)
+        });
+      });
+    });
+
+    /* Line drawing: arch outlines, arrows, battlement, timeline, map */
+    drawings.forEach((entry) => setupDrawing(entry.element, entry.mode));
+
+    /* Parallax on the photo of a full-bleed band */
+    qsa('[data-parallax]').forEach((image) => {
+      if (!(inHero(image) && introPlays)) {
+        setupParallax(image);
+      }
+    });
+  }
+
+  /* ---------- The page intros: shared life cycle ---------- */
+
+  /* The kinds of intro by the letter kept in the session entry. `find` collects the parts and
+     says whether they are all there, `fit` adapts the drawing to the screen, `build` returns
+     the paused timeline, which ends with a call to finishIntro. */
+  const INTROS = {
+    g: { kind: 'gate', find: findGate, fit: fitGate, build: buildGate },
+    m: { kind: 'book', find: findBook, fit: fitBook, build: buildBook },
+    v: { kind: 'pour', find: findPour, fit: fitPour, build: buildPour }
+  };
+
+  /* The keys of the intros already shown in this session ("1", the value of version 1, is the
+     gate); null when session storage is closed. */
+  function seenIntros() {
+    try {
+      return (win.sessionStorage.getItem(SESSION_KEY) || '').replace('1', 'g');
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function markIntroSeen(key) {
+    const seen = seenIntros();
+    if (seen === null || seen.indexOf(key) !== -1) {
+      return; // storage is closed (the intro still plays this once) or the key is there
+    }
+    try {
+      win.sessionStorage.setItem(SESSION_KEY, seen + key);
+    } catch (error) {
+      /* storage is full or closed: the intro still plays this once */
+    }
+  }
+
+  function planIntro() {
+    const element = qs('.intro[data-intro]') || byId('intro');
+    const key = element ? element.getAttribute('data-intro') || 'g' : '';
+    const type = INTROS[key] || null;
+    const intro = {
+      el: type ? element : null,
+      key,
+      type,
+      svg: null, // the drawing `fit` adapts: the gate, the skyline, the pour
+      skip: byId('intro-skip'),
+      label: null,
+      heroItems: [], // gate only: the hero text it holds back; the other kinds hide nothing
+      title: null,
+      parts: {},
+      ready: false,
+      ruledOut: root.classList.contains('intro-done'), // the inline head script decided before the first paint
+      timeline: null,
+      playing: false,
+      started: false,
+      will: false,
+      width: 0,
+      height: 0
+    };
+    S.intro = intro;
+    if (!intro.el) {
+      return;
+    }
+    intro.ready = !!(S.motion && type.find(intro));
+    const seen = seenIntros(); // without session storage "once per session" cannot be kept: do not play
+    const late = !!(win.performance && typeof win.performance.now === 'function' && win.performance.now() > INTRO_LATEST_START);
+    intro.will = !!(intro.ready && seen !== null && seen.indexOf(key) === -1 && !win.location.hash && !late);
+    if (!intro.will) {
+      closeIntro();
+    }
+  }
+
+  function closeIntro() {
+    const intro = S && S.intro;
+    if (!intro || !intro.el) {
+      return;
+    }
+    intro.el.hidden = true;
+    if (intro.skip) {
+      intro.skip.hidden = true;
+    }
+    root.classList.remove('intro-playing');
+    root.classList.add('intro-done');
+  }
+
+  /* The size of the overlay is kept (a later change of size ends the intro) and the drawing is
+     fitted to it. */
+  function fitIntro(intro) {
+    const box = intro.el.getBoundingClientRect();
+    const width = box.width || win.innerWidth;
+    const height = box.height || win.innerHeight;
+    intro.width = width;
+    intro.height = height;
+    if (width > 0 && height > 0) {
+      intro.type.fit(intro, width, height);
+    }
+  }
+
+  const isPortrait = (width, height) => width / height < 0.8;
+
+  /* A copy of a drawing the page already shows, for the overlay. Every id in the copy gets a
+     prefix, so no id is in the document twice: a second #mescita-coppa-clip would take over the
+     clip of the page's own drawing and lose it whenever the overlay is not displayed. */
+  function copyDrawing(source, holder, className) {
+    if (!source || !holder) {
+      return null;
+    }
+    const kept = qs('svg', holder);
+    if (kept) {
+      return kept; // made by an earlier run (back/forward cache, a change of the motion setting)
+    }
+    const copy = source.cloneNode(true);
+    copy.removeAttribute('id');
+    copy.removeAttribute('preserveAspectRatio');
+    copy.setAttribute('class', className);
+    qsa('[id]', copy).forEach((node) => node.setAttribute('id', COPY_ID + node.getAttribute('id')));
+    qsa('[clip-path]', copy).forEach((node) => {
+      node.setAttribute('clip-path', node.getAttribute('clip-path').replace('url(#', 'url(#' + COPY_ID));
+    });
+    holder.appendChild(copy);
+    return copy;
+  }
+
+  const copyPart = (intro, id) => qs('#' + COPY_ID + id, intro.svg);
+
+  /* The cream sheet that ends the book and the pour grows from its own size until it covers
+     the screen; a small margin keeps its edges out of sight. */
+  function coverScale(intro, sheet) {
+    const box = sheet.getBoundingClientRect();
+    return box.width > 0 && box.height > 0 ?
+      round2(Math.max(intro.width / box.width, intro.height / box.height) * 1.06) : 8;
+  }
+
+  function prepareIntro() {
+    const intro = S.intro;
+    if (intro.timeline) {
+      intro.timeline.revert();
+      intro.timeline.kill();
+      intro.timeline = null;
+    }
+    fitIntro(intro);
+    S.ctx.add(() => {
+      intro.timeline = intro.type.build(intro);
+    });
+  }
+
+  function startIntro() {
+    const intro = S && S.intro;
+    if (!intro || !intro.el || !intro.ready || !S.motion || (S.menu && S.menu.open)) {
+      return;
+    }
+    markIntroSeen(intro.key);
+    intro.playing = true;
+    intro.started = false;
+    intro.el.hidden = false;
+    if (intro.skip) {
+      intro.skip.hidden = false;
+    }
+    root.classList.remove('intro-done');
+    root.classList.add('intro-playing');
+
+    /* Every intro opens on the top of its page: start there, and hold the scroll until the end. */
+    if (S.lenis) {
+      S.lenis.scrollTo(0, { immediate: true, force: true });
+      S.lenis.stop();
+    } else if (scrollTop() > 0) {
+      win.scrollTo(0, 0);
+    }
+    S.y = 0;
+    prepareIntro();
+
+    const play = () => {
+      if (S && S.intro === intro && intro.playing && !intro.started && intro.timeline) {
+        intro.started = true;
+        intro.timeline.play(0);
+      }
+    };
+    /* Two frames so the first state is on screen; a tab opened in the background waits. */
+    const begin = () => win.requestAnimationFrame(() => win.requestAnimationFrame(play));
+    if (doc.visibilityState === 'hidden') {
+      const onVisible = () => {
+        if (doc.visibilityState !== 'hidden') {
+          doc.removeEventListener('visibilitychange', onVisible);
+          begin();
+        }
+      };
+      listen(doc, 'visibilitychange', onVisible);
+    } else {
+      begin();
+    }
+  }
+
+  function finishIntro() {
+    const intro = S && S.intro;
+    if (!intro || !intro.playing) {
+      return;
+    }
+    intro.playing = false;
+    closeIntro();
+    intro.heroItems.forEach((item) => played.add(item));
+    if (S.lenis && !(S.menu && S.menu.open)) {
+      S.lenis.start();
+    }
+    /* What was on screen behind the gate plays now; the hero parallax starts now. */
+    const waiting = S.afterIntro;
+    S.afterIntro = [];
+    if (waiting.length) {
+      S.ctx.add(() => waiting.forEach((run) => run()));
+    }
+    const hero = byId('porta');
+    if (hero) {
+      S.ctx.add(() => qsa('[data-parallax]', hero).forEach(setupParallax));
+    }
+  }
+
+  function skipIntro() {
+    const intro = S && S.intro;
+    if (!intro || !intro.playing) {
+      return;
+    }
+    if (intro.timeline) {
+      intro.timeline.progress(1);
+    }
+    finishIntro();
+  }
+
+  const isTyping = (target) => !!(target && target.nodeType === 1 &&
+    (/^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName) || target.isContentEditable));
+
+  function onIntroKey(event) {
+    const intro = S && S.intro;
+    if (!intro || !intro.el || !S.motion) {
+      return;
+    }
+    const plain = !event.ctrlKey && !event.metaKey && !event.altKey;
+    const replay = plain && !event.repeat && (event.key === 'p' || event.key === 'P');
+    if (intro.playing) {
+      if (/^(Shift|Control|Alt|Meta|AltGraph|CapsLock)$/.test(event.key)) {
+        return;
+      }
+      if (plain) {
+        event.preventDefault(); // the key that skips must not also scroll or activate
+      }
+      if (replay) {
+        startIntro();
+      } else {
+        skipIntro();
+      }
+    } else if (replay && !isTyping(event.target)) {
+      startIntro(); // presentation mode
+    }
+  }
+
+  function setupIntro() {
+    const intro = S.intro;
+    if (!intro || !intro.el || !S.motion) {
+      return;
+    }
+    const skipIfPlaying = () => {
+      if (S && S.intro && S.intro.playing) {
+        skipIntro();
+      }
+    };
+    listen(doc, 'click', skipIfPlaying);
+    listen(win, 'wheel', skipIfPlaying, { passive: true });
+    listen(win, 'touchmove', skipIfPlaying, { passive: true });
+    listen(doc, 'keydown', onIntroKey);
+    if (intro.will) {
+      startIntro();
+    }
+  }
+
+  /* ---------- The gate intro (home) ---------- */
+
+  /* The hero text next to the h1: every [data-reveal] in the hero and the h1's siblings.
+     Scroll reveals leave these to the intro when it plays. The hero image is never touched. */
+  function heroText(hero) {
+    if (!hero) {
+      return [];
+    }
+    const items = qsa('[data-reveal]', hero);
+    const title = qs('h1', hero);
+    if (title && title.parentElement) {
+      Array.prototype.forEach.call(title.parentElement.children, (sibling) => {
+        if (sibling !== title && !sibling.hasAttribute('data-reveal') && !sibling.querySelector('[data-reveal]') &&
+          !sibling.closest('[data-reveal]')) {
+          items.push(sibling);
+        }
+      });
+    }
+    return items.filter((item) => !isProtected(item));
+  }
+
+  function findGate(intro) {
+    const hero = byId('porta');
+    intro.svg = qs('svg', intro.el);
+    intro.label = qs('.intro__label', intro.el);
+    intro.heroItems = heroText(hero);
+    intro.title = hero ? qs('h1', hero) : null;
+    return !!intro.svg;
+  }
+
+  /* Portrait screens see 900 units across, centred on the gate; landscape keeps the full drawing. */
+  function fitGate(intro, width, height) {
+    if (isPortrait(width, height)) {
+      const span = (900 * height) / width;
+      intro.svg.setAttribute('viewBox', '350 ' + round2(500 - span / 2) + ' 900 ' + round2(span));
+    } else {
+      intro.svg.setAttribute('viewBox', '0 0 1600 1000');
+    }
+  }
+
+  /* Smallest scale about the arch centre at which the whole screen lies inside the opening,
+     plus a margin so the hairlines of the arch leave the screen too. */
+  function introZoom(intro, reference) {
+    const matrix = reference && typeof reference.getScreenCTM === 'function' ? reference.getScreenCTM() : null;
+    const box = intro.el.getBoundingClientRect();
+    if (!matrix || !matrix.a || !(box.width > 0)) {
+      return 12;
+    }
+    const unit = Math.hypot(matrix.a, matrix.b); // screen px per drawing unit
+    const px = matrix.a * ARCH.cx + matrix.c * ARCH.cy + matrix.e;
+    const py = matrix.b * ARCH.cx + matrix.d * ARCH.cy + matrix.f;
+    const inside = (x, y) => x >= ARCH.left && x <= ARCH.right && y >= ARCH.top && y <= ARCH.bottom &&
+      (y >= ARCH.spring || (Math.hypot(x - ARCH.leftArcX, y - ARCH.spring) <= ARCH.radius &&
+        Math.hypot(x - ARCH.rightArcX, y - ARCH.spring) <= ARCH.radius));
+    const fits = (scale) => {
+      const k = 1 / (scale * unit);
+      const left = ARCH.cx - (px - box.left) * k;
+      const right = ARCH.cx + (box.right - px) * k;
+      const top = ARCH.cy - (py - box.top) * k;
+      const bottom = ARCH.cy + (box.bottom - py) * k;
+      return inside(left, top) && inside(right, top) && inside(left, bottom) && inside(right, bottom);
+    };
+    let low = 1;
+    let high = 96;
+    for (let i = 0; i < 24; i += 1) {
+      const mid = (low + high) / 2;
+      if (fits(mid)) {
+        high = mid;
+      } else {
+        low = mid;
+      }
+    }
+    return high * 1.12;
+  }
+
+  function buildGate(intro) {
+    const gsap = S.gsap;
+    const part = (id) => qs('#' + id, intro.svg);
+    const scene = part('porta-scene');
+    const lines = part('porta-lines');
+    const skyline = part('porta-skyline');
+    const bricks = part('porta-bricks');
+    const doors = part('porta-doors');
+    const doorLeft = part('porta-door-left');
+    const doorRight = part('porta-door-right');
+    /* Works with or without the wrapper group: the four layers take the same transform. */
+    const zoomed = scene ? [scene] : ['porta-wall', 'porta-skyline', 'porta-doors', 'porta-lines'].map(part).filter(Boolean);
+    const zoom = introZoom(intro, scene || lines || intro.svg);
+    const timeline = gsap.timeline({ paused: true });
+    let drawn = [];
+
+    /* 0 to 0.9 s: the lines draw themselves, group after group */
+    INTRO_GROUPS.forEach((id, index) => {
+      const group = part(id);
+      if (group) {
+        drawn = drawn.concat(addDrawing(timeline, qsa(GEOMETRY, group), index * 0.1, 0.5));
+      }
+    });
+    if (doors) {
+      drawn = drawn.concat(addDrawing(timeline, qsa('path', doors), 0.3, 0.6));
+      const studs = qsa('circle', doors);
+      if (studs.length) {
+        timeline.fromTo(studs, { opacity: 0 }, { opacity: 1, duration: 0.3, ease: 'none' }, 0.6);
+      }
+    }
+    const faint = [skyline, bricks].filter(Boolean);
+    if (faint.length) {
+      timeline.from(faint, { opacity: 0, duration: 0.35, ease: 'none' }, 0.55);
+    }
+    clearDashes(timeline, drawn, 0.92); // dashes are in screen pixels: they must be gone before the zoom
+    if (intro.label) {
+      timeline.fromTo(intro.label, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.15);
+      timeline.to(intro.label, { opacity: 0, duration: 0.3, ease: 'power1.in' }, 1.4);
+    }
+
+    /* 0.9 to 1.6 s: the two leaves open */
+    if (doorLeft) {
+      timeline.fromTo(doorLeft, { scaleX: 1, svgOrigin: DOOR_LEFT_ORIGIN }, { scaleX: 0, duration: 0.7, ease: 'power2.inOut' }, 0.9);
+    }
+    if (doorRight) {
+      timeline.fromTo(doorRight, { scaleX: 1, svgOrigin: DOOR_RIGHT_ORIGIN }, { scaleX: 0, duration: 0.7, ease: 'power2.inOut' }, 0.9);
+    }
+    if (doors) {
+      timeline.set(doors, { visibility: 'hidden' }, 1.6);
+    }
+
+    /* 1.5 to 2.4 s: through the arch; the strokes stay hairlines (non-scaling-stroke) */
+    if (zoomed.length) {
+      timeline.fromTo(zoomed,
+        { scale: 1, svgOrigin: ARCH.cx + ' ' + ARCH.cy },
+        { scale: zoom, duration: 0.9, ease: 'power3.in' }, 1.5);
+    }
+    const fading = [lines, skyline].filter(Boolean);
+    if (fading.length) {
+      timeline.to(fading, { opacity: 0, duration: 0.3, ease: 'power1.in' }, 2.1);
+    }
+
+    /* The hero text stays painted under the closed gate (the green overlay covers the hero) and
+       is hidden only at 0.8 s, just before the doors open, so cut-off letters never show through
+       the arch. 2.1 to 2.5 s, the last third of the zoom: the block comes in as one, the h1 with
+       it, by opacity alone and without any movement. The tween must end after the call at 2.4 s
+       that removes intro-playing. */
+    const heroBlock = intro.heroItems.concat(intro.title ? [intro.title] : []);
+    if (heroBlock.length) {
+      timeline.set(heroBlock, { opacity: 0, transition: 'none' }, 0.8);
+      timeline.to(heroBlock,
+        { opacity: 1, duration: 0.4, ease: 'power1.out', clearProps: 'opacity,transition' }, 2.1);
+    }
+
+    /* 2.4 s: the overlay goes and scroll is released; the header comes down into place */
+    const header = S.ui && S.ui.header;
+    if (header) {
+      timeline.fromTo(header,
+        { autoAlpha: 0, y: -16, transition: 'none' },
+        { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', clearProps: 'opacity,visibility,transform,transition' }, 2.3);
+    }
+    timeline.call(finishIntro, null, 2.4);
+    return timeline;
+  }
+
+  /* ---------- The book intro (menu) ---------- */
+
+  function findBook(intro) {
+    const el = intro.el;
+    const parts = {
+      book: qs('.book', el),
+      page: qs('.book__page', el),
+      cover: qs('.book__cover', el),
+      face: qs('.book__face', el),
+      text: qs('.book__text', el),
+      sheet: qs('.book__sheet', el)
+    };
+    intro.parts = parts;
+    intro.svg = copyDrawing(qs('svg.menu-hero__skyline'), qs('.intro__art', el), 'intro__skyline');
+    return !!(intro.svg && parts.book && parts.cover && parts.face && parts.sheet);
+  }
+
+  function fitBook(intro, width, height) {
+    intro.svg.setAttribute('viewBox', BOOK.view[isPortrait(width, height) ? 'portrait' : 'landscape']);
+  }
+
+  /* 0 to 0.7 s. Each stroke of the skyline starts when a sweep from the left edge of the screen
+     reaches it; the Torre del Mangia waits and then rises from the ground up. Reads first. */
+  function addSkyline(timeline, intro) {
+    const tower = copyPart(intro, 'skyline-torre');
+    const plan = qsa(GEOMETRY, intro.svg).map((node) => {
+      const rect = node.getBoundingClientRect();
+      return { node, length: strokeLength(node), left: rect.left, bottom: rect.bottom, tower: !!(tower && tower.contains(node)) };
+    }).filter((item) => item.length > 0);
+    const rising = plan.filter((item) => item.tower).sort((a, b) => b.bottom - a.bottom);
+    plan.forEach((item) => {
+      if (!item.tower) {
+        drawStroke(timeline, item.node, item.length, round2(clamp(item.left / intro.width, 0, 1) * 0.4), 0.25);
+      }
+    });
+    rising.forEach((item, index) => {
+      /* the two long lines of the shaft first, then the crown, part after part */
+      drawStroke(timeline, item.node, item.length,
+        round2(0.36 + (index / Math.max(1, rising.length - 1)) * 0.16), index < 2 ? 0.26 : 0.18);
+    });
+    return plan.map((item) => item.node);
+  }
+
+  function buildBook(intro) {
+    const gsap = S.gsap;
+    const parts = intro.parts;
+    const grow = coverScale(intro, parts.sheet);
+    const frame = qsa('#libro-cornice path, #libro-angoli path, #libro-fregi path', parts.face);
+    const timeline = gsap.timeline({ paused: true });
+
+    /* 0 to 0.8 s: the skyline draws behind; the book rises 12 px and fades in, the frame of
+       its cover draws, the title follows */
+    let drawn = addSkyline(timeline, intro);
+    timeline.fromTo(parts.book, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.1);
+    drawn = drawn.concat(addDrawing(timeline, frame, 0.2, 0.55));
+    if (parts.text) {
+      timeline.fromTo(parts.text, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'none' }, 0.4);
+    }
+    clearDashes(timeline, drawn, 0.9);
+
+    /* 1.0 to 1.6 s: the cover turns on its spine over the cream page */
+    timeline.fromTo(parts.cover, { rotationY: 0 }, { rotationY: BOOK.open, duration: 0.6, ease: 'power2.inOut' }, 1);
+
+    /* 1.5 to 2.0 s: the page (its twin on top, shown now that the cover has left it) grows over
+       the open cover until it fills the screen; the overlay fades and the menu page is there */
+    timeline.fromTo(parts.sheet, { opacity: 0 }, { opacity: 1, duration: 0.02, ease: 'none' }, 1.5);
+    timeline.fromTo(parts.sheet, { scale: 1 }, { scale: grow, duration: 0.36, ease: 'power2.in' }, 1.5);
+    timeline.to([intro.el, intro.skip].filter(Boolean), { opacity: 0, duration: 0.24, ease: 'power1.in' }, 1.78);
+    timeline.call(finishIntro, null, 2.02);
+    return timeline;
+  }
+
+  /* ---------- The pour intro (wine list) ---------- */
+
+  function findPour(intro) {
+    const el = intro.el;
+    const parts = {
+      card: qs('.pour-card', el),
+      sheet: qs('.pour-card__sheet', el),
+      leaves: qsa('.pour-card__leaf', el),
+      text: qs('.pour-card__text', el)
+    };
+    intro.parts = parts;
+    intro.svg = copyDrawing(qs('.vini-hero__art svg'), qs('.intro__art', el), 'intro__pour');
+    if (intro.svg) {
+      intro.svg.setAttribute('preserveAspectRatio', 'xMidYMin meet'); // the sleeve leaves by the top edge
+    }
+    return !!(intro.svg && parts.card && parts.sheet && parts.leaves.length === 2);
+  }
+
+  function fitPour(intro, width, height) {
+    intro.svg.setAttribute('viewBox', POUR.view[isPortrait(width, height) ? 'portrait' : 'landscape']);
+  }
+
+  /* Half the width of the bowl at a height, read from the curve of its lower half. */
+  function bowlHalfWidth(y) {
+    const curve = (t, p) => {
+      const u = 1 - t;
+      return u * u * u * p[0] + 3 * u * u * t * p[1] + 3 * u * t * t * p[2] + t * t * t * p[3];
+    };
+    let low = 0;
+    let high = 1;
+    for (let i = 0; i < 16; i += 1) {
+      const mid = (low + high) / 2;
+      if (curve(mid, POUR.bowl.y) < y) {
+        low = mid;
+      } else {
+        high = mid;
+      }
+    }
+    return Math.max(0, POUR.bowl.centre - curve((low + high) / 2, POUR.bowl.x));
+  }
+
+  function buildPour(intro) {
+    const gsap = S.gsap;
+    const parts = intro.parts;
+    const part = (name) => copyPart(intro, 'mescita-' + name);
+    const bearer = part('braccio'); // the arm: hand and bottle
+    const stream = part('filo');
+    const wine = part('vino');
+    const surface = part('livello');
+    const still = [part('tavola'), part('calice')].filter(Boolean)
+      .reduce((nodes, group) => nodes.concat(qsa(GEOMETRY, group)), []);
+    const grow = coverScale(intro, parts.sheet);
+    const flow = stream ? Math.ceil(strokeLength(stream) * (POUR.reach + 0.06)) : 0; // long enough when stretched
+    const timeline = gsap.timeline({ paused: true });
+    /* The surface of the wine as it climbs: as wide as the bowl is at its height (an ease made
+       from the curve of the glass), and the top of the wine under it. */
+    const full = bowlHalfWidth(POUR.level) || 1;
+    const share = (progress) => bowlHalfWidth(POUR.level + POUR.rise * (1 - progress)) / full;
+    const top = (progress) => POUR.level + POUR.rise * (1 - progress) - 8 * share(progress);
+    const widen = (progress) => (share(progress) - share(0)) / ((1 - share(0)) || 1);
+    const climb = (progress) => (top(0) - top(progress)) / ((top(0) - POUR.wine.y) || 1);
+
+    /* 0 to 0.6 s: table and glass draw; the hand comes in from the upper right, the bottle
+       carried mouth up */
+    clearDashes(timeline, addDrawing(timeline, still, 0, 0.6), 0.65);
+    if (bearer) {
+      timeline.fromTo(bearer,
+        { x: POUR.enter.x, y: POUR.enter.y, rotation: POUR.carry.rotation, svgOrigin: POUR.wrist, opacity: 0 },
+        { x: POUR.carry.x, y: POUR.carry.y, duration: 0.55, ease: 'power2.out' }, 0.05);
+      timeline.to(bearer, { opacity: 1, duration: 0.25, ease: 'none' }, 0.05);
+
+      /* 0.6 to 1.0 s: the arm turns about the wrist and comes down: the mouth meets the glass */
+      timeline.to(bearer, { x: 0, y: 0, rotation: 0, duration: 0.4, ease: 'power2.inOut' }, 0.6);
+    }
+
+    /* 1.0 to 1.7 s: the stream draws down, the wine rises (the rectangle grows under the clip
+       of the bowl; its surface line climbs and widens with the glass) */
+    if (flow) {
+      /* the stream reaches down to the wine: longer at first, as drawn when the glass is poured */
+      timeline.fromTo(stream, { scaleY: POUR.reach, svgOrigin: POUR.mouth }, { scaleY: 1, duration: 0.58, ease: 'none' }, 1.12);
+      drawStroke(timeline, stream, flow, 1, 0.2, 'power1.in');
+    }
+    if (wine && surface) {
+      timeline.fromTo([wine, surface], { opacity: 0 }, { opacity: 1, duration: 0.08, ease: 'none' }, 1.12);
+      timeline.fromTo(wine,
+        { attr: { y: round2(top(0)), height: round2(POUR.wine.bottom - top(0)) } },
+        { attr: { y: POUR.wine.y, height: POUR.wine.bottom - POUR.wine.y }, duration: 0.58, ease: climb }, 1.12);
+      timeline.fromTo(surface, { y: POUR.rise, svgOrigin: POUR.bowl.centre + ' ' + POUR.level }, { y: 0, duration: 0.58, ease: 'none' }, 1.12);
+      timeline.fromTo(surface, { scale: round2(share(0)) }, { scale: 1, duration: 0.58, ease: widen }, 1.12);
+    }
+
+    /* 1.7 to 2.0 s: the stream ends (its tail falls into the glass), the bottle lifts back */
+    if (flow) {
+      timeline.to(stream, { strokeDashoffset: -flow + 'px', duration: 0.22, ease: 'power1.in' }, 1.7);
+    }
+    if (bearer) {
+      timeline.to(bearer, { x: POUR.lift.x, y: POUR.lift.y, rotation: POUR.lift.rotation, duration: 0.3, ease: 'power2.out' }, 1.72);
+    }
+
+    /* 2.0 to 2.6 s: the card opens from its centre fold, its sheet grows until it fills the
+       screen, the overlay fades and the wine list is there */
+    timeline.fromTo(parts.leaves, { opacity: 0 }, { opacity: 1, duration: 0.05, ease: 'none' }, 2);
+    timeline.fromTo(parts.leaves[0], { rotationY: 86 }, { rotationY: 0, duration: 0.3, ease: 'power2.out' }, 2);
+    timeline.fromTo(parts.leaves[1], { rotationY: -86 }, { rotationY: 0, duration: 0.3, ease: 'power2.out' }, 2);
+    if (parts.text) {
+      timeline.fromTo(parts.text, { opacity: 0 }, { opacity: 1, duration: 0.14, ease: 'none' }, 2.1);
+    }
+    timeline.fromTo(parts.sheet, { opacity: 0 }, { opacity: 1, duration: 0.02, ease: 'none' }, 2.28);
+    timeline.fromTo(parts.sheet, { scale: 1 }, { scale: grow, duration: 0.22, ease: 'power1.in' }, 2.3);
+    timeline.to([intro.el, intro.skip].filter(Boolean), { opacity: 0, duration: 0.18, ease: 'power1.in' }, 2.48);
+    timeline.call(finishIntro, null, 2.66);
+    return timeline;
+  }
+
+  /* ---------- Fine-line scenes: the menu skyline, the pici, the boar ---------- */
+
+  /* Menu page. When the book intro is ruled out before the first paint (a repeat visit, a hash
+     in the URL) the skyline of the hero draws itself once in 0.9 s, like the other line
+     drawings; after the intro, or when it is given up late, it is simply there. */
+  function setupSkyline() {
+    const skyline = qs('svg.menu-hero__skyline');
+    if (!skyline || played.has(skyline)) {
+      return;
+    }
+    played.add(skyline); // decided once per page view
+    if (!S.intro || S.intro.key !== 'm' || !S.intro.ruledOut) {
+      return;
+    }
+    const rect = skyline.getBoundingClientRect();
+    const fold = win.innerHeight || root.clientHeight || 0;
+    setupDrawing(skyline, rect.bottom > 0 && rect.top < fold ? 'now' : 'scroll');
+  }
+
+  /* The strands come down one after the other from above the top edge of the drawing (which
+     clips them), turn a few degrees and settle where they are drawn; as they settle the coils
+     of the nest draw. 1.6 s long: scrubbed by the scroll or played once. The lengths of the
+     coils are functions, so a refresh after a resize measures them again. */
+  function buildPici(svg, once) {
+    const strands = PICI_ORDER.map((number) => qs('#pici-filo-' + number, svg)).filter(Boolean);
+    const coils = qsa('#pici-nido path', svg);
+    const boxes = strands.map((strand) => strand.getBBox());
+    const timeline = S.gsap.timeline({ paused: true });
+    strands.forEach((strand, index) => {
+      const at = round2(index * 0.16);
+      timeline.fromTo(strand,
+        { y: -Math.ceil(boxes[index].y + boxes[index].height + 24), transformOrigin: '50% 50%' },
+        { y: 0, duration: 0.52, ease: 'power2.out' }, at);
+      timeline.fromTo(strand, { rotation: PICI_TURN[index] }, { rotation: 0, duration: 0.62, ease: 'back.out(2.2)' }, at);
+      timeline.fromTo(strand, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: 'none' }, at);
+    });
+    coils.forEach((coil, index) => {
+      const length = () => strokeLength(coil, true) + 'px';
+      timeline.fromTo(coil,
+        { strokeDasharray: length, strokeDashoffset: length },
+        { strokeDashoffset: '0px', duration: 0.42, ease: 'power1.inOut' }, round2(0.46 + index * 0.17));
+    });
+    if (once) {
+      clearDashes(timeline, coils, timeline.duration());
+    }
+    return timeline;
+  }
+
+  function setupPici() {
+    const box = qs('[data-pici]');
+    const svg = box ? qs('svg', box) : null;
+    const section = box ? box.closest('section') || box.parentElement : null;
+    if (!svg || !section) {
+      return;
+    }
+    const sizes = S.gsap.matchMedia(); // made inside S.ctx: reverted with it
+    /* From 900 px the drawing is sticky beside the text: the strands fall with the scroll. */
+    sizes.add(MQ_PICI_SCRUB, () => {
+      S.ST.create({
+        trigger: section,
+        start: 'top 62%',
+        end: 'bottom 110%',
+        scrub: 0.5,
+        animation: buildPici(svg),
+        invalidateOnRefresh: true
+      });
+    });
+    /* Below, it is small at the top of the section: the same sequence, once, when it comes in. */
+    sizes.add(MQ_PICI_ONCE, () => {
+      if (played.has(box)) {
+        return;
+      }
+      const timeline = buildPici(svg, true);
+      S.ST.create({
+        trigger: box,
+        start: 'top 78%',
+        once: true,
+        onEnter: () => {
+          played.add(box);
+          timeline.play();
+        }
+      });
+    });
+  }
+
+  /* When 60% of the dolceforte band is in view, and most of the boar's own place with it (on
+     wide screens it stands on the bottom edge of the band), the boar walks in from outside the
+     left edge of the photo (the band clips it), its legs swinging in two pairs about their top
+     points; the ground line draws under it and it stops with a small nod. Once per page view. */
+  function setupBoar() {
+    const box = qs('[data-boar]');
+    const svg = box ? qs('svg', box) : null;
+    const band = box ? box.closest('.band') || box.parentElement : null;
+    const boar = svg ? qs('#cinghiale', svg) : null;
+    if (!boar || !band || played.has(box)) {
+      return;
+    }
+    const gsap = S.gsap;
+    /* the scroll position at which both are in view; read again at every refresh */
+    const start = () => {
+      const y = scrollTop();
+      const view = win.innerHeight || root.clientHeight || 0;
+      const outer = band.getBoundingClientRect();
+      const inner = box.getBoundingClientRect();
+      return Math.max(0, Math.round(y + Math.max(outer.top + outer.height * 0.6, inner.top + inner.height * 0.7) - view));
+    };
+    gsap.set(box, { autoAlpha: 0 });
+    arm(band, start, () => {
+      played.add(box);
+      const matrix = typeof svg.getScreenCTM === 'function' ? svg.getScreenCTM() : null;
+      const unit = matrix && matrix.a > 0 ? matrix.a : 1; // screen px per drawing unit
+      const away = -Math.ceil((svg.getBoundingClientRect().left - band.getBoundingClientRect().left) / unit + BOAR.snout + 24);
+      const legs = [1, 2, 3, 4].map((number) => qs('#cinghiale-zampa-' + number, svg));
+      const pivots = legs.map((leg) => (leg && typeof leg.getPointAtLength === 'function' ? leg.getPointAtLength(0) : null));
+      const ground = qsa(GEOMETRY, qs('#cinghiale-terra', svg) || svg).filter((node) => !boar.contains(node));
+      const timeline = gsap.timeline();
+      timeline.fromTo(box, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: 'none', clearProps: 'opacity,visibility' }, 0);
+      timeline.fromTo(boar, { x: away, svgOrigin: BOAR.hooves }, { x: 0, duration: BOAR.walk, ease: 'power2.out' }, 0);
+      legs.forEach((leg, index) => {
+        if (!leg || !pivots[index]) {
+          return;
+        }
+        let side = BOAR.pairs[index];
+        let at = 0;
+        timeline.set(leg, { rotation: side * BOAR.swing, svgOrigin: round2(pivots[index].x) + ' ' + round2(pivots[index].y) }, 0);
+        BOAR.steps.forEach((duration) => {
+          side = -side;
+          timeline.to(leg, { rotation: side * BOAR.swing, duration, ease: 'sine.inOut' }, round2(at));
+          at += duration;
+        });
+        timeline.to(leg, { rotation: 0, duration: round2(BOAR.walk - at), ease: 'sine.out' }, round2(at));
+      });
+      clearDashes(timeline, addDrawing(timeline, ground, 0.15, 1.2), 1.4);
+      timeline.to(boar, { rotation: BOAR.nod, duration: 0.16, ease: 'power1.out' }, BOAR.walk);
+      timeline.to(boar, { rotation: 0, duration: 0.3, ease: 'power1.inOut' }, BOAR.walk + 0.16);
+    });
+  }
+
+  /* Menu page: the link of the section in view gets aria-current and is kept in view in its row. */
+  function setupMenuNav() {
+    const nav = qs('.menu-nav');
+    const row = nav ? qs('ul', nav) : null;
+    if (!row || typeof win.IntersectionObserver !== 'function') {
+      return;
+    }
+    const entries = qsa('a[href^="#"]', nav)
+      .map((link) => ({ link, section: byId(link.getAttribute('href').slice(1)) }))
+      .filter((entry) => entry.section);
+    const show = (current) => {
+      entries.forEach((entry) => {
+        if (entry.link === current) {
+          entry.link.setAttribute('aria-current', 'true');
+        } else {
+          entry.link.removeAttribute('aria-current');
+        }
+      });
+      if (current && row.scrollWidth > row.clientWidth) {
+        const left = current.offsetLeft - (row.clientWidth - current.offsetWidth) / 2;
+        row.scrollTo({ left: Math.max(0, left), behavior: S.motionPref ? 'smooth' : 'auto' });
+      }
+    };
+    const observer = new win.IntersectionObserver((changes) => {
+      changes.forEach((change) => {
+        if (change.isIntersecting) {
+          const hit = entries.find((entry) => entry.section === change.target);
+          if (hit) {
+            show(hit.link);
+          }
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    entries.forEach((entry) => observer.observe(entry.section));
+    S.cleanups.push(() => observer.disconnect());
+  }
+
+  /* ---------- Start, refresh, stop ---------- */
+
+  function settle() {
+    if (!S) {
+      return;
+    }
+    if (S.motion) {
+      S.ST.refresh(); // fires the "refresh" event, which runs measure()
+    } else {
+      measure();
+    }
+  }
+
+  function onResize() {
+    if (!S) {
+      return;
+    }
+    const intro = S.intro;
+    if (intro && intro.playing) {
+      if (!intro.started) {
+        /* Before the first frame: fit the drawing again, but only to a size that is really new.
+           Phones send a resize event while the page loads; building the intro twice for it
+           made the first painted frame three times as long. */
+        const box = intro.el.getBoundingClientRect();
+        if (Math.abs((box.width || win.innerWidth) - intro.width) > 1 || Math.abs((box.height || win.innerHeight) - intro.height) > 1) {
+          prepareIntro();
+        }
+      } else if (Math.abs(win.innerWidth - intro.width) > 1 || Math.abs(win.innerHeight - intro.height) > 120) {
+        skipIntro();
+      }
+    }
+    if (S.menu && S.menu.open && !isRendered(S.menu.toggle)) {
+      setMenu(false, false);
+    }
+    if (!S.motion && !S.resizeFrame) {
+      S.resizeFrame = win.requestAnimationFrame(() => {
+        if (S) {
+          S.resizeFrame = 0;
+          measure();
+        }
+      });
+    }
+  }
+
+  function setupLifecycle() {
+    const run = S;
+    listen(win, 'scroll', onScroll, { passive: true });
+    listen(win, 'resize', onResize, { passive: true });
+    listen(win, 'pagehide', teardown);
+    if (S.motion) {
+      S.ST.addEventListener('refresh', measure);
+      S.cleanups.push(() => run.ST.removeEventListener('refresh', measure));
+    }
+    if (doc.readyState === 'complete') {
+      settle();
+    } else {
+      listen(win, 'load', settle);
+    }
+    if (doc.fonts && doc.fonts.ready && typeof doc.fonts.ready.then === 'function') {
+      doc.fonts.ready.then(() => {
+        if (S === run) {
+          settle();
+        }
+      });
+    }
+    /* The page height changes without a resize (an opened question, a late image): refresh. */
+    if (typeof win.ResizeObserver === 'function' && doc.body) {
+      let known = -1;
+      const observer = new win.ResizeObserver((entries) => {
+        const height = entries[0] ? Math.round(entries[0].contentRect.height) : 0;
+        if (known < 0) {
+          known = height;
+          return;
+        }
+        if (Math.abs(height - known) < 2) {
+          return;
+        }
+        known = height;
+        win.clearTimeout(run.settleTimer);
+        run.settleTimer = win.setTimeout(() => {
+          if (S === run) {
+            settle();
+          }
+        }, 200);
+      });
+      observer.observe(doc.body);
+      S.cleanups.push(() => observer.disconnect());
+    }
+    const motionQuery = media(MQ_MOTION);
+    if (motionQuery) {
+      const restart = () => {
+        teardown();
+        boot();
+      };
+      if (typeof motionQuery.addEventListener === 'function') {
+        listen(motionQuery, 'change', restart);
+      } else if (typeof motionQuery.addListener === 'function') {
+        motionQuery.addListener(restart);
+        S.cleanups.push(() => motionQuery.removeListener(restart));
+      }
+    }
+  }
+
+  /* Stops and removes everything this script started; the page is left complete and static. */
+  function teardown() {
+    const run = S;
+    if (!run) {
+      return;
+    }
+    try {
+      if (run.intro && run.intro.playing) {
+        skipIntro();
+      }
+      if (run.menu && run.menu.open) {
+        setMenu(false, false);
+      }
+      setHeaderHidden(false);
+    } catch (error) {
+      /* keep going: the listeners and animations below must go in any case */
+    }
+    S = null;
+    run.cleanups.forEach((cleanup) => {
+      try {
+        cleanup();
+      } catch (error) {
+        /* one failed cleanup must not stop the others */
+      }
+    });
+    win.clearTimeout(run.settleTimer);
+    if (run.frame) {
+      win.cancelAnimationFrame(run.frame);
+    }
+    if (run.resizeFrame) {
+      win.cancelAnimationFrame(run.resizeFrame);
+    }
+    try {
+      if (run.tick) {
+        run.gsap.ticker.remove(run.tick);
+      }
+      if (run.ctx) {
+        run.ctx.revert(); // kills every tween and ScrollTrigger made here and restores the elements
+      }
+      if (run.ST && run.motion) {
+        run.ST.getAll().forEach((trigger) => trigger.kill());
+      }
+      if (run.lenis) {
+        run.lenis.destroy();
+      }
+    } catch (error) {
+      /* a library that fails while stopping leaves nothing we can still undo */
+    }
+    run.masks.forEach((element) => {
+      element.style.clipPath = '';
+    });
+    if (run.menu) {
+      win.clearTimeout(run.menu.closeTimer);
+    }
+    root.classList.remove('intro-playing', 'menu-open', 'menu-closing', 'header-hidden');
+    if (run.intro && run.intro.el) {
+      run.intro.el.hidden = true;
+      if (run.intro.skip) {
+        run.intro.skip.hidden = true;
+      }
+      root.classList.add('intro-done');
+    }
+  }
+
+  function boot() {
+    if (S) {
+      return;
+    }
+    const gsap = win.gsap;
+    const ST = win.ScrollTrigger;
+    const Lenis = win.Lenis;
+    const libs = !!(gsap && ST && typeof Lenis === 'function' && typeof gsap.registerPlugin === 'function' &&
+      typeof gsap.context === 'function' && typeof ST.create === 'function');
+    const motionPref = matches(MQ_MOTION);
+    S = {
+      gsap,
+      ST,
+      Lenis,
+      motionPref,
+      motion: libs && motionPref,
+      cleanups: [],
+      pending: new Set(),
+      afterIntro: [],
+      masks: [],
+      parallaxed: new Set(),
+      ctx: null,
+      lenis: null,
+      tick: null,
+      ticking: false,
+      frame: 0,
+      resizeFrame: 0,
+      settleTimer: 0,
+      dirty: false,
+      phone: false,
+      y: 0,
+      ui: null,
+      menu: null,
+      intro: null
+    };
+    try {
+      root.classList.toggle('motion-off', !libs);
+      root.classList.add('motion-ready'); // from here the start states are set by this script
+      if (S.motion) {
+        gsap.registerPlugin(ST);
+        gsap.config({ nullTargetWarn: false });
+        ST.config({ ignoreMobileResize: true });
+        S.ctx = gsap.context(() => {});
+      }
+      setupScrollUi();
+      setupMenu();
+      setupMenuNav();
+      setupSmoothScroll();
+      setupAnchors();
+      planIntro();
+      if (S.motion) {
+        S.ctx.add(setupScrollMotion);
+        S.ctx.add(setupSkyline);
+        S.ctx.add(setupPici);
+        S.ctx.add(setupBoar);
+      }
+      measure();
+      setupIntro();
+      setupLifecycle();
+    } catch (error) {
+      /* Fail open: undo what was started and let motion.css show the whole page. */
+      teardown();
+      root.classList.add('motion-ready', 'motion-off');
+    }
+  }
+
+  win.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      boot(); // back from the back/forward cache after pagehide stopped everything
+    }
+  });
+
+  if (doc.readyState === 'loading') {
+    doc.addEventListener('DOMContentLoaded', boot, { once: true });
+  } else {
+    boot();
+  }
+})();

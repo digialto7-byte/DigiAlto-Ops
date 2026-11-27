@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+  <title>Bistecca alla fiorentina</title>
+  <path d="M10 30 C8 20 18 12 30 12 C44 10 54 18 54 28 C54 38 46 44 38 46 C30 52 18 50 12 42 C9 38 10 34 10 30 Z"/>
+  <path d="M20 22 H42 V28 H34 V40 H28 V28 H20 Z"/>
+  <path d="M42 56 L56 46"/>
+  <path d="M46 53 L45 49 M50 51 L49 47 M54 48 L53 44 M46 53 L50 56 M50 51 L54 53"/>
+</svg>

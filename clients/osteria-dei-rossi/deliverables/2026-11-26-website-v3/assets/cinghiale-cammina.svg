@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <g id="svg-cinghiale">
+    <!-- far legs first: the far front leg reaches forward, the far hind leg trails -->
+    <path id="svg-cinghiale-zampa-2" d="M345 213 L358 238 L360 256 L358 262 H372 L371 255 L369 236 L361 214"/>
+    <path id="svg-cinghiale-zampa-4" d="M152 176 L143 216 L135 254 L133 262 H147 L148 255 L157 222 L168 192"/>
+    <!-- body: snout disc, jaw, throat, chest, belly, haunch, rump, sloping back, high withers, nape, ear, long wedge head -->
+    <path id="svg-cinghiale-corpo" d="M446 186 L452 206 C440 213 424 214 408 211 C394 209 383 209 374 211 C364 214 354 215 344 213 L318 211 C282 215 232 208 198 199 L164 188 C152 182 146 172 148 160 C146 140 158 124 176 116 C210 98 252 80 292 78 C316 78 334 92 348 106 L362 84 L368 114 C396 136 422 160 446 186 Z"/>
+    <path id="svg-cinghiale-spalla" d="M353 113 C361 134 363 156 358 176"/>
+    <path id="svg-cinghiale-setole" d="M190 109 L183 95 M209 100 L203 85 M229 92 L224 77 M249 86 L245 70 M269 81 L267 65 M289 78 L289 62 M308 80 L311 64 M324 87 L330 72 M338 97 L346 84"/>
+    <path id="svg-cinghiale-orecchio" d="M356 97 L360 108"/>
+    <path id="svg-cinghiale-zanna" d="M427 212 C426 203 430 196 438 194"/>
+    <circle id="svg-cinghiale-occhio" cx="398" cy="148" r="2.4" fill="currentColor" stroke="none"/>
+    <circle id="svg-cinghiale-narice" cx="447" cy="197" r="1.2" fill="currentColor" stroke="none"/>
+    <path id="svg-cinghiale-coda" d="M148 150 C134 148 126 160 129 176 M129 176 L123 185 M129 176 L130 187 M129 176 L136 184"/>
+    <!-- near legs -->
+    <path id="svg-cinghiale-zampa-1" d="M318 211 L321 236 L318 256 L316 262 H332 L331 256 L334 236 L342 213"/>
+    <path id="svg-cinghiale-zampa-3" d="M164 188 L178 222 L172 254 L170 262 H184 L184 255 L192 224 L198 199"/>
+  </g>
+  <g id="svg-cinghiale-terra">
+    <path d="M20 264 H500"/>
+    <path d="M62 264 L58 254 M62 264 L62 251 M62 264 L67 255"/>
+    <path d="M250 264 L246 255 M250 264 L251 252 M250 264 L255 256"/>
+    <path d="M470 264 L466 254 M470 264 L470 251 M470 264 L475 255"/>
+  </g>
+</svg>

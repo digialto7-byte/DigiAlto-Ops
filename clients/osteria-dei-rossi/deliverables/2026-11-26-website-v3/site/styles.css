@@ -1,0 +1,1004 @@
+/* =====================================================================
+   Osteria dei Rossi: shared stylesheet (home, menu, wine list, find us, privacy, 404)
+   Plain CSS, mobile first. Motion lives in motion.css and main.js.
+   Breakpoints: 45rem (two columns), 64rem (desktop navigation).
+   ===================================================================== */
+
+/* ---------- 1. Fonts ---------- */
+/* @font-face rules: assets/fonts/fonts.css (http) and fonts-embedded.css (file://), chosen by the inline head script. */
+
+/* ---------- 2. Tokens ---------- */
+:root{
+  --cream:#FFFADF;
+  --cream-deep:#F8EFC6;
+  --green:#1C4130;
+  --gold:#C89550;
+  --soft:#4D5B45;
+  --olive:#7D9550;
+  --black:#0F0F0D;
+  --yellow:#FFB028;
+  --line:rgb(200 149 80 / .55);
+  --line-soft:rgb(28 65 48 / .16);
+  --scrim:rgb(15 15 13 / .46);
+
+  --font-display:"Bodoni Moda","Didot","Bodoni MT",Georgia,serif;
+  --font-text:"Figtree",system-ui,sans-serif;
+
+  --fs-h1:clamp(2.75rem, 7.6vw, 6.75rem);
+  --fs-h2:clamp(2.1rem, 4.3vw, 3.875rem);
+  --fs-h3:clamp(1.4rem, 2.2vw, 1.9rem);
+  --fs-body:1.0625rem;
+  --fs-kicker:.75rem;
+  --fs-caption:.8125rem;
+
+  --section:clamp(4.5rem, 11vw, 10rem);
+  --gap:clamp(1rem, 2.4vw, 2rem);
+  --container:min(100% - 2.5rem, 78rem);
+  --header-h:4.5rem;
+  --header-h-solid:4rem;
+
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --d1:.35s;
+  --d2:.7s;
+  --d3:.9s;
+
+  --arch-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 125' preserveAspectRatio='none'%3E%3Cpath d='M0 125 V48 A62 62 0 0 1 50 0 A62 62 0 0 1 100 48 V125 Z'/%3E%3C/svg%3E");
+}
+@media (min-width:64rem){
+  :root{--header-h:5.5rem;--header-h-solid:4.25rem}
+}
+
+/* ---------- 3. Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:var(--header-h-solid)}
+body{
+  margin:0;background:var(--cream);color:var(--green);
+  font:400 var(--fs-body)/1.65 var(--font-text);
+  overflow-x:clip;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg,picture{display:block;max-width:100%}
+img{height:auto}
+a{color:inherit}
+p,ul,ol,dl,dd,figure,h1,h2,h3,h4,blockquote{margin:0}
+ul,ol{padding:0;list-style:none}
+address{font-style:normal}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+/* Gold only on dark surfaces */
+.hero :focus-visible,.band :focus-visible,.section--green :focus-visible,.site-footer :focus-visible,.menu-hero :focus-visible,
+.cta-bar :focus-visible,html.menu-open .site-nav :focus-visible,html.menu-open .site-header :focus-visible,
+.site-header:not(.is-solid) :focus-visible{outline-color:var(--gold)}
+.page-text-body .site-header:not(.is-solid) :focus-visible{outline-color:var(--green)}
+html.menu-open .page-text-body .site-header :focus-visible,.page-text-body html.menu-open .site-header :focus-visible{outline-color:var(--gold)}
+::selection{background:var(--gold);color:var(--green)}
+
+.container{width:var(--container);margin-inline:auto}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap)}
+@media (min-width:45rem){.grid{grid-template-columns:repeat(12,minmax(0,1fr))}}
+.stack>*+*{margin-top:1.5rem}
+.section{padding-block:var(--section);position:relative}
+.section--green{background:var(--green);color:var(--cream)}
+/* A block that continues the section above it: no second top padding */
+.section--follow{padding-top:0}
+
+.skip-link{
+  position:fixed;left:1rem;top:1rem;z-index:100;padding:.75rem 1rem;
+  background:var(--cream);color:var(--green);font-weight:600;text-decoration:none;
+  transform:translateY(-200%);
+}
+.skip-link:focus{transform:none}
+
+/* ---------- 4. Type ---------- */
+h1,h2,h3,.h3{font-family:var(--font-display);font-weight:400;font-optical-sizing:auto;text-wrap:balance}
+h1{font-size:var(--fs-h1);line-height:.96;letter-spacing:-.02em}
+h2{font-size:var(--fs-h2);line-height:1;letter-spacing:-.015em}
+h3,.h3{font-size:var(--fs-h3);line-height:1.12}
+.dove .h3,.band--fiorentina .h3,.band--tavola .h3,.larder .h3,.coccio__text .h3{font-size:clamp(1.9rem, 3.2vw, 2.75rem);line-height:1.02;letter-spacing:-.01em}
+h1 em,h2 em,h3 em{display:block;font-style:italic;font-weight:400}
+/* From 1100 px every two-line heading is exactly two lines: line 1 and its italic completion */
+@media (min-width:68.75rem){
+  .hl,h1 .hl+em,h2 .hl+em,h3 .hl+em{white-space:nowrap}
+}
+.section--green h2 em,.section--green .h3 em,.site-footer h2 em{color:var(--gold)}
+.body{max-width:34em}
+.kicker{
+  font:600 var(--fs-kicker)/1.4 var(--font-text);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--soft);
+}
+.section--green .kicker{color:var(--cream)}
+.kicker+h1,.kicker+h2{margin-top:1.25rem}
+.caption,figcaption{font-size:var(--fs-caption);line-height:1.45;color:var(--soft);margin-top:1rem;letter-spacing:.01em}
+.section--green .caption,.section--green figcaption{color:rgb(255 250 223 / .82)}
+.note{font-size:.9375rem;line-height:1.55}
+.label-title{
+  font:600 var(--fs-kicker)/1.4 var(--font-text);letter-spacing:.18em;text-transform:uppercase;
+}
+
+/* ---------- 5. Buttons and links ---------- */
+.arrow{width:2.25rem;height:auto;flex:none;overflow:visible}
+.arrow path,.via__arrow path,.hero__cue-arrow path{vector-effect:non-scaling-stroke}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.875rem;
+  min-height:3rem;padding:0 1.375rem;border:1px solid var(--green);
+  background:var(--green);color:var(--cream);
+  font:600 .8125rem/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+  border-radius:0;cursor:pointer;
+  transition:background-color var(--d1) var(--ease),color var(--d1) var(--ease),border-color var(--d1) var(--ease);
+}
+.btn .arrow{transition:transform var(--d1) var(--ease)}
+.btn--light{background:var(--cream);color:var(--green);border-color:var(--cream)}
+.btn--line{background:transparent;color:inherit;border-color:currentColor}
+.link{
+  display:inline-flex;align-items:center;gap:.75rem;min-height:2.75rem;
+  font:600 .8125rem/1.2 var(--font-text);letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;
+}
+.link .arrow{transition:transform var(--d1) var(--ease)}
+.link--light{color:var(--cream)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover .arrow,.link:hover .arrow{transform:translateX(6px)}
+  .btn:hover{background:transparent;color:var(--green)}
+  .btn--light:hover{background:transparent;color:var(--cream);border-color:var(--cream)}
+  .btn--line:hover{background:var(--green);color:var(--cream);border-color:var(--green)}
+  .section--green .btn--line:hover,.site-nav .btn--line:hover{background:var(--cream);color:var(--green);border-color:var(--cream)}
+  .link:hover{text-decoration-thickness:2px}
+}
+
+/* ---------- 6. Header ---------- */
+.site-header{
+  position:fixed;inset:0 0 auto;z-index:50;color:var(--cream);
+  border-bottom:1px solid transparent;
+  transition:background-color var(--d1) var(--ease),border-color var(--d1) var(--ease),transform var(--d1) var(--ease),color var(--d1) var(--ease);
+}
+.site-header__inner{
+  width:min(100% - 2.5rem, 90rem);margin-inline:auto;height:var(--header-h);
+  display:flex;align-items:center;gap:1.25rem;
+}
+.site-header__logo{position:relative;z-index:2;display:block;margin-right:auto;flex:none}
+.logo{width:112px;height:auto}
+.logo--color{display:none}
+.site-header.is-solid{background:var(--cream);color:var(--green);border-bottom-color:var(--line-soft)}
+.site-header.is-solid .site-header__inner{height:var(--header-h-solid)}
+.site-header.is-solid .logo--light{display:none}
+.site-header.is-solid .logo--color{display:block}
+.site-header.is-solid .logo{width:96px}
+.site-header.is-hidden{transform:translateY(-101%)}
+html.menu-open .site-header{color:var(--cream);background:transparent;border-bottom-color:transparent;transform:none}
+html.menu-open .site-header .logo--light{display:block}
+html.menu-open .site-header .logo--color{display:none}
+
+.site-header__book{
+  position:relative;z-index:2;display:inline-flex;align-items:center;min-height:2.75rem;padding:0 .25rem;
+  font:600 .75rem/1 var(--font-text);letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px;
+}
+/* Once the header is solid the booking button is filled: green on cream */
+html:not(.menu-open) .site-header.is-solid .site-header__book,.page-text-body:not(.menu-open) .site-header__book{
+  padding:0 1rem;background:var(--green);color:var(--cream);text-decoration:none;
+}
+.menu-toggle{
+  position:relative;z-index:2;width:2.75rem;height:2.75rem;margin-right:-.5rem;padding:0;
+  display:grid;place-content:center;gap:7px;background:none;border:0;cursor:pointer;
+}
+.no-js .menu-toggle{display:none}
+.menu-toggle__line{display:block;width:26px;height:1px;background:currentColor;transition:transform var(--d1) var(--ease)}
+.menu-toggle[aria-expanded="true"] .menu-toggle__line:first-child{transform:translateY(4px) rotate(45deg)}
+.menu-toggle[aria-expanded="true"] .menu-toggle__line:last-child{transform:translateY(-4px) rotate(-45deg)}
+
+/* Phone panel: closed by default, html.menu-open opens it */
+.site-nav{
+  position:fixed;inset:0;z-index:1;overflow-y:auto;
+  display:flex;flex-direction:column;align-items:flex-start;gap:2rem;
+  padding:calc(var(--header-h) + 2.5rem) 1.25rem 3rem;
+  background:var(--green);color:var(--cream);
+  visibility:hidden;opacity:0;
+  transition:opacity var(--d1) var(--ease),visibility 0s linear var(--d1);
+}
+html.menu-open .site-nav{visibility:visible;opacity:1;transition:opacity var(--d1) var(--ease)}
+.site-nav__links li+li{margin-top:.5rem}
+.site-nav__links a{font:400 2rem/1.25 var(--font-display);text-decoration:none;display:inline-block;padding-block:.125rem}
+.site-nav__links a:hover{font-style:italic}
+.lang{display:flex;align-items:center;gap:.5rem;font:600 .75rem/1 var(--font-text);letter-spacing:.14em}
+.lang a{display:inline-flex;align-items:center;min-height:2.75rem;min-width:1.75rem;justify-content:center;text-decoration:none;opacity:.85}
+.lang a[aria-current]{opacity:1;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+.lang__sep{opacity:.6}
+.site-nav__contact{display:flex;gap:1.5rem;margin-top:auto;padding-top:1.5rem;border-top:1px solid var(--line);width:100%}
+.site-nav__contact a{display:inline-flex;align-items:center;min-height:2.75rem;font:600 .8125rem/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;text-underline-offset:5px}
+
+@media (min-width:64rem){
+  .logo{width:150px}
+  .site-header.is-solid .logo{width:118px}
+  .site-header__book,.menu-toggle{display:none}
+  .site-nav{
+    position:static;inset:auto;z-index:auto;overflow:visible;flex-direction:row;align-items:center;gap:2rem;
+    padding:0;background:none;color:inherit;visibility:visible;opacity:1;transition:none;
+  }
+  .site-nav__links{display:flex;gap:1.75rem}
+  .site-nav__links li+li{margin-top:0}
+  .site-nav__links a{
+    white-space:nowrap;
+    font:500 .8125rem/1 var(--font-text);letter-spacing:.12em;text-transform:uppercase;
+    padding-block:.75rem;background:linear-gradient(currentColor,currentColor) left calc(100% - .35rem)/0 1px no-repeat;
+    transition:background-size var(--d1) var(--ease);
+  }
+  .site-nav__links a:hover{font-style:normal;background-size:100% 1px}
+  .site-nav__cta{min-height:2.75rem;white-space:nowrap}
+  .site-nav__contact{display:none}
+  html.menu-open .site-header{background:inherit}
+}
+
+@media (min-width:64rem) and (max-width:68.74rem){
+  .site-nav{gap:1.25rem}
+  .site-nav__links{gap:1.1rem}
+  .site-nav__links a{letter-spacing:.08em}
+}
+@media (min-width:64rem){
+  .site-header.is-solid .site-nav__cta,.page-text-body .site-header .site-nav__cta{background:var(--green);color:var(--cream);border-color:var(--green)}
+}
+@media (min-width:64rem) and (hover:hover) and (pointer:fine){
+  .site-header.is-solid .site-nav .site-nav__cta:hover,.page-text-body .site-header .site-nav .site-nav__cta:hover{background:transparent;color:var(--green)}
+}
+
+/* ---------- 7. Rail, intro, booking bar (motion.css takes over) ---------- */
+.rail{display:none}
+/* Nine stops sit over cream more often: the idle numerals stay at 4.5:1 (motion.css has .5 opacity) */
+@media (min-width:1400px){
+  html .rail__stops li span{opacity:.8}
+  html .rail__stops li.is-active span{opacity:1}
+}
+.intro,.intro__skip{display:none}
+
+.cta-bar{
+  position:fixed;inset:auto 0 0;z-index:40;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+  background:var(--green);color:var(--cream);border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.cta-bar__link{
+  display:flex;align-items:center;justify-content:center;min-height:3.25rem;padding-inline:.5rem;text-align:center;
+  font:600 .75rem/1.1 var(--font-text);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;
+}
+.cta-bar__link+.cta-bar__link{border-left:1px solid var(--line)}
+@media (max-width:44.99rem){
+  html{scroll-padding-bottom:calc(4rem + env(safe-area-inset-bottom))}
+  body{padding-bottom:calc(3.25rem + env(safe-area-inset-bottom))}
+}
+@media (min-width:45rem){.cta-bar{display:none}}
+
+/* ---------- 8. Battlement line ---------- */
+.battlement{position:relative}
+.battlement::before{
+  content:"";position:absolute;left:0;right:0;top:1.5rem;height:20px;pointer-events:none;
+  background:url("assets/svg/merlatura.svg") repeat-x left top/66px 20px;
+}
+
+/* ---------- 9. Photo frames: arch and tile ---------- */
+picture{width:100%;height:100%}
+picture img{width:100%;height:100%;object-fit:cover}
+
+.arch__box{position:relative;aspect-ratio:4/5}
+.arch__photo{
+  position:absolute;inset:0;overflow:hidden;
+  -webkit-mask:var(--arch-mask) center/100% 100% no-repeat;mask:var(--arch-mask) center/100% 100% no-repeat;
+}
+.arch__line{
+  position:absolute;left:-12px;top:-12px;width:calc(100% + 24px);height:calc(100% + 12px);
+  max-width:none;fill:none;stroke:var(--gold);stroke-width:1;overflow:visible;pointer-events:none;
+}
+
+.tile__box{position:relative;isolation:isolate;overflow:visible}
+.tile__box::after{
+  content:"";position:absolute;inset:12px -12px -12px 12px;z-index:-1;border:1px solid var(--line);pointer-events:none;
+  transition:transform var(--d1) var(--ease);
+}
+.tile__box>picture{display:block;overflow:hidden}
+.tile--54>picture{aspect-ratio:5/4}
+.tile--32>picture{aspect-ratio:3/2}
+.tile--wide>picture{aspect-ratio:16/9}
+@media (min-width:45rem){.tile--wide>picture{aspect-ratio:21/9}}
+.tile{padding-right:12px}
+@media (hover:hover) and (pointer:fine){
+  .tile:hover .tile__box::after{transform:translate(4px,4px)}
+}
+
+/* Object positions: keep subjects in frame */
+.ph-osteria-dei-rossi-siena-esterno img{object-position:50% 62%}
+.ph-via-dei-rossi-targa-e-insegna-osteria img{object-position:50% 40%}
+.ph-insegna-storica-osteria-ferro img{object-position:50% 50%}
+.ph-lanterna-ferro-battuto img{object-position:45% 50%}
+.ph-cinghiale-in-umido-coccio img{object-position:50% 48%}
+.ph-cinghiale-in-dolceforte-ricetta-medievale img{object-position:40% 45%}
+.ph-bistecca-alla-fiorentina-siena img{object-position:45% 40%}
+.ph-grotta-volte-in-mattoni-cantina img{object-position:50% 45%}
+.ph-sala-osteria-tradizionale-toscana img{object-position:50% 50%}
+
+/* Placeholder colours (images.md) */
+.ph-osteria-dei-rossi-siena-esterno{background-color:#8898a8}
+.ph-sala-osteria-tradizionale-toscana{background-color:#281818}
+.ph-via-dei-rossi-targa-e-insegna-osteria{background-color:#d8d8d8}
+.ph-sala-bancone-vista-cucina{background-color:#180808}
+.ph-cantina-porta-insegna-ceramica{background-color:#f8f8f8}
+.ph-amaro-al-bancone{background-color:#080808}
+.ph-tagliere-salumi-formaggi-vino-rosso{background-color:#a89898}
+.ph-gran-tagliere-di-salumi-toscani{background-color:#682808}
+.ph-fotografie-storiche-siena-contrada{background-color:#e8d858}
+.ph-bistecca-alla-fiorentina-siena{background-color:#080808}
+.ph-grotta-volte-in-mattoni-cantina{background-color:#180808}
+.ph-crostone-lardo-toscano{background-color:#985838}
+.ph-lanterna-ferro-battuto{background-color:#483808}
+.ph-contrada-del-bruco-barbero-tappi{background-color:#d87828}
+.ph-piatti-con-contorni-tavola{background-color:#180808}
+.ph-cinghiale-in-umido-coccio{background-color:#682808}
+.ph-cinghiale-in-dolceforte-ricetta-medievale{background-color:#280808}
+.ph-tagliere-di-formaggi-miele-noci{background-color:#b86828}
+.ph-insegna-storica-osteria-ferro{background-color:#585858}
+.ph-tartufo-nero-fresco{background-color:#080808}
+.ph-dark{background-color:#141210}
+
+/* ---------- 10. Icons ---------- */
+.icon{width:44px;height:44px;flex:none;color:var(--green)}
+.icon--large{width:4.5rem;height:4.5rem;color:var(--gold)}
+.icon--deco{color:var(--gold)}
+.icon--mark{width:3.5rem;height:3.5rem}
+.icon--index{width:3rem;height:3rem}
+.icon--cream{width:4rem;height:4rem;color:var(--cream)}
+.icon--stadera{width:6rem;height:6rem;color:var(--gold)}
+.icon--tavola{width:6rem;height:6rem;color:var(--gold)}
+
+/* ---------- 11. Hero (#porta) ---------- */
+.hero{
+  position:relative;min-height:max(100svh, 36rem);display:flex;align-items:flex-end;
+  color:var(--cream);isolation:isolate;overflow:hidden;
+}
+.hero__media{position:absolute;inset:0;z-index:-2}
+.hero__media::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(to top, rgb(28 65 48 / .9) 0%, rgb(28 65 48 / .72) 34%, rgb(28 65 48 / .3) 56%, rgb(28 65 48 / 0) 72%),
+    linear-gradient(to right, rgb(28 65 48 / .78) 0%, rgb(28 65 48 / .62) 34%, rgb(28 65 48 / 0) 62%),
+    linear-gradient(to bottom, rgb(15 15 13 / .4) 0%, rgb(15 15 13 / 0) 20%),
+    rgb(28 65 48 / .25);
+}
+.hero__body{
+  position:relative;padding-top:calc(var(--header-h) + 3rem);padding-bottom:clamp(2rem, 6vw, 4.5rem);
+  display:grid;gap:2.5rem;
+}
+.hero__content{max-width:60rem}
+.hero__content>p,.hero__actions{max-width:40rem}
+.hero .kicker{color:var(--cream)}
+.hero__lead{margin-top:1.5rem;max-width:30em;font-size:1.0625rem}
+.hero__actions{margin-top:2rem;display:flex;flex-wrap:wrap;align-items:center;gap:1rem 2rem}
+.hero__where,.hero__phone{margin-top:1rem;font-size:.9375rem;line-height:1.5}
+.hero__where+.hero__phone{margin-top:.25rem}
+.hero__where a,.hero__phone a{text-underline-offset:4px;text-decoration-thickness:1px}
+.hero__where-link,.hero__phone a{display:inline-flex;align-items:center;min-height:2.75rem;font-weight:600}
+.hero__where-link{margin-left:.5rem}
+.hero__aside{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;
+  padding-top:1.25rem;border-top:1px solid rgb(255 250 223 / .35);font-size:var(--fs-caption);letter-spacing:.04em}
+.hero__opening{max-width:16em}
+.hero__cue{display:inline-flex;flex-direction:column;align-items:center;gap:.75rem;text-decoration:none;text-align:center;min-height:2.75rem}
+.hero__cue span{white-space:nowrap}
+.hero__cue-arrow{width:4.5rem;height:auto;transform:rotate(90deg);margin-block:1.6rem .4rem;color:var(--gold)}
+/* Phones: the scrim follows the text block, graded from its top to the bottom edge */
+@media (max-width:44.99rem){
+  .hero__media::after{background:linear-gradient(to bottom, rgb(15 15 13 / .45) 0%, rgb(15 15 13 / 0) 22%)}
+  .hero__body::before{
+    content:"";position:absolute;z-index:-1;top:var(--header-h);bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);
+    background:linear-gradient(to top, rgb(28 65 48 / .92) 0%, rgb(28 65 48 / .82) 45%, rgb(28 65 48 / .7) 78%, rgb(28 65 48 / .7) calc(100% - 3rem), rgb(28 65 48 / 0) 100%);
+  }
+  .hero__opening{display:none}
+  .hero__aside{justify-content:center}
+  .ph-osteria-dei-rossi-siena-esterno img{object-position:57% 100%}
+}
+@media (min-width:45rem){
+  .hero__body{grid-template-columns:minmax(0,1fr) auto;align-items:end}
+  .hero__aside{flex-direction:column;align-items:flex-end;border-top:0;padding-top:0;text-align:right}
+  .hero__lead{font-size:1.125rem}
+  .ph-osteria-dei-rossi-siena-esterno img{object-position:50% 100%}
+  .hero__media::after{
+    background:
+      linear-gradient(to top, rgb(28 65 48 / .9) 0%, rgb(28 65 48 / .8) 34%, rgb(28 65 48 / .6) 50%, rgb(28 65 48 / .25) 62%, rgb(28 65 48 / 0) 74%),
+      linear-gradient(to bottom, rgb(15 15 13 / .5) 0%, rgb(15 15 13 / .2) 18%, rgb(15 15 13 / 0) 30%),
+      rgb(28 65 48 / .1);
+  }
+  /* The left gradient sits behind the lower 60% of the text block only */
+  .hero__body::before{
+    content:"";position:absolute;z-index:-1;left:calc(50% - 50vw);bottom:0;width:calc(50vw + 38rem);height:100%;
+    background:linear-gradient(to right, rgb(28 65 48 / .78) 0%, rgb(28 65 48 / .62) 55%, rgb(28 65 48 / 0) 100%);
+    -webkit-mask:linear-gradient(to top, #000 0%, #000 82%, transparent 100%);mask:linear-gradient(to top, #000 0%, #000 82%, transparent 100%);
+  }
+}
+
+/* ---------- 12. Photo bands ---------- */
+.band{position:relative;min-height:70svh;display:flex;align-items:flex-end;color:var(--cream);isolation:isolate;overflow:hidden}
+.band__media{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.band__media picture{position:absolute;inset:0}
+.band__img{position:absolute;left:0;top:-5%;width:100%;height:110% !important;object-fit:cover}
+.band__media::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(to top, rgb(15 15 13 / .9) 0%, rgb(15 15 13 / .82) 45%, rgb(15 15 13 / .3) 72%, rgb(15 15 13 / 0) 88%);
+}
+.band--casa .band__media::after,.band--fiorentina .band__media::after{
+  background:linear-gradient(to top, rgb(28 65 48 / .95) 0%, rgb(28 65 48 / .88) 48%, rgb(28 65 48 / .3) 75%, rgb(28 65 48 / 0) 90%);
+}
+.band__body{position:relative;padding-block:calc(var(--section) * .9) clamp(2.5rem, 7vw, 5rem)}
+@media (max-width:44.99rem){
+  .band__media::after,.band--casa .band__media::after,.band--fiorentina .band__media::after{background:none}
+  .band__body{padding-top:44svh}
+  .band__body::before{
+    content:"";position:absolute;z-index:-1;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);
+    background:linear-gradient(to bottom, rgb(15 15 13 / 0) 0, rgb(15 15 13 / 0) calc(44svh - 14rem), rgb(15 15 13 / .84) calc(44svh - 1.5rem), rgb(15 15 13 / .9) 100%);
+  }
+  .band--casa .band__body::before,.band--fiorentina .band__body::before{
+    background:linear-gradient(to bottom, rgb(28 65 48 / 0) 0, rgb(28 65 48 / 0) calc(44svh - 14rem), rgb(28 65 48 / .88) calc(44svh - 1.5rem), rgb(28 65 48 / .95) 100%);
+  }
+  .ph-bistecca-alla-fiorentina-siena img{object-position:42% 30%}
+}
+.band__content{max-width:36rem}
+.band__content>*+*{margin-top:1.5rem}
+.band__content .kicker+h2{margin-top:1.25rem}
+.band .kicker{color:var(--cream)}
+.band .icon--large{color:var(--gold)}
+.band__actions{padding-top:.5rem}
+
+@media (min-width:45rem){
+  .band{min-height:80svh;align-items:center}
+  .band--tavola,.band--cantina{min-height:90svh}
+  .band__body{padding-block:var(--section)}
+  .band--left .band__media::after{
+    background:linear-gradient(to right, rgb(15 15 13 / .86) 0%, rgb(15 15 13 / .8) 36%, rgb(15 15 13 / .25) 62%, rgb(15 15 13 / 0) 78%);
+  }
+  .band--casa .band__media::after,.band--fiorentina .band__media::after{
+    background:linear-gradient(to right, rgb(28 65 48 / .94) 0%, rgb(28 65 48 / .86) 38%, rgb(28 65 48 / .3) 62%, rgb(28 65 48 / 0) 78%);
+  }
+  .band--cantina .band__media::after{
+    background:linear-gradient(to right, rgb(15 15 13 / .92) 0%, rgb(15 15 13 / .9) 54%, rgb(15 15 13 / .4) 70%, rgb(15 15 13 / 0) 84%);
+  }
+  .band--right .band__media::after{
+    background:linear-gradient(to left, rgb(15 15 13 / .88) 0%, rgb(15 15 13 / .8) 38%, rgb(15 15 13 / .25) 62%, rgb(15 15 13 / 0) 78%);
+  }
+  .band--right .band__content{margin-left:auto}
+  .band__content{max-width:min(36rem, 46%)}
+}
+@media (min-width:68.75rem){
+  .band__content{max-width:min(44rem, 55%)}
+  .band__content>.body,.band__content>p{max-width:36rem}
+  .prenota__book .prenota__main{grid-column:1/8}
+  .prenota__book .prenota__hours{grid-column:9/13}
+}
+
+/* ---------- 13. La Via ---------- */
+.via__text{grid-column:1/-1;position:relative}
+.facts{margin-top:2.5rem;border-top:1px solid var(--line)}
+.facts li{padding:1rem 0;border-bottom:1px solid var(--line);font-size:.9375rem;line-height:1.45}
+.via__text>p{margin-top:1.75rem}
+.via__arrow{width:7.5rem;height:auto;color:var(--gold);margin:3.5rem auto 2.5rem;transform:rotate(90deg)}
+.via__media{grid-column:1/-1;display:grid;margin-top:1.5rem}
+.via__arch{width:74%;margin-left:auto;margin-right:12px}
+.via__arch figcaption{text-align:right}
+.via__tile{width:58%;margin-top:-26%;position:relative;z-index:1}
+@media (min-width:45rem){
+  .via__text{grid-column:1/6;padding-top:1rem}
+  .via__arrow{transform:none;width:clamp(10rem, 22vw, 17rem);margin:3rem calc(-1 * var(--gap) - 4rem) 0 auto}
+  .via__media{grid-column:7/13;margin-top:8rem}
+  .via__arch{width:66%}
+  .via__tile{width:52%;margin-top:-24%}
+}
+
+@media (min-width:64rem){
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--line)}
+  .facts li{border-bottom:0;padding:1.125rem 1rem 1.125rem 0}
+  .facts li+li{border-left:1px solid var(--line);padding-left:1rem}
+}
+
+/* ---------- 14. La Casa and its gallery ---------- */
+.welcome{padding-block:clamp(4.5rem, 10vw, 8.5rem);text-align:center}
+.welcome__fig{display:flex;flex-direction:column;align-items:center}
+.welcome__quote{max-width:22ch;margin-inline:auto;font:italic 400 clamp(2rem, 4.6vw, 3.9rem)/1.12 var(--font-display);letter-spacing:-.01em;text-wrap:balance}
+.welcome__quote-it{margin-top:1.25rem;max-width:34em;font-size:.9375rem;line-height:1.5;font-style:italic;color:var(--soft)}
+.welcome__arrow{width:3.5rem;height:auto;color:var(--gold);transform:rotate(90deg);margin-block:2.25rem 1.5rem}
+.welcome__arrow path{vector-effect:non-scaling-stroke}
+.welcome__source{margin-top:.75rem;text-align:center}
+/* "Perché": four short facts */
+.perche{background:var(--cream-deep);padding-block:clamp(2.25rem,5vw,3.5rem);border-bottom:1px solid var(--line-soft);scroll-margin-top:1rem}
+.perche__list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.75rem 1.25rem;margin-top:1.5rem}
+.perche__list li{display:flex;flex-direction:column;gap:.75rem}
+.perche__list .icon{width:3rem;height:3rem}
+.perche__list p{font-size:.9375rem;line-height:1.45}
+@media (min-width:56.25rem){
+  .perche__list{grid-template-columns:repeat(4,minmax(0,1fr));gap:2rem}
+  .perche__list li{flex-direction:row;align-items:flex-start;gap:1rem}
+}
+
+/* Gallery. Static state (no gallery-on): four arch tiles with captions, two per row from 45rem.
+   gallery-on (set in the head script, removed by main.js if the engine cannot start): the stage is
+   sticky inside a wrapper whose height is set here, frames and captions stacked, one is-current. */
+.gallery{--gh:min(100svh - 9.5rem,52rem);--step:33svh;--hold:16svh}
+.gallery__inner{width:var(--container);margin-inline:auto;padding-block:clamp(3rem,7vw,6rem)}
+.gallery__head{display:flex;align-items:center;gap:1rem;margin-bottom:2.5rem}
+.gallery__head .icon{width:3rem;height:3rem;color:var(--gold)}
+.gallery__list{display:grid;gap:3.5rem var(--gap)}
+.gallery__fig{max-width:34rem;margin-inline:auto;width:100%}
+.gallery__frame{aspect-ratio:4/5;overflow:hidden;-webkit-mask:var(--arch-mask) center/100% 100% no-repeat;mask:var(--arch-mask) center/100% 100% no-repeat}
+.gallery__caption{margin-top:1.25rem;text-align:center;font:italic 400 1.25rem/1.3 var(--font-display);color:var(--green)}
+.gallery__dots,.gallery__exit,.gallery__arch{display:none}
+.ph-sala-bancone-vista-cucina img{object-position:30% 50%}
+.ph-fotografie-storiche-siena-contrada img{object-position:52% 50%}
+.ph-amaro-al-bancone img{object-position:55% 50%}
+@media (min-width:45rem){.gallery__list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:44.99rem){.gallery{--gh:min(52svh,125vw);--step:40svh;--hold:12svh}}
+
+.gallery-on .gallery{height:calc(100svh + 3 * var(--step) + var(--hold))}
+.gallery-on .gallery__stage{position:sticky;top:0;height:100svh;overflow:clip}
+.gallery-on .gallery__inner{
+  height:100%;padding-block:calc(var(--header-h-solid) + 1rem) 1.5rem;
+  display:grid;column-gap:var(--gap);align-content:center;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-areas:"media" "head" "cap" "dots" "exit";
+}
+.gallery-on .gallery__list,.gallery-on .gallery__item,.gallery-on .gallery__fig{display:contents}
+.gallery-on .gallery__head{grid-area:head;margin:1rem 0 .5rem}
+.gallery-on .gallery__head .icon{width:2rem;height:2rem}
+.gallery-on .gallery__frame{
+  grid-area:media;z-index:1;width:auto;height:var(--gh);justify-self:center;align-self:center;
+}
+.gallery-on .gallery__frame.is-current{z-index:2}
+.gallery-on .gallery__frame:not(.is-current){clip-path:inset(100% 0 0 0)}
+.gallery-on .gallery__arch{
+  display:block;grid-area:media;z-index:3;pointer-events:none;justify-self:center;align-self:center;
+  width:calc(var(--gh) * .8 + 24px);height:calc(var(--gh) + 12px);transform:translateY(-6px);
+  fill:none;stroke:var(--gold);stroke-width:1.5;overflow:visible;
+}
+/* No min-height on the caption: the four captions share one row, which is then as tall as the longest. */
+.gallery-on .gallery__caption{grid-area:cap;margin:0;text-align:left;font-size:1.5rem}
+.gallery-on .gallery__caption:not(.is-current){visibility:hidden}
+.gallery-on .gallery__dots{grid-area:dots;display:flex;margin-left:-.9rem}
+.gallery-on .gallery__exit{grid-area:exit;display:inline-flex;justify-self:start}
+.gallery__dot{width:2.75rem;height:2.75rem;display:grid;place-items:center;padding:0;background:none;border:0;cursor:pointer;color:var(--soft)}
+.gallery__dot svg{width:14px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;opacity:.6;transition:transform var(--d1) var(--ease)}
+.gallery__dot.is-current svg{opacity:1;fill:var(--gold);stroke:var(--green);transform:scaleY(1.5)}
+@media (max-width:44.99rem){.gallery-on .gallery__inner{padding-bottom:calc(3.75rem + env(safe-area-inset-bottom))}}
+@media (max-height:44rem) and (max-width:44.99rem){.gallery{--gh:min(44svh,125vw)}}
+@media (max-height:38rem) and (max-width:44.99rem){.gallery{--gh:min(32svh,125vw)}}
+@media (min-width:45rem){
+  .gallery-on .gallery__inner{
+    grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:1fr auto auto auto auto 1fr;
+    grid-template-areas:". . . . . . . . . . . ." "head head head head head . media media media media media media" "cap cap cap cap cap . media media media media media media" "dots dots dots dots dots . media media media media media media" "exit exit exit exit exit . media media media media media media" ". . . . . . . . . . . .";
+    padding-block:calc(var(--header-h-solid) + 1rem) 2rem;
+  }
+  .gallery-on .gallery__frame,.gallery-on .gallery__arch{grid-row:1/-1}
+  .gallery-on .gallery__head{margin:0 0 1.25rem}
+  .gallery-on .gallery__head .icon{width:3rem;height:3rem}
+  .gallery-on .gallery__caption{font-size:clamp(1.9rem,3.2vw,3rem)}
+}
+
+/* ---------- 15. Dishes (menu page) ---------- */
+.dish__head{display:flex;align-items:baseline;gap:.75rem}
+.dish__name,.variant__name{font:400 1.3rem/1.2 var(--font-display);font-variation-settings:"opsz" 12;min-width:0}
+.dish__dots{flex:1 1 1.5rem;min-width:1.5rem;height:3px;align-self:baseline;background:radial-gradient(circle, currentColor 0 .8px, transparent 1.1px) left center/6px 3px repeat-x;opacity:.55}
+.dish__price{font:600 .9375rem/1.2 var(--font-text);white-space:nowrap;font-variant-numeric:tabular-nums}
+.dish__desc{margin-top:.375rem;font-size:.9375rem;line-height:1.55;color:var(--soft);max-width:36em}
+.dish__badges{margin-top:.375rem;display:flex;flex-wrap:wrap;gap:.5rem}
+.badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font:600 .6875rem/1.2 var(--font-text);letter-spacing:.14em;text-transform:uppercase;
+}
+.badge--oste::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 1px var(--green)}
+.badge--stagione{padding:.3rem .55rem;border:1px solid var(--olive);color:var(--green)}
+.badge--esaurito{padding:.3rem .55rem;border:1px solid currentColor;opacity:.75;text-decoration:line-through}
+.dish__options{margin-top:.375rem;font-size:.875rem;font-style:italic;color:var(--soft)}
+.dish__variants{margin-top:.75rem;padding-left:1.25rem;border-left:1px solid var(--line)}
+.variant+.variant{margin-top:.75rem}
+.variant__name{font-size:1.0625rem;font-style:italic}
+/* On photos and on green the description and the hairlines turn light */
+.section--green .dish__desc{color:rgb(255 250 223 / .9)}
+
+@media (max-width:63.99rem){
+  .dish__dots{display:none}
+  .dish__name,.variant__name{flex:1 1 auto;text-wrap:balance}
+}
+
+/* ---------- 16. La Tavola ---------- */
+.tavola__intro{padding-bottom:calc(var(--section) * .7)}
+.tavola__head{display:grid;gap:1.5rem 4rem;align-items:start}
+.tavola__body{max-width:36em}
+@media (min-width:45rem){.tavola__head{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}}
+.food-index{margin-top:clamp(2.5rem,5vw,4rem);border-top:1px solid var(--line)}
+.food-index ul{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.25rem}
+.food-index a{display:flex;flex-direction:column;align-items:center;gap:.5rem;min-height:2.75rem;padding:1rem .125rem;text-decoration:none;text-align:center;font:600 .8125rem/1.2 var(--font-text)}
+.food-index span{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.food-index .icon{transition:transform var(--d1) var(--ease)}
+@media (hover:hover) and (pointer:fine){.food-index a:hover .icon{transform:translateY(-4px)}}
+@media (min-width:45rem){.food-index ul{grid-template-columns:repeat(7,minmax(0,1fr))}}
+.band[id]{scroll-margin-top:0}
+.boar{position:absolute;z-index:1;left:1.25rem;top:calc(44svh - 8rem);width:12.5rem;color:var(--cream);pointer-events:none}
+.boar::before{content:"";position:absolute;z-index:-1;inset:-1rem -1.25rem -.25rem;background:radial-gradient(ellipse at 50% 62%, rgb(15 15 13 / .7) 0%, rgb(15 15 13 / .45) 45%, rgb(15 15 13 / 0) 75%)}
+.boar__svg{width:100%;height:auto;overflow:visible}
+.boar__svg path{vector-effect:non-scaling-stroke}
+@media (min-width:45rem){
+  .boar{left:max(1.25rem, calc(50% - 39rem));top:auto;bottom:0;width:clamp(13rem, 30vw, 27rem)}
+  .boar::before{inset:-45% -12% 0 -12%;background:radial-gradient(ellipse at 50% 80%, rgb(15 15 13 / .72) 0%, rgb(15 15 13 / .45) 45%, rgb(15 15 13 / 0) 75%)}
+}
+.tavola__coccio .grid{row-gap:3rem;align-items:center}
+.coccio__text{grid-column:1/-1;grid-row:1}
+.coccio__media{grid-column:1/-1;grid-row:2}
+.coccio__contorni{width:50%;margin:-8% 0 0 auto;position:relative;z-index:1}
+@media (min-width:45rem){
+  .coccio__media{grid-column:1/8;grid-row:1}
+  .coccio__text{grid-column:8/13;grid-row:1}
+}
+@media (min-width:64rem){
+  .coccio__media{grid-column:1/9}
+  .coccio__text{grid-column:9/13}
+}
+
+/* ---------- 17. I Pici ---------- */
+.pici__draw{width:5.5rem;margin:0 0 1.5rem;color:var(--green)}
+.pici__svg{width:100%;height:auto;overflow:visible}
+.pici__text{display:flow-root}
+.pici__text>.kicker+h2{margin-top:1rem}
+.pici__text h2 .hl,.pici__text h2 .hl+em{white-space:normal}
+.pici__photos{margin-top:3.5rem}
+.pici__tile--a{width:92%}
+.pici__tile--b{width:60%;margin:-14% 0 0 0;position:relative;z-index:1}
+@media (min-width:56.25rem){
+  .pici__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);align-items:start}
+  .pici__draw{grid-column:1/3;grid-row:1;position:sticky;top:18vh;width:100%;max-width:11rem;margin:0}
+  .pici__text{grid-column:3/8;grid-row:1}
+  .pici__text h2{font-size:clamp(2rem, 3.2vw, 3rem)}
+  .pici__photos{grid-column:8/13;grid-row:1;margin-top:0}
+  .pici__tile--a{width:100%}
+  .pici__tile--b{width:62%;margin:-16% 0 0 -4%}
+}
+
+/* ---------- 18. La Dispensa ---------- */
+.dispensa__body{background:var(--cream-deep)}
+.dispensa__head{max-width:46rem}
+.larder{display:grid;gap:2.5rem var(--gap);align-items:center;margin-top:clamp(4rem, 9vw, 7rem);scroll-margin-top:1rem}
+.dispensa__head+.larder{margin-top:clamp(3.5rem, 7vw, 5.5rem)}
+.larder__text .icon--mark{color:var(--green)}
+.larder__media,.tartufo__media,.tartufo__tiles,.larder__trio{display:grid;gap:2.5rem var(--gap)}
+.larder__big{width:100%}
+.larder-duo{display:grid;gap:clamp(4rem, 9vw, 7rem) var(--gap);margin-top:clamp(4rem, 9vw, 7rem)}
+.larder-duo .larder{margin-top:0;grid-template-columns:minmax(0,1fr);align-items:start}
+.larder-duo .tile__box>picture{aspect-ratio:3/2}
+@media (min-width:56.25rem){
+  .larder{grid-template-columns:repeat(12,minmax(0,1fr))}
+  .larder__text{grid-column:1/6}
+  .larder__media{grid-column:7/13}
+  .larder--flip .larder__text{grid-column:8/13;grid-row:1}
+  .larder--flip .larder__media{grid-column:1/8;grid-row:1}
+  .tartufo__media{grid-template-columns:minmax(0,4fr) minmax(0,3fr);align-items:center}
+  .larder--porcini .larder__trio{grid-column:1/-1;grid-row:2;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .larder-duo{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+  .larder-duo .larder__text,.larder-duo .larder__media{grid-column:auto}
+}
+
+/* Booking strip: desktop only, the phones have the fixed bar */
+.strip{display:none;background:var(--cream-deep);border-block:1px solid var(--line)}
+@media (min-width:45rem){.strip{display:block}}
+.strip__inner{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 2rem;padding-block:1.5rem}
+.strip .icon--tavola{width:3.75rem;height:3.75rem;color:var(--green)}
+.strip__title{margin-right:auto;font:400 clamp(1.5rem,2.6vw,2.125rem)/1.1 var(--font-display)}
+.strip__actions{display:flex;flex-wrap:wrap;gap:1rem}
+
+/* ---------- 19. Il Dolce ---------- */
+.dolce{padding-top:calc(var(--section) + 1.5rem)}
+.dolce .grid{row-gap:3.5rem;align-items:center}
+.dolce__text,.dolce__arch{grid-column:1/-1}
+.dolce__arch{margin-inline:12px}
+.dolce__more{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.5rem}
+.dolce__more .icon--large{width:4rem;height:4rem}
+.dolce__arch .arch__box{aspect-ratio:5/4}
+@media (min-width:56.25rem){
+  .dolce__text{grid-column:1/6}
+  .dolce__arch{grid-column:7/13;margin-inline:12px 12px}
+}
+
+/* ---------- 20. La Cantina ---------- */
+.wines{padding-top:.5rem}
+.wines__label{font:600 var(--fs-kicker)/1.4 var(--font-text);letter-spacing:.18em;text-transform:uppercase}
+.wines__list{margin-top:.75rem;border-top:1px solid rgb(255 250 223 / .4)}
+.wines__list li{padding:.6rem 0;border-bottom:1px solid rgb(255 250 223 / .4);font:400 1.25rem/1.3 var(--font-display);font-style:italic}
+.cantina__strip .grid{row-gap:3rem;align-items:start}
+.cantina__text,.cantina__grotto{grid-column:1/-1}
+.cantina__icon{color:var(--green)}
+.cantina__door{grid-column:1/-1;width:82%;margin-inline:auto}
+.band .icon--cream{margin-bottom:1.25rem}
+@media (min-width:45rem){
+  .cantina__text{grid-column:1/-1;grid-row:1;max-width:36rem}
+  .cantina__door{grid-column:1/6;grid-row:2;width:auto;margin-inline:0 12px}
+  .cantina__grotto{grid-column:6/13;grid-row:2;align-self:center}
+}
+@media (min-width:64rem){
+  .cantina__text{grid-column:1/4;max-width:none;padding-top:1rem}
+  .cantina__door{grid-column:4/8;grid-row:1;margin-inline:12px}
+  .cantina__grotto{grid-column:8/13;grid-row:1}
+}
+
+/* ---------- 21. La Contrada ---------- */
+.contrada{background:var(--cream-deep)}
+.contrada .grid{row-gap:3.5rem;align-items:center}
+.contrada__text,.contrada__media{grid-column:1/-1}
+.contrada__arch{width:78%;margin-inline:auto}
+.contrada__arch figcaption{max-width:42%}
+.contrada__tile{width:52%;margin:-22% 0 0 auto;position:relative;z-index:1}
+.contrada__more{margin-top:2rem}
+.timeline{position:relative;margin-top:3rem}
+.timeline__line{position:absolute;left:.3125rem;top:.5rem;bottom:.5rem;width:2px;height:auto;stroke:var(--gold);stroke-width:1;overflow:visible}
+.timeline__h{display:none}
+.timeline__steps li{position:relative;padding-left:2rem}
+.timeline__steps li+li{margin-top:1.75rem}
+.timeline__steps li::before{content:"";position:absolute;left:0;top:.45rem;width:.6875rem;height:.6875rem;border-radius:50%;background:var(--cream-deep);border:1px solid var(--gold)}
+.timeline__year{display:block;font:400 1.75rem/1 var(--font-display);font-variation-settings:"opsz" 12}
+.timeline__text{display:block;margin-top:.5rem;font-size:.9375rem;line-height:1.5;color:var(--soft)}
+.contrada__palio{margin-top:3rem;display:flex;align-items:center;gap:1.25rem;padding-top:1.5rem;border-top:1px solid var(--line)}
+.contrada__palio .icon--large{color:var(--green)}
+@media (min-width:45rem){
+  .contrada__media{grid-column:1/6;grid-row:1}
+  .contrada__arch{width:84%;margin-inline:12px 0}
+  .contrada__text{grid-column:7/13;grid-row:1}
+}
+@media (min-width:64rem){
+  .timeline__line{left:0;right:0;top:.3125rem;bottom:auto;width:100%;height:2px}
+  .timeline__h{display:inline}
+  .timeline__v{display:none}
+  .timeline__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+  .timeline__steps li{padding-left:0;padding-top:1.75rem}
+  .timeline__steps li+li{margin-top:0}
+  .timeline__steps li::before{top:0}
+}
+
+/* ---------- 22. Booking band, hours, map ---------- */
+.prenota__book{padding-top:calc(var(--section) + 1.5rem)}
+.prenota__book .grid{row-gap:3.5rem}
+.prenota__main,.prenota__hours{grid-column:1/-1}
+.prenota__actions{display:flex;flex-wrap:wrap;gap:1rem;padding-top:.5rem}
+.prenota__actions .btn{width:100%}
+.prenota__hours .label-title{color:var(--cream);font-size:.8125rem}
+.section--green .link{color:var(--cream)}
+.hours{margin-top:1rem;border-top:1px solid var(--line)}
+.hours__row{padding:.875rem 0;border-bottom:1px solid var(--line)}
+.hours dt{font:400 1.25rem/1.3 var(--font-display);white-space:nowrap}
+.hours dd{font-size:.9375rem;margin-top:.25rem}
+.prenota__hours .note{margin-top:1.25rem;color:rgb(255 250 223 / .86)}
+@media (min-width:45rem){
+  .prenota__main{grid-column:1/7}
+  .prenota__hours{grid-column:8/13;padding-top:1rem}
+  .prenota__actions .btn{width:auto}
+}
+@media (min-width:64rem){
+  .hours__row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:baseline}
+  .hours dd{margin-top:0;text-align:right}
+}
+
+.dove .grid{row-gap:3.5rem;align-items:center}
+.dove__text,.map{grid-column:1/-1}
+.dove__way .label-title{color:var(--soft)}
+.dove__way .body{margin-top:.5rem}
+.dove__num{font:600 .85em/1 var(--font-text)}
+.map__box{position:relative;aspect-ratio:4/5;width:100%}
+.map__svg{width:100%;height:100%}
+.map__label{
+  position:absolute;transform:translate(-50%,-50%);white-space:nowrap;
+  font:600 11px/1.1 var(--font-text);letter-spacing:.06em;text-transform:uppercase;
+  color:var(--green);background:rgb(255 250 223 / .85);padding:.2rem .3rem;
+}
+.map__label--r{transform:translate(.65rem,-50%)}
+.map__label--l{transform:translate(calc(-100% - .65rem),-50%)}
+.map__label--b{transform:translate(-50%,.65rem)}
+.map__label--wrap{white-space:normal;width:7rem;box-sizing:border-box}
+.map__label--osteria{font-weight:800;box-shadow:inset 0 -2px 0 var(--gold)}
+.map figcaption{text-align:center}
+@media (min-width:45rem){
+  .dove__text{grid-column:1/6}
+  .map{grid-column:7/13}
+}
+
+/* Find us: hero on cream. The first screen holds address, directions, call, WhatsApp and the hours line */
+.dove-hero{padding:calc(var(--header-h) + clamp(1.25rem, 5vw, 4.5rem)) 0 clamp(1.5rem, 3vw, 2.5rem);background:var(--cream)}
+.dove-hero__lead{margin-top:1rem;max-width:34em}
+.dove-hero__address{margin-top:1.25rem;padding-block:.875rem;border-block:1px solid var(--line);max-width:38rem;font:400 clamp(1.5rem, 4.6vw, 3.5rem)/1.1 var(--font-display);letter-spacing:-.01em}
+.dove-hero__actions{display:flex;flex-wrap:wrap;gap:.5rem 1rem;margin-top:1.25rem}
+.dove-hero__actions .btn{flex:1 1 14rem;min-height:2.75rem}
+.dove-hero__hours{margin-top:1rem;display:grid;gap:.125rem;font-size:.9375rem;line-height:1.5}
+.dove-hero__hours strong{font-weight:600}
+.dove-hero .kicker+h1{margin-top:1rem}
+.dove-hero+.via{padding-top:clamp(2.5rem, 5vw, 4rem)}
+.via{padding-bottom:clamp(2.5rem, 6vw, 5rem)}
+.section.dove{padding-top:clamp(2.5rem, 6vw, 5rem)}
+@media (min-width:45rem){.dove-hero__actions .btn{flex:0 0 auto}}
+
+/* ---------- 23. Domande ---------- */
+.domande__inner{max-width:46rem}
+.faq{margin-top:3rem;border-top:1px solid var(--line)}
+.faq__item{border-bottom:1px solid var(--line)}
+.faq__item summary{
+  list-style:none;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:1.5rem;
+  padding:1.375rem 0;min-height:2.75rem;
+}
+.faq__item summary::-webkit-details-marker{display:none}
+.faq__q{font:400 1.35rem/1.3 var(--font-display);font-variation-settings:"opsz" 12;text-wrap:pretty}
+.faq__item summary::after{
+  content:"";flex:none;width:14px;height:14px;margin-top:.45rem;
+  background:linear-gradient(currentColor,currentColor) center/14px 1px no-repeat,linear-gradient(currentColor,currentColor) center/1px 14px no-repeat;
+  transition:transform var(--d1) var(--ease);
+}
+.faq__item[open] summary::after{background:linear-gradient(currentColor,currentColor) center/14px 1px no-repeat;transform:rotate(180deg)}
+.faq__a{padding:0 2.5rem 1.75rem 0;color:var(--soft);max-width:38em}
+
+/* ---------- 24. Footer ---------- */
+.site-footer{background:var(--green);color:var(--cream);padding:calc(var(--section) * .75 + 1.5rem) 0 2.5rem;font-size:.9375rem}
+.site-footer__grid{display:grid;gap:2.5rem}
+.site-footer__logo{width:150px;height:auto}
+.site-footer__brand p{margin-top:1.5rem;max-width:24em;font:400 1.25rem/1.35 var(--font-display);font-style:italic}
+.site-footer__label{font:600 var(--fs-kicker)/1.4 var(--font-text);letter-spacing:.18em;text-transform:uppercase;color:var(--cream);margin-bottom:.625rem}
+.site-footer__col address+.site-footer__label{margin-top:1.5rem}
+.site-footer__col a{text-underline-offset:4px;display:inline-flex;align-items:center;min-height:2.75rem}
+.site-footer__small{margin-top:.75rem;font-size:.8125rem;color:rgb(255 250 223 / .82)}
+.site-footer__bottom{
+  margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 2rem;font-size:.8125rem;
+}
+.site-footer__links{display:flex;flex-wrap:wrap;gap:0 1.5rem}
+.site-footer__links a{display:inline-flex;align-items:center;min-height:2.75rem;text-underline-offset:4px}
+.site-footer__legal{width:100%;font-size:.75rem;letter-spacing:.06em;color:rgb(255 250 223 / .78)}
+@media (min-width:45rem){
+  .site-footer__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:64rem){
+  .site-footer__grid{grid-template-columns:1.4fr 1fr 1.2fr .8fr;gap:var(--gap)}
+  .site-footer__legal{width:auto;margin-left:auto}
+}
+
+/* The Siena skyline along the top edge of the footer (home, wine list, Dove siamo) replaces the battlement line */
+.site-footer--sky::before{display:none}
+.site-footer--sky{padding-top:0}
+.site-footer__sky{padding-top:0;margin-bottom:clamp(2rem, 4vw, 3rem);border-bottom:1px solid var(--line)}
+.site-footer__skyline{display:block;width:100%;height:clamp(5.5rem, 12vw, 9rem);color:var(--gold)}
+
+/* ---------- 25. Menu page ---------- */
+/* The skyline is never cropped: the Torre del Mangia must show whole. Under 64rem it is a full-width
+   strip of the drawing's own ratio (1600:600) below the text; from 64rem it stands at the bottom right,
+   beside the heading. */
+.menu-hero{
+  --skyline-h:37.5vw;
+  position:relative;background:var(--green);color:var(--cream);overflow:hidden;
+  padding:calc(var(--header-h) + clamp(3rem, 8vw, 6rem)) 0 calc(var(--skyline-h) + 1.5rem);
+}
+.menu-hero__inner{position:relative;z-index:1}
+.menu-hero__skyline{
+  position:absolute;left:0;bottom:0;width:100%;height:var(--skyline-h);max-width:none;color:var(--gold);pointer-events:none;
+}
+@media (min-width:64rem){
+  .menu-hero{--skyline-h:22vw;padding-bottom:clamp(5rem, 9vw, 8rem)}
+  .menu-hero__skyline{
+    left:auto;right:0;width:calc(var(--skyline-h) * 2.6667);
+    -webkit-mask:linear-gradient(to right, transparent 0, #000 12%);mask:linear-gradient(to right, transparent 0, #000 12%);
+  }
+  .menu-hero .menu-hero__inner p:not(.kicker){max-width:min(34em, 38vw)}
+}
+.menu-hero__skyline path,.menu-hero__skyline line{vector-effect:non-scaling-stroke}
+.menu-hero .kicker{color:var(--cream)}
+.menu-hero h1 em{color:var(--gold)}
+.menu-hero p:not(.kicker){margin-top:1.5rem;max-width:34em}
+
+.menu-nav{
+  position:sticky;top:var(--header-h-solid);z-index:30;background:var(--cream);
+  border-bottom:1px solid var(--line-soft);
+}
+.menu-nav ul{
+  width:var(--container);max-width:52rem;margin-inline:auto;display:flex;gap:1.75rem;
+  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.menu-nav ul::-webkit-scrollbar{display:none}
+.menu-nav::after{
+  content:"";position:absolute;top:0;right:0;bottom:0;width:2.5rem;pointer-events:none;
+  background:linear-gradient(to right, rgb(255 250 223 / 0), var(--cream));
+}
+@media (min-width:52rem){.menu-nav::after{display:none}}
+.menu-nav a{
+  display:inline-flex;align-items:center;min-height:3rem;white-space:nowrap;text-decoration:none;
+  font:600 .75rem/1 var(--font-text);letter-spacing:.14em;text-transform:uppercase;
+}
+.menu-nav a:hover,.menu-nav a[aria-current]{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px}
+
+.menu-section{width:var(--container);max-width:52rem;margin-inline:auto;padding-block:clamp(3.5rem, 8vw, 6rem) 0;scroll-margin-top:calc(var(--header-h-solid) + 3rem)}
+.menu-section__title{display:flex;align-items:center;gap:1rem;font-size:var(--fs-h2);line-height:1;padding-bottom:1.25rem;border-bottom:1px solid var(--line)}
+.menu-section__icon{width:2.75rem;height:2.75rem;color:var(--green)}
+.menu-list .dish[id]{scroll-margin-top:calc(var(--header-h-solid) + 3.5rem)}
+.menu-section__num{font-style:italic;color:var(--soft);font-size:.55em}
+.menu-group__title{margin-top:2.5rem;font:600 var(--fs-kicker)/1.4 var(--font-text);letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
+.menu-list{margin-top:.5rem}
+.menu-list .dish{padding:1.25rem 0;border-bottom:1px solid var(--line-soft)}
+.menu-list .dish__name{font-size:1.3rem}
+.menu-list--drinks .dish{padding:.75rem 0}
+.dish--drink .dish__name{font-size:1.0625rem}
+@media (min-width:45rem){
+  .menu-list--drinks{display:grid;grid-template-columns:1fr 1fr;column-gap:3rem}
+}
+.menu-wine{width:var(--container);max-width:52rem;margin:clamp(2.5rem, 6vw, 4rem) auto 0}
+.menu-notes{width:var(--container);max-width:52rem;margin:clamp(3.5rem, 8vw, 6rem) auto;padding-top:1.5rem;border-top:1px solid var(--line);font-size:.9375rem;color:var(--soft)}
+.menu-notes>*+*{margin-top:.75rem}
+.menu-notes .link{color:var(--green)}
+
+.menu-hero__intro{margin-top:1.5rem;max-width:34em}
+.menu-band{position:relative;margin-top:clamp(3.5rem, 8vw, 6rem);height:clamp(16rem, 62svh, 40rem);overflow:hidden}
+.menu-band__media{position:absolute;inset:0;overflow:hidden}
+.menu-band__media picture{position:absolute;inset:0}
+.menu-band__img{position:absolute;left:0;top:-5%;width:100%;height:110% !important;object-fit:cover}
+.menu-band .ph-bistecca-alla-fiorentina-siena img{object-position:45% 40%}
+.menu-band .ph-tagliatelle-ai-porcini-freschi-1 img{object-position:50% 55%}
+
+/* ---------- 26. Wine list ---------- */
+.vini-hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:1.5rem;height:20px;
+  background:url("assets/svg/merlatura.svg") repeat-x left top/66px 20px;
+}
+.vini-hero{padding-bottom:clamp(4.5rem, 8vw, 6.5rem)}
+.vini-hero__grid{display:grid;gap:2rem}
+.vini-hero__art{display:none;color:var(--cream)}
+.vini-hero__art svg{width:100%;height:auto;overflow:visible}
+@media (min-width:64rem){
+  .vini-hero__grid{grid-template-columns:minmax(0,1fr) minmax(18rem, 30rem);align-items:center;gap:3rem}
+  .vini-hero__art{display:block}
+}
+.wine-layout{width:var(--container);margin-inline:auto}
+.wine-layout .menu-section{width:auto;max-width:none;margin:0}
+.wine-layout .menu-section__title{margin-bottom:1.5rem;font-size:clamp(1.9rem, 3vw, 2.75rem)}
+.wine-area{margin:0 0 2.25rem;break-inside:avoid}
+.wine-area__title{font:600 var(--fs-kicker)/1.4 var(--font-text);letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
+.wine-area__note{margin-top:.5rem;font-size:.9375rem;line-height:1.5;max-width:34em}
+.wine-list{margin-top:.5rem}
+.wine{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--line-soft);break-inside:avoid}
+.wine__name{font:400 1.2rem/1.25 var(--font-display);font-variation-settings:"opsz" 12}
+.wine__producer{font:500 .875rem/1.3 var(--font-text);font-variant-caps:all-small-caps;letter-spacing:.07em;color:var(--soft)}
+.wine-layout__door{width:70%;margin:3.5rem auto 0}
+@media (min-width:45rem){
+  .wine-layout--reds .wine-group{columns:2;column-gap:3rem}
+  .wine-layout--reds .menu-section__title{column-span:all}
+  .wine-layout--whites .wine-group:first-child .wine-list{columns:2;column-gap:3rem}
+}
+@media (min-width:64rem){
+  .wine-layout--reds{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1fr);column-gap:clamp(3rem, 6vw, 6rem);align-items:start}
+  .wine-layout__door{position:sticky;top:9rem;width:auto;margin:clamp(5rem, 8vw, 8rem) 12px 0}
+  .wine-layout--whites{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);column-gap:clamp(3rem, 6vw, 6rem);align-items:start}
+}
+.wine-band{margin-top:clamp(4rem, 9vw, 7rem)}
+.wine-band+.wine-layout{margin-top:0}
+
+/* ---------- 27. Text pages (privacy, 404) ---------- */
+.page-text{
+  width:var(--container);max-width:44rem;margin-inline:auto;
+  padding:calc(var(--header-h) + clamp(3rem, 8vw, 6rem)) 0 var(--section);
+}
+.page-text h1{font-size:clamp(2.4rem, 6vw, 4.5rem)}
+.page-text h2{font-size:var(--fs-h3);margin-top:2.75rem}
+.page-text p{margin-top:1rem;max-width:34em}
+.page-404__arrow{width:clamp(8rem, 20vw, 12rem);height:auto;color:var(--gold);margin-bottom:2.5rem}
+.page-404__arrow path{vector-effect:non-scaling-stroke}
+.page-404 h1 em{color:var(--green)}
+.page-404__links{display:flex;flex-wrap:wrap;gap:.5rem 2rem;margin-top:2rem}
+/* Text pages start on cream: show the solid header from the top */
+.page-text-body .site-header{background:var(--cream);color:var(--green);border-bottom-color:var(--line-soft)}
+.page-text-body .site-header .logo--light{display:none}
+.page-text-body .site-header .logo--color{display:block}
+
+/* ---------- 28. Page transitions (cross-document View Transitions, progressive enhancement) ---------- */
+/* The old page fades out in .15 s, the new one opens with a pointed-arch wipe in .35 s, on the root only.
+   No view-transition-name on the header, the hero or the h1. main.js skips it when a page opening plays. */
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  ::view-transition-old(root){animation:odr-vt-out .15s linear both}
+  ::view-transition-new(root){animation:odr-vt-in .35s var(--ease) both}
+  @keyframes odr-vt-out{to{opacity:0}}
+  @keyframes odr-vt-in{
+    from{clip-path:polygon(38% 100%,38% 100%,50% 100%,62% 100%,62% 100%)}
+    to{clip-path:polygon(-10% 100%,-10% -50%,50% -120%,110% -50%,110% 100%)}
+  }
+}
+
+/* ---------- 29. Reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:0s !important;scroll-behavior:auto !important}
+}

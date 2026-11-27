@@ -1,0 +1,15 @@
+<body class="page-text-body">
+<a class="skip-link" href="#contenuto">{{c:global-nav.skip_link}}</a>
+
+{{include:_header}}
+
+{{include:_ctabar}}
+
+<main id="contenuto">
+<article class="page-text">
+  <h1>{{c:privacy.h1}}</h1>
+{{privacy_blocks}}
+</article>
+</main>
+
+{{include:_footer}}
