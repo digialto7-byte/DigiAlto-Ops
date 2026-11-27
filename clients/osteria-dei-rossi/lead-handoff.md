@@ -114,6 +114,17 @@ P2-4; remove "segue" at least 30 days after go-live.
   `begin_demo_data`/`purge_demo_data` against it; backups (founder-steps B) before real service data. FREE-3 done 2026-11-27: Vault `app_base_url` =
   https://app.digialto.com, `vercel_protection_bypass` deleted, a manual `/api/cron/extract` call answered 200 without it.
 
+## Founder decision 2026-11-27: who is who (addresses are NOT written in any repo; the founder gave them in chat)
+- Platform admin (Costì console, DigiAlto) = the founder's own login, which today is the ONLY user of tenant #1, as `owner`.
+- The osteria's owner (the venue's own admin) = a new login for the osteria's manager (Luca), not yet an auth user.
+- The plan requires two different auth users (platform plan §0a note 2, SP3 `platform_admin_has_member_role`), so the order is:
+  1. create Luca's login and owner row at tenant #1 (no tool exists yet: email owners come only from scripts; add a small
+     service-role script step, `scripts/` with the secret key, to SP3 PR 1 or run SP2's `create-tenant.ts --existing-owner-id`
+     variant if it fits; decide when SP3 building starts);
+  2. SP3 bootstrap makes the founder's login the platform admin; SP4/SP13 turn its owner row at tenant #1 into the
+     DigiAlto `admin` membership (deactivate the owner row in the same step);
+  3. `PLATFORM_ADMIN_EMAIL` goes only into Vercel/GitHub environments (founder step when SP3 lands).
+
 ## Standing founder rules
 - "Vercel plan is hobby; this is not paid work. Continue and auto-merge without approval. Only ask
   clarifying questions, or ask the founder for manual steps you cannot do."
