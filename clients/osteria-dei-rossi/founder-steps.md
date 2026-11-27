@@ -115,8 +115,8 @@ In order. Each step says where you do it.
    shows at the DNS host from step 3; wait for "Valid configuration".)
 5. **Vercel env (Production)**: `APP_ORIGIN` and `APP_PUBLIC_ORIGIN` = `https://app.digialto.com` now; `CONSOLE_HOST` = `console.digialto.com` only when SP3 (the console's backend) is merged, the lead says when (FS-2). Tell the lead; it
    updates Vault `app_base_url` and removes `vercel_protection_bypass` (FREE-3).
-6. **Resend (DigiAlto's account)**: sign up (EU region if offered); add the sending domain `mail.<digialto-domain>`; add its SPF,
-   DKIM and DMARC records at the DNS host from step 3; wait for "Verified".
+6. **DONE 2026-11-27**: `mail.digialto.com` verified in Resend (EU, Ireland; tracking off; receiving off; DKIM TXT + two CNAMEs at Bluehost). (Was: **Resend (DigiAlto's account)**: sign up (EU region if offered); add the sending domain `mail.<digialto-domain>`; add its SPF,
+   DKIM and DMARC records at the DNS host from step 3; wait for "Verified".)
 7. **Resend keys**: an API key into Vercel `RESEND_API_KEY`, plus `MAIL_TRANSPORT=resend` and `MAIL_FROM`; the SMTP credentials into
    Supabase → Authentication → SMTP (staging now, production at S8-4). Never in chat.
 8. **GitHub `platform-ops` environment** (FS-1), and later `PLATFORM_ADMIN_EMAIL` in Vercel and GitHub when SP3 is built. Have a TOTP
