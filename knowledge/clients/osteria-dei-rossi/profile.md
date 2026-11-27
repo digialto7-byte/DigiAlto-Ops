@@ -41,6 +41,7 @@ updated: 2026-11-25
 - Opening hours for the public: Tuesday to Saturday lunch 12:30–15:00 and dinner 19:00–22:30; Sunday lunch only, 12:30–15:00; closed on Sunday evening and on Monday. Hours are subject to change: the website says so and asks guests to call to confirm (src: founder's answers in chat 2026-11-24)
 - Internal service window for the app: 11:00–24:00 [unverified] (src: sources/prd-2026-10-21.md)
 - Booking channel: by phone on +39 0577 287592 (tel:+390577287592) and by WhatsApp on the same number (https://wa.me/390577287592); the "Prenota" button offers both. It can switch to the online booking page when that goes live (src: founder's answer in chat 2026-11-24)
+- Online booking page (Costì): https://app.digialto.com/prenota/osteria-dei-rossi, live and tested end to end by the founder on 2026-11-27; added as a third option next to phone and WhatsApp, which stay (src: founder in the lead chat, 2026-11-27)
 
 ## Audience
 - Who buys:
