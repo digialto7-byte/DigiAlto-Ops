@@ -35,6 +35,7 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
 | Session | Id | State |
 |---|---|---|
 | Lead | V3 `session_018fKcCmuFkjv4yhpCbKERjo` | Talks to the founder; merges |
+| SP3 planner | `session_018fKcCk2JNJN61SoRZLbdqB` (Opus, started 2026-11-27) | Audits old SP3 branches/PRs (#140, #142, feat/sp3-*), writes the SP3 step plan (docs PR), waits for approval |
 | SP0 hosted run | `session_018fKcCi8swzD2K1GtTu7eGG` (Opus, started 2026-11-27) | Temporary Supabase project, phases A–D; pings the lead for the founder's click-list |
 | SP2 PR 3 builder | `session_018fKcCj1C7X1BQWLt39SYjK` (Sonnet, started 2026-11-27) | Switcher UI + AT7, stacked on #217 |
 | SP2 builder 2 | `session_018fKcCkp9AHjyKWBYmdgSAK` (Opus) | Retired 2026-11-27: PR 2 #217 approved by the lead at 676ab591 (auth_member_elsewhere fix), merges after SP0 hosted T1.H/T3.H |
