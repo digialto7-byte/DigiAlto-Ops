@@ -94,7 +94,7 @@ under "Pins outside §3.15" in the PR body and add them to plan §3.15 in a docs
 e2e/simulation/service.spec.ts; add `app.session_uscite` to the step-17 `p27_objs` insert; in 367 rename each changed test to state the new
 rule ("a segue draft counts in unsentCount", §3.10) and add one positive case that fails under the old rule.
 
-**Small items:** CronJob parity in `tests/parity/drift-keys-sql-parity.test.ts`; `price_variance_pct` as a typed, audited setting after
+**Small items:** per-service weekday closures for online booking (e.g. closed Sunday dinner, Monday lunch; founder 2026-11-27; until then Sunday is closed online for the whole day); CronJob parity in `tests/parity/drift-keys-sql-parity.test.ts`; `price_variance_pct` as a typed, audited setting after
 P2-4; remove "segue" at least 30 days after go-live.
 
 **Records:** GitHub Actions doesn't run in this repo (billing); merge on a clean local `python3 scripts/check_repo.py`.
@@ -115,9 +115,8 @@ live project: Site URL https://app.digialto.com and redirect https://app.digialt
 - Vault (live): `reservation_gate_key` and `reservation_hash_salt` created by the lead (random, never printed); the founder copied
   the gate key and a temporary link key into Vercel Production (`RESERVATION_GATE_KEY`, `RESERVATION_LINK_KEY`); the temporary
   Vault copy was deleted. Live from the next code deploy (SP3 PR 1).
-- Founder's settings: enabled, slug `osteria-dei-rossi`, phone set, privacy e-mail set. To fix by the founder: controller name holds
-  the VAT digits (should be the legal name in profile.md); Sunday is closed for the whole day (only Sunday dinner is closed; no
-  per-service weekday closure exists yet, a small later feature).
+- Founder's settings: enabled, slug `osteria-dei-rossi`, phone set, privacy e-mail set. Controller name corrected to the legal name by the founder;
+  Sunday closed online for the whole day by choice (per-service closures: small later feature).
 - Tenant #1 was still the demo tenant ("Osteria Demo", VAT IT00000000000). The lead set, from profile.md facts: tenant name
   "Osteria Dei Rossi", VAT IT00354250524; organisation name, VAT and legal_name ML SNC DI LANARO E FRESI (one transaction, live DB).
 - After the test booking passes: add a "Prenota online" button in V3's #prenota section (PR #79 files), keeping phone and WhatsApp.
