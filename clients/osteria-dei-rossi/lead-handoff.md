@@ -103,6 +103,14 @@ P2-4; remove "segue" at least 30 days after go-live.
   connector (MCP + OAuth, read-only first, behind an SP5 switch). Q1–Q3 answered: Costì admin (SP2–SP7) right after #214; the Claude connector is planned after SP5;
   the app host is `app.digialto.com` (console `console.digialto.com`); digialto.com DNS is managed at Bluehost.
 
+## Founder decision 2026-11-27: one Supabase project
+- The existing project `wjowhjsfpcdykxwgjipq` ("Osteria Dei Rossi - Staging") becomes the osteria's live database. The founder has
+  already removed the demo data and started the real set-up (tables). A separate staging project may come later.
+- Consequences the lead enforces: every merge to `main` migrates the live database (deploy-staging), so merge only outside service
+  hours, and auth or schema-risky PRs (SP2 PR 2) only on a day without service; never run the demo-data workflow or
+  `begin_demo_data`/`purge_demo_data` against it; backups (founder-steps B) before real service data; FREE-3 (app_base_url to
+  https://app.digialto.com, then remove Vault `vercel_protection_bypass`) is now due.
+
 ## Standing founder rules
 - "Vercel plan is hobby; this is not paid work. Continue and auto-merge without approval. Only ask
   clarifying questions, or ask the founder for manual steps you cannot do."

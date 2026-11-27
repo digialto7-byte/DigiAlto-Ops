@@ -15,6 +15,9 @@ check what it can (with read-only Vercel and Supabase) and tick them.
 the password manager.
 
 ## A. Blocking go-live: production setup
+> **2026-11-27 founder decision:** no new project. The existing Supabase project "Osteria Dei Rossi - Staging"
+> (`wjowhjsfpcdykxwgjipq`) is the live database; S8-1 is dropped, and S8-2/S8-5/S8-14 apply to the existing project
+> and Vercel Production. A separate staging project may be created later.
 1. **S8-1**: create the production Supabase project "Osteria Dei Rossi - Production" (eu-central-1, Free plan). Keep the DB password in the password manager.
 2. **S8-4**: production Supabase settings:
    - sign-ups off, Email on;
