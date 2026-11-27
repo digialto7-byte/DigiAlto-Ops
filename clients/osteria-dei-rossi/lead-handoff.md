@@ -119,6 +119,7 @@ live project: Site URL https://app.digialto.com and redirect https://app.digialt
   Sunday closed online for the whole day by choice (per-service closures: small later feature).
 - Tenant #1 was still the demo tenant ("Osteria Demo", VAT IT00000000000). The lead set, from profile.md facts: tenant name
   "Osteria Dei Rossi", VAT IT00354250524; organisation name, VAT and legal_name ML SNC DI LANARO E FRESI (one transaction, live DB).
+- 2026-11-27: website V3 live (founder uploaded via cPanel), with the "Prenota online" button; PR #79 + #80 merged.
 - After the test booking passes: add a "Prenota online" button in V3's #prenota section (PR #79 files), keeping phone and WhatsApp.
 
 ## Founder decision 2026-11-27: one Supabase project
