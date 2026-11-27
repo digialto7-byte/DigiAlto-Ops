@@ -55,6 +55,20 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - **Comanda per uscita PRs 1–3:** #211 (golden 417, cross-tenant 418, 389 UTC, M5 ruling and m21 addendum in the plans); #212 (M1–M5:
     uscita column and uscita_call, order entry, fire hold and call_uscita, not_prepared void, open-session backfill, default 1 with the
     Rule B guard in 423); #213 (M6 kitchen board by uscita; old kitchen bundles error until reloaded; runbook updated).
+  - **Comanda per uscita PR 4 (2026-11-26, lead V3):** #214 (M7 app.session_uscite, tables_list/order_view uscite, a segue draft counts in
+    unsentCount; M8 close guard uscita_waiting; TS 422 with lineIds; re-pins listed in §3.15 incl. menu-tables.int.ts:799). Lead read of both
+    migrations; 8/8 checks green on 8586a107; squash e304a0b4.
+  - **SP2 (2026-11-27, lead V3):** #215 SP2 plan (refresh of #131, closed as superseded; SP0 local results recorded, hosted run owed);
+    #216 PR 1 (platform schema, platform.organisation closed to API roles, tenant.organisation_id by trigger, tenant VAT no longer unique,
+    client switch plumbing). Lead read of 20261207100000; 8/8 green on b56fa70b; squash c78de05e. PR 2 #217 merges only after SP0 hosted T1.H/T3.H.
+  - **SP2 complete (2026-11-27):** #220 SP0 hosted results (inconclusive: the proxy injected the secret on every request; lean path by
+    the founder); #217 PR 2 (memberships key, PIN single-membership AFTER trigger, auth_member_elsewhere role-checked, session_tenant
+    with cascade, hook E1–E4, select_tenant, my_memberships, purge) squash 579561f7, lead read of all three migrations, 8/8 green on
+    676ab591; #218 PR 3 (picker, switcher, AT7, runbook) squash d2bd2551, all green on 2b1dc078. Live DB verified: newest migration
+    20261207100300, session_tenant, select_tenant and the new hook present. SP3 plan #219 merged; #138/#150 closed as superseded.
+  - **SP3 PR 1 (2026-11-27):** #221 (platform.staff, append-only platform.audit_event, member/staff guards, bootstrap, script audit,
+    platform MFA, organisation VAT lock, add-owner script). Lead read of 20261208100000–100550; all green on 3a4c2304; squash 6c7b8706.
+    #222 hand-off for PR 2–4.
   - Pins moved outside the plans' lists were re-pinned on purpose with comments and added to the plans (§3.11, §3.15).
 - Done 2026-11-16 to 2026-11-18 (#168–#207; lead V1's read of every diff, CI green on each head; details in each PR):
   - **SP1 per-tenant config, complete:** plan #168; #173, #177, #182, #187, #192 (VAT rates, close codes, locale, `tenant_settings`, PATCH `/api/settings/venue`, venue-neutral extraction prompt).

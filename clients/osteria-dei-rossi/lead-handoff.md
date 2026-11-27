@@ -34,8 +34,14 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
 ## Sessions (2026-11-19)
 | Session | Id | State |
 |---|---|---|
-| Lead | the newest "Costì Lead" chat (V3) | Talks to the founder; merges |
-| Comanda PR 4 builder | to be started by lead V3 (fresh Opus) | Finishes comanda PR 4 from the hand-off below |
+| Lead | V3 `session_018fKcCmuFkjv4yhpCbKERjo` | Talks to the founder; merges |
+| SP3 builder 1 | `session_018fKcChwFTGwvXPBYgvYmni` (Opus) | Retired 2026-11-27 (context 344k): PR 1 #221 merged (6c7b8706; lead read of 8 migrations; add-owner script included); hand-off for PR 2–4 in plan §11a (#222). Next: fresh builder for PR 2 once the lead picks the T2 verification method. Note: bootstrap refuses a login with a non-admin membership, so Luca becomes owner and the founder's owner row ends before the founder's login is bootstrapped |
+| SP3 planner | `session_018fKcCk2JNJN61SoRZLbdqB` (Opus) | Retired 2026-11-27: plan #219 merged (docs/plans/2026-11-27-sp03-platform-layer.md, §11 = builder hand-off); #138/#150 closed as superseded. SP3 build = fresh builder after SP2 PR 2 merges. Open for the founder: F-2 platform admin login (fresh, not the osteria owner); nobody dispatches platform-ops before FS-1 |
+| SP0 hosted run | `session_018fKcCi8swzD2K1GtTu7eGG` (Opus) | Retired 2026-11-27: results #220 (T1–T4.H inconclusive: proxy injects the secret on every request; T5 d/e pass). Temp project deleted by the founder. Lean path: SP2 PR 2 #217 merged on local evidence (579561f7); T2.H redo before SP3 PR 2 (needs a method without the proxy secret, e.g. the founder runs it); T4 timing before tenant #2 |
+| SP2 PR 3 builder | `session_018fKcCj1C7X1BQWLt39SYjK` (Sonnet, started 2026-11-27) | Switcher UI + AT7, stacked on #217 |
+| SP2 builder 2 | `session_018fKcCkp9AHjyKWBYmdgSAK` (Opus) | Retired 2026-11-27: PR 2 #217 approved by the lead at 676ab591 (auth_member_elsewhere fix), merges after SP0 hosted T1.H/T3.H |
+| SP2 builder 1 | `session_018fKcCn5E3P3X8YGJrsVi2W` | Retired 2026-11-27 (context limit): plan #215 merged, PR 1 #216 ready |
+| Comanda PR 4 builder | `session_018fKcCk6qy2mws1vqGWgjke` (Opus) | Retired 2026-11-26: #214 merged |
 | Retired 2026-11-19 | lead V2 `session_018fKcChwys4xfgaHhAfdmR7`, comanda builder PRs 1–3 `session_018fKcCjj4XgXUZJ1LNuyC3v` (context 528k), opening stock builder `session_018fKcCmFm2N3cjcMr9Paifu` | Work merged or in this file. The founder may archive them (the lead's archive call is blocked by permissions) |
 | Retired 2026-11-18 | lead V1 `session_018fKcCjkR8ikx6DEmuZJMBE` and others | See git history of this file |
 
@@ -66,7 +72,7 @@ Merged by lead V2 (lead read of every migration, CI green on each head):
   #213 (M6: kitchen board by uscita; legacy kitchen bodies get 22023; runbook: deploy outside service, reload kitchen devices).
 - Records for #208–#213 are in `context.md` and `runs.jsonl`.
 
-**Build order:** comanda PR 4 (steps 17–19 + docs) → the screens in ONE Sonnet session (opening stock PR 5 = steps 20–25 incl. the
+**Build order (superseded 2026-11-26: SP2–SP7 come right after #214):** comanda PR 4 (steps 17–19 + docs) → the screens in ONE Sonnet session (opening stock PR 5 = steps 20–25 incl. the
 §3.12 draft-race note; comanda PR 5 = steps 15–16 kitchen card + Playwright, plus the PR 4 UI; known UI notes: a queued drink without a
 course shows as 1; a legacy segue edit moves 3→2) → P2-4 alert rules (2026120623*, pgTAP 397–406) → SP2.
 
@@ -88,10 +94,55 @@ under "Pins outside §3.15" in the PR body and add them to plan §3.15 in a docs
 e2e/simulation/service.spec.ts; add `app.session_uscite` to the step-17 `p27_objs` insert; in 367 rename each changed test to state the new
 rule ("a segue draft counts in unsentCount", §3.10) and add one positive case that fails under the old rule.
 
-**Small items:** CronJob parity in `tests/parity/drift-keys-sql-parity.test.ts`; `price_variance_pct` as a typed, audited setting after
+**Small items:** per-service weekday closures for online booking (e.g. closed Sunday dinner, Monday lunch; founder 2026-11-27; until then Sunday is closed online for the whole day); CronJob parity in `tests/parity/drift-keys-sql-parity.test.ts`; `price_variance_pct` as a typed, audited setting after
 P2-4; remove "segue" at least 30 days after go-live.
 
 **Records:** GitHub Actions doesn't run in this repo (billing); merge on a clean local `python3 scripts/check_repo.py`.
+
+## Founder decisions 2026-11-26 (plan: `deliverables/2026-11-26-costi-next-phase/plan.md`)
+- V5 (own booking host) is a paid feature, built after SP5. Vercel stays Hobby until tested; upgrade plan before any sale.
+- Resend: one DigiAlto account for all tenants; From the venue's name on `mail.<costi-domain>`, Reply-To the venue.
+- New asks: Costì admin (= SP2–SP7), tenant brand kit from client websites (feeds SP9), and a tenant-scoped Claude
+  connector (MCP + OAuth, read-only first, behind an SP5 switch). Q1–Q3 answered: Costì admin (SP2–SP7) right after #214; the Claude connector is planned after SP5;
+  the app host is `app.digialto.com` (console `console.digialto.com`); digialto.com DNS is managed at Bluehost.
+
+## 2026-11-27: SP2 verified live
+The founder signed in at https://app.digialto.com after SP2 merged (e-mail code via Resend). Supabase Auth URL Configuration on the
+live project: Site URL https://app.digialto.com and redirect https://app.digialto.com/api/auth/callback** added by the founder
+(old vercel.app entries still listed; tidy later).
+
+## 2026-11-27: online booking set-up
+- Vault (live): `reservation_gate_key` and `reservation_hash_salt` created by the lead (random, never printed); the founder copied
+  the gate key and a temporary link key into Vercel Production (`RESERVATION_GATE_KEY`, `RESERVATION_LINK_KEY`); the temporary
+  Vault copy was deleted. Live from the next code deploy (SP3 PR 1).
+- Founder's settings: enabled, slug `osteria-dei-rossi`, phone set, privacy e-mail set. Controller name corrected to the legal name by the founder;
+  Sunday closed online for the whole day by choice (per-service closures: small later feature).
+- Tenant #1 was still the demo tenant ("Osteria Demo", VAT IT00000000000). The lead set, from profile.md facts: tenant name
+  "Osteria Dei Rossi", VAT IT00354250524; organisation name, VAT and legal_name ML SNC DI LANARO E FRESI (one transaction, live DB).
+- After the test booking passes: add a "Prenota online" button in V3's #prenota section (PR #79 files), keeping phone and WhatsApp.
+
+## Founder decision 2026-11-27: one Supabase project
+- The existing project `wjowhjsfpcdykxwgjipq` ("Osteria Dei Rossi - Staging") becomes the osteria's live database. The founder has
+  already removed the demo data and started the real set-up (tables). A separate staging project may come later.
+- Consequences the lead enforces: every merge to `main` migrates the live database (deploy-staging), so merge only outside service
+  hours, and auth or schema-risky PRs (SP2 PR 2) only on a day without service. Service (founder, 2026-11-27):
+  closed Sunday evening and all Monday. Until the osteria starts using the app (founder, 2026-11-27: not in use yet), merges
+  need no service window; SP2 PR 2/3 merge as soon as SP0 hosted passes. The service-window rule applies from first real use; never run the demo-data workflow or
+  `begin_demo_data`/`purge_demo_data` against it; backups (founder-steps B) before real service data. FREE-3 done 2026-11-27: Vault `app_base_url` =
+  https://app.digialto.com, `vercel_protection_bypass` deleted, a manual `/api/cron/extract` call answered 200 without it.
+
+## Founder decision 2026-11-27: who is who (addresses are NOT written in any repo; the founder gave them in chat)
+- Platform admin (Costì console, DigiAlto) = the founder's own login, which today is the ONLY user of tenant #1, as `owner`.
+- The osteria's owner (the venue's own admin) = a new login for the osteria's manager (Luca), not yet an auth user.
+- The plan requires two different auth users (platform plan §0a note 2, SP3 `platform_admin_has_member_role`), so the order is:
+  0. Founder 2026-11-27: Luca's access is set up later (when the founder says so). Quick path then: founder adds the auth user
+     in the dashboard (Add user, auto-confirm, no password), the lead inserts the owner row.
+  1. create Luca's login and owner row at tenant #1 (no tool exists yet: email owners come only from scripts; add a small
+     service-role script step, `scripts/` with the secret key, to SP3 PR 1 or run SP2's `create-tenant.ts --existing-owner-id`
+     variant if it fits; decide when SP3 building starts);
+  2. SP3 bootstrap makes the founder's login the platform admin; SP4/SP13 turn its owner row at tenant #1 into the
+     DigiAlto `admin` membership (deactivate the owner row in the same step);
+  3. `PLATFORM_ADMIN_EMAIL` goes only into Vercel/GitHub environments (founder step when SP3 lands).
 
 ## Standing founder rules
 - "Vercel plan is hobby; this is not paid work. Continue and auto-merge without approval. Only ask
