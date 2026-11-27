@@ -117,8 +117,8 @@ In order. Each step says where you do it.
    updates Vault `app_base_url` and removes `vercel_protection_bypass` (FREE-3).
 6. **DONE 2026-11-27**: `mail.digialto.com` verified in Resend (EU, Ireland; tracking off; receiving off; DKIM TXT + two CNAMEs at Bluehost). (Was: **Resend (DigiAlto's account)**: sign up (EU region if offered); add the sending domain `mail.<digialto-domain>`; add its SPF,
    DKIM and DMARC records at the DNS host from step 3; wait for "Verified".)
-7. **Resend keys**: an API key into Vercel `RESEND_API_KEY`, plus `MAIL_TRANSPORT=resend` and `MAIL_FROM`; the SMTP credentials into
-   Supabase → Authentication → SMTP (staging now, production at S8-4). Never in chat.
+7. **DONE 2026-11-27** (staging SMTP and Vercel Production keys set; production Supabase SMTP comes with S8-4). (Was: **Resend keys**: an API key into Vercel `RESEND_API_KEY`, plus `MAIL_TRANSPORT=resend` and `MAIL_FROM`; the SMTP credentials into
+   Supabase → Authentication → SMTP (staging now, production at S8-4). Never in chat.)
 8. **GitHub `platform-ops` environment** (FS-1), and later `PLATFORM_ADMIN_EMAIL` in Vercel and GitHub when SP3 is built. Have a TOTP
    app ready for the platform admin account.
 9. **Website**: put the osteria website's source in the repo (the `clients/osteria-dei-rossi-website` file is empty), and send the logo
