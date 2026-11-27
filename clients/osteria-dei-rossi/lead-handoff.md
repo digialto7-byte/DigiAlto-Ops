@@ -108,8 +108,8 @@ P2-4; remove "segue" at least 30 days after go-live.
   already removed the demo data and started the real set-up (tables). A separate staging project may come later.
 - Consequences the lead enforces: every merge to `main` migrates the live database (deploy-staging), so merge only outside service
   hours, and auth or schema-risky PRs (SP2 PR 2) only on a day without service; never run the demo-data workflow or
-  `begin_demo_data`/`purge_demo_data` against it; backups (founder-steps B) before real service data; FREE-3 (app_base_url to
-  https://app.digialto.com, then remove Vault `vercel_protection_bypass`) is now due.
+  `begin_demo_data`/`purge_demo_data` against it; backups (founder-steps B) before real service data. FREE-3 done 2026-11-27: Vault `app_base_url` =
+  https://app.digialto.com, `vercel_protection_bypass` deleted, a manual `/api/cron/extract` call answered 200 without it.
 
 ## Standing founder rules
 - "Vercel plan is hobby; this is not paid work. Continue and auto-merge without approval. Only ask

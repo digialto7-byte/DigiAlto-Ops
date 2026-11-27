@@ -39,7 +39,7 @@ the password manager.
    - then run and approve "Deploy production database".
 7. **S8-7 / S8-16**: the Protection Bypass for Automation secret, saved in the password manager. Put it in the GitHub `staging` environment as `VERCEL_AUTOMATION_BYPASS_SECRET` and in Vault as `vercel_protection_bypass`.
 8. **S8-14**: create the production tenant with `npm run create-tenant` from a trusted machine (after the client facts are confirmed), and enrol the staff phones.
-9. **FREE-3**: the custom domain serves production. Then point `app_base_url` at it and remove `vercel_protection_bypass` from Vault.
+9. **DONE 2026-11-27 (lead)**: Vault `app_base_url` = https://app.digialto.com; `vercel_protection_bypass` deleted; a test cron call answered 200 without it. (Was: **FREE-3**: the custom domain serves production. Then point `app_base_url` at it and remove `vercel_protection_bypass` from Vault.)
 10. **S8-3**: Resend account (free tier, EU if offered). SMTP credentials go only in Supabase production SMTP. Verify the sending domain once the domain is decided.
 
 ## B. Blocking go-live: backups (Supabase Free = our dump is the only backup)
