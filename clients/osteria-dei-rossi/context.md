@@ -34,6 +34,12 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - **Comanda per uscita PRs 1–3:** #211 (golden 417, cross-tenant 418, 389 UTC, M5 ruling and m21 addendum in the plans); #212 (M1–M5:
     uscita column and uscita_call, order entry, fire hold and call_uscita, not_prepared void, open-session backfill, default 1 with the
     Rule B guard in 423); #213 (M6 kitchen board by uscita; old kitchen bundles error until reloaded; runbook updated).
+  - **Comanda per uscita PR 4 (2026-11-26, lead V3):** #214 (M7 app.session_uscite, tables_list/order_view uscite, a segue draft counts in
+    unsentCount; M8 close guard uscita_waiting; TS 422 with lineIds; re-pins listed in §3.15 incl. menu-tables.int.ts:799). Lead read of both
+    migrations; 8/8 checks green on 8586a107; squash e304a0b4.
+  - **SP2 (2026-11-27, lead V3):** #215 SP2 plan (refresh of #131, closed as superseded; SP0 local results recorded, hosted run owed);
+    #216 PR 1 (platform schema, platform.organisation closed to API roles, tenant.organisation_id by trigger, tenant VAT no longer unique,
+    client switch plumbing). Lead read of 20261207100000; 8/8 green on b56fa70b; squash c78de05e. PR 2 #217 merges only after SP0 hosted T1.H/T3.H.
   - Pins moved outside the plans' lists were re-pinned on purpose with comments and added to the plans (§3.11, §3.15).
 - Done 2026-11-16 to 2026-11-18 (#168–#207; lead V1's read of every diff, CI green on each head; details in each PR):
   - **SP1 per-tenant config, complete:** plan #168; #173, #177, #182, #187, #192 (VAT rates, close codes, locale, `tenant_settings`, PATCH `/api/settings/venue`, venue-neutral extraction prompt).

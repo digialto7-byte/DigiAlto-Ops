@@ -34,8 +34,11 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
 ## Sessions (2026-11-19)
 | Session | Id | State |
 |---|---|---|
-| Lead | the newest "Costì Lead" chat (V3) | Talks to the founder; merges |
-| Comanda PR 4 builder | to be started by lead V3 (fresh Opus) | Finishes comanda PR 4 from the hand-off below |
+| Lead | V3 `session_018fKcCmuFkjv4yhpCbKERjo` | Talks to the founder; merges |
+| SP2 PR 3 builder | `session_018fKcCj1C7X1BQWLt39SYjK` (Sonnet, started 2026-11-27) | Switcher UI + AT7, stacked on #217 |
+| SP2 builder 2 | `session_018fKcCkp9AHjyKWBYmdgSAK` (Opus) | Retired 2026-11-27: PR 2 #217 approved by the lead at 676ab591 (auth_member_elsewhere fix), merges after SP0 hosted T1.H/T3.H |
+| SP2 builder 1 | `session_018fKcCn5E3P3X8YGJrsVi2W` | Retired 2026-11-27 (context limit): plan #215 merged, PR 1 #216 ready |
+| Comanda PR 4 builder | `session_018fKcCk6qy2mws1vqGWgjke` (Opus) | Retired 2026-11-26: #214 merged |
 | Retired 2026-11-19 | lead V2 `session_018fKcChwys4xfgaHhAfdmR7`, comanda builder PRs 1–3 `session_018fKcCjj4XgXUZJ1LNuyC3v` (context 528k), opening stock builder `session_018fKcCmFm2N3cjcMr9Paifu` | Work merged or in this file. The founder may archive them (the lead's archive call is blocked by permissions) |
 | Retired 2026-11-18 | lead V1 `session_018fKcCjkR8ikx6DEmuZJMBE` and others | See git history of this file |
 
@@ -66,7 +69,7 @@ Merged by lead V2 (lead read of every migration, CI green on each head):
   #213 (M6: kitchen board by uscita; legacy kitchen bodies get 22023; runbook: deploy outside service, reload kitchen devices).
 - Records for #208–#213 are in `context.md` and `runs.jsonl`.
 
-**Build order:** comanda PR 4 (steps 17–19 + docs) → the screens in ONE Sonnet session (opening stock PR 5 = steps 20–25 incl. the
+**Build order (superseded 2026-11-26: SP2–SP7 come right after #214):** comanda PR 4 (steps 17–19 + docs) → the screens in ONE Sonnet session (opening stock PR 5 = steps 20–25 incl. the
 §3.12 draft-race note; comanda PR 5 = steps 15–16 kitchen card + Playwright, plus the PR 4 UI; known UI notes: a queued drink without a
 course shows as 1; a legacy segue edit moves 3→2) → P2-4 alert rules (2026120623*, pgTAP 397–406) → SP2.
 
@@ -92,6 +95,13 @@ rule ("a segue draft counts in unsentCount", §3.10) and add one positive case t
 P2-4; remove "segue" at least 30 days after go-live.
 
 **Records:** GitHub Actions doesn't run in this repo (billing); merge on a clean local `python3 scripts/check_repo.py`.
+
+## Founder decisions 2026-11-26 (plan: `deliverables/2026-11-26-costi-next-phase/plan.md`)
+- V5 (own booking host) is a paid feature, built after SP5. Vercel stays Hobby until tested; upgrade plan before any sale.
+- Resend: one DigiAlto account for all tenants; From the venue's name on `mail.<costi-domain>`, Reply-To the venue.
+- New asks: Costì admin (= SP2–SP7), tenant brand kit from client websites (feeds SP9), and a tenant-scoped Claude
+  connector (MCP + OAuth, read-only first, behind an SP5 switch). Q1–Q3 answered: Costì admin (SP2–SP7) right after #214; the Claude connector is planned after SP5;
+  the app host is `app.digialto.com` (console `console.digialto.com`); digialto.com DNS is managed at Bluehost.
 
 ## Standing founder rules
 - "Vercel plan is hobby; this is not paid work. Continue and auto-merge without approval. Only ask

@@ -29,7 +29,7 @@ the password manager.
    - the Magic Link template from `supabase/templates/magic-link.html`;
    - leaked-password protection, if Free offers it.
 4. **S8-5**: Vercel Production env vars, all new and never staging's: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`, `PIN_PEPPER`, `CRON_SECRET`, `ANTHROPIC_API_KEY`, `EXTRACTION_MODEL_ID`. Then redeploy.
-5. **S8-6**: Vercel setting so that production deployments wait for promotion. Plus **Vercel Pro** for production (decided 2026-11-08).
+5. **S8-6**: Vercel setting so that production deployments wait for promotion. ~~Plus Vercel Pro for production (2026-11-08)~~: **replaced 2026-11-26: Vercel stays on Hobby until Costì is tested and confirmed; upgrade plan before any sale.**
 6. **S8-2**: GitHub environment `production`:
    - you as required reviewer, branch `main` only;
    - secrets `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD`, `SUPABASE_PROJECT_REF`; variable `PRODUCTION_PROJECT_REF`;
@@ -93,7 +93,7 @@ the password manager.
 25. **Reservations going live**:
     - approve the privacy text and the privacy contact e-mail;
     - the venue phone;
-    - who owns Resend (DigiAlto or the client);
+    - ~~who owns Resend~~: **DigiAlto, one account for all tenants (decided 2026-11-26)**;
     - booking hours.
 26. **Invoice extraction**: the `extraction-contract` GitHub environment (`ANTHROPIC_API_KEY`, `EXTRACTION_MODEL_ID`); the model needs an output limit of at least 36 000 tokens. Also: 10 anonymised sample invoices, Anthropic commercial terms (DPA), and the VT1 PDF-frame check in desktop Chrome.
 27. **M-4**: tell the owner that old sessions end once; the first time, use "Inviami il link", type the code and choose a password.
@@ -102,6 +102,28 @@ the password manager.
 28. **CB11 / BRAND-1**: send your own Costì logo files, or approve the placeholders for go-live.
 29. **BRAND-2**: the hosted e-mail settings (sender name and template branding in Supabase/Resend).
 30. A trademark check on "Costì".
+
+## G. Next phase (added 2026-11-26; plan: `deliverables/2026-11-26-costi-next-phase/plan.md`)
+In order. Each step says where you do it.
+1. **Merge access for the lead** (now): allow the lead's request to attach `osteria-dei-rossi-app` with push access, or add a
+   permission rule for `mcp__claude-code-remote__add_repo`. Until then the lead cannot merge (#214 is green and waiting).
+2. **Choose the Costì domain** (FS-2, Q-R15): e.g. `app.<digialto-domain>` for the app and booking pages, `console.<digialto-domain>`
+   for the console.
+3. **Find where that domain's DNS lives**: if its nameservers point to Bluehost, the records go in Bluehost's DNS zone; otherwise in
+   GoDaddy's. Check the domain's nameservers in GoDaddy first.
+4. **DONE 2026-11-27**: `app.digialto.com` and `console.digialto.com` added in Vercel, CNAMEs at Bluehost, both verified by the lead. (Was: **Vercel → project `osteria-dei-rossi-app` → Settings → Domains**: add the app and console hosts; add the CNAME records Vercel
+   shows at the DNS host from step 3; wait for "Valid configuration".)
+5. **Vercel env (Production)**: `APP_ORIGIN` and `APP_PUBLIC_ORIGIN` = `https://app.digialto.com` now; `CONSOLE_HOST` = `console.digialto.com` only when SP3 (the console's backend) is merged, the lead says when (FS-2). Tell the lead; it
+   updates Vault `app_base_url` and removes `vercel_protection_bypass` (FREE-3).
+6. **DONE 2026-11-27**: `mail.digialto.com` verified in Resend (EU, Ireland; tracking off; receiving off; DKIM TXT + two CNAMEs at Bluehost). (Was: **Resend (DigiAlto's account)**: sign up (EU region if offered); add the sending domain `mail.<digialto-domain>`; add its SPF,
+   DKIM and DMARC records at the DNS host from step 3; wait for "Verified".)
+7. **DONE 2026-11-27** (staging SMTP and Vercel Production keys set; production Supabase SMTP comes with S8-4). (Was: **Resend keys**: an API key into Vercel `RESEND_API_KEY`, plus `MAIL_TRANSPORT=resend` and `MAIL_FROM`; the SMTP credentials into
+   Supabase → Authentication → SMTP (staging now, production at S8-4). Never in chat.)
+8. **GitHub `platform-ops` environment** (FS-1), and later `PLATFORM_ADMIN_EMAIL` in Vercel and GitHub when SP3 is built. Have a TOTP
+   app ready for the platform admin account.
+9. **Website**: put the osteria website's source in the repo (the `clients/osteria-dei-rossi-website` file is empty), and send the logo
+   files (CB11), opening and booking hours, venue phone and privacy contact. They feed the tenant theme and the booking page.
+10. **Answer the plan's questions Q1–Q3** (build order, Claude connector timing, the domain name).
 
 ## F. After go-live or optional
 - **GBP-1**: add `<domain>/prenota/<slug>` as the booking link on the Google Business Profile (needs FREE-3).
