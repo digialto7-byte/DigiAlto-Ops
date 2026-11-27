@@ -137,7 +137,9 @@ live project: Site URL https://app.digialto.com and redirect https://app.digialt
 - The osteria's owner (the venue's own admin) = a new login for the osteria's manager (Luca), not yet an auth user.
 - The plan requires two different auth users (platform plan §0a note 2, SP3 `platform_admin_has_member_role`), so the order is:
   DONE 2026-11-27: Luca's auth user created by the founder (dashboard, auto-confirm); the lead inserted his owner row
-  (display name "Luca") and a platform audit row `script.add_owner`. The founder's row is still `owner` (display name "Titolare Demo").
+  (display name "Luca") and a platform audit row `script.add_owner`. 2026-11-27 later: the founder (verified TOTP factor) switched to role `admin`, display name "DigiAlto", and bootstrapped as the one
+  active `platform_admin` (platform_bootstrap_admin, audited). Luca is the only owner. SP4 (DigiAlto audit filter for the owner, attach
+  flow) and the console (SP3 PR 2–4) are still to build.
   0. (was) Founder 2026-11-27: Luca's access is set up later (when the founder says so). Quick path then: founder adds the auth user
      in the dashboard (Add user, auto-confirm, no password), the lead inserts the owner row.
   1. create Luca's login and owner row at tenant #1 (no tool exists yet: email owners come only from scripts; add a small
