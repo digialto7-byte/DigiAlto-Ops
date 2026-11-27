@@ -35,7 +35,7 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
 | Session | Id | State |
 |---|---|---|
 | Lead | V3 `session_018fKcCmuFkjv4yhpCbKERjo` | Talks to the founder; merges |
-| SP3 builder | `session_018fKcChwFTGwvXPBYgvYmni` (Opus, started 2026-11-27) | SP3 PR 1–4 per the plan; PR 1 adds the add-owner script (for Luca); PR 2 stops before merge (T2 verification method is the lead's call) |
+| SP3 builder 1 | `session_018fKcChwFTGwvXPBYgvYmni` (Opus) | Retired 2026-11-27 (context 344k): PR 1 #221 merged (6c7b8706; lead read of 8 migrations; add-owner script included); hand-off for PR 2–4 in plan §11a (#222). Next: fresh builder for PR 2 once the lead picks the T2 verification method. Note: bootstrap refuses a login with a non-admin membership, so Luca becomes owner and the founder's owner row ends before the founder's login is bootstrapped |
 | SP3 planner | `session_018fKcCk2JNJN61SoRZLbdqB` (Opus) | Retired 2026-11-27: plan #219 merged (docs/plans/2026-11-27-sp03-platform-layer.md, §11 = builder hand-off); #138/#150 closed as superseded. SP3 build = fresh builder after SP2 PR 2 merges. Open for the founder: F-2 platform admin login (fresh, not the osteria owner); nobody dispatches platform-ops before FS-1 |
 | SP0 hosted run | `session_018fKcCi8swzD2K1GtTu7eGG` (Opus) | Retired 2026-11-27: results #220 (T1–T4.H inconclusive: proxy injects the secret on every request; T5 d/e pass). Temp project deleted by the founder. Lean path: SP2 PR 2 #217 merged on local evidence (579561f7); T2.H redo before SP3 PR 2 (needs a method without the proxy secret, e.g. the founder runs it); T4 timing before tenant #2 |
 | SP2 PR 3 builder | `session_018fKcCj1C7X1BQWLt39SYjK` (Sonnet, started 2026-11-27) | Switcher UI + AT7, stacked on #217 |

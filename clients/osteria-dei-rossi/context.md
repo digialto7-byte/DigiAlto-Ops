@@ -45,6 +45,9 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
     with cascade, hook E1–E4, select_tenant, my_memberships, purge) squash 579561f7, lead read of all three migrations, 8/8 green on
     676ab591; #218 PR 3 (picker, switcher, AT7, runbook) squash d2bd2551, all green on 2b1dc078. Live DB verified: newest migration
     20261207100300, session_tenant, select_tenant and the new hook present. SP3 plan #219 merged; #138/#150 closed as superseded.
+  - **SP3 PR 1 (2026-11-27):** #221 (platform.staff, append-only platform.audit_event, member/staff guards, bootstrap, script audit,
+    platform MFA, organisation VAT lock, add-owner script). Lead read of 20261208100000–100550; all green on 3a4c2304; squash 6c7b8706.
+    #222 hand-off for PR 2–4.
   - Pins moved outside the plans' lists were re-pinned on purpose with comments and added to the plans (§3.11, §3.15).
 - Done 2026-11-16 to 2026-11-18 (#168–#207; lead V1's read of every diff, CI green on each head; details in each PR):
   - **SP1 per-tenant config, complete:** plan #168; #173, #177, #182, #187, #192 (VAT rates, close codes, locale, `tenant_settings`, PATCH `/api/settings/venue`, venue-neutral extraction prompt).
