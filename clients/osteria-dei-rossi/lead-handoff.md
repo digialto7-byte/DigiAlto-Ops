@@ -111,6 +111,15 @@ The founder signed in at https://app.digialto.com after SP2 merged (e-mail code 
 live project: Site URL https://app.digialto.com and redirect https://app.digialto.com/api/auth/callback** added by the founder
 (old vercel.app entries still listed; tidy later).
 
+## 2026-11-27: online booking set-up
+- Vault (live): `reservation_gate_key` and `reservation_hash_salt` created by the lead (random, never printed); the founder copied
+  the gate key and a temporary link key into Vercel Production (`RESERVATION_GATE_KEY`, `RESERVATION_LINK_KEY`); the temporary
+  Vault copy was deleted. Live from the next code deploy (SP3 PR 1).
+- Founder's settings: enabled, slug `osteria-dei-rossi`, phone set, privacy e-mail set. To fix by the founder: controller name holds
+  the VAT digits (should be the legal name in profile.md); Sunday is closed for the whole day (only Sunday dinner is closed; no
+  per-service weekday closure exists yet, a small later feature).
+- After the test booking passes: add a "Prenota online" button in V3's #prenota section (PR #79 files), keeping phone and WhatsApp.
+
 ## Founder decision 2026-11-27: one Supabase project
 - The existing project `wjowhjsfpcdykxwgjipq` ("Osteria Dei Rossi - Staging") becomes the osteria's live database. The founder has
   already removed the demo data and started the real set-up (tables). A separate staging project may come later.
