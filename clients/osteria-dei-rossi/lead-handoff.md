@@ -1,6 +1,6 @@
 ---
 slug: osteria-dei-rossi
-updated: 2026-11-19
+updated: 2026-11-28
 ---
 
 # Costì / Osteria Dei Rossi: lead hand-off
@@ -31,24 +31,18 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
   `send_later` safety net per PR. Read migrations yourself; don't spawn reviewers for the lead's reads.
 - The lead itself is replaced the same way: update this file, start a fresh lead, tell the founder.
 
-## Sessions (2026-11-19)
+## Sessions (2026-11-28)
 | Session | Id | State |
 |---|---|---|
-| Lead | V3 `session_018fKcCmuFkjv4yhpCbKERjo` | Talks to the founder; merges |
-| SP3 builder 1 | `session_018fKcChwFTGwvXPBYgvYmni` (Opus) | Retired 2026-11-27 (context 344k): PR 1 #221 merged (6c7b8706; lead read of 8 migrations; add-owner script included); hand-off for PR 2–4 in plan §11a (#222). Next: fresh builder for PR 2 once the lead picks the T2 verification method. Note: bootstrap refuses a login with a non-admin membership, so Luca becomes owner and the founder's owner row ends before the founder's login is bootstrapped |
-| SP3 planner | `session_018fKcCk2JNJN61SoRZLbdqB` (Opus) | Retired 2026-11-27: plan #219 merged (docs/plans/2026-11-27-sp03-platform-layer.md, §11 = builder hand-off); #138/#150 closed as superseded. SP3 build = fresh builder after SP2 PR 2 merges. Open for the founder: F-2 platform admin login (fresh, not the osteria owner); nobody dispatches platform-ops before FS-1 |
-| SP0 hosted run | `session_018fKcCi8swzD2K1GtTu7eGG` (Opus) | Retired 2026-11-27: results #220 (T1–T4.H inconclusive: proxy injects the secret on every request; T5 d/e pass). Temp project deleted by the founder. Lean path: SP2 PR 2 #217 merged on local evidence (579561f7); T2.H redo before SP3 PR 2 (needs a method without the proxy secret, e.g. the founder runs it); T4 timing before tenant #2 |
-| SP2 PR 3 builder | `session_018fKcCj1C7X1BQWLt39SYjK` (Sonnet, started 2026-11-27) | Switcher UI + AT7, stacked on #217 |
-| SP2 builder 2 | `session_018fKcCkp9AHjyKWBYmdgSAK` (Opus) | Retired 2026-11-27: PR 2 #217 approved by the lead at 676ab591 (auth_member_elsewhere fix), merges after SP0 hosted T1.H/T3.H |
-| SP2 builder 1 | `session_018fKcCn5E3P3X8YGJrsVi2W` | Retired 2026-11-27 (context limit): plan #215 merged, PR 1 #216 ready |
-| Comanda PR 4 builder | `session_018fKcCk6qy2mws1vqGWgjke` (Opus) | Retired 2026-11-26: #214 merged |
-| Retired 2026-11-19 | lead V2 `session_018fKcChwys4xfgaHhAfdmR7`, comanda builder PRs 1–3 `session_018fKcCjj4XgXUZJ1LNuyC3v` (context 528k), opening stock builder `session_018fKcCmFm2N3cjcMr9Paifu` | Work merged or in this file. The founder may archive them (the lead's archive call is blocked by permissions) |
-| Retired 2026-11-18 | lead V1 `session_018fKcCjkR8ikx6DEmuZJMBE` and others | See git history of this file |
+| Lead | V4: the newest "Costì Lead" chat | Talks to the founder; merges; reads every migration |
+| SP3 builder 2 | `session_018fKcCkRC2Vse39NA1GuUTc` (Opus, started 2026-11-27 23:49) | Builds SP3 PR 2 → 3 → 4 one at a time; reports per PR (head sha + every migration's full text); waits for "merged" before the next |
+| Retired 2026-11-27 | lead V3 `session_018fKcCmuFkjv4yhpCbKERjo` (context 746k); SP3 builder 1 `session_018fKcChwFTGwvXPBYgvYmni`; SP3 planner `session_018fKcCk2JNJN61SoRZLbdqB`; SP0 runner `session_018fKcCi8swzD2K1GtTu7eGG`; SP2 builders `session_018fKcCn5E3P3X8YGJrsVi2W`, `session_018fKcCkp9AHjyKWBYmdgSAK`, `session_018fKcCj1C7X1BQWLt39SYjK`; comanda PR 4 builder `session_018fKcCk6qy2mws1vqGWgjke` | Work merged; nothing pending in them |
 
-The new lead's first step: `get_session` (no id) for its own id, then start the PR 4 builder (brief below).
+The new lead's first steps: `get_session` (no id) for its own id, then `send_message` to SP3 builder 2 with the new lead id
+("report to session <new id> from now on"), then `subscribe_pr_activity` on any open SP3 PR.
 
 ## How to merge an app PR
-0. The lead's GitHub tools only reach repos attached to its session: call `add_repo` (owner `digialto7-byte`, repo
+0. The lead's GitHub tools only reach repos attached to its session: call `add_repo` (the founder must approve it in chat: "attach the app repo with push access") (owner `digialto7-byte`, repo
    `osteria-dei-rossi-app`, access push) once, and clone to `/home/user/osteria-dei-rossi-app`.
 1. On the builder's message: `git fetch origin +refs/heads/main:refs/remotes/origin/main refs/pull/<n>/head:refs/remotes/pr<n>`,
    then `git diff origin/main...pr<n>`. Never read a stale checkout.
@@ -63,36 +57,24 @@ The new lead's first step: `get_session` (no id) for its own id, then start the 
    Known hazard: "ports still in use … 54322" when the runner's own agent holds that port (seen once, on
    #207). If it recurs, fix it by moving the stack ports (54320–54329) below the 32768 ephemeral range.
 
-## State on 2026-11-19 (early morning)
-Merged by lead V2 (lead read of every migration, CI green on each head):
-- **Opening stock server complete:** #208 (PR 2: tables, draft, confirm), #209 (PR 3: reversal, cost fallback, reconciliation),
-  #210 (PR 4: API routes, Home step via `opening_stock_summary` for owner/admin only, ADR-048 decision 9 = Q2 option A).
-- **Comanda per uscita PRs 1–3:** #211 (tests/docs, 389 UTC, M5 ruling and m21 addendum in the plan), #212 (M1–M5: uscita column,
-  `uscita_call`, order entry, fire/call, not_prepared void, open-session backfill, default 1 with the Rule B guard in 423),
-  #213 (M6: kitchen board by uscita; legacy kitchen bodies get 22023; runbook: deploy outside service, reload kitchen devices).
-- Records for #208–#213 are in `context.md` and `runs.jsonl`.
+## State on 2026-11-28 (lead V3 → V4)
+Merged and live (lead read of every migration, CI green on each head):
+- Comanda per uscita complete (#211–#214). SP2 complete (#215 plan, #216, #217, #218); live sign-in verified by the founder.
+- SP0 hosted run (#220): inconclusive, because the cloud session's network proxy injects a saved secret on every request to that host.
+  Lesson: user-token checks cannot run from a cloud session with a saved network secret for the same host.
+- SP3 plan (#219), PR 1 (#221: platform.staff, append-only audit, guards, bootstrap, script audit, platform MFA, org VAT lock,
+  add-owner script), hand-off (#222). Live DB newest migration 20261208100550.
+- Live people: the founder = `admin` "DigiAlto" at tenant #1 (verified TOTP) and the one active `platform_admin` (bootstrapped
+  2026-11-27, audited); Luca = `owner` (signed in; no TOTP yet). Tenant #1 = "Osteria Dei Rossi", VAT IT00354250524,
+  organisation legal name ML SNC DI LANARO E FRESI (fixed by the lead from profile.md; it was the demo tenant's placeholder).
+- Online booking live and tested end to end; website V3 live on the osteria's hosting (founder, cPanel) with "Prenota online"
+  next to phone and WhatsApp (DigiAlto-Ops #79, #80). Booking URL is in profile.md.
 
-**Build order (superseded 2026-11-26: SP2–SP7 come right after #214):** comanda PR 4 (steps 17–19 + docs) → the screens in ONE Sonnet session (opening stock PR 5 = steps 20–25 incl. the
-§3.12 draft-race note; comanda PR 5 = steps 15–16 kitchen card + Playwright, plus the PR 4 UI; known UI notes: a queued drink without a
-course shows as 1; a legacy segue edit moves 3→2) → P2-4 alert rules (2026120623*, pgTAP 397–406) → SP2.
-
-**Comanda PR 4 builder brief** (paste into a fresh Opus session on branch `feat/comanda-uscite-4`; report to the lead by id):
-Branch `feat/comanda-uscite-4`, head ac6fc4afc22632645002dbd904dbc216dfac802a, WIP draft PR #214 (the WIP commit lists the red tests).
-- Done test-first: step 17 M7 `20261206220600_uscita_tables_order_view.sql` (pgTAP 428, 12 green); step 18 M8
-  `20261206220700_uscita_close.sql` (429, 7 green); step 19 TS (tablesListOutput/orderViewOutput.uscite, uscita_waiting → 422 with
-  lineIds, it/en messages with the Italian one «da approvare», overlay-tables.ts offline tile uscite: null); config pins
-  (uscite-preserves, close_session_at UPDATE rule with self-tests, repin_newest.py). Vitest 909 files / 15 904 tests green.
-- Still red, to re-pin. Inside §3.15: 179 t2/t20, 222 t15/t17, 229 t9/t10/t13, 240, 286, 296 t2/t18, 389 t7, 367 t3. Outside §3.15
-  (approved): 157 t4, 166 t8, 214 t7, 301 t2/t17, 327 t2, 359 t8, 367 t2/t7/t8/t17/t20–t22.
-- Then step 23: one code-review round, mark ready, report CI with the full head sha and both migrations' full text.
-- Left to the screens session (B2, step 20): the client mirror `unsentLines` (src/lib/orders/order-view.ts) still skips segue drafts.
-- Local setup: race script needs PGHOST=127.0.0.1 PGPORT=54322 PGUSER=postgres PGPASSWORD=postgres; start dockerd with setsid;
-  `supabase db reset` after any Playwright run.
-
-Lead rulings in force for PR 4: re-pin each moved pin with a "re-pinned on purpose by comanda-uscite (step N; was …)" comment, list them
-under "Pins outside §3.15" in the PR body and add them to plan §3.15 in a docs commit, together with PR 3's e2e/kitchen.spec.ts and
-e2e/simulation/service.spec.ts; add `app.session_uscite` to the step-17 `p27_objs` insert; in 367 rename each changed test to state the new
-rule ("a segue draft counts in unsentCount", §3.10) and add one positive case that fails under the old rule.
+**Build order now:** SP3 PR 2 → PR 3 → PR 4 (builder 2) → set `CONSOLE_HOST=console.digialto.com` in Vercel (founder) and verify T2
+live: the founder signs in to the console, the lead checks console reads under `platform_staff` and that tenant sessions are unchanged
+(lead decision 2026-11-27, recorded in the SP3 plan §8a by PR 2) → SP4 → SP5 → SP6/SP7 → plan the Claude connector (after SP5).
+Merge rule until the osteria uses the app daily: no service window needed; after that, risky merges on Mondays (closed Sunday
+evening and Monday), others before 10:00 Europe/Rome.
 
 **Small items:** per-service weekday closures for online booking (e.g. closed Sunday dinner, Monday lunch; founder 2026-11-27; until then Sunday is closed online for the whole day); CronJob parity in `tests/parity/drift-keys-sql-parity.test.ts`; `price_variance_pct` as a typed, audited setting after
 P2-4; remove "segue" at least 30 days after go-live.
