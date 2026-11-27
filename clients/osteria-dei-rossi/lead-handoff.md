@@ -118,6 +118,8 @@ live project: Site URL https://app.digialto.com and redirect https://app.digialt
 - Founder's settings: enabled, slug `osteria-dei-rossi`, phone set, privacy e-mail set. To fix by the founder: controller name holds
   the VAT digits (should be the legal name in profile.md); Sunday is closed for the whole day (only Sunday dinner is closed; no
   per-service weekday closure exists yet, a small later feature).
+- Tenant #1 was still the demo tenant ("Osteria Demo", VAT IT00000000000). The lead set, from profile.md facts: tenant name
+  "Osteria Dei Rossi", VAT IT00354250524; organisation name, VAT and legal_name ML SNC DI LANARO E FRESI (one transaction, live DB).
 - After the test booking passes: add a "Prenota online" button in V3's #prenota section (PR #79 files), keeping phone and WhatsApp.
 
 ## Founder decision 2026-11-27: one Supabase project
