@@ -36,7 +36,7 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
 |---|---|---|
 | Lead | V3 `session_018fKcCmuFkjv4yhpCbKERjo` | Talks to the founder; merges |
 | SP3 planner | `session_018fKcCk2JNJN61SoRZLbdqB` (Opus) | Retired 2026-11-27: plan #219 merged (docs/plans/2026-11-27-sp03-platform-layer.md, §11 = builder hand-off); #138/#150 closed as superseded. SP3 build = fresh builder after SP2 PR 2 merges. Open for the founder: F-2 platform admin login (fresh, not the osteria owner); nobody dispatches platform-ops before FS-1 |
-| SP0 hosted run | `session_018fKcCi8swzD2K1GtTu7eGG` (Opus, started 2026-11-27) | Temporary Supabase project, phases A–D; pings the lead for the founder's click-list |
+| SP0 hosted run | `session_018fKcCi8swzD2K1GtTu7eGG` (Opus) | Retired 2026-11-27: results #220 (T1–T4.H inconclusive: proxy injects the secret on every request; T5 d/e pass). Temp project deleted by the founder. Lean path: SP2 PR 2 #217 merged on local evidence (579561f7); T2.H redo before SP3 PR 2 (needs a method without the proxy secret, e.g. the founder runs it); T4 timing before tenant #2 |
 | SP2 PR 3 builder | `session_018fKcCj1C7X1BQWLt39SYjK` (Sonnet, started 2026-11-27) | Switcher UI + AT7, stacked on #217 |
 | SP2 builder 2 | `session_018fKcCkp9AHjyKWBYmdgSAK` (Opus) | Retired 2026-11-27: PR 2 #217 approved by the lead at 676ab591 (auth_member_elsewhere fix), merges after SP0 hosted T1.H/T3.H |
 | SP2 builder 1 | `session_018fKcCn5E3P3X8YGJrsVi2W` | Retired 2026-11-27 (context limit): plan #215 merged, PR 1 #216 ready |
