@@ -35,6 +35,7 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
 | Session | Id | State |
 |---|---|---|
 | Lead | V3 `session_018fKcCmuFkjv4yhpCbKERjo` | Talks to the founder; merges |
+| SP0 hosted run | `session_018fKcCi8swzD2K1GtTu7eGG` (Opus, started 2026-11-27) | Temporary Supabase project, phases A–D; pings the lead for the founder's click-list |
 | SP2 PR 3 builder | `session_018fKcCj1C7X1BQWLt39SYjK` (Sonnet, started 2026-11-27) | Switcher UI + AT7, stacked on #217 |
 | SP2 builder 2 | `session_018fKcCkp9AHjyKWBYmdgSAK` (Opus) | Retired 2026-11-27: PR 2 #217 approved by the lead at 676ab591 (auth_member_elsewhere fix), merges after SP0 hosted T1.H/T3.H |
 | SP2 builder 1 | `session_018fKcCn5E3P3X8YGJrsVi2W` | Retired 2026-11-27 (context limit): plan #215 merged, PR 1 #216 ready |
@@ -107,7 +108,8 @@ P2-4; remove "segue" at least 30 days after go-live.
 - The existing project `wjowhjsfpcdykxwgjipq` ("Osteria Dei Rossi - Staging") becomes the osteria's live database. The founder has
   already removed the demo data and started the real set-up (tables). A separate staging project may come later.
 - Consequences the lead enforces: every merge to `main` migrates the live database (deploy-staging), so merge only outside service
-  hours, and auth or schema-risky PRs (SP2 PR 2) only on a day without service; never run the demo-data workflow or
+  hours, and auth or schema-risky PRs (SP2 PR 2) only on a day without service. Service (founder, 2026-11-27):
+  closed Sunday evening and all Monday, so risky merges on Mondays, others before 10:00 Europe/Rome; never run the demo-data workflow or
   `begin_demo_data`/`purge_demo_data` against it; backups (founder-steps B) before real service data. FREE-3 done 2026-11-27: Vault `app_base_url` =
   https://app.digialto.com, `vercel_protection_bypass` deleted, a manual `/api/cron/extract` call answered 200 without it.
 
