@@ -72,7 +72,9 @@ Merged and live (lead read of every migration, CI green on each head):
 
 **Build order now:** SP3 PR 2 → PR 3 → PR 4 (builder 2) → set `CONSOLE_HOST=console.digialto.com` in Vercel (founder) and verify T2
 live: the founder signs in to the console, the lead checks console reads under `platform_staff` and that tenant sessions are unchanged
-(lead decision 2026-11-27, recorded in the SP3 plan §8a by PR 2) → SP4 → SP5 → SP6/SP7 → plan the Claude connector (after SP5).
+(lead decision 2026-11-27, recorded in the SP3 plan §8a by PR 2) → **plan and build the tenant-scoped Claude connector (MCP)** → SP4 → SP5 → SP6/SP7.
+**Founder decision 2026-11-28:** MCP per tenant comes right after SP3 (option 1), before SP4/SP5. Scope: read-only first, one tenant per
+connection, with its own small on/off switch (SP5 later absorbs it into the general feature switches).
 Merge rule until the osteria uses the app daily: no service window needed; after that, risky merges on Mondays (closed Sunday
 evening and Monday), others before 10:00 Europe/Rome.
 
@@ -144,6 +146,12 @@ live project: Site URL https://app.digialto.com and redirect https://app.digialt
 - Test first; never skip or weaken a test; no re-runs to hide flakes.
 - Outside parties: research first, then ask one thoughtful question per party.
 - Recorded decision: the shared kitchen phone's PIN field keeps `autocomplete="off"`, with paste allowed (2026-11-14).
+
+## Founder updates 2026-11-28
+- Single tables added as bookable with seats: DONE.
+- Booking link in Google Business Profile: later, after the website launch is settled.
+- Luca's authenticator: when he can (until then he has no TOTP).
+- Old network secret for `wkdoksxztjjcecglalii.supabase.co`: leave it (a different project from live `wjowhjsfpcdykxwgjipq`; no impact).
 
 ## Waiting on the founder (details in `founder-steps.md`)
 - FS-2: the console domain in Vercel, plus `CONSOLE_HOST` and `APP_ORIGIN` (Production).
