@@ -110,7 +110,8 @@ P2-4; remove "segue" at least 30 days after go-live.
   already removed the demo data and started the real set-up (tables). A separate staging project may come later.
 - Consequences the lead enforces: every merge to `main` migrates the live database (deploy-staging), so merge only outside service
   hours, and auth or schema-risky PRs (SP2 PR 2) only on a day without service. Service (founder, 2026-11-27):
-  closed Sunday evening and all Monday, so risky merges on Mondays, others before 10:00 Europe/Rome; never run the demo-data workflow or
+  closed Sunday evening and all Monday. Until the osteria starts using the app (founder, 2026-11-27: not in use yet), merges
+  need no service window; SP2 PR 2/3 merge as soon as SP0 hosted passes. The service-window rule applies from first real use; never run the demo-data workflow or
   `begin_demo_data`/`purge_demo_data` against it; backups (founder-steps B) before real service data. FREE-3 done 2026-11-27: Vault `app_base_url` =
   https://app.digialto.com, `vercel_protection_bypass` deleted, a manual `/api/cron/extract` call answered 200 without it.
 
@@ -118,6 +119,8 @@ P2-4; remove "segue" at least 30 days after go-live.
 - Platform admin (Costì console, DigiAlto) = the founder's own login, which today is the ONLY user of tenant #1, as `owner`.
 - The osteria's owner (the venue's own admin) = a new login for the osteria's manager (Luca), not yet an auth user.
 - The plan requires two different auth users (platform plan §0a note 2, SP3 `platform_admin_has_member_role`), so the order is:
+  0. Founder 2026-11-27: Luca's access is set up later (when the founder says so). Quick path then: founder adds the auth user
+     in the dashboard (Add user, auto-confirm, no password), the lead inserts the owner row.
   1. create Luca's login and owner row at tenant #1 (no tool exists yet: email owners come only from scripts; add a small
      service-role script step, `scripts/` with the secret key, to SP3 PR 1 or run SP2's `create-tenant.ts --existing-owner-id`
      variant if it fits; decide when SP3 building starts);
