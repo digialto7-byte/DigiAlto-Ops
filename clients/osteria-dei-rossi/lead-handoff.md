@@ -35,7 +35,8 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
 | Session | Id | State |
 |---|---|---|
 | Lead | V3 `session_018fKcCmuFkjv4yhpCbKERjo` | Talks to the founder; merges |
-| SP2 builder | `session_018fKcCn5E3P3X8YGJrsVi2W` (Opus, started 2026-11-26) | Writes the SP2 step plan (docs PR), waits for the lead's approval, then builds |
+| SP2 builder 2 | `session_018fKcCkp9AHjyKWBYmdgSAK` (Opus, started 2026-11-27) | Finishes SP2 PR 2 (#217, merge gated on SP0 hosted) and PR 3; hand-off in #217's body |
+| SP2 builder 1 | `session_018fKcCn5E3P3X8YGJrsVi2W` | Retired 2026-11-27 (context limit): plan #215 merged, PR 1 #216 ready |
 | Comanda PR 4 builder | `session_018fKcCk6qy2mws1vqGWgjke` (Opus) | Retired 2026-11-26: #214 merged |
 | Retired 2026-11-19 | lead V2 `session_018fKcChwys4xfgaHhAfdmR7`, comanda builder PRs 1–3 `session_018fKcCjj4XgXUZJ1LNuyC3v` (context 528k), opening stock builder `session_018fKcCmFm2N3cjcMr9Paifu` | Work merged or in this file. The founder may archive them (the lead's archive call is blocked by permissions) |
 | Retired 2026-11-18 | lead V1 `session_018fKcCjkR8ikx6DEmuZJMBE` and others | See git history of this file |
