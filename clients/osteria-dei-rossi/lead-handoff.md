@@ -71,7 +71,7 @@ Merged and live (lead read of every migration, CI green on each head):
 - Online booking live and tested end to end; website V3 live on the osteria's hosting (founder, cPanel) with "Prenota online"
   next to phone and WhatsApp (DigiAlto-Ops #79, #80). Booking URL is in profile.md.
 
-**Build order now:** SP3 PR 2 → PR 3 → PR 4 (builder 2) → set `CONSOLE_HOST=console.digialto.com` in Vercel (founder) and verify T2
+**Build order now:** SP3 DONE 2026-11-28 (#223, #224, #225; builder 3 retired) → set `CONSOLE_HOST=console.digialto.com` in Vercel (founder) and verify T2
 live: the founder signs in to the console, the lead checks console reads under `platform_staff` and that tenant sessions are unchanged
 (lead decision 2026-11-27, recorded in the SP3 plan §8a by PR 2) → **plan and build the tenant-scoped Claude connector (MCP)** → SP4 → SP5 → SP6/SP7.
 **Founder decision 2026-11-28:** MCP per tenant comes right after SP3 (option 1), before SP4/SP5. Scope: read-only first, one tenant per
@@ -79,7 +79,7 @@ connection, with its own small on/off switch (SP5 later absorbs it into the gene
 Merge rule until the osteria uses the app daily: no service window needed; after that, risky merges on Mondays (closed Sunday
 evening and Monday), others before 10:00 Europe/Rome.
 
-**Small items:** per-service weekday closures for online booking (e.g. closed Sunday dinner, Monday lunch; founder 2026-11-27; until then Sunday is closed online for the whole day); CronJob parity in `tests/parity/drift-keys-sql-parity.test.ts`; `price_variance_pct` as a typed, audited setting after
+**Small items:** console sign-in: platform_support gets past the password and is refused 403 at the switch (tighten with a migration); per-service weekday closures for online booking (e.g. closed Sunday dinner, Monday lunch; founder 2026-11-27; until then Sunday is closed online for the whole day); CronJob parity in `tests/parity/drift-keys-sql-parity.test.ts`; `price_variance_pct` as a typed, audited setting after
 P2-4; remove "segue" at least 30 days after go-live.
 
 **Records:** GitHub Actions doesn't run in this repo (billing); merge on a clean local `python3 scripts/check_repo.py`.

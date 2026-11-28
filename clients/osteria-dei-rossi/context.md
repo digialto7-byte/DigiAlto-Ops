@@ -75,6 +75,11 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - **SP3 PR 3 (2026-11-28):** #224 (console_session + select_console/platform_leave_console, select_tenant ends console mode, the hook's
     console mode, my_memberships needs aal2 for the platform admin only (lead decision, option A), purge of console rows and platform MFA
     failures). Lead read of 20261208100900–101200; all green on 4586fab0; squash cb5dc37c.
+  - **SP3 PR 4 (2026-11-28):** #225 (platform API under /api/platform, withApi `platform` access + console-token refusal before any RPC,
+    enter a venue / back to console, integration + Playwright, runbook). No migration. Lead line read of withApi; no admin client under
+    src/server/platform; all green on 6d2db88f; squash 6d9f8265. **SP3 complete.** Pins outside §4 accepted: venue-detail (step 19),
+    playwright-projects (CONSOLE_HOST/APP_ORIGIN). Small item: console sign-in lets platform_support past the password, refused 403 at the
+    switch (fail-closed); tighten in a later migration.
   - Pins moved outside the plans' lists were re-pinned on purpose with comments and added to the plans (§3.11, §3.15).
 - Done 2026-11-16 to 2026-11-18 (#168–#207; lead V1's read of every diff, CI green on each head; details in each PR):
   - **SP1 per-tenant config, complete:** plan #168; #173, #177, #182, #187, #192 (VAT rates, close codes, locale, `tenant_settings`, PATCH `/api/settings/venue`, venue-neutral extraction prompt).
