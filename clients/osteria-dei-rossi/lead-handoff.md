@@ -35,7 +35,7 @@ The account hits its 5-hour and weekly usage limits. Every turn re-reads the who
 | Session | Id | State |
 |---|---|---|
 | Lead | V4: the newest "Costì Lead" chat | Talks to the founder; merges; reads every migration |
-| SP3 builder 2 | `session_018fKcCkRC2Vse39NA1GuUTc` (Opus, started 2026-11-27 23:49) | Builds SP3 PR 2 → 3 → 4 one at a time; reports per PR (head sha + every migration's full text); waits for "merged" before the next |
+| SP3 builder 2 | `session_018fKcCkRC2Vse39NA1GuUTc` | RETIRED 2026-11-28 after #223 (PR 2) merged, context 349k. A fresh builder takes PR 3 → 4; reports per PR (head sha + every migration's full text); waits for "merged" before the next |
 | Retired 2026-11-27 | lead V3 `session_018fKcCmuFkjv4yhpCbKERjo` (context 746k); SP3 builder 1 `session_018fKcChwFTGwvXPBYgvYmni`; SP3 planner `session_018fKcCk2JNJN61SoRZLbdqB`; SP0 runner `session_018fKcCi8swzD2K1GtTu7eGG`; SP2 builders `session_018fKcCn5E3P3X8YGJrsVi2W`, `session_018fKcCkp9AHjyKWBYmdgSAK`, `session_018fKcCj1C7X1BQWLt39SYjK`; comanda PR 4 builder `session_018fKcCk6qy2mws1vqGWgjke` | Work merged; nothing pending in them |
 
 The new lead's first steps: `get_session` (no id) for its own id, then `send_message` to SP3 builder 2 with the new lead id
