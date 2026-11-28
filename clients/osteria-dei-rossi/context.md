@@ -72,6 +72,9 @@ Facts live in [[knowledge/clients/osteria-dei-rossi/profile]]. This file tracks 
   - **SP3 PR 2 (2026-11-28):** #223 (platform_staff role + app.require_console, console metadata reads, append-only platform.notice
     and notice reads/mark, platform-ops notice-add job). Lead read of 20261208100600–100800; all green on 07d59882; squash ac5ee5ff.
     Builder 2 retired after (context 349k); a fresh builder takes PR 3.
+  - **SP3 PR 3 (2026-11-28):** #224 (console_session + select_console/platform_leave_console, select_tenant ends console mode, the hook's
+    console mode, my_memberships needs aal2 for the platform admin only (lead decision, option A), purge of console rows and platform MFA
+    failures). Lead read of 20261208100900–101200; all green on 4586fab0; squash cb5dc37c.
   - Pins moved outside the plans' lists were re-pinned on purpose with comments and added to the plans (§3.11, §3.15).
 - Done 2026-11-16 to 2026-11-18 (#168–#207; lead V1's read of every diff, CI green on each head; details in each PR):
   - **SP1 per-tenant config, complete:** plan #168; #173, #177, #182, #187, #192 (VAT rates, close codes, locale, `tenant_settings`, PATCH `/api/settings/venue`, venue-neutral extraction prompt).
