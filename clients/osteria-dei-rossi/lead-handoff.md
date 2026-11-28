@@ -148,6 +148,14 @@ live project: Site URL https://app.digialto.com and redirect https://app.digialt
 - Outside parties: research first, then ask one thoughtful question per party.
 - Recorded decision: the shared kitchen phone's PIN field keeps `autocomplete="off"`, with paste allowed (2026-11-14).
 
+## Live T2 check after CONSOLE_HOST is set (builder 3 notes, 2026-11-28)
+1. A console sign-in must really get role=platform_staff (the hook's supabase_auth_admin policies are only presence-tested); if a policy is
+   wrong it fails closed (stays authenticated).
+2. Needs the founder's active platform.staff row (bootstrapped 2026-11-27) and admin row at tenant #1; else select_console answers 42501.
+3. On app.digialto.com the platform admin at aal1 sees "Inserisci il codice" in the chooser (my_memberships mfa_required): expected.
+4. CONSOLE_HOST and APP_ORIGIN both set (Production); /open answers 500 without APP_ORIGIN.
+5. platform_add_notice needs the secret-key call to carry role=service_role.
+
 ## Founder updates 2026-11-28
 - Single tables added as bookable with seats: DONE.
 - Booking link in Google Business Profile: later, after the website launch is settled.
